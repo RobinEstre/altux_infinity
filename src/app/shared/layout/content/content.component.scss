@@ -1,0 +1,8 @@
+:host :ng-deep app-pages{
+  height: 100%;
+  display: block;
+}
+.page{
+  display: flex;
+  flex-direction: column;
+}

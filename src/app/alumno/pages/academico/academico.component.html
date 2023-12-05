@@ -1,0 +1,59 @@
+<!-- page title bar -->
+<div class="container-fluid">
+    <div class="row align-items-center page-title">
+        <div class="col-12 col-md mb-2 mb-sm-0">
+            <h5 class="mb-0">Académico</h5>
+            <p class="text-secondary">Checkout potential courses and institutes to grow more</p>
+        </div>
+    </div>
+</div>
+<!-- COURSES -->
+<div class="row" *ngFor="let courses of academico, let i = index">
+    <!-- joined people summary-->
+    <div class="col-12 col-md-3 col-lg-3"></div>
+    <div class="col-12 col-md-6 col-lg-6">
+        <!-- <iframe src="https://drive.google.com/file/d/1fxTrW4bCCAKroxFhFJtTj2XCkzNTGIdg/preview" width="640" height="480"
+        allowfullscreen="allowfullscreen" allow="autoplay"></iframe> -->
+        <div class="card border-2 mb-4">
+            <div class="card-header">
+                <h5 class="mb-1">{{courses.course.courses_name}}</h5>
+                <p class="text-secondary">{{courses.course.courses_prev_description}}</p>
+            </div>
+            <a routerLink="/alumno/academico/{{courses.course.courses_code}}" class="card-body">
+                <figure class="coverimg rounded w-100 h-150 mb-3" style="background-image: url('{{courses.course.detail.other_description.url_img_banner_main}}');">
+                    <img src="{{courses.course.detail.other_description.url_img_banner_main}}" class="w-100" alt="" style="display: none;" />
+                </figure>
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h4 class="mb-0">Avance<small class="h6"></small></h4>
+                        <!-- <p class="small">11 <span class="text-green"><i class="bi bi-arrow-up fs-10"></i>3.15%</span></p> -->
+                    </div>
+                    <div class="col-auto">
+                        <div class="circle-small theme-blue">
+                            <circle-progress class="d-block vm" [percent]="65" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" [animationDuration]="300" [showTitle]="true" [showSubtitle]="false" [titleFontSize]="'15'" [showUnits]="true" [backgroundPadding]="0"></circle-progress>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gx-2 mb-2">
+                    <div class="col-6">
+                        <p class="text-secondary"><i class="bi bi-book avatar avatar-24 me-1"></i> {{courses.course.detail.other_description.descripcion_general.num_creditos}}</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-secondary"><i class="bi bi-clock avatar avatar-24 me-1"></i> {{courses.course.detail.other_description.descripcion_general.duration}}</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-secondary"><i class="bi bi-clipboard-check avatar avatar-24 me-1"></i> {{courses.course.detail.other_description.descripcion_general.num_modulos}} Bloques</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-secondary"><i class="bi bi-journal-bookmark avatar avatar-24 me-1"></i> </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-12 col-md-3 col-lg-3"></div>
+</div>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner>

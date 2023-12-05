@@ -1,0 +1,72 @@
+<div class="row h-100">
+    <!-- left block-->
+    <div class="col-12 col-md-6 h-100 overflow-y-auto">
+        <div class="row h-100">
+            <div class="col-12 mb-auto">
+                <!-- header -->
+                <app-auth-header class="header d-block"></app-auth-header>
+                <!-- header ends -->
+            </div>
+            <div class="col-12 align-self-center py-4">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-11 col-lg-10 col-xl-8 col-xxl-6">
+                        <h1 class="display-4">Bienvenido a</h1>
+                        <p class="h4 fw-light mb-4">Infinity tu aula virtual inteligente.</p>
+                        <p class="text-secondary small d-none d-md-block" style="text-align: justify;">
+                            Somos Altux, una Organización Educativa dedicada a difundir conocimientos de calidad y proponer aplicaciones 
+                            tecnológicas, capaces de contribuir a mejorar la calidad de vida de las diferentes regiones del Perú.
+                        </p>
+                        <br>
+                        <p class="h4 fw-light mb-4">Iniciar Sesión</p>
+                        <form [formGroup]="formLogin" class="mb-4">
+                            <!-- alert messages -->
+                            <div class="alert alert-danger fade show mb-2 global-danger" role="alert" *ngIf="isShowAlert=='danger'">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Requerido!</strong> Por favor ingrese un usuario válido.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-success fade show mb-2 global-success" role="alert" *ngIf="isShowAlert=='success'">
+                                <div class="row">
+                                    <div class="col-auto align-self-center">
+                                        <div class="spinner-border spinner-border-sm text-success me-2" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <strong>Genial!</strong> Llevándote a la página siguiente.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Form elements -->
+                            <div class="form-group mb-2 position-relative check-valid">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-circle"></i></span>
+                                    <div class="form-floating">
+                                        <input type="text" placeholder="Usuario" required 
+                                            class="form-control border-start-0" formControlName="user" autofocus>
+                                        <label for="floatingInput">Usuario</label>
+                                    </div>
+                                    <!-- submit button -->
+                                    <button (click)="showSuccess()" class="btn btn-lg btn-theme z-index-5 btn-square-lg" type="button" id="submitbtn"><i class="bi bi-arrow-right"></i></button>
+                                    <!-- routerLink="/auth/password" -->
+                                </div>
+                            </div>
+                            <div class="invalid-feedback">Inserte un usuario válido</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-auto">
+                <!-- footer -->
+                <app-auth-footer class="footer row"></app-auth-footer>
+                <!-- footer ends -->
+            </div>
+        </div>
+    </div>
+    <!-- right block-->
+    <div class="col-12 col-md-6 vh-100">
+        <app-authright></app-authright>
+    </div>
+</div>

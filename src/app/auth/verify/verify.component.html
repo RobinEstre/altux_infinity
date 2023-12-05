@@ -1,0 +1,104 @@
+<div class="row h-100">
+    <!-- left block-->
+    <div class="col-12 col-md-6 h-100 overflow-y-auto">
+        <div class="row h-100">
+            <div class="col-12 mb-auto">
+                <!-- header -->
+                <app-auth-header class="header d-block"></app-auth-header>
+                <!-- header ends -->
+            </div>
+            <div class="col-12 align-self-center py-4">
+
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-11 col-lg-10 col-xl-8 col-xxl-6">
+                        <p class="mb-4">
+                            <a (click)="goback()" class="text-theme"><i class="bi bi-arrow-left"></i> Back</a>
+                        </p>
+                        <p class="h4 fw-light mb-4">OTP Verification</p>
+                        <p class="text-secondary small mb-4">
+                            Kindly check your registered email address, We have send OTP. As a part of security and brand trust, we always verify user while creating account to avoid misuse of email address. (Enter Here: <b>3752</b>)
+                        </p>
+                        <form class="mb-4 ">
+                            <!-- alert messages -->
+                            <div class="alert alert-danger fade show d-none mb-2 global-alert" role="alert">
+                                <div class="row">
+                                    <div class="col"><strong>Error!</strong> OTP doesn't matched.</div>
+                                </div>
+                            </div>
+                            <div class="alert alert-success fade show mb-2 global-success" role="alert" *ngIf="isShowAlert">
+                                <div class="row">
+                                    <div class="col-auto align-self-center">
+                                        <div class="spinner-border spinner-border-sm text-success me-2" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-0 align-self-center">
+                                        <strong>You done a good job!</strong><br>You have Signed up successfully.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Form elements -->
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group position-relative">
+                                        <input type="text" placeholder="" value="3" required class="form-control form-control-lg border-start-0 text-center numberonly" id="verify1">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group position-relative">
+                                        <input type="text" placeholder="" value="7" required class="form-control form-control-lg border-start-0 text-center numberonly" id="verify2">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group position-relative">
+                                        <input type="text" placeholder="" value="5" required class="form-control form-control-lg border-start-0 text-center numberonly" id="verify3">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group position-relative">
+                                        <input type="text" placeholder="" value="" required class="form-control form-control-lg border-start-0 text-center numberonly" id="verify4" autofocus>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- submit button -->
+                            <div class="row mt-4">
+                                <div class="col-auto">
+                                    <button class="btn btn-lg btn-theme top-0 end-0 z-index-5" type="button" id="verifyBtn" (click)="verify()">Verify <i class="bi bi-arrow-right"></i></button>
+                                </div>
+                                <div class="col align-self-center">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <!-- Resend loader -->
+                                            <div class="progressstimer">
+                                                <img src="assets/img/laoderfixed.png" alt="" />
+                                                <p class="timer text-secondary" id="timer">3:00</p>
+                                            </div>
+                                        </div>
+                                        <div class="col ps-0 align-self-center">
+                                            <p class="mb-0"><a href="">Resend</a></p>
+                                            <p class="small text-secondary">Allowed once</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 mt-auto">
+                <!-- footer -->
+                <app-auth-footer class="footer row"></app-auth-footer>
+                <!-- footer ends -->
+            </div>
+        </div>
+    </div>
+
+    <!-- right block-->
+    <div class="col-12 col-md-6 vh-100">
+        <app-authright></app-authright>
+    </div>
+</div>

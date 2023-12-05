@@ -1,0 +1,115 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/swiper/swiper-bundle.css';
+@import "~ng2-daterangepicker/assets/daterangepicker.css";
+@import '../node_modules/ngx-lightbox/lightbox.css';
+@import "../node_modules/@yaireo/tagify/src/tagify";
+
+@import '~ng-wizard/themes/ng_wizard.min.css';
+
+.lightbox{
+    display: flex !important;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    .lb-nav{ 
+        opacity: 1;
+        & > a {
+            font-size: 26px !important;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 30px;
+            padding: 10px 0;
+            vertical-align: middle;
+            background-color: rgba(var(--WinDOORS-theme-rgb), 0.5);
+            color: var(--WinDOORS-theme-color);  
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            border-radius: 50%;
+            background-size: 68%;
+            top: 50%;
+            position: relative;
+            margin-top: -25px;
+            margin-left: 15px;
+            margin-right: 15px;
+            opacity: 1;
+        }
+    }
+}
+
+.tagify{
+    border-radius: 3px;
+    border-color: var(--WinDOORS-border-color);
+
+    .tagify__tag{
+        background-color: var(--WinDOORS-theme);
+        color: var(--WinDOORS-theme-color);
+        border-radius: 20px;         
+
+        & > div{
+            padding: 3px 5px 5px 10px;
+            color: var(--WinDOORS-theme-color);
+
+            &::before{
+             box-shadow: none !important;
+            }
+        }
+        x{
+            color: var(--WinDOORS-theme-color);
+        }
+    }
+}
+
+/* full calendar */
+.fc .fc-button {
+    background-color: var(--WinDOORS-theme) !important;
+    border-color: var(--WinDOORS-theme-darken) !important;
+    padding: 0.275em 0.475em !important; 
+    font-size: 0.95em !important;
+    line-height: 1.7 !important;
+    text-transform: capitalize !important;
+
+    &.fc-button-active, &:focus, &:active{
+        background-color: var(--WinDOORS-theme-darken) !important;
+        border-color: var(--WinDOORS-theme-darken) !important;
+    }
+}
+.fc .fc-timegrid-slot {
+    height: 30px !important;
+}
+.fc-daygrid-body table .fc-daygrid-day .fc-daygrid-day-events{
+    margin-top: 5px !important;
+}
+.calendarinline .daterangepicker{
+    box-shadow: none !important;
+}
+
+/* circle progreess */
+circle-progress {
+    tspan{
+        fill: rgb(var(--WinDOORS-theme-rgb));
+    }
+}
+
+app-columnresizer.text-white{
+    .btn-link{
+        color: #ffffff !important;
+        &.show{
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.2) !important
+        }
+    }
+}
+
+.dropzone {
+    border: 2px dashed rgba(1, 94, 194, 0.5) !important;
+    border: 2px dashed rgba(var(--WinDOORS-theme-rgb), 0.5) !important;
+    background: rgba(1, 94, 194, 0.08) !important;
+    background: rgba(var(--WinDOORS-theme-rgb), 0.08) !important;
+    border-radius: 6px !important;
+    color: #015EC2 !important;
+    color: var(--WinDOORS-theme) !important;
+}

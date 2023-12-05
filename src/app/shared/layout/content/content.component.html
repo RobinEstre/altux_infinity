@@ -1,0 +1,25 @@
+<!-- background -->
+<div id="backgroundID" class="coverimg h-100 w-100 top-0 start-0 main-bg position-fixed z-index-0" 
+    style="background-image: url('../../../../assets/img/bg-1.jpg');">
+    <div class="bg-blur main-bg-overlay"></div>
+    <img src="../../../../assets/img/bg-1.jpg" alt="" style="display: none;"/>
+</div>
+<!-- background ends  -->
+
+<!-- Header -->
+<app-header #HeaderEl class="header d-block position-fixed fixed-top top-0 start-0 "></app-header>
+<!-- Header ends -->
+
+<!-- Sidebar -->
+<app-sidebar #SidebarEl class="sidebar-wrap"></app-sidebar>
+<!-- Sidebar ends -->
+
+<!-- Begin page content -->
+<main class="main mainheight position-relative" #mainContainer>
+    <router-outlet class="h-100"></router-outlet>
+</main>
+<!-- Page content ends-->
+
+<!-- footer -->
+<app-footer #FooterEl class="footer mt-auto z-index-1 position-relative d-block"></app-footer>
+<!-- footer ends -->    

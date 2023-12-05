@@ -1,0 +1,520 @@
+<div class="sidebar">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col align-self-center">
+                <h6>Principal</h6>
+            </div>
+            <div class="col-auto">
+                <a class="" data-bs-toggle="collapse" data-bs-target="#usersidebarprofile" aria-expanded="false" role="button" aria-controls="usersidebarprofile">
+                    <i class="bi bi-person-circle"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- user information -->
+        <div routerLink="/pages/profile/professional" class="row text-center collapse " id="usersidebarprofile">
+            <div class="col-12">
+                <div class="avatar avatar-100 rounded-circle shadow-sm mb-3 bg-white">
+                    <figure class="avatar avatar-90 rounded-circle coverimg">
+                        <img src="assets/img/user-1.jpg" alt="" id="userphotoonboarding" name="userimage">
+                    </figure>
+                </div>
+            </div>
+            <div class="col-12 mb-4">
+                <h6 class="mb-1" id="usernamedisplay">LUCARDAS</h6>
+                <p class="text-secondary small">United States</p>
+            </div>
+        </div>
+
+        <!-- user menu navigation -->
+        <div class="row mb-4">
+            <div class="col-12 px-0">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/alumno/panel" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-house-door"></i></div>
+                            <div class="col">Dashboard</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/alumno/academico" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-speedometer2"></i></div>
+                            <div class="col">Académico</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/dashboard/finance" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-cash-coin"></i></div>
+                            <div class="col">Pagos</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/dashboard/network" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-calendar-event"></i></div>
+                            <div class="col">Eventos</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/dashboard/inventory" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-bell"></i></div>
+                            <div class="col">Noticias</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/dashboard/social" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-gear"></i></div>
+                            <div class="col">Soporte</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/alumno/perfil" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-person-circle"></i></div>
+                            <div class="col">Perfil</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" aria-current="page" (click)="signout()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-box-arrow-right"></i></div>
+                            <div class="col">Cerrar Sesión</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- applications -->
+        <!-- <div class="row mb-3">
+            <div class="col align-self-center">
+                <h6>Applications</h6>
+            </div>
+            <div class="col-auto">
+                <div class="dropdown">
+                    <a class="text-theme dd-arrow-none dropdown-toggle" id="sidebaredits" data-bs-display="display" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="bi bi-sliders"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-dontclose mt-2 w-200" aria-labelledby="sidebaredits">
+                        <ul class="list-group list-group-flush bg-none">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col">Email</div>
+                                    <div class="col-auto pe-0">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="sidebaredits1" checked>
+                                            <label class="form-check-label" for="sidebaredits1"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col">Explorer</div>
+                                    <div class="col-auto pe-0">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="sidebaredits2" checked>
+                                            <label class="form-check-label" for="sidebaredits2"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col">Calendar</div>
+                                    <div class="col-auto pe-0">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="sidebaredits3" checked>
+                                            <label class="form-check-label" for="sidebaredits3"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col">Chat</div>
+                                    <div class="col-auto pe-0">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="sidebaredits4" checked>
+                                            <label class="form-check-label" for="sidebaredits4"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col">Support</div>
+                                    <div class="col-auto pe-0">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="sidebaredits5">
+                                            <label class="form-check-label" for="sidebaredits5"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12 px-0">
+                <ul class="nav nav-pills nav-iconic">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/app/email" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-36 icon"><i class="bi bi-envelope"></i></div>
+                            <div class="col">Email</div>
+                            <div class="col-auto align-self-center">
+                                <figure class="avatar avatar-24 coverimg rounded-circle ms-1">
+                                    <img src="assets/img/user-2.jpg" alt="" />
+                                </figure>
+                                <figure class="avatar avatar-24 coverimg rounded-circle ms-1">
+                                    <img src="assets/img/user-3.jpg" alt="" />
+                                </figure>
+                                <figure class="avatar avatar-24 bg-light-theme rounded-circle ms-1">
+                                    <small class="fs-10 vm">9+</small>
+                                </figure>
+                            </div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/app/explorer" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-36 icon">
+                                <span class="bi bi-folder position-relative">
+                                    <span class="position-absolute top-0 start-100 p-1 bg-danger border border-light rounded-circle">
+                                        <span class="visually-hidden">New alerts</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col">Explorer</div>
+                            <div class="arrow">
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/app/calendar" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-36 icon"><i class="bi bi-calendar-event"></i></div>
+                            <div class="col">Calendar</div>
+                            <div class="col-auto">
+                                <figure class="avatar avatar-24 rounded-circle bg-theme ">
+                                    <i class="bi bi-calendar-event fs-10 vm"></i>
+                                </figure>
+                            </div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+
+        <!-- user secondary menu navigation -->
+        <!-- <h6>Pages</h6>
+        <div class="row mb-4">
+            <div class="col-12 px-0">
+                <ul class="nav nav-pills">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" data-bs-display="static" role="button" aria-expanded="false">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-person-circle"></i></div>
+                            <div class="col">Profile</div>
+                            <div class="arrow"><i class="bi bi-chevron-down plus"></i> <i class="bi bi-chevron-up minus"></i>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/professional" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-briefcase"></i>
+                                    </div>
+                                    <div class="col align-self-center">Professional</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/analytical" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-bar-chart"></i>
+                                    </div>
+                                    <div class=" col align-self-center">Analytical</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/social-profile" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-people"></i>
+                                    </div>
+                                    <div class=" col align-self-center">Social</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/account-settings" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-gear"></i>
+                                    </div>
+                                    <div class="col align-self-center">Account Settings</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" data-bs-display="static" role="button" aria-expanded="false">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-building"></i></div>
+                            <div class="col">Company</div>
+                            <div class="arrow"><i class="bi bi-chevron-down plus"></i> <i class="bi bi-chevron-up minus"></i>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/companyprofile/" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-easel2"></i>
+                                    </div>
+                                    <div class="col align-self-center">Company Profile</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/branding/" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-palette"></i>
+                                    </div>
+                                    <div class="col align-self-center">Branding</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/userroles/" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="col align-self-center">User Roles</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/resources/" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-journal-bookmark"></i>
+                                    </div>
+                                    <div class="col align-self-center">Resources</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/management/" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-stopwatch"></i>
+                                    </div>
+                                    <div class="col align-self-center">Management</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/profile/career/" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-file-earmark-person"></i>
+                                    </div>
+                                    <div class="col align-self-center">Career</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/other/helpcenter" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-life-preserver"></i>
+                                    </div>
+                                    <div class="col align-self-center">Help Center</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/other/contactus" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-envelope"></i>
+                                    </div>
+                                    <div class="col align-self-center">Contact us</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="false" data-bs-display="static" role="button" aria-expanded="false" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-layers"></i></div>
+                            <div class="col">Components</div>
+                            <div class="arrow"><i class="bi bi-chevron-down plus"></i> <i class="bi bi-chevron-up minus"></i>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/cards" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-card-list"></i>
+                                    </div>
+                                    <div class="col align-self-center">Cards</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/forms" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-input-cursor-text"></i>
+                                    </div>
+                                    <div class="col align-self-center">Forms</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/events" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-calendar-event"></i>
+                                    </div>
+                                    <div class=" col align-self-center">Events</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/files" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-folder"></i>
+                                    </div>
+                                    <div class="col align-self-center">Files</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/summary" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-list"></i>
+                                    </div>
+                                    <div class="col align-self-center">Summary</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/news" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-newspaper"></i>
+                                    </div>
+                                    <div class=" col align-self-center">News</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/ratings" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-star"></i>
+                                    </div>
+                                    <div class="col align-self-center">Ratings</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/users" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="col align-self-center">Users</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/progress" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-clock-history"></i>
+                                    </div>
+                                    <div class=" col align-self-center">Progress</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/pricing" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-cash-stack"></i>
+                                    </div>
+                                    <div class="col align-self-center">Pricing</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link" routerLink="/pages/components/wizards" routerLinkActive="active">
+                                    <div class="avatar avatar-40 icon"><i class="bi bi-list-nested"></i>
+                                    </div>
+                                    <div class=" col align-self-center">Wizards</div>
+                                    <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/supportive/error/" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-bug"></i>
+                            </div>
+                            <div class="col align-self-center">Error</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/supportive/coming-soon/" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-gift"></i>
+                            </div>
+                            <div class="col align-self-center">Coming Soon</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+
+        <!-- Quick links -->
+        <div class="row mb-3">
+            <div class="col align-self-center">
+                <h6>Enlaces Rápidos</h6>
+            </div>
+            <div class="col-auto">
+            </div>
+        </div>
+
+        <div class="card border-0  mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between">
+                        <a routerLink="/alumno/perfil" routerLinkActive="active" 
+                            class="btn btn-square btn-outline-secondary border">
+                            <i class="bi bi-person-circle"></i>
+                            <!-- <span class="bi bi-person-circle position-relative">
+                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                </span>
+                            </span> -->
+                        </a>
+                        <a routerLink="/pages/profile/notifications" routerLinkActive="active" 
+                            class="btn btn-square btn-outline-secondary border">
+                            <span class="bi bi-bell position-relative">
+                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                </span>
+                            </span>
+                        </a>
+                        <a routerLink="/pages/profile/account-settings" routerLinkActive="active" 
+                            class="btn btn-square btn-outline-secondary border">
+                            <i class="bi bi-gear"></i>
+                        </a>
+                        <a href="javascript:void(0)" (click)="signout()" class="btn btn-square btn-outline-secondary border">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row mb-4">
+            <div class="col-12 px-0">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/pages/other/document/" routerLinkActive="active" (click)="menuclose()">
+                            <div class="avatar avatar-40 icon"><i class="bi bi-journal-code"></i></div>
+                            <div class="col">Documentation</div>
+                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+    </div>
+</div>

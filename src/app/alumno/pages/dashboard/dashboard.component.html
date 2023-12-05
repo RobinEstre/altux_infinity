@@ -1,0 +1,802 @@
+<!-- page title bar -->
+<div class="container-fluid">
+    <div class="row align-items-center page-title">
+        <div class="col-12 col-md mb-2 mb-sm-0">
+            <h5 class="mb-0">My Dashboard</h5>
+            <p class="text-secondary">This is your personal intranet</p>
+        </div>
+    </div>
+</div>
+<!-- welcome bar -->
+<div class="container-fluid bg-gradient-theme-light mb-4">
+    <div class="row">
+        <div class="col-12 col-xxl-11 mx-auto">
+            <div class="row align-items-center">
+
+                <!-- welcome message -->
+                <div class="col-12 col-md py-3 py-md-5">
+                    <h2 class="fw-light mb-0 text-secondary">Bienvenid@,</h2>
+                    <h1 class="display-3 username ">LUCARDAS</h1>
+
+                    <!-- Swiper daily quote -->
+                    <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="dailyquote mt-4 w-100 mx-0">
+                        <ng-template swiperSlide>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <i class="bi bi-calendar-event h6 avatar avatar-40 rounded-circle bg-light-theme"></i>
+                                </div>
+                                <div class="col">
+                                    <a routerLink="pages/profile/professional" class="tag mb-2 me-2">
+                                        <figure class="avatar avatar-30 rounded-circle me-1 coverimg"><img src="assets/img/user-4.jpg" alt=""></figure> James Wang <i class="bi bi-chat-right-dots vm ms-2"></i>
+                                    </a>
+                                    <a routerLink="pages/profile/professional" class="tag mb-2 me-2">
+                                        <figure class="avatar avatar-30 rounded-circle me-1 coverimg"><img src="assets/img/user-2.jpg" alt=""></figure> Millie Tyson <i class="bi bi-chat-right-dots vm ms-2"></i>
+                                    </a>
+                                    <p class="lead">Your 5 partner and our CEO's <span class="text-gradient">birthday</span> today.</p>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template swiperSlide>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <i class="bi bi-quote h5 avatar avatar-40 rounded-circle bg-light-theme"></i>
+                                </div>
+                                <div class="col">
+                                    <h5 class="fw-normal text-gradient">Winners don't do different things, they do things differently</h5>
+                                    <p class="fw-light">Shiv Khera <cite title=" Source Title">You Can Win: A Step by Step Tool for Top Achievers</cite>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </swiper>
+                </div>
+
+                <!-- rank and progress -->
+                <div class="col-auto ml-auto py-3 py-md-5 align-self-center">
+                    <div class="row mb-4">
+                        <div class="col col-md col-lg-auto mnw-100 text-center">
+                            <i class="bi bi-telephone h5 avatar avatar-50 bg-light-red text-red rounded-circle mb-2"></i>
+                            <br>
+                            <span class="badge bg-red rounded vm fw-normal fs-12"><i class="bi bi-x-circle me-1"></i> Sin Verificar</span>
+                        </div>
+                        <div class="col col-md col-lg-auto mnw-100 text-center">
+                            <i class="bi bi-envelope h5 avatar avatar-50 bg-light-green text-green rounded-circle mb-2"></i>
+                            <!-- <h3 class="increamentcount mb-0">✔️</h3> -->
+                            <br>
+                            <span class="badge bg-green rounded vm fw-normal fs-12"><i class="bi bi-check-circle me-1"></i> Verificado</span>
+                        </div>
+                        <div class="col col-md col-lg-auto mnw-100 text-center">
+                            <i class="bi bi-geo-alt h5 avatar avatar-50 bg-light-red text-red rounded-circle mb-2"></i>
+                            <!-- <h3 class="increamentcount mb-0">❌</h3> -->
+                            <br>
+                            <span class="badge bg-red rounded vm fw-normal fs-12"><i class="bi bi-x-circle me-1"></i> Sin Verificar</span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <br>
+                            <i class="bi bi-hourglass-split h5 avatar avatar-50 bg-warning text-white rounded-circle"></i>
+                        </div>
+                        <div class="col ps-0">
+                            <br>
+                            <p>Verificación Pendiente</p>
+                            <div class="progress h-5 mb-1 bg-light-theme">
+                                <div class="progress-bar bg-theme" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" 
+                                    aria-valuemax="100"></div>
+                            </div>
+                            <p class="text-secondary small"><a routerLink="/pages/profile/account-settings">Completa tu perfil</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips swiper message -->
+                <div class="col-auto d-none d-xxl-block h-100 py-4">
+                    <div class="card border-0 h-100 bg-gradient-yellow-light">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="fw-medium">
+                                        <i class="bi bi-lightbulb text-warning me-1"></i>
+                                        Tips
+                                    </h6>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-sm btn-outline-warning px-2 py-0" id="starttour" data-bs-toggle="tooltip" data-bs-placement="top" title="Start Tour"><i class="bi bi-play"></i> Tour</button>
+                                    <div class="dropdown d-inline-block ms-2">
+                                        <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" data-bs-display="static" role="button">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li class="dropstart open-left ">
+                                                <a class="dropdown-item dd-arrow-none dropdown-toggle" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" data-bs-display="static">
+                                                    Customize Tips
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-start w-300">
+                                                    <div class="dropdown-item">
+                                                        <h6 class="mb-0">Tips:</h6>
+                                                        <p class="text-secondary">1656 visited this week</p>
+                                                    </div>
+                                                    <div class="dropdown-item">
+                                                        <div class="input-group input-group-md border rounded">
+                                                            <span class="input-group-text text-theme"><i class="bi bi-lightbulb"></i></span>
+                                                            <select class="form-control simplechosen" multiple>
+                                                                <option value="San Francisco">San Francisco</option>
+                                                                <option value="New York">New York</option>
+                                                                <option value="London">London</option>
+                                                                <option value="Chicago">Chicago</option>
+                                                                <option value="India" selected>India</option>
+                                                                <option value="Sydney">Sydney</option>
+                                                                <option value="Seattle">Seattle</option>
+                                                                <option value="Los Angeles">Los Angeles</option>
+                                                                <option value="Indonesia">Indonesia</option>
+                                                                <option value="Los Angeles">Los Angeles</option>
+                                                                <option value="Chicago">Chicago</option>
+                                                                <option value="India">India</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="invalid-feedback">You have already selected maximum option allowed. (This is Configurable)</div>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush bg-none mb-2">
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col">Includes System</div>
+                                                                <div class="col-auto">
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="tipswitch1">
+                                                                        <label class="form-check-label" for="tipswitch1"></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col">Apps Shortcuts</div>
+                                                                <div class="col-auto">
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="tipswitch2" checked="">
+                                                                        <label class="form-check-label" for="tipswitch2"></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="dropdown-item">
+                                                        <div class="row">
+                                                            <div class="col"><button class="btn btn-outline-secondary border ddclose">cancel</button></div>
+                                                            <div class="col-auto">
+                                                                <button class="btn btn-theme">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                            <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+                            <!-- image swiper -->
+                            <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="image-swiper w-200 h-100 text-center">
+                                <ng-template swiperSlide>
+                                    <i class="bi bi-chat-right-dots h4 text-success mb-3 d-block"></i>
+                                    <h6>Chat Communication</h6>
+                                    <p class="small text-secondary">From the top right corner you can have access to chat panel and click on any user chat window interface will be open.</p>
+                                </ng-template>
+                                <ng-template swiperSlide>
+                                    <i class="bi bi-person h4 text-theme mb-3 d-block"></i>
+                                    <h6>Onboarding</h6>
+                                    <p class="small text-secondary">User on-boarding comes in the sign up flow. Complete sign up process you will see the on-boarding pages at best UI UX.</p>
+                                </ng-template>
+                                <ng-template swiperSlide>
+                                    <i class="bi bi-search h4 text-danger mb-3 d-block"></i>
+                                    <h6>Search Result</h6>
+                                    <p class="small text-secondary">Try to type something in search box at header and big search result box will be appeared right away.</p>
+                                </ng-template>
+                                <ng-template swiperSlide>
+                                    <i class="bi bi-heart h4 text-danger mb-3 d-block"></i>
+                                    <h6 class="text-gradient">Spread love</h6>
+                                    <p class="small text-secondary">If you like our template <b class="text-gradient">please share</b> to the beautiful world. World is waiting to get more good things. <i class="text-danger bi bi-heart-fill"></i></p>
+                                </ng-template>
+                            </swiper>
+                            <!-- image swiper ends -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" style="margin: 1%;">
+    <div class="col-sm-12 col-md-6 col-lg-6 row">
+        <!-- project overview-->
+        <div class="col-sm-12 col-md-12 col-lg-12 column-set mb-4">
+            <div class="card border-0 h-100">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="avatar avatar-40 rounded mb-0 coverimg">
+                                <img src="assets/img/favicon152.png" alt="">
+                            </span>
+                        </div>
+                        <div class="col">
+                            <h6 class="fw-medium mb-0">Monitoreo</h6>
+                            <p class="text-secondary small">Estado Actividad</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="text-secondary mb-3">Última Conexión: <b class="text-dark">9 Dec 2021</b></p>
+                    <div class="row align-items-center gx-2">
+                        <div class="col-auto mb-2">
+                            <p>Tiempo en línea</p>
+                        </div>
+                        <div class="col mb-2 text-end">
+                            <p>4 UI & Testter</p>
+                        </div>
+                    </div>
+                    <div class="progress bg-light-theme h-5 mb-2">
+                        <div class="progress-bar bg-theme" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="small text-secondary">Project Status <span class="float-end">50%</span></p>
+                    <p class="mb-3">
+                        <span class="btn btn-sm btn-link bg-light-green text-green">Web App</span>
+                        <span class="btn btn-sm btn-link bg-light-yellow text-yellow ms-1">Medium priority</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="bi bi-life-preserver h5 avatar avatar-40 bg-light-theme rounded"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="fw-medium mb-0">Proceso del Programa</h6>
+                            <p class="small text-secondary">Enfermería Estética</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body py-3 row">
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="circle-small theme-blue">
+                                            <circle-progress class="d-block vm" [percent]="50" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                            <div class="avatar h6 bg-light-blue rounded-circle">
+                                                <i class="bi bi-pc-display-horizontal"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-secondary small mb-1">Asistencia</p>
+                                        <h5 class="fw-medium">25%</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="dropdown d-inline-block">
+                                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer border-top">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-secondary small mb-1">New Users</p>
+                                        <p>5 <small class="fs-12 fw-light text-secondary">This week</small></p>
+                                    </div>
+                                    <div class="col-6 border-left-dashed">
+                                        <p class="text-secondary small mb-1">Total Users</p>
+                                        <p>65826</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="circle-small theme-green">
+                                            <circle-progress class="d-block vm" [percent]="50" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                            <div class="avatar h5 bg-light-green text-green rounded-circle">
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-secondary small mb-1">Exámenes</p>
+                                        <h5 class="fw-medium">59%</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="dropdown d-inline-block">
+                                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer border-top">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-secondary small mb-1">New Device</p>
+                                        <p>2 <small class="fs-12 fw-light text-secondary">This week</small></p>
+                                    </div>
+                                    <div class="col-6 border-left-dashed">
+                                        <p class="text-secondary small mb-1">Total Device</p>
+                                        <p>71521</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="circle-small theme-yellow">
+                                            <circle-progress class="d-block vm" [percent]="50" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                            <div class="avatar h5 bg-light-yellow text-yellow rounded-circle">
+                                                <i class="bi bi-speedometer"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-secondary small mb-1">Notas</p>
+                                        <h5 class="fw-medium">47%</h5>
+                                    </div>
+                                    <div class="col-auto ps-0">
+                                        <div class="dropdown d-inline-block">
+                                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer border-top">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-secondary small mb-1">Hathway</p>
+                                        <p>55.68 Mbps</p>
+                                    </div>
+                                    <div class="col-6 border-left-dashed">
+                                        <p class="text-secondary small mb-1">AT&T</p>
+                                        <p>70.75 Mbps</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="circle-small theme-red">
+                                            <circle-progress class="d-block vm" [percent]="79" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                            <div class="avatar h5 bg-light-red rounded-circle">
+                                                <i class="bi bi-bug"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row gx-0">
+                                            <div class="col">
+                                                <p class="text-secondary small mb-1">Clases</p>
+                                                <h5 class="fw-medium">79%</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto ps-0">
+                                        <div class="dropdown d-inline-block">
+                                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer border-top">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-secondary small mb-1">Resolved</p>
+                                        <p class="text-green">421</p>
+                                    </div>
+                                    <div class="col-6 border-left-dashed">
+                                        <p class="text-secondary small mb-1">In Progress</p>
+                                        <p class="text-yellow">50</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-sm btn-outline-theme">Ir al Programa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Devices installation and access -->
+    <div class="col-sm-12 col-md-6 col-lg-6 column-set">
+        <div class="card border-0 theme-green h-100">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-shield-check h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0">Cronograma de Actividades</h6>
+                        <p class="text-secondary small">Limited Category Access</p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="dropdown d-inline-block">
+                            <a class="btn btn-link btn-square text-secondary dd-arrow-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0">
+                <table class="table table-borderless footable2 mb-0" data-show-toggle="true">
+                    <thead class="d-none">
+                        <tr class="text-muted">
+                            <th class="w-12"></th>
+                            <th class="w-200">Connection</th>
+                            <th data-breakpoints="xs sm" class="w-80">Devices</th>
+                            <th data-breakpoints="all">Status</th>
+                            <!-- <th data-breakpoints="all" data-title="Description">Description</th> -->
+                            <!-- <th>Action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Bloque 1
+                                            <!-- <span class="text-red">Katya Alcalde</span> -->
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>Clase N° 1</b> <br>
+                                    <small class="text-secondary">10/12/2023 15:00</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-blue">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Pago Mensualidad 2</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary">Examen Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
+                                        <p class="text-secondary small">
+                                            Docente: <span class="text-red">Katya Alcalde</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100">
+                                    <b>10/12/2023 15:00</b> <br>
+                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge bg-red">Pendiente</span>
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-yellow text-yellow rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Meeting Room 2</p>
+                                        <p class="text-secondary small">
+                                            1.05 GHz | <span class="text-yellow">Idle</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100"><b>5</b> <small class="text-secondary">No Jobs, Ads Blocker</small></p>
+                            </td>
+                            <td>
+                                <span class="badge bg-yellow">Idle</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-theme rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Meeting Room 4</p>
+                                        <p class="text-secondary small">
+                                            2.4 GHz | <span class="text-green">Active</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-trucate w-100"><b>10</b> <small class="text-secondary">No Jobs, Ads Blocker</small></p>
+                            </td>
+                            <td>
+                                <span class="badge bg-success">Active</span>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <span class="hide-if-no-paging">
+                            <span id="footablestot2"></span> page
+                        </span>
+                    </div>
+                    <div class="col-auto" id="footable-pagination2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

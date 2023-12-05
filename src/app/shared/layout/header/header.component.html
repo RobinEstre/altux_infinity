@@ -1,0 +1,791 @@
+<!-- Fixed navbar -->
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="sidebar-width">
+            <button class="btn btn-link btn-square menu-btn" type="button" (click)="menuopen()">
+                <i class="bi bi-list fs-4"></i>
+            </button>
+            <a class="navbar-brand ms-2" routerLink="/pages/dashboard/home/">
+                <div class="row">
+                    <div class="col-auto"><img src="assets/img/favicon48.png" name="logoimage" class="mx-100" alt="" /></div>
+                    <div class="col ps-0 align-self-center d-none d-sm-block">
+                        <h5 class="fw-normal text-dark mb-0">WinDOORS</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- <div class="search-header d-none d-xl-block" id="search-header">
+            <div class="input-group input-group-md w-300">
+                <span class="input-group-text text-theme"><i class="bi bi-search"></i></span>
+                <input class="form-control pe-0" type="search" placeholder="Type something here..." [(ngModel)]="searchText" id="searchglobal" (keyup)="searching()">
+                <div class="dropdown input-group-text rounded">
+                    <button class="btn btn-link dd-arrow-none dropdown-toggle" type="button" id="searchfilter" data-bs-toggle="dropdown" data-bs-autoClose="false" aria-expanded="false" (click)="showSearchResult = false">
+                        <i class="bi bi-sliders"></i>
+                    </button>
+                    <form class="dropdown-menu dropdown-menu-end dropdown-dontclose mt-2 w-300" (click)="dontclose($event)" aria-labelledby="searchfilter">
+                        <ul class="nav nav-WinDOORS" id="searchtab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="searchall-tab" data-bs-toggle="tab" data-bs-target="#searchall" type="button" role="tab" aria-controls="searchall" aria-selected="true">All</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="searchorders-tab" data-bs-toggle="tab" data-bs-target="#searchorders" type="button" role="tab" aria-controls="searchorders" aria-selected="false">Orders</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="searchcontacts-tab" data-bs-toggle="tab" data-bs-target="#searchcontacts" type="button" role="tab" aria-controls="searchcontacts" aria-selected="false">Contacts</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content py-3" id="searchtabContent">
+                            <div class="tab-pane fade show active" id="searchall" role="tabpanel" aria-labelledby="searchall-tab">
+                                <div class="dropdown-item mb-3">
+                                    <div class="input-group input-group-md border rounded">
+                                        <span class="input-group-text text-theme"><i class="bi bi-code-square"></i></span>
+                                        <select class="form-control simplechosen">
+                                            <option>Successful Order</option>
+                                            <option>Full-filled Order</option>
+                                            <option>Rejected Order</option>
+                                            <option>Delivery Staff</option>
+                                            <option>PM Employees</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush bg-none">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Search apps</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch1">
+                                                    <label class="form-check-label" for="searchswitch1"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Include Pages</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch2" checked>
+                                                    <label class="form-check-label" for="searchswitch2"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Internet resource</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch3" checked>
+                                                    <label class="form-check-label" for="searchswitch3"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">News and Blogs</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch4">
+                                                    <label class="form-check-label" for="searchswitch4"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="searchorders" role="tabpanel" aria-labelledby="searchorders-tab">
+                                <div class="dropdown-item mb-3">
+                                    <div class="input-group input-group-md border rounded">
+                                        <span class="input-group-text text-theme"><i class="bi bi-box"></i></span>
+                                        <select class="form-control" id="searchfilterlist" multiple>
+                                            <option value="San Francisco">San Francisco</option>
+                                            <option value="New York">New York</option>
+                                            <option value="Seattle" selected>Seattle</option>
+                                            <option value="Los Angeles">Los Angeles</option>
+                                            <option value="Chicago">Chicago</option>
+                                            <option value="India">India</option>
+                                            <option value="Sydney" selected>Sydney</option>
+                                            <option value="London">London</option>
+                                            <option value="Indonesia">Indonesia</option>
+                                            <option value="Los Angeles">Los Angeles</option>
+                                            <option value="Chicago">Chicago</option>
+                                            <option value="India">India</option>
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback">You have already selected maximum option allowed.(This is Configurable)</div>
+                                </div>
+                                <ul class="list-group list-group-flush bg-none">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Show order ID</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch5">
+                                                    <label class="form-check-label" for="searchswitch5"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">International Order</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch6" checked>
+                                                    <label class="form-check-label" for="searchswitch6"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Taxable Product</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch7" checked>
+                                                    <label class="form-check-label" for="searchswitch7"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Published Product</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch8">
+                                                    <label class="form-check-label" for="searchswitch8"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="searchcontacts" role="tabpanel" aria-labelledby="searchcontacts-tab">
+                                <div class="dropdown-item mb-3">
+                                    <div class="input-group input-group-md border rounded">
+                                        <span class="input-group-text text-theme"><i class="bi bi-person-lines-fill"></i></span>
+                                        <input class="form-control" type="search" placeholder="Contact Include">
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush bg-none">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Have email ID</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch9">
+                                                    <label class="form-check-label" for="searchswitch9"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Have phone number</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch10" checked>
+                                                    <label class="form-check-label" for="searchswitch10"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Photo available</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch11" checked>
+                                                    <label class="form-check-label" for="searchswitch11"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">Referral</div>
+                                            <div class="col-auto">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="searchswitch12">
+                                                    <label class="form-check-label" for="searchswitch12"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="row">
+                                <div class="col"><button class="btn btn-outline-secondary border">Reset</button></div>
+                                <div class="col-auto">
+                                    <button class="btn btn-theme">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <span class="input-group-text d-flex d-xl-none" id="searchclose"><i class="bi bi-x-lg vm"></i></span>
+            </div>
+            <div class="dropdown-menu dropdown-dontclose mt-2 mw-600 w-auto" id="searchresultglobal" [ngClass]="{'show': showSearchResult}">
+                <ul class="nav nav-WinDOORS" id="searchtab1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="searchall1-tab" data-bs-toggle="tab" data-bs-target="#searchall1" type="button" role="tab" aria-controls="searchall1" aria-selected="true">All <span class="badge rounded-pill bg-success ml-2 vm">12</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="searchorders1-tab" data-bs-toggle="tab" data-bs-target="#searchorders1" type="button" role="tab" aria-controls="searchorders1" aria-selected="false">Orders <span class="badge rounded-pill bg-primary ml-2 vm">8</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="searchcontacts1-tab" data-bs-toggle="tab" data-bs-target="#searchcontacts1" type="button" role="tab" aria-controls="searchcontacts1" aria-selected="false">Contacts <span class="badge rounded-pill bg-warning ml-2 vm">4</span></button>
+                    </li>
+                </ul>
+                <div class="tab-content py-3" id="searchtabContent1">
+                    <div class="tab-pane fade show active mh-500 overflow-y-auto" id="searchall1" role="tabpanel" aria-labelledby="searchall1-tab">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col align-self-center">
+                                    <h6>Application</h6>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary border">View all</a>
+                                </div>
+                            </div>
+                            <div class="row g-0 text-center mb-3">
+                                <div class="col-4 col-sm-2 col-md-2">
+                                    <a class="dropdown-item square-item" href="app-finance.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-bank fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Finance</p>
+                                        <p class="fs-12 text-muted">Accounting</p>
+                                    </a>
+                                </div>
+                                <div class="col-4 col-sm-2 col-md-2">
+                                    <a class="dropdown-item square-item" href="app-network.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-globe fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Network</p>
+                                        <p class="fs-12 text-muted">Stabilize</p>
+                                    </a>
+                                </div>
+                                <div class="col-4 col-sm-2 col-md-2">
+                                    <a class="dropdown-item square-item" href="app-ecommerce.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-box fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Inventory</p>
+                                        <p class="fs-12 text-muted">Assuring</p>
+                                    </a>
+                                </div>
+                                <div class="col-4 col-sm-2 col-md-2">
+                                    <a class="dropdown-item square-item" href="app-project.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-folder fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Project</p>
+                                        <p class="fs-12 text-muted">Management</p>
+                                    </a>
+                                </div>
+                                <div class="col-4 col-sm-2 col-md-2">
+                                    <a class="dropdown-item square-item" href="app-social.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-people fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Social</p>
+                                        <p class="fs-12 text-muted">Tracking</p>
+                                    </a>
+                                </div>
+                                <div class="col-4 col-sm-2 col-md-2">
+                                    <a class="dropdown-item square-item" href="app-learning.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-journal-bookmark fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Learning</p>
+                                        <p class="fs-12 text-muted">Make-easy</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col align-self-center">
+                                    <h6>Orders Placed</h6>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary border">View all</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-bag fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0021 by John Merchant</a>
+                                            <p class="text-truncate text-secondary small">2 items, $250.00, 09 December 2021</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-basket fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0026 by Will Smith</a>
+                                            <p class="text-truncate text-secondary small">4 items, $530.00, 18 December 2021</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-cart fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0030 by Switty David</a>
+                                            <p class="text-truncate text-secondary small">1 items, $50.00, 20 December 2021</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-cart4 fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0041 by Mr.Walk Wolf</a>
+                                            <p class="text-truncate text-secondary small">3 items, $130.00, 16 December 2021</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col align-self-center">
+                                    <h6>Contacts</h6>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary border">View all</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-2.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">Ms. Switty David</a>
+                                            <p class="text-truncate text-secondary small">US, UK Recruiter</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-3.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">Dyna Roosevelt</a>
+                                            <p class="text-truncate text-secondary small">Marketing Head at Linmongas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-4.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">Mr. Freddy Johnson</a>
+                                            <p class="text-truncate text-secondary small">Project Manager</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-1.jpg" alt="" name="userimage" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">The Maxartkiller</a>
+                                            <p class="text-truncate text-secondary small">CEO Maxartkiller</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="searchorders1" role="tabpanel" aria-labelledby="searchorders1-tab">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-bag fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0021 by John Merchant</a>
+                                            <p class="text-truncate text-secondary small">2 items, $250.00, 09 December 2021</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-basket fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0026 by Will Smith</a>
+                                            <p class="text-truncate text-secondary small">4 items, $530.00, 18 December 2021</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-cart fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0030 by Switty David</a>
+                                            <p class="text-truncate text-secondary small">1 items, $50.00, 20 December 2021</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme">
+                                                <i class="bi bi-cart4 fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">#EDR0041 by Mr.Walk Wolf</a>
+                                            <p class="text-truncate text-secondary small">3 items, $130.00, 16 December 2021</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="searchcontacts1" role="tabpanel" aria-labelledby="searchcontacts1-tab">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-2.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">Ms. Switty David</a>
+                                            <p class="text-truncate text-secondary small">US, UK Recruiter</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-3.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">Dyna Roosevelt</a>
+                                            <p class="text-truncate text-secondary small">Marketing Head at Linmongas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-4.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">Mr. Freddy Johnson</a>
+                                            <p class="text-truncate text-secondary small">Project Manager</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar avatar-50 rounded bg-light-theme coverimg">
+                                                <img src="assets/img/user-1.jpg" name="userimage" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 ps-0 align-self-center">
+                                            <a href="#" class="text-truncate">The Maxartkiller</a>
+                                            <p class="text-truncate text-secondary small">CEO Maxartkiller</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-expand-xl d-none d-xxxl-block ms-3">
+            <div class="collapse navbar-collapse" id="mainheaderNavbar">
+                <ul class="nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dd-arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
+                        <div class="dropdown-menu">
+                            <div><a class="dropdown-item" href="/pages/profile/professional/">Profile</a></div>
+                            <div class="dropdown open-right dropdown-dontclose">
+                                <a class="dropdown-item" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                                    Company <span class="arrow bi bi-chevron-right"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div><a class="dropdown-item" routerLink="/pages/profile/companyprofile/" routerLinkActive="active">Company Profile</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/profile/branding/" routerLinkActive="active">Branding</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/profile/userroles/" routerLinkActive="active">User Roles </a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/profile/resources/" routerLinkActive="active">Resources</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/other/contactus" routerLinkActive="active">Contact us</a></div>
+                                </div>
+                            </div>
+                            <div><a class="dropdown-item" routerLink="/pages/profile/management/" routerLinkActive="active">Management</a></div>
+                            <div><a class="dropdown-item" routerLink="/pages/profile/career/" routerLinkActive="active">Career</a></div>
+                            <div><a class="dropdown-item" routerLink="/pages/app/forum/" routerLinkActive="active">Forum</a></div>
+                            <div><a class="dropdown-item" routerLink="/pages/app/forumdetails/" routerLinkActive="active">Forum Details</a></div>
+                            <div>
+                                <hr class="dropdown-divider">
+                            </div>
+                            <div><a class="dropdown-item" routerLink="/pages/other/helpcenter/" routerLinkActive="active">Help Center</a></div>
+                            <div><a class="dropdown-item" routerLink="/onboarding/default/" routerLinkActive="active">Onboarding</a></div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dd-arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Components</a>
+                        <div class="dropdown-menu w-500">
+                            <div class="dropdown-title mb-3">
+                                <p>Creative & Unique Components</p>
+                                <p class="text-secondary small">Our components are flexible to adopt. Use these to create new page, make UI template design unique and consistent.</p>
+                            </div>
+                            <div class="row g-0">
+                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
+                                    <div><a class="dropdown-item" routerLink="/pages/components/cards/" routerLinkActive="active"><i class="bi bi-card-heading me-2"></i>Cards</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/components/events/" routerLinkActive="active"><i class="bi bi-calendar-event me-2"></i>Events</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/components/files/" routerLinkActive="active"><i class="bi bi-folder me-2"></i>Files</a></div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
+                                    <div><a class="dropdown-item" routerLink="/pages/components/summary/" routerLinkActive="active"><i class="bi bi-card-text me-2"></i>Summary</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/components/news/" routerLinkActive="active"><i class="bi bi-newspaper me-2"></i>News</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/components/users/" routerLinkActive="active"><i class="bi bi-person-circle me-2"></i>Users</a></div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
+                                    <div><a class="dropdown-item" routerLink="/pages/components/ratings/" routerLinkActive="active"><i class="bi bi-star me-2"></i>Rating</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/components/progress/" routerLinkActive="active"><i class="bi bi-clock-history me-2"></i>Progress</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/components/pricing/" routerLinkActive="active"><i class="bi bi-tag me-2"></i>Pricing</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+        <div class="ms-auto">
+            <div class="row">
+                <div class="col-auto align-self-center px-0 d-none d-xxxl-block">
+                    <i class="bi bi-three-dots-vertical opacity-3 text-secondary"></i>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-square btn-link search-btn d-inline-block d-xl-none " id="searchtoggle">
+                        <i class="bi bi-search"></i>
+                    </button>   
+                    <button type="button" class="btn btn-square btn-link text-center d-none d-lg-inline-block" 
+                    id="gofullscreen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fullscreen" (click)="toggleFullScreen()"><i *ngIf="!isFullScreen" class="bi bi-fullscreen"></i><i *ngIf="isFullScreen" class="bi bi-fullscreen-exit"></i></button>
+                    <div class="d-inline-block dropdown">
+                        <a class="btn btn-square btn-link text-center dd-arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-grid"></i></a>
+                        <div class="dropdown-menu dropdown-menu-center w-300">
+                            <div class="dropdown-info text-center bg-theme">
+                                <h6 class="mb-0">Applications</h6>
+                                <p class="text-muted small">Make your app innovative</p>
+                            </div>
+                            <div class="row g-0 text-center mb-3">
+                                <div class="col-4">
+                                    <a class="dropdown-item square-item" href="app-finance.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-bank fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Finance</p>
+                                        <p class="fs-12 text-muted">Accounting</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="dropdown-item square-item" href="app-network.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-globe fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Network</p>
+                                        <p class="fs-12 text-muted">Stabilize</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="dropdown-item square-item" href="app-ecommerce.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-box fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Inventory</p>
+                                        <p class="fs-12 text-muted">Assuring</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="dropdown-item square-item" href="app-project.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-folder fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Project</p>
+                                        <p class="fs-12 text-muted">Management</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="dropdown-item square-item" href="app-social.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-people fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Social</p>
+                                        <p class="fs-12 text-muted">Tracking</p>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="dropdown-item square-item" href="app-learning.html">
+                                        <div class="avatar avatar-40 rounded mb-2">
+                                            <i class="bi bi-journal-bookmark fs-4"></i>
+                                        </div>
+                                        <p class="mb-0">Learning</p>
+                                        <p class="fs-12 text-muted">Make-easy</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="text-center"><a class="btn btn-link text-center" href="#">View all <i class="bi bi-arrow-right"></i></a></div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-square btn-link text-center d-none d-sm-inline-block" id="showChat" (click)="rightbaropenchat()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat & Support">
+                        <span class="bi bi-chat-right-dots position-relative">
+                            <span class="badge position-absolute top-0 start-100 translate-middle bg-theme textw-white rounded">
+                                <span class="fs-10">9+</span> <span class="visually-hidden">New alerts</span>
+                            </span>
+                        </span>
+                    </button>
+                    <button type="button" class="btn btn-square btn-link text-center" id="showNotification" (click)="rightbaropennotification()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Notifications">
+                        <span class="bi bi-bell position-relative">
+                            <span class="position-absolute top-0 start-100 p-1 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">New alerts</span>
+                            </span>
+                        </span>
+                    </button>
+                </div>
+                <div class="col-auto align-self-center px-0  d-none d-xxxl-block">
+                    <i class="bi bi-three-dots-vertical opacity-3 text-secondary"></i>
+                </div>
+                <div class="col-auto">
+                    <div class="dropdown">
+                        <a class="dd-arrow-none dropdown-toggle tempdata" id="userprofiledd" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                            <div class="row">
+                                <div class="col-auto align-self-center">
+                                    <figure class="avatar avatar-40 rounded-circle coverimg vm">
+                                        <img src="{{userImg}}" alt="" id="userimage" name="userimage" />
+                                    </figure>
+                                </div>
+                                <div class="col ps-0 align-self-center d-none d-lg-block">
+                                    <p class="mb-0">
+                                        <span class="text-dark username">{{ userName }}</span><br>
+                                        <small class="small">United States</small>
+                                    </p>
+                                </div>
+                                <div class="col ps-0 align-self-center d-none d-lg-block">
+                                    <i class="bi bi-chevron-down small vm"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end w-300" aria-labelledby="userprofiledd">
+                            <div class="dropdown-info bg-theme">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <figure class="avatar avatar-50 rounded-circle coverimg vm">
+                                            <img src="assets/img/user-1.jpg" alt="" id="userphotoonboarding3" name="userimage" />
+                                        </figure>
+                                    </div>
+                                    <div class="col align-self-center ps-0">
+                                        <h6 class="mb-0"><span class="username">{{ userName }}</span></h6>
+                                        <p class="text-muted small">Balance: $100.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div><a class="dropdown-item" routerLink="/pages/profile/professional" routerLinkActive="active">My Profile</a></div>
+                            <div>
+                                <a class="dropdown-item" routerLink="/pages/dashboard/home/">
+                                    <div class="row g-0">
+                                        <div class="col align-self-center">My Dashboard</div>
+                                        <div class="col-auto">
+                                            <figure class="avatar avatar-20 coverimg rounded-circle">
+                                                <img src="assets/img/user-2.jpg" alt="" />
+                                            </figure>
+                                            <figure class="avatar avatar-20 coverimg rounded-circle">
+                                                <img src="assets/img/user-3.jpg" alt="" />
+                                            </figure>
+                                            <figure class="avatar avatar-20 coverimg rounded-circle">
+                                                <img src="assets/img/user-4.jpg" alt="" />
+                                            </figure>
+                                            <div class="avatar avatar-20 bg-theme rounded-circle">
+                                                <small class="fs-10 vm">9+</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dropdown open-left dropdown-dontclose">
+                                <a class="dropdown-item" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                                    <div class="row">
+                                        <div class="col">Subscription</div>
+                                        <div class="col-auto pe-0">
+                                            <p class="small text-success">Upgrade</p>
+                                        </div>
+                                        <div class="col-auto ps-0"><span class="arrow bi bi-chevron-right"></span></div>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div><a class="dropdown-item" routerLink="/pages/other/plan/" routerLinkActive="active">Plan</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/other/earning/" routerLinkActive="active">Earning</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/other/payment/" routerLinkActive="active">Payment</a></div>
+                                    <div><a class="dropdown-item" routerLink="/pages/other/statement/" routerLinkActive="active">Statement</a></div>
+                                </div>
+                            </div>
+                            <div class="dropdown open-left dropdown-dontclose">
+                                <a class="dropdown-item" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                                    <div class="row">
+                                        <div class="col">Language</div>
+                                        <div class="col-auto pe-0"><small class="vm">EN - English</small> <i class="bi bi-translate"></i></div>
+                                        <div class="col-auto ps-0"><span class="arrow bi bi-chevron-right"></span></div>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div><a class="dropdown-item active" data-value="EN">EN - English</a></div>
+                                    <div><a class="dropdown-item" data-value="FR">FR - French</a></div>
+                                    <div><a class="dropdown-item" data-value="CH">CH - Chinese</a></div>
+                                    <div><a class="dropdown-item" data-value="HI">HI - Hindi</a></div>
+                                </div>
+                            </div>
+                            <div><a class="dropdown-item" routerLink="/pages/profile/account-settings/" routerLinkActive="active">Account Setting</a></div>
+                            <div><a class="dropdown-item" href="javascript:void(0)" (click)="signout()">Logout</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
