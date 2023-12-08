@@ -19,6 +19,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { CalendarComponent } from './pages/academico/calendar/calendar.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     PerfilComponent,
     DashboardComponent,
     AcademicoComponent,
-    DetalleComponent
+    DetalleComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NgxDropzoneModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxDocViewerModule,
     JustLightboxModule.forRoot(),
     NgCircleProgressModule.forRoot(),
     AlumnoRoutingModule

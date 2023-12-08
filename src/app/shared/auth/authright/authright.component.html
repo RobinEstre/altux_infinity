@@ -1,80 +1,57 @@
 <div class="row h-100">
     <div class="col-12 h-50 position-relative">
         <!-- time and temperature -->
-        <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('assets/img/bg-3.jpg');">
-            <img src="assets/img/bg-3.jpg" alt="" id="image-daytime" class="w-100 d-none" />
+        <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('https://cdn.discordapp.com/attachments/1011378535186845790/1182810338555596880/login_portada_altux.png?ex=65860cf8&is=657397f8&hm=82c0f740e60bb06e1a063a856420addc3e6c712c1b6ee37f2cc91fbdbfec7bac&');">
+            <img src="https://cdn.discordapp.com/attachments/1011378535186845790/1182810338555596880/login_portada_altux.png?ex=65860cf8&is=657397f8&hm=82c0f740e60bb06e1a063a856420addc3e6c712c1b6ee37f2cc91fbdbfec7bac&" alt="" id="image-daytime" class="w-100 d-none" />
         </div>
         <div class="row text-white mt-2">
-            <div class="col">
-                <p class="display-3 mb-0"><span id="time">10:11</span><small><span class="h4 text-uppercase" id="ampm">am</span></small></p>
-                <p class="lead fw-normal" id="date">26-7-2022</p>
+            <div class="col text-center">
+                <br><br><br><br><br><br><br>
+                <p class="display-3 mb-0 fw-bold"><span id="time">{{date | date:'hh:mm:ss'}}</span><small><span class="h4 text-uppercase" id="ampm">{{date | date:' a'}}</span></small></p>
+                <p class="lead fw-normal" id="date">{{date | date:'dd/MM/yyyy'}}</p>
             </div>
-            <div class="col-auto text-end">
+            <!-- <div class="col-auto text-end">
                 <p class="display-3 mb-0">
                     <img src="assets/img/cloud-sun.png" alt="" class="vm me-1 tempimage" id="tempimage" />
                     <span id="temperature">46</span><span class="h4 text-uppercase"> <sup>0</sup>C</span>
                 </p>
 
                 <a class="btn btn-link text-white dd-arrow-none dropdown-toggle" id="selectCity" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="h5 fw-normal" id="city">New York</span> <i class="bi bi-pencil-square small fw-light"></i>
+                    <span class="h5 fw-normal" id="city">Perú</span>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="selectCity" id="citychange">
-                    <li class="dropdown-item" value="New York">New York</li>
-                    <li class="dropdown-item" value="London" selected>London</li>
-                    <li class="dropdown-item" value="Qatar">Qatar</li>
-                    <li class="dropdown-item" value="Delhi">Delhi</li>
-                    <li class="dropdown-item" value="Sydney">Sydney</li>
-                </ul>
-            </div>
+            </div> -->
         </div>
         <!-- time and temperature ends -->
     </div>
     <div class="col-12 col-md-12 col-lg-7 col-xl-6 h-50 position-relative px-0">
-        <div class="row position-absolute start-0 top-0 mx-0 z-index-9 py-4">
-            <div class="col-auto">
-                <img src="assets/img/newsicon.png" alt="" />
-            </div>
-            <div class="col align-self-center"></div>
-        </div>
         <!-- news swiper -->
         <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="pagination" [autoplay]="{delay: 2000}" class="news-swiper h-100 w-100 text-white">
             <ng-template swiperSlide>
                 <div class="overlay"></div>
                 <div class="row h-100 position-relative mx-0 pb-5">
-                    <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('assets/img/bg-2.jpg');">
-                        <img src="assets/img/bg-2.jpg" alt="" class="w-100 d-none" />
+                    <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('https://cdn.discordapp.com/attachments/1011378535186845790/1182814055002542140/slider_login_5.png?ex=6586106e&is=65739b6e&hm=2b61c6d7ddf6131c725c6ba1e7207c950933fe2fd68cd3e766f455d22b5b381d&');">
+                        <img src="https://cdn.discordapp.com/attachments/1011378535186845790/1182814055002542140/slider_login_5.png?ex=6586106e&is=65739b6e&hm=2b61c6d7ddf6131c725c6ba1e7207c950933fe2fd68cd3e766f455d22b5b381d&" alt="" class="w-100 d-none" />
                     </div>
                     <div class="col-12"></div>
-                    <div class="col-12 mt-auto">
+                    <!-- <div class="col-12 mt-auto">
                         <h3 class="fw-normal mb-3">Wondering if there is any perfect things for business applications template?</h3>
-                        <p>You are at right place and at right time. Yes, that's very true, People always looking or the feelings and emotions while working. We are here with Interface which can feel as your own daily life essentials.</p>
-                    </div>
+                        <p>You are at right place and at right time. Yes, that's very true, People always looking or the feelings and emotions while working. 
+                            We are here with Interface which can feel as your own daily life essentials.</p>
+                    </div> -->
                 </div>
             </ng-template>
             <ng-template swiperSlide>
                 <div class="overlay"></div>
                 <div class="row h-100 position-relative mx-0 pb-5">
-                    <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('assets/img/news-4.jpg');">
-                        <img src="assets/img/news-4.jpg" alt="" class="w-100 d-none" />
+                    <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('https://cdn.discordapp.com/attachments/1011378535186845790/1182814055841411142/slider_login_2.png?ex=6586106e&is=65739b6e&hm=4ec7621d2c7cef6f3517451e4b2ecaf4ccffe3d27a2636d159d4440d80fe0593&');">
+                        <img src="https://cdn.discordapp.com/attachments/1011378535186845790/1182814055841411142/slider_login_2.png?ex=6586106e&is=65739b6e&hm=4ec7621d2c7cef6f3517451e4b2ecaf4ccffe3d27a2636d159d4440d80fe0593&" alt="" class="w-100 d-none" />
                     </div>
                     <div class="col-12"></div>
-                    <div class="col-12 mt-auto">
+                    <!-- <div class="col-12 mt-auto">
                         <h3 class="fw-normal mb-3">Wondering if there is any perfect things for business applications template?</h3>
-                        <p>You are at right place and at right time. Yes, that's very true, People always looking or the feelings and emotions while working. We are here with Interface which can feel as your own daily life essentials.</p>
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template swiperSlide>
-                <div class="overlay"></div>
-                <div class="row h-100 position-relative mx-0 pb-5">
-                    <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('assets/img/bg-10.jpg');">
-                        <img src="assets/img/bg-10.jpg" alt="" style="display: none;" />
-                    </div>
-                    <div class="col-12"></div>
-                    <div class="col-12 mt-auto">
-                        <h3 class="fw-normal mb-3">Wondering if there is any perfect things for business applications template?</h3>
-                        <p>You are at right place and at right time. Yes, that's very true, People always looking or the feelings and emotions while working. We are here with Interface which can feel as your own daily life essentials.</p>
-                    </div>
+                        <p>You are at right place and at right time. Yes, that's very true, People always looking or the feelings and emotions while working. 
+                            We are here with Interface which can feel as your own daily life essentials.</p>
+                    </div> -->
                 </div>
             </ng-template>
             <div class="swiper-pagination pagination-smallline white text-start px-2"></div>
@@ -85,18 +62,13 @@
         <!-- image swiper -->
         <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2500}" class="image-swiper h-100 w-100">
             <ng-template swiperSlide>
-                <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('assets/img/bg-7.jpg');">
-                    <img src="assets/img/bg-7.jpg" alt="" style="display: none;" />
+                <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('https://cdn.discordapp.com/attachments/1011378535186845790/1182812368166723696/slider_login1.png?ex=65860edc&is=657399dc&hm=13c45a3280d3a5e4e3ff23eccdd12088f64525030f6f834f8b32cf429d1fec65&');">
+                    <img src="https://cdn.discordapp.com/attachments/1011378535186845790/1182812368166723696/slider_login1.png?ex=65860edc&is=657399dc&hm=13c45a3280d3a5e4e3ff23eccdd12088f64525030f6f834f8b32cf429d1fec65&" alt="" style="display: none;" />
                 </div>
             </ng-template>
             <ng-template swiperSlide>
-                <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('assets/img/bg-8.jpg');">
-                    <img src="assets/img/bg-8.jpg" alt="" style="display: none;" />
-                </div>
-            </ng-template>
-            <ng-template swiperSlide>
-                <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('assets/img/bg-9.jpg');">
-                    <img src="assets/img/bg-9.jpg" alt="" style="display: none;" />
+                <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background-image: url('https://cdn.discordapp.com/attachments/1011378535186845790/1182814055396823070/slider_login_4.png?ex=6586106e&is=65739b6e&hm=5e52ea3dbf3f4b919250819a859f9ccc5007355f56b6928dca08e23da6656b88&');">
+                    <img src="https://cdn.discordapp.com/attachments/1011378535186845790/1182814055396823070/slider_login_4.png?ex=6586106e&is=65739b6e&hm=5e52ea3dbf3f4b919250819a859f9ccc5007355f56b6928dca08e23da6656b88&" alt="" style="display: none;" />
                 </div>
             </ng-template>
         </swiper>

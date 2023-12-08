@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PerfilService } from 'src/app/alumno/services/perfil.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,9 +10,24 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router,private service: PerfilService,public authenticationService: AuthenticationService,) { }
+  userName:any;userImg:any; perfil:any
 
   ngOnInit(): void {
+    this.userName = localStorage.getItem('USERNAME');
+    this.userImg = localStorage.getItem('IMG_USER');
+    this.authenticationService.miVariable$.subscribe(data => {
+      if(data==true){
+        this.listProfile()
+      }
+    });
+  }
+
+  listProfile(){
+    setTimeout(() => {
+      this.userName = localStorage.getItem('USERNAME');
+      this.userImg = localStorage.getItem('IMG_USER');
+    }, 1500);
   }
 
   menuclose() {

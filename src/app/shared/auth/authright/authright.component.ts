@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
+import localeEs from '@angular/common/locales/es';
+import {DatePipe, registerLocaleData} from "@angular/common";
+registerLocaleData(localeEs, 'es');
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
@@ -10,6 +13,7 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
   selector: 'app-authright',
   templateUrl: './authright.component.html',
   styleUrls: ['./authright.component.scss'],
+  providers: [ { provide: LOCALE_ID, useValue: 'es' }, DatePipe]
 })
 export class AuthrightComponent implements OnInit {
   pagination = {
@@ -20,6 +24,11 @@ export class AuthrightComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  date: Date = new Date();
+
+  ngOnInit(): void {
+    setInterval(() => {
+      this.date = new Date();
+    }, 0);}
 
 }

@@ -5,11 +5,11 @@
             <button class="btn btn-link btn-square menu-btn" type="button" (click)="menuopen()">
                 <i class="bi bi-list fs-4"></i>
             </button>
-            <a class="navbar-brand ms-2" routerLink="/pages/dashboard/home/">
+            <a class="navbar-brand ms-2" routerLink="/alumno/panel">
                 <div class="row">
-                    <div class="col-auto"><img src="assets/img/favicon48.png" name="logoimage" class="mx-100" alt="" /></div>
+                    <div class="col-auto"><img src="https://web-altux-files.s3.amazonaws.com/Nosotros/Logo-Altux-solo.png" name="logoimage" class="mx-100" alt="" /></div>
                     <div class="col ps-0 align-self-center d-none d-sm-block">
-                        <h5 class="fw-normal text-dark mb-0">WinDOORS</h5>
+                        <h4 class="text-primary mb-0" style="font-weight: 900;">ALTUX</h4>
                     </div>
                 </div>
             </a>
@@ -608,7 +608,7 @@
                     </button>   
                     <button type="button" class="btn btn-square btn-link text-center d-none d-lg-inline-block" 
                     id="gofullscreen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fullscreen" (click)="toggleFullScreen()"><i *ngIf="!isFullScreen" class="bi bi-fullscreen"></i><i *ngIf="isFullScreen" class="bi bi-fullscreen-exit"></i></button>
-                    <div class="d-inline-block dropdown">
+                    <!-- <div class="d-inline-block dropdown">
                         <a class="btn btn-square btn-link text-center dd-arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-grid"></i></a>
                         <div class="dropdown-menu dropdown-menu-center w-300">
                             <div class="dropdown-info text-center bg-theme">
@@ -687,13 +687,13 @@
                                 <span class="visually-hidden">New alerts</span>
                             </span>
                         </span>
-                    </button>
+                    </button> -->
                 </div>
                 <div class="col-auto align-self-center px-0  d-none d-xxxl-block">
                     <i class="bi bi-three-dots-vertical opacity-3 text-secondary"></i>
                 </div>
                 <div class="col-auto">
-                    <div class="dropdown">
+                    <div class="dropdown" *ngIf="perfil">
                         <a class="dd-arrow-none dropdown-toggle tempdata" id="userprofiledd" data-bs-toggle="dropdown" aria-expanded="false" role="button">
                             <div class="row">
                                 <div class="col-auto align-self-center">
@@ -704,7 +704,7 @@
                                 <div class="col ps-0 align-self-center d-none d-lg-block">
                                     <p class="mb-0">
                                         <span class="text-dark username">{{ userName }}</span><br>
-                                        <small class="small">United States</small>
+                                        <small class="small">Perú</small>
                                     </p>
                                 </div>
                                 <div class="col ps-0 align-self-center d-none d-lg-block">
@@ -717,17 +717,18 @@
                                 <div class="row">
                                     <div class="col-auto">
                                         <figure class="avatar avatar-50 rounded-circle coverimg vm">
-                                            <img src="assets/img/user-1.jpg" alt="" id="userphotoonboarding3" name="userimage" />
+                                            <img src="{{userImg}}" alt="" id="userphotoonboarding3" name="userimage" />
                                         </figure>
                                     </div>
                                     <div class="col align-self-center ps-0">
                                         <h6 class="mb-0"><span class="username">{{ userName }}</span></h6>
-                                        <p class="text-muted small">Balance: $100.00</p>
+                                        <p class="text-muted small">DNI: {{ perfil.dni }}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div><a class="dropdown-item" routerLink="/pages/profile/professional" routerLinkActive="active">My Profile</a></div>
-                            <div>
+                            <div><a class="dropdown-item" routerLink="/alumno/panel" routerLinkActive="active">Dashboard</a></div>
+                            <div><a class="dropdown-item" routerLink="/alumno/perfil" routerLinkActive="active">Mi Perfil</a></div>
+                            <!-- <div>
                                 <a class="dropdown-item" routerLink="/pages/dashboard/home/">
                                     <div class="row g-0">
                                         <div class="col align-self-center">My Dashboard</div>
@@ -780,8 +781,8 @@
                                     <div><a class="dropdown-item" data-value="HI">HI - Hindi</a></div>
                                 </div>
                             </div>
-                            <div><a class="dropdown-item" routerLink="/pages/profile/account-settings/" routerLinkActive="active">Account Setting</a></div>
-                            <div><a class="dropdown-item" href="javascript:void(0)" (click)="signout()">Logout</a></div>
+                            <div><a class="dropdown-item" routerLink="/pages/profile/account-settings/" routerLinkActive="active">Account Setting</a></div> -->
+                            <div><a class="dropdown-item" href="javascript:void(0)" (click)="signout()">Cerrar Sesión</a></div>
                         </div>
                     </div>
                 </div>

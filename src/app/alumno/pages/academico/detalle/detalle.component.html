@@ -3,7 +3,7 @@
     <div class="row align-items-center page-title">
         <div class="col-12 col-md mb-2 mb-sm-0">
             <h5 class="mb-0">{{course.name_diplomado}}</h5>
-            <p class="text-secondary">Breve Descripcion</p>
+            <p class="text-secondary">Bienvenid@ a tu diplomado</p>
         </div>
         <div class="col col-sm-auto">
         </div>
@@ -12,10 +12,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="course">
         <div class="card mx-2 border-0 bg-white">
-            <div class="card-header" *ngIf="course">
-                <div class="row align-items-center">
+            <div class="card-header" *ngIf="class_module">
+                <div class="row align-items-center" *ngIf="class_module.en_vivo">
                     <div class="col-auto">
                         <i class="bi bi-record-circle h5 avatar avatar-40 bg-light-red text-danger rounded"></i>
                     </div>
@@ -24,25 +24,38 @@
                         <p class="small text-secondary">{{course.name_diplomado}}</p>
                     </div>
                 </div>
+                <div class="row align-items-center" *ngIf="!class_module.en_vivo">
+                    <div class="col-auto">
+                        <i class="bi bi-clock-history h5 avatar avatar-40 bg-light-orange text-warning rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0">Próxima Clase</h6>
+                        <p class="small text-secondary">{{course.name_diplomado}}</p>
+                    </div>
+                </div>
             </div>
-            <div class="card-body" *ngIf="modulo">
+            <div class="card-body" *ngIf="class_module">
                 <div class="row">
                     <div class="col-auto">
-                        <div class="rounded text-white p-3 parpadea">
+                        <div class="rounded text-white p-3 parpadea" *ngIf="class_module.en_vivo">
                             <img src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt="">
+                        </div>
+                        <div class="rounded text-white p-3" *ngIf="!class_module.en_vivo">
+                            <img style="filter: grayscale(100%);" src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt="">
                         </div>
                     </div>
                     <div class="col ps-0 align-self-center">
-                        <h5 class="mb-0 text-uppercase">{{modulo.nombre_modulo}}</h5>
-                        <h6 class="text-secondary mb-0">15/12/2023 15:00 - CLASE 1</h6>
-                        <h6>
-                            <span class="badge rounded-pill bg-success text-uppercase" style="margin-top: 10px; background:#00386A !important">
+                        <h5 class="mb-0 text-uppercase">{{class_module.nombre_modulo}}</h5>
+                        <h6 class="text-secondary mb-0">{{class_module.fecha_clase*1000 | date:'dd/MM/yyyy HH:mm'}} - CLASE {{class_module.clase_num}}</h6>
+                        <h6 *ngIf="class_module.en_vivo">
+                            <a href="javajavascript:void(0)" target="_blank" class="badge rounded-pill bg-success text-uppercase" (click)="abrirLink(class_module)"
+                                style="margin-top: 10px; background:#00386A !important">
                                 <i class="bi bi-camera-video-fill"></i> Ver en Vivo
-                            </span>
+                            </a>
                         </h6>
                     </div>
                     <div class="col-auto">
-                        <p class="calendar"><em>Agosto</em>7</p>
+                        <p class="calendar"><em class="text-capitalize">{{class_module.fecha_clase*1000 | date:'MMM'}}</em>{{class_module.fecha_clase*1000 | date:'dd'}}</p>
                         <!-- <div class="rounded bg-red text-white p-3">
                             <i class="bi bi-building mb-1"></i>
                             <p class="bg-white text-muted small mb-1">
@@ -76,34 +89,36 @@
                         </a>
                         <ul class="collapse treeview-list {{data.class}}" id="Bloque-{{i+1}}" data-show="false">
                             <li class="treeview-list-item">
-                                <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}-1" role="button" aria-expanded="false">
+                                <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}-1" role="button" aria-expanded="false" (click)="clasesGrabadas(data.id)">
                                     <p class="treeview-text text-uppercase">clases grabadas</p>
                                 </a>
                                 <ul class="collapse treeview-list" id="Bloque-{{i+1}}-1" data-show="false">
-                                    <li class="treeview-list-item">
+                                    <div *ngFor="let recording of grabacion">
+                                        <li class="treeview-list-item"  *ngIf=" recording.modulo_id === module_id ">
+                                            <div class="treeview-item">
+                                                <a class="flex-1" href="javascript:void(0)">
+                                                    <p class="treeview-text">
+                                                        <i class="bi bi-play-btn-fill text-danger mx-1"></i>
+                                                        {{recording.clase.data_class.name_video_clase}}
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    <!-- <li class="treeview-list-item">
                                         <div class="treeview-item">
-                                            <a class="flex-1" href="#!">
-                                                <p class="treeview-text">
-                                                    <i class="bi bi-play-btn-fill text-danger mx-1"></i>
-                                                    Clase1.mp4
-                                                </p>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="treeview-list-item">
-                                        <div class="treeview-item">
-                                            <a class="flex-1" href="#!">
+                                            <a class="flex-1" href="javascript:void(0)">
                                                 <p class="treeview-text">
                                                     <i class="bi bi-play-btn-fill text-danger mx-1"></i>
                                                     Clase2.mp4
                                                 </p>
                                             </a>
                                         </div>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </li>
                             <li class="treeview-list-item">
-                                <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}-2" role="button" aria-expanded="false">
+                                <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}-2" role="button" aria-expanded="false" (click)="getMaterials(i)">
                                     <p class="treeview-text text-uppercase">material de estudio</p>
                                 </a>
                                 <ul class="collapse treeview-list" id="Bloque-{{i+1}}-2" data-show="false">
@@ -112,26 +127,31 @@
                                             <p class="treeview-text text-uppercase">diapositivas</p>
                                         </a>
                                         <ul class="collapse treeview-list" id="Bloque-{{i+1}}-2-1" data-show="true">
-                                            <li class="treeview-list-item">
+                                            <div *ngFor="let material of materials" >
+                                                <li class="treeview-list-item" *ngIf="3 === material.type_material_id">
+                                                    <div class="treeview-item">
+                                                        <a class="flex-1" href="javascript:void(0)" (click)="openModal(material)">
+                                                            <p class="treeview-text">
+                                                                <span class="me-2 bi bi-filetype-pdf text-danger" *ngIf="material.mat_icon === 'pdf'"></span>
+                                                                <span class="me-2 bi bi-filetype-xls text-success" *ngIf="material.mat_icon === 'xls'"></span>
+                                                                <span class="me-2 bi bi-filetype-doc text-primary" *ngIf="material.mat_icon === 'doc'"></span>
+                                                                <span class="me-2 bi bi-filetype-ppt text-warning" *ngIf="material.mat_icon === 'ppt'"></span>
+                                                                {{material.mat_name}}
+                                                            </p>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                            <!-- <li class="treeview-list-item">
                                                 <div class="treeview-item">
-                                                <a class="flex-1" href="#!">
-                                                    <p class="treeview-text">
-                                                    <span class="me-2 bi bi-filetype-ppt text-warning"></span>
-                                                    Diapositiva1.pptx
-                                                    </p>
-                                                </a>
-                                                </div>
-                                            </li>
-                                            <li class="treeview-list-item">
-                                                <div class="treeview-item">
-                                                <a class="flex-1" href="#!">
+                                                <a class="flex-1" href="javascript:void(0)">
                                                     <p class="treeview-text">
                                                     <span class="me-2 bi bi-filetype-ppt text-warning"></span>
                                                     Diapositiva2.pptx
                                                     </p>
                                                 </a>
                                                 </div>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </li>
                                     <li class="treeview-list-item">
@@ -139,26 +159,31 @@
                                             <p class="treeview-text text-uppercase">material complementario</p>
                                         </a>
                                         <ul class="collapse treeview-list" id="Bloque-{{i+1}}-2-2" data-show="true">
-                                            <li class="treeview-list-item">
+                                            <div *ngFor="let material of materials" >
+                                                <li class="treeview-list-item" *ngIf="2 === material.type_material_id">
+                                                    <div class="treeview-item">
+                                                        <a class="flex-1" href="javascript:void(0)" (click)="openModal(material)">
+                                                            <p class="treeview-text">
+                                                                <span class="me-2 bi bi-filetype-pdf text-danger" *ngIf="material.mat_icon === 'pdf'"></span>
+                                                                <span class="me-2 bi bi-filetype-xls text-success" *ngIf="material.mat_icon === 'xls'"></span>
+                                                                <span class="me-2 bi bi-filetype-doc text-primary" *ngIf="material.mat_icon === 'doc'"></span>
+                                                                <span class="me-2 bi bi-filetype-ppt text-warning" *ngIf="material.mat_icon === 'ppt'"></span>
+                                                                {{material.mat_name}}
+                                                            </p>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                            <!-- <li class="treeview-list-item">
                                                 <div class="treeview-item">
-                                                    <a class="flex-1" href="#!">
+                                                    <a class="flex-1" href="javascript:void(0)">
                                                         <p class="treeview-text">
                                                             <span class="me-2 bi bi-filetype-pdf text-danger"></span>
                                                             Material1.pdf
                                                         </p>
                                                     </a>
                                                 </div>
-                                            </li>
-                                            <li class="treeview-list-item">
-                                                <div class="treeview-item">
-                                                    <a class="flex-1" href="#!">
-                                                        <p class="treeview-text">
-                                                            <span class="me-2 bi bi-filetype-pdf text-danger"></span>
-                                                            Material2.pdf
-                                                        </p>
-                                                    </a>
-                                                </div>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </li>
                                 </ul>
@@ -170,7 +195,7 @@
                                 <ul class="collapse treeview-list" id="Bloque-{{i+1}}-3" data-show="false">
                                     <li class="treeview-list-item">
                                         <div class="treeview-item">
-                                            <a class="flex-1" href="#!">
+                                            <a class="flex-1" href="javascript:void(0)">
                                                 <p class="treeview-text">
                                                 <span class="me-2 bi bi-file-earmark-medical text-blue"></span>
                                                     Examen 1
@@ -180,7 +205,7 @@
                                     </li>
                                     <li class="treeview-list-item">
                                         <div class="treeview-item">
-                                            <a class="flex-1" href="#!">
+                                            <a class="flex-1" href="javascript:void(0)">
                                                 <p class="treeview-text">
                                                 <span class="me-2 bi bi-file-earmark-medical text-blue"></span>
                                                     Examen 2
@@ -191,20 +216,35 @@
                                 </ul>
                             </li>
                             <li class="treeview-list-item">
-                                <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}-4" role="button" aria-expanded="false">
+                                <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}-4" role="button" aria-expanded="false" (click)="getMaterials(i)">
                                     <p class="treeview-text text-uppercase">lecturas</p>
                                 </a>
                                 <ul class="collapse treeview-list" id="Bloque-{{i+1}}-4" data-show="false">
-                                    <li class="treeview-list-item">
+                                    <div *ngFor="let material of materials" >
+                                        <li class="treeview-list-item" *ngIf="1 === material.type_material_id">
+                                            <div class="treeview-item">
+                                                <a class="flex-1" href="javascript:void(0)" (click)="openModal(material)">
+                                                    <p class="treeview-text">
+                                                        <span class="me-2 bi bi-filetype-pdf text-danger" *ngIf="material.mat_icon === 'pdf'"></span>
+                                                        <span class="me-2 bi bi-filetype-xls text-success" *ngIf="material.mat_icon === 'xls'"></span>
+                                                        <span class="me-2 bi bi-filetype-doc text-primary" *ngIf="material.mat_icon === 'doc'"></span>
+                                                        <span class="me-2 bi bi-filetype-ppt text-warning" *ngIf="material.mat_icon === 'ppt'"></span>
+                                                        {{material.mat_name}}
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    <!-- <li class="treeview-list-item">
                                         <div class="treeview-item">
-                                            <a class="flex-1" href="#!">
+                                            <a class="flex-1" href="javascript:void(0)">
                                                 <p class="treeview-text">
                                                     <i class="bi bi-play-btn-fill text-danger mx-1"></i>
                                                     Taller1.mp4
                                                 </p>
                                             </a>
                                         </div>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </li>
                         </ul>
@@ -217,16 +257,29 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-6">
-        <div class="mx-2">
-            <full-calendar [options]="calendarOptions" style="height: 100% !important;"></full-calendar>
-        </div>
-        <!-- <div class="inner-sidebar-wrap border-bottom mx-2">
-            <div class="inner-sidebar-content">
-                <full-calendar [options]="calendarOptions" style="height: 100% !important;"></full-calendar>
-            </div>
-        </div> -->
+        <app-calendar [course]="courseCode"></app-calendar>
     </div>
 </div>
+<!-- Modal Documentos -->
+<ng-template #docs let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><b>Visualizar Documento: {{url_doc.mat_name}}</b></h5>
+    </div>
+    <div class="modal-body row">
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+            <ngx-doc-viewer
+                url="{{url_doc.mat_url_doc}}"
+                viewer="google"
+                style="width:100%;height:80vh;"
+            >
+            </ngx-doc-viewer>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <hr>
+            <button class="btn btn-danger text-light" (click)="closeModal()"> Cerrar</button>
+        </div>
+    </div>
+</ng-template>
 <!-- SPINNER -->
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
     <p style="color: white" > Cargando... </p>

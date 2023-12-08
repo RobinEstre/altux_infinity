@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row align-items-center page-title">
         <div class="col-12 col-md mb-2 mb-sm-0">
-            <h5 class="mb-0">My Dashboard</h5>
-            <p class="text-secondary">This is your personal intranet</p>
+            <h5 class="mb-0">Mi Dashboard</h5>
+            <p class="text-secondary">Infinity, tu aula virtual inteligente.</p>
         </div>
     </div>
 </div>
@@ -16,8 +16,9 @@
                 <!-- welcome message -->
                 <div class="col-12 col-md py-3 py-md-5">
                     <h2 class="fw-light mb-0 text-secondary">Bienvenid@,</h2>
-                    <h1 class="display-3 username ">LUCARDAS</h1>
+                    <h1 class="display-3 username text-uppercase">{{userName}}</h1>
 
+                    <!-- <iframe src="https://drive.google.com/file/d/1UM0JeMv_9doVSuOXW9xiTclyj5YvyIy0/preview" width="640" height="480" allow="autoplay"></iframe> -->
                     <!-- Swiper daily quote -->
                     <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="dailyquote mt-4 w-100 mx-0">
                         <ng-template swiperSlide>
@@ -96,10 +97,10 @@
                                 <div class="col">
                                     <h6 class="fw-medium">
                                         <i class="bi bi-lightbulb text-warning me-1"></i>
-                                        Tips
+                                        Recomendaciones
                                     </h6>
                                 </div>
-                                <div class="col-auto">
+                                <!-- <div class="col-auto">
                                     <button class="btn btn-sm btn-outline-warning px-2 py-0" id="starttour" data-bs-toggle="tooltip" data-bs-placement="top" title="Start Tour"><i class="bi bi-play"></i> Tour</button>
                                     <div class="dropdown d-inline-block ms-2">
                                         <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" data-bs-display="static" role="button">
@@ -173,7 +174,7 @@
                                             <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="card-body ">
@@ -182,12 +183,14 @@
                                 <ng-template swiperSlide>
                                     <i class="bi bi-chat-right-dots h4 text-success mb-3 d-block"></i>
                                     <h6>Chat Communication</h6>
-                                    <p class="small text-secondary">From the top right corner you can have access to chat panel and click on any user chat window interface will be open.</p>
+                                    <p class="small text-secondary">From the top right corner you can have access to chat panel and click on any user chat window 
+                                        interface will be open.</p>
                                 </ng-template>
                                 <ng-template swiperSlide>
                                     <i class="bi bi-person h4 text-theme mb-3 d-block"></i>
                                     <h6>Onboarding</h6>
-                                    <p class="small text-secondary">User on-boarding comes in the sign up flow. Complete sign up process you will see the on-boarding pages at best UI UX.</p>
+                                    <p class="small text-secondary">User on-boarding comes in the sign up flow. Complete sign up process you will see the on-boarding 
+                                        pages at best UI UX.</p>
                                 </ng-template>
                                 <ng-template swiperSlide>
                                     <i class="bi bi-search h4 text-danger mb-3 d-block"></i>
@@ -197,7 +200,8 @@
                                 <ng-template swiperSlide>
                                     <i class="bi bi-heart h4 text-danger mb-3 d-block"></i>
                                     <h6 class="text-gradient">Spread love</h6>
-                                    <p class="small text-secondary">If you like our template <b class="text-gradient">please share</b> to the beautiful world. World is waiting to get more good things. <i class="text-danger bi bi-heart-fill"></i></p>
+                                    <p class="small text-secondary">If you like our template <b class="text-gradient">please share</b> to the beautiful world. World is
+                                            waiting to get more good things. <i class="text-danger bi bi-heart-fill"></i></p>
                                 </ng-template>
                             </swiper>
                             <!-- image swiper ends -->

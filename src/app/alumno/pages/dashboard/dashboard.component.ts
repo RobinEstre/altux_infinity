@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   constructor() { }
+  userName = localStorage.getItem('USERNAME');
   
   scale = {
     drive: 4,

@@ -19,7 +19,7 @@
                 </div>
                 <div class="col pt-3">
                     <h2>{{userName}} <span class="badge bg-green rounded vm fw-normal fs-12"><i class="bi bi-check-circle me-1"></i>Activo</span></h2>
-                    <p class="text-secondary mb-3"><i class="bi bi-geo-alt me-1"></i>D25, Amalika Empire, DD Street, San Jose, United States</p>
+                    <p class="text-secondary mb-3"><i class="bi bi-credit-card-2-front me-1"></i>ID USUARIO: <b>{{profile.dni}}</b></p>
                 </div>
                 <div class="col-auto py-3 align-self-center">
                     <button class="btn btn-outline-theme me-2" (click)="openModal()">
@@ -31,7 +31,7 @@
         </div>
     </div>
 </div>
-<div class="container">    
+<div class="container">
     <!-- intro -->
     <div class="card border-0 mb-4">
         <div class="card-header">
@@ -41,19 +41,19 @@
                 </div>
                 <div class="col ps-0">
                     <h6 class="fw-medium mb-0">Mi Información</h6>
-                    <p class="text-secondary small">"Love the life, Spread and creativity"</p>
+                    <p class="text-secondary small">"Mis datos personales"</p>
                 </div>
-                <div class="col-auto">
+                <!-- <div class="col-auto">
                     <button class="btn btn-sm btn-link"><i class="bi bi-pencil me-1 vm"></i> 
                         <span class="d-inline">Editar </span> <span class="d-none d-md-inline">Perfil</span>
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="card-body gallery pb-0">
-            <p class="text-secondary mb-4">
+            <!-- <p class="text-secondary mb-4">
                 WinDOORS is creative and multipurpose template. You can use it for CRM, Business application, Intranet Application, Portal service and Many more. It comes with unlimited possibilities and 10+ predefined styles which you can also mix up and create new style. Do support and spread a word for us.
-            </p>
+            </p> -->
             <div class="row" *ngIf="profile">
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="row align-items-center mb-3">

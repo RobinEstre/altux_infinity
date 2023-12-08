@@ -12,17 +12,17 @@
         </div>
 
         <!-- user information -->
-        <div routerLink="/pages/profile/professional" class="row text-center collapse " id="usersidebarprofile">
+        <div class="row text-center collapse " id="usersidebarprofile" >
             <div class="col-12">
                 <div class="avatar avatar-100 rounded-circle shadow-sm mb-3 bg-white">
                     <figure class="avatar avatar-90 rounded-circle coverimg">
-                        <img src="assets/img/user-1.jpg" alt="" id="userphotoonboarding" name="userimage">
+                        <img src="{{userImg}}" alt="" id="userphotoonboarding" name="userimage">
                     </figure>
                 </div>
             </div>
             <div class="col-12 mb-4">
-                <h6 class="mb-1" id="usernamedisplay">LUCARDAS</h6>
-                <p class="text-secondary small">United States</p>
+                <h6 class="mb-1" id="usernamedisplay">{{userName}}</h6>
+                <p class="text-secondary small">Perú</p>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/pages/dashboard/finance" routerLinkActive="active" (click)="menuclose()">
                             <div class="avatar avatar-40 icon"><i class="bi bi-cash-coin"></i></div>
                             <div class="col">Pagos</div>
@@ -76,7 +76,7 @@
                             <div class="col">Soporte</div>
                             <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/alumno/perfil" routerLinkActive="active" (click)="menuclose()">
@@ -483,7 +483,7 @@
                                 </span>
                             </span> -->
                         </a>
-                        <a routerLink="/pages/profile/notifications" routerLinkActive="active" 
+                        <a href="javascript:void(0)" routerLinkActive="active" 
                             class="btn btn-square btn-outline-secondary border">
                             <span class="bi bi-bell position-relative">
                                 <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
@@ -491,7 +491,7 @@
                                 </span>
                             </span>
                         </a>
-                        <a routerLink="/pages/profile/account-settings" routerLinkActive="active" 
+                        <a href="javascript:void(0)" routerLinkActive="active" 
                             class="btn btn-square btn-outline-secondary border">
                             <i class="bi bi-gear"></i>
                         </a>

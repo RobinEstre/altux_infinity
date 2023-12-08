@@ -12,7 +12,7 @@ export class AcademicoComponent implements OnInit {
 
   constructor(private service: AcademicoService, private spinner: NgxSpinnerService,) { }
 
-  academico:any
+  academico:any;
 
   ngOnInit(): void {
     this.listCourses()
