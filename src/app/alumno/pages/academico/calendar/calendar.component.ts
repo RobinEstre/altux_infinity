@@ -118,7 +118,7 @@ export class CalendarComponent implements OnInit {
 
   init(calendar){
     this.calendarOptions = {
-      initialView: 'listMonth',
+      initialView: 'dayGridMonth',
       titleFormat: { year: 'numeric', month: 'short' },
       locale: esLocale,
       headerToolbar:{
