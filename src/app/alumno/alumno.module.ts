@@ -21,6 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CalendarComponent } from './pages/academico/calendar/calendar.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { NgWizardModule } from 'ng-wizard';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -39,12 +41,14 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     Daterangepicker,
     LightboxModule,
     NgxSpinnerModule,
+    SharedModule,
     NgbModule,
     FullCalendarModule,
     NgxDropzoneModule,
     FormsModule,
     ReactiveFormsModule,
     NgxDocViewerModule,
+    NgWizardModule,
     JustLightboxModule.forRoot(),
     NgCircleProgressModule.forRoot(),
     AlumnoRoutingModule

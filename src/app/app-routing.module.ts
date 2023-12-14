@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentComponent } from './shared/layout/content/content.component';
 import { content } from './shared/routes/routes';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { routeExam } from './shared/routes/route-exam';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -13,7 +14,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: content
     //dentro de content se declaran los modulos
-  },  
+  },
+  {
+    path: 'alumno',
+    component: ContentComponent,
+    canActivate: [AuthGuard],
+    children: routeExam
+  },
 ]
 
 @NgModule({

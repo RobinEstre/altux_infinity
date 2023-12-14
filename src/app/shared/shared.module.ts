@@ -6,6 +6,10 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
+import { ModalFinalizadoComponent } from './components/exam/modal-finalizado/modal-finalizado.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ModalExpiredComponent } from './components/exam/modal-expired/modal-expired.component';
+import { ModalTestComponent } from './components/exam/modal-test/modal-test.component';
 
 
 
@@ -14,16 +18,23 @@ import { RouterModule } from '@angular/router';
     ContentComponent,
     HeaderComponent,
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
+    ModalFinalizadoComponent,
+    ModalExpiredComponent,
+    ModalTestComponent
   ],
   imports: [
     CommonModule,
+    NgxSpinnerModule,
     RouterModule,
     FormsModule
   ],
   exports: [
     ContentComponent,
     HeaderComponent,
+    ModalFinalizadoComponent,
+    ModalExpiredComponent,
+    ModalTestComponent,
     FooterComponent,
     SidebarComponent
   ]

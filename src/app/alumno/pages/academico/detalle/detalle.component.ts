@@ -1,7 +1,7 @@
 import { Component, LOCALE_ID, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AcademicoService } from 'src/app/alumno/services/academico.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from "sweetalert2";
 import localeEs from '@angular/common/locales/es';
 import {DatePipe, registerLocaleData} from "@angular/common";
@@ -17,15 +17,20 @@ registerLocaleData(localeEs, 'es');
 export class DetalleComponent implements OnInit {
   @ViewChild('docs') private modalContentDoc: TemplateRef<DetalleComponent>;
   private modalRefDoc: NgbModalRef;
+  @ViewChild('content') private modalContent: TemplateRef<DetalleComponent>;
+  private modalRef: NgbModalRef;
 
   courseCode: any;
 
-  constructor(private service: AcademicoService, private spinner: NgxSpinnerService,private route: ActivatedRoute,private modalService: NgbModal) { 
+  constructor(private service: AcademicoService, private spinner: NgxSpinnerService,private route: ActivatedRoute,
+    private modalService: NgbModal,private routes: Router,) { 
     //const name = Calendar.name; // add this line in your constructor
     this.courseCode = this.route.snapshot.params['code'];
   }
 
-  course:any; modulo:any; modulos:any; grabacion:any; module_id:any; materials:any; tipo_material:any; class_module:any; link_clase:any; url_doc:any
+  course:any; modulo:any; modulos:any; grabacion:any; module_id:any; materials:any; tipo_material:any; class_module:any; link_clase:any; 
+  url_doc:any; evaluations:any;
+  id_examen:any; exam_expired:boolean=false; exam_generated:boolean=false; exam_finalizado:boolean=false; btn_iniciar_exam:boolean=true
 
   ngOnInit(): void {
     this.getModuloActual()
@@ -172,6 +177,94 @@ export class DetalleComponent implements OnInit {
     });
   }
 
+  action_Evaluation(data){
+    this.spinner.show()
+    this.id_examen=data
+    const body = {
+      "ficha_evaluacion_id": data.id,
+    };
+    this.service.get_Action(body).subscribe(res => {
+      if(res['success']==true){
+        switch (res['accion']) {
+          case 'evaluacion_finalizado':
+            this.openModalInfo()
+            this.exam_finalizado=true
+            this.exam_generated=false
+            this.exam_expired=false
+            this.btn_iniciar_exam=false
+            this.spinner.hide()
+            break;
+          case 'evaluacion_generado':
+            this.openModalInfo()
+            this.exam_generated=true
+            this.exam_expired=false
+            this.exam_finalizado=false
+            this.btn_iniciar_exam=true
+            this.spinner.hide()
+            break;
+          case 'evaluacion_expirado':
+            this.openModalInfo()
+            this.exam_expired=true
+            this.exam_generated=false
+            this.exam_finalizado=false
+            this.btn_iniciar_exam=false
+            this.spinner.hide()
+            break;
+          case 'evaluacion_reanudado':
+            const url = '/alumno/examen/'+this.courseCode+'/'+data.module_id+'/'+data.id;
+            this.spinner.hide()
+            this.routes.navigate([url])
+            break;
+        }
+      }
+      else {
+        switch (res['accion']) {
+          case 'token_expirado':
+            Swal.fire(
+                'Error!',
+                ''+res['message'],
+                'error'
+            )
+            const reload = '/alumno/academico/'+this.courseCode
+            this.spinner.hide()
+            this.routes.navigate([reload])
+            break;
+          case 'no_existe_ficha_evaluacion':
+            Swal.fire(
+                'Error!',
+                ''+res['message'],
+                'error'
+            )
+            const url = '/alumno/academico/'+this.courseCode
+            this.spinner.hide()
+            this.routes.navigate([url])
+            break;
+        }
+      }
+    }, error => {
+      Swal.fire(
+          'Error!',
+          'Error de servidor Actualizar página e intentar nuevamente',
+          'error'
+      )
+      const reload = '/alumno/academico/'+this.courseCode
+      this.spinner.hide()
+      return this.routes.navigate([reload])
+    });
+  }
+
+  /*LISTAR EXAMEN HANS*/
+  getEvaluationsHans(num_module){
+    this.evaluations = [];
+    const body = {
+      "course_code": this.courseCode,
+      "modulo_id" : num_module
+    };
+    this.service.getEvaluationsHans(body).subscribe(res => {
+      this.evaluations = res.data;
+    });
+  }
+
   openModal(url){
     this.url_doc=url
     this.modalRefDoc = this.modalService.open(this.modalContentDoc, {backdrop : 'static', centered: true, 
@@ -181,5 +274,27 @@ export class DetalleComponent implements OnInit {
 
   closeModal(){
     this.modalRefDoc.close()
+  }
+
+  openModalInfo() {
+    this.modalRef = this.modalService.open(this.modalContent, { centered: true, size: 'lg' });
+    this.modalRef.result.then();
+  }
+
+  closeModalInfo() {
+    this.modalRef.close();
+  }
+
+  openTest(data){
+    //const url = '/alumno/examen/'+this.courseCode+'/'+this.id+'/'+this.id_examen;
+    const body = {
+      "ficha_evaluacion_id": data.id,
+    };
+    this.service.create_Evaluation_Estudent(body).subscribe(resp => {
+      if(resp['success']==true){
+        const url = '/alumno/examen/'+this.courseCode+'/'+data.module_id+'/'+data.id;
+        return this.routes.navigate([url])
+      }
+    })
   }
 }

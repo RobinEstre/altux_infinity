@@ -1,0 +1,171 @@
+<!-- page title bar -->
+<div class="container-fluid">
+    <div class="row align-items-center page-title">
+        <div class="col-12 col-md mb-2 mb-sm-0">
+            <h5 class="mb-0">EXAMEN CURSO ....</h5>
+            <p class="text-secondary">Bienvenid@ a tu examen</p>
+        </div>
+        <div class="col col-sm-auto">
+        </div>
+        <div class="col-auto ps-0 position-relative">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-2 col-lg-2"></div>
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card border-0" *ngIf="examen">
+            <div class="card-header">
+                <div class="row gx-2 align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-newspaper h5 me-1 avatar avatar-40 bg-light-theme rounded me-2"></i>
+                    </div>
+                    <div class="col-10">
+                        <h6 class="fw-medium mb-0">{{examen.nombre_formulario}}</h6>
+                        <p class="text-secondary small">Bienvenid@ a tu examen.</p>
+                    </div>
+                    <div class="col-12 text-center">
+                        <app-body [examen]="_examen"></app-body>
+                        <button class="btn btn-primary text-uppercase my-3" (click)="openModalInfo(false)">Finalizar Exámen</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="nav-navtabscard23">
+                    <div class="tab-pane fade show active" id="tab113" role="tabpanel" aria-labelledby="tab113-tab">
+                        <div class="card border-0 theme-green h-100" *ngIf="respuestas.length>0">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class=" col-auto">
+                                        <i class="bi bi-list-task h5 avatar avatar-40 bg-light-theme rounded"></i>
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="fw-medium mb-0">{{respuestas[0].preguntas.texto}}</h6>
+                                        <!-- <p class="text-secondary small">Do your best</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body px-0 py-2">
+                                <ul class="list-group list-group-flush bg-none">
+                                    <div *ngFor="let resp of respuestas[0].respuesta, index as id">
+                                        <li class="list-group-item">
+                                            <div class="row text-secondary" *ngIf="resp.seleccionado">
+                                                <div class="col-auto">0{{id+1}}</div>
+                                                <div class="col"><s>{{resp.texto}}</s></div>
+                                                <div class="col-auto">
+                                                    <input class="form-check-input" type="checkbox" value="" aria-label="..." [checked]="true"
+                                                    name="{{respuestas[0].id}}" (change)="changeAlternativas(resp.id, respuestas[0].id)">
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="!resp.seleccionado">
+                                                <div class="col-auto">0{{id+1}}</div>
+                                                <div class="col">{{resp.texto}}</div>
+                                                <div class="col-auto">
+                                                    <input class="form-check-input" type="checkbox" value="" aria-label="..." [checked]="false"
+                                                    name="{{respuestas[0].id}}" (change)="changeAlternativas(resp.id, respuestas[0].id)">
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    <!-- <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-auto">02</div>
+                                            <div class="col">Maintain project</div>
+                                            <div class="col-auto">
+                                                <input class="form-check-input" type="checkbox" value="" aria-label="...">
+                                            </div>
+                                        </div>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer p-0">
+                <ul class="nav nav-tabs nav-WinDOORS footer-tabs" id="navtabscard23" role="tablist">
+                    <div *ngFor="let examen of preguntas, index as id">
+                        <li class="nav-item" role="presentation" [style.background]="examen.color" style="border: 1px solid silver;">
+                            <button class="nav-link {{examen.class}}" id="tab113-tab" data-bs-toggle="tab" data-bs-target="#tab113"
+                                type="button" role="tab" aria-controls="tab113" aria-selected="true" (click)="changeQuestion(examen)">
+                                <small><b>Pregunta {{examen.number}}</b></small>
+                            </button>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-lg-2"></div>
+</div>
+<!-- Empieza modal confirmacion-->
+<ng-template #content let-modal>
+    <app-modal-finalizado [id_examen]="id_examen" [motrar_nota]="nota"
+                          [titulo]="'ESTAS POR FINALIZAR TU EXÁMEN'" *ngIf="exam_finalizado"></app-modal-finalizado>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="modal-footer" style=" display: flex; justify-content: center;">
+            <button class="btn btn-danger" (click)="closeModal()" *ngIf="!salir">SALIR</button>
+            <button class="btn btn-danger" (click)="salir_Examen()" *ngIf="salir">SALIR</button>
+            <button class="btn btn-success mx-2" (click)="openModalTerminate()" *ngIf="enviar">FINALIZAR</button>
+        </div>
+    </div>
+</ng-template>
+<!-- Empieza modal confirmacion-->
+<ng-template #terminate let-modal>
+    <br>
+    <hr>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <a class="text-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                    <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="modal-body text-center">
+                <h4>ESTÁS A PUNTO FINALIZAR TU EXÁMEN</h4>
+                <h6>Está seguro de finalizar su exámen?</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="modal-footer" style=" display: flex; justify-content: center;">
+            <button class="btn btn-danger" (click)="closeModalTerminate()">CANCELAR</button>
+            <button class="btn btn-success" (click)="finalizar_Examen(examen.evaluacion_id)">ENVIAR</button>
+        </div>
+    </div>
+</ng-template>
+<!--SPINNER-->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" name = "expired" size = "medium" color = "#fff" type="triangle-skew-spin">
+    <div class="text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="img_svg bi-clipboard-x" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
+            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+        </svg>
+        <br>
+        <h2 style="color: white" > EXAMEN EXPIRADO </h2>
+    </div>
+</ngx-spinner>
+<!--SPINNER-->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" name = "exist" size = "medium" color = "#fff" type="triangle-skew-spin">
+    <div class="text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="img_svg bi-clipboard-x" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
+            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+        </svg>
+        <br>
+        <h2 style="color: white" > NO EXISTE EXAMEN </h2>
+    </div>
+</ngx-spinner>
+<!--SPINNER-->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" name = "end" size = "medium" color = "#fff" type="triangle-skew-spin">
+    <h2 style="color: white" > CARGANDO .... </h2>
+</ngx-spinner>
+<!-- SPINNER -->
+<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner> -->

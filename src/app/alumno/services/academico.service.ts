@@ -13,6 +13,19 @@ export class AcademicoService {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar-cursos/');
   }
 
+  get_Action(body){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/evaluacion/accion-ficha-evaluacion/',body);
+  }
+
+  /*EXAMEN HANS*/
+  getEvaluationsHans( body){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/estudiante/listar-ficha-evaluacion/',body);
+  }
+
+  create_Evaluation_Estudent(body){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/evaluacion/crear-estudiante-evaluacion/',body);
+  }
+
   getClassModule(id) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'cursos/listar/modulos-diplomado/'+id);
   }
