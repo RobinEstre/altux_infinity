@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private service: AuthServiceService,private fb: FormBuilder,) { }
 
   formLogin = this.fb.group({
-    user : ['20232023',Validators.required],
+    user : ['',Validators.required],
   });
 
   isShowAlert: any ='';

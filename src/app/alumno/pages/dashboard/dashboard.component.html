@@ -3,7 +3,7 @@
     <div class="row align-items-center page-title">
         <div class="col-12 col-md mb-2 mb-sm-0">
             <h5 class="mb-0">MI INFINITY</h5>
-            <p class="text-secondary">Aula virtual inteligente.</p>
+            <p class="text-secondary text-uppercase">Aula virtual inteligente.</p>
         </div>
     </div>
 </div>
@@ -182,13 +182,13 @@
                             <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="image-swiper w-200 h-100 text-center">
                                 <ng-template swiperSlide>
                                     <i class="bi bi-chat-right-dots h4 text-success mb-3 d-block"></i>
-                                    <h6>RECUERDA ESTAR ATENTO A TU CRONOGRAMA DE ACTIVIDADES</h6>
+                                    <p>RECUERDA ESTAR ATENTO A TU CRONOGRAMA DE ACTIVIDADES</p>
                                     <!-- <p class="small text-secondary">From the top right corner you can have access to chat panel and click on any user chat window 
                                         interface will be open.</p> -->
                                 </ng-template>
                                 <ng-template swiperSlide>
                                     <i class="bi bi-person h4 text-theme mb-3 d-block"></i>
-                                    <h6>INGRESA A TU CLASE 10 MIN ANTES</h6>
+                                    <p>INGRESA A TU CLASE 10 MINUTOS ANTES</p>
                                     <!-- <p class="small text-secondary">User on-boarding comes in the sign up flow. Complete sign up process you will see the on-boarding 
                                         pages at best UI UX.</p> -->
                                 </ng-template>
@@ -222,7 +222,7 @@
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <span class="avatar avatar-40 rounded mb-0 coverimg">
-                                <img src="assets/img/favicon152.png" alt="">
+                                <img src="https://web-altux-files.s3.amazonaws.com/Nosotros/Logo-Altux-solo.png" alt="">
                             </span>
                         </div>
                         <div class="col">
@@ -232,23 +232,19 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="text-secondary mb-3">Última Conexión: <b class="text-dark">9 Dec 2021</b></p>
-                    <div class="row align-items-center gx-2">
-                        <div class="col-auto mb-2">
-                            <p>Tiempo en línea</p>
-                        </div>
-                        <div class="col mb-2 text-end">
-                            <p>4 UI & Testter</p>
-                        </div>
+                    <p class="text-secondary mb-3">Hora Perú: <b class="text-dark text-capitalize">{{date | date:'dd MMMM yy'}}</b></p>
+                    <div class="row text-center gx-2">
+                        <p class="display-3 mb-0 fw-bold"><span id="time">{{date | date:'hh:mm:ss'}}</span><small><span class="h4 text-uppercase" id="ampm">{{date | date:' a'}}</span></small></p>
+                        <!-- <p class="lead fw-normal" id="date">{{date | date:'dd/MM/yyyy'}}</p> -->
                     </div>
-                    <div class="progress bg-light-theme h-5 mb-2">
+                    <!-- <div class="progress bg-light-theme h-5 mb-2">
                         <div class="progress-bar bg-theme" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <p class="small text-secondary">Project Status <span class="float-end">50%</span></p>
                     <p class="mb-3">
                         <span class="btn btn-sm btn-link bg-light-green text-green">Web App</span>
                         <span class="btn btn-sm btn-link bg-light-yellow text-yellow ms-1">Medium priority</span>
-                    </p>
+                    </p> -->
                 </div>
             </div>
         </div>
@@ -259,20 +255,31 @@
                         <div class="col-auto">
                             <i class="bi bi-life-preserver h5 avatar avatar-40 bg-light-theme rounded"></i>
                         </div>
-                        <div class="col">
+                        <form [formGroup]="formMatricula" class="col">
                             <h6 class="fw-medium mb-0">Proceso del Programa</h6>
-                            <p class="small text-secondary">Enfermería Estética</p>
-                        </div>
+                            <!-- <p class="small text-secondary">Enfermería Estética</p> -->
+                            <ng-select formControlName="diplomado"
+                                       [items]="diplomados"
+                                       bindLabel='courses_name'
+                                       bindValue='courses_code'
+                                       placeholder="SELECCIONAR DIPLOMADO*"
+                                       (change)="selectDiplomado($event)">
+                            </ng-select>
+                        </form>
                     </div>
                 </div>
-                <div class="card-body py-3 row">
+                <div class="card-body py-3 row" *ngIf="detail_diplomado">
                     <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                         <div class="card border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <div class="circle-small theme-blue">
-                                            <circle-progress class="d-block vm" [percent]="50" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                            <circle-progress class="d-block vm" [percent]="detail_diplomado.porcen_asistencia" [radius]="21" [outerStrokeWidth]="4" 
+                                                [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" 
+                                                [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" 
+                                                [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" 
+                                                [showUnits]="false" [backgroundPadding]="0"></circle-progress>
                                             <div class="avatar h6 bg-light-blue rounded-circle">
                                                 <i class="bi bi-pc-display-horizontal"></i>
                                             </div>
@@ -280,19 +287,7 @@
                                     </div>
                                     <div class="col">
                                         <p class="text-secondary small mb-1">Asistencia</p>
-                                        <h5 class="fw-medium">25%</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="dropdown d-inline-block">
-                                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                                <i class="bi bi-three-dots-vertical"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                                            </ul>
-                                        </div>
+                                        <h5 class="fw-medium">{{detail_diplomado.porcen_asistencia}}%</h5>
                                     </div>
                                 </div>
                             </div>
@@ -300,11 +295,11 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="text-secondary small mb-1">Asistido</p>
-                                        <p>5</p>
+                                        <p>{{detail_diplomado.cantidad_asistencias}}</p>
                                     </div>
                                     <div class="col-6 border-left-dashed">
-                                        <p class="text-secondary small mb-1">Faltas</p>
-                                        <p>65826</p>
+                                        <p class="text-secondary small mb-1">Total Clases</p>
+                                        <p>{{detail_diplomado.cantidad_clases}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -316,7 +311,11 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <div class="circle-small theme-green">
-                                            <circle-progress class="d-block vm" [percent]="50" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                            <circle-progress class="d-block vm" [percent]="detail_diplomado.porcen_notas" [radius]="21" [outerStrokeWidth]="4" 
+                                                [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" 
+                                                [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" 
+                                                [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" 
+                                                [showUnits]="false" [backgroundPadding]="0"></circle-progress>
                                             <div class="avatar h5 bg-light-green text-green rounded-circle">
                                                 <i class="bi bi-people"></i>
                                             </div>
@@ -324,19 +323,7 @@
                                     </div>
                                     <div class="col">
                                         <p class="text-secondary small mb-1">Exámenes</p>
-                                        <h5 class="fw-medium">59%</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="dropdown d-inline-block">
-                                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                                <i class="bi bi-three-dots-vertical"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                                            </ul>
-                                        </div>
+                                        <h5 class="fw-medium">{{detail_diplomado.porcen_notas}}%</h5>
                                     </div>
                                 </div>
                             </div>
@@ -344,17 +331,17 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="text-secondary small mb-1">Exámenes Realizados</p>
-                                        <p>2</p>
+                                        <p>{{detail_diplomado.cantidad_notas}}</p>
                                     </div>
                                     <div class="col-6 border-left-dashed">
                                         <p class="text-secondary small mb-1">Total Exámenes</p>
-                                        <p>71521</p>
+                                        <p>{{detail_diplomado.cantidad_notas_total}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                    <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                         <div class="card border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
@@ -445,16 +432,16 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="card-footer">
-                    <a class="btn btn-sm btn-outline-theme">Ir al Programa</a>
+                <div class="card-footer" *ngIf="detail_diplomado">
+                    <a href="javascript:void(0)" routerLink="/alumno/academico/{{detail_diplomado.diplomado_code}}" class="btn btn-sm btn-outline-theme">Ir al Programa</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-6 column-set">
-        <div class="card border-0 theme-green h-100">
+        <div class="card border-0 theme-orange h-100">
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-auto">
@@ -462,19 +449,12 @@
                     </div>
                     <div class="col">
                         <h6 class="fw-medium mb-0">Cronograma de Actividades</h6>
-                        <p class="text-secondary small">Limited Category Access</p>
+                        <p class="text-secondary small">Verifica tu cronograma</p>
                     </div>
-                    <div class="col-auto">
-                        <div class="dropdown d-inline-block">
-                            <a class="btn btn-link btn-square text-secondary dd-arrow-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                            </ul>
-                        </div>
+                    <div class="col-auto d-flex">
+                        <span class="badge bg-red">Pago</span>
+                        <span class="badge bg-blue mx-3">Clase</span>
+                        <span class="badge bg-green">Evaluacion</span>
                     </div>
                 </div>
             </div>
@@ -482,276 +462,60 @@
                 <table class="table table-borderless footable2 mb-0" data-show-toggle="true">
                     <thead class="d-none">
                         <tr class="text-muted">
-                            <th class="w-12"></th>
-                            <th class="w-200">Connection</th>
+                            <th class="w-400">Connection</th>
                             <th data-breakpoints="xs sm" class="w-80">Devices</th>
-                            <th data-breakpoints="all">Status</th>
+                            <!-- <th data-breakpoints="all">Status</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
+                        <tr *ngFor="let valCrono of cronograma">
+                            <td class="text-center" style="width: 60%;">
                                 <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                    <div class="col-auto" *ngIf="valCrono.tipo=='pago'">
+                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col-auto" *ngIf="valCrono.tipo=='clase'">
+                                        <i class="bi bi-journal-medical avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                    </div>
+                                    <div class="col-auto" *ngIf="valCrono.tipo=='evaluacion'">
+                                        <i class="bi bi-file-earmark-binary avatar avatar-40 bg-light-green text-green rounded"></i>
                                     </div>
                                     <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Bloque 1
+                                        <p class="mb-1 text-trucate w-100">{{valCrono.detalle.diplomado}}</p>
+                                        <p class="text-secondary small" *ngIf="valCrono.tipo=='pago'">
+                                            {{valCrono.detalle.num_cuota}}
+                                        </p>
+                                        <p class="text-secondary small" *ngIf="valCrono.tipo!='pago'">
+                                            Bloque {{valCrono.detalle.modulo}}
                                         </p>
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>Clase N° 1</b> <br>
-                                    <small class="text-secondary">10/12/2023 15:00</small>
+                            <td class="text-center" style="width: 40%;">
+                                <p class="text-trucate w-100" *ngIf="valCrono.tipo=='pago'">
+                                    <b>{{valCrono.detalle.num_cuota}}</b> <br>
+                                    <span class="badge bg-red">{{valCrono.detalle.fecha_vencimiento*1000  | date:'dd/MM/yyyy'}}</span>
+                                </p>
+                                <p class="text-trucate w-100" *ngIf="valCrono.tipo=='clase'">
+                                    <b>Clase N°{{valCrono.detalle.clase}}</b> <br>
+                                    <span class="badge bg-blue">{{valCrono.detalle.fecha_clase*1000  | date:'dd/MM/yyyy HH:mm'}}</span>
+                                </p>
+                                <p class="text-trucate w-100" *ngIf="valCrono.tipo=='evaluacion'">
+                                    <b>{{valCrono.detalle.name_evaluacion}}</b> <br>
+                                    <span class="badge bg-green">{{valCrono.detalle.fecha_inicio*1000  | date:'dd/MM/yyyy'}}</span>
                                 </p>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <span class="badge bg-blue">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Pago Mensualidad 2</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary">Examen Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="w-12"></td>
-                            <td class="w-200">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">Enfermería Estética</p>
-                                        <p class="text-secondary small">
-                                            Docente: <span class="text-red">Katya Alcalde</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-trucate w-100">
-                                    <b>10/12/2023 15:00</b> <br>
-                                    <small class="text-secondary"> Bloque 1: Introducción a la Enfermería Estética</small>
-                                </p>
-                            </td>
-                            <td>
-                                <span class="badge bg-red">Pendiente</span>
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <span class="hide-if-no-paging">
-                            <span id="footablestot2"></span> page
-                        </span>
-                    </div>
-                    <div class="col-auto" id="footable-pagination2"></div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner>

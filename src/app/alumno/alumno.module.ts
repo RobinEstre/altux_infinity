@@ -23,6 +23,7 @@ import { CalendarComponent } from './pages/academico/calendar/calendar.component
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NgWizardModule } from 'ng-wizard';
 import { SharedModule } from '../shared/shared.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     NgxDocViewerModule,
     NgWizardModule,
+    NgSelectModule,
     JustLightboxModule.forRoot(),
     NgCircleProgressModule.forRoot(),
     AlumnoRoutingModule

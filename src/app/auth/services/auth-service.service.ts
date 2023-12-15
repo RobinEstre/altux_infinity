@@ -10,6 +10,10 @@ export class AuthServiceService {
   private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn')  || 'false');
   constructor(private httpClient: HttpClient, private envUrl: UrlEnviromentService,  private router: Router,) { }
 
+  resetPassword(user: any){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'users/email-reestablecer-password/', user);
+  }
+
   validateUser(user: any){
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'users/validate-user/?usuario='+user);
   }

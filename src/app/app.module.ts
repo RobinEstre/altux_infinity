@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -50,6 +51,7 @@ const ngWizardConfig: NgWizardConfig = {
     ChartsModule,
     Daterangepicker,
     BrowserAnimationsModule,
+    NgSelectModule,
     NgxSpinnerModule,
     RouterModule,
     NgCircleProgressModule.forRoot(),

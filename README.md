@@ -29,6 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## deploy to angular virtual s3
 
 ng build --configuration production
-rm -r dist/cuba/assets/
+rm -r dist/windoors/assets/
 aws s3 rm s3://app-aula-front --recursive --profile altux
-aws s3 sync dist/cuba s3://app-aula-front --acl public-read --cache-control max-age=5 --profile altux
+aws s3 sync dist/windoors s3://app-aula-front --acl public-read --cache-control max-age=5 --profile altux

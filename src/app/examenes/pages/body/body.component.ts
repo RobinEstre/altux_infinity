@@ -2,7 +2,6 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { timer } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-body',
@@ -27,17 +26,6 @@ export class BodyComponent implements OnInit {
     setTimeout(() => {
       this.now = new Date()
       this.end = new Date(this.examen.tiempo_fin * 1000);
-      //let distance = this.end - this.now;
-      //console.log(distance)var day1 = new Date('08/25/2020');
-      // var fecha1 = moment(this.now, "YYYY-MM-DD HH:mm:ss");
-      // var fecha2 = moment(this.end, "YYYY-MM-DD HH:mm:ss");
-      
-      // var diff = fecha2.diff(fecha1, 'h'); // Diff in days
-      // console.log(diff);
-      
-      // var diff = fecha2.diff(fecha1, 'm'); // Diff in hours
-      // console.log(diff);
-
       this.source.subscribe(t => {
         let resta = (this.now)/1000+(t)
         let fecha = new Date(resta*1000)
