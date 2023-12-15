@@ -25,3 +25,10 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## deploy to angular virtual s3
+
+ng build --configuration production
+rm -r dist/cuba/assets/
+aws s3 rm s3://app-aula-front --recursive --profile altux
+aws s3 sync dist/cuba s3://app-aula-front --acl public-read --cache-control max-age=5 --profile altux
