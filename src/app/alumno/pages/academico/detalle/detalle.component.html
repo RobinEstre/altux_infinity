@@ -107,16 +107,6 @@
                                             </div>
                                         </li>
                                     </div>
-                                    <!-- <li class="treeview-list-item">
-                                        <div class="treeview-item">
-                                            <a class="flex-1" href="javascript:void(0)">
-                                                <p class="treeview-text">
-                                                    <i class="bi bi-play-btn-fill text-danger mx-1"></i>
-                                                    Clase2.mp4
-                                                </p>
-                                            </a>
-                                        </div>
-                                    </li> -->
                                 </ul>
                             </li>
                             <li class="treeview-list-item">
@@ -292,7 +282,7 @@
                           [titulo]="'HAS FINALIZADO TU EXÁMEN'" *ngIf="exam_finalizado"></app-modal-finalizado>
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="modal-footer" style=" display: flex; justify-content: center;">
-            <button class="btn btn-danger" (click)="closeModalInfo()">CANCELAR</button>
+            <button class="btn btn-danger mx-2" (click)="closeModalInfo()">CANCELAR</button>
             <button class="btn btn-success" (click)="openTest(id_examen)" *ngIf="btn_iniciar_exam">INICIAR</button>
         </div>
     </div>

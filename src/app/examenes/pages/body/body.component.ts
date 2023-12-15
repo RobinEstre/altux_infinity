@@ -43,7 +43,7 @@ export class BodyComponent implements OnInit {
         let fecha = new Date(resta*1000)
         this.showDate(fecha);
       });
-    }, 3000);
+    }, 1000);
   }
 
   showDate(fecha){

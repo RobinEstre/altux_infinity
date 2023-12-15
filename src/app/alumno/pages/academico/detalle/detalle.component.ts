@@ -287,6 +287,7 @@ export class DetalleComponent implements OnInit {
 
   openTest(data){
     //const url = '/alumno/examen/'+this.courseCode+'/'+this.id+'/'+this.id_examen;
+    this.closeModalInfo()
     const body = {
       "ficha_evaluacion_id": data.id,
     };

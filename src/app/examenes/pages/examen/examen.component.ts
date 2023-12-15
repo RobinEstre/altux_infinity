@@ -106,6 +106,9 @@ export class ExamenComponent implements OnInit {
         })
         if(validate==0){id=true, clas='active'}
       }
+      a.alternativa.forEach(i=>{
+        if(i.seleccionado){color='rgb(33 208 126 / 30%)'}
+      })
       preguntas.push({
         'class': clas,
         'color': color,
@@ -152,7 +155,6 @@ export class ExamenComponent implements OnInit {
       "id_respuesta" : id
     };
     this.service.sendRespuestas(body).subscribe(data => {
-      console.log(data)
       if(data['success']==true){
         const bod = {
           "ficha_evaluacion_id" : this.examen.ficha_evaluacion.toString(),
