@@ -19,6 +19,8 @@ export class DetalleComponent implements OnInit {
   private modalRefDoc: NgbModalRef;
   @ViewChild('content') private modalContent: TemplateRef<DetalleComponent>;
   private modalRef: NgbModalRef;
+  @ViewChild('record') private modalContentClass: TemplateRef<DetalleComponent>;
+  private modalRefClass: NgbModalRef;
 
   courseCode: any;
 
@@ -29,7 +31,7 @@ export class DetalleComponent implements OnInit {
   }
 
   course:any; modulo:any; modulos:any; grabacion:any; module_id:any; materials:any; tipo_material:any; class_module:any; link_clase:any; 
-  url_doc:any; evaluations:any;
+  url_doc:any; evaluations:any; detalle_class:any
   id_examen:any; exam_expired:boolean=false; exam_generated:boolean=false; exam_finalizado:boolean=false; btn_iniciar_exam:boolean=true
 
   ngOnInit(): void {
@@ -64,6 +66,12 @@ export class DetalleComponent implements OnInit {
         let data:any=[]
         this.course=resp.data
         resp.data.modulos.forEach(i=>{
+          let bg_color
+          if(i.module_number%2==0){
+            bg_color = ""
+          }else{
+            bg_color = "color-file"        
+          }
           let clase=''
           if(this.modulo.numero_modulo==i.module_number){clase='show'}
           data.push({
@@ -71,6 +79,7 @@ export class DetalleComponent implements OnInit {
             "module_name": i.module_name,
             "module_number": i.module_number,
             "module_detail": i.module_detail,
+            'bg_color': bg_color,
             "clase": i.clase,
             "class": clase
           })
@@ -283,6 +292,16 @@ export class DetalleComponent implements OnInit {
 
   closeModalInfo() {
     this.modalRef.close();
+  }
+
+  openModalClass(data) {
+    this.detalle_class=data
+    this.modalRefClass = this.modalService.open(this.modalContentClass, { centered: true, size: 'xl' });
+    this.modalRef.result.then();
+  }
+
+  closeModalClass() {
+    this.modalRefClass.close();
   }
 
   openTest(data){

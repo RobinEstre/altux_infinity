@@ -2,14 +2,15 @@
 <nav class="navbar">
     <div class="container-fluid">
         <div class="sidebar-width">
-            <button class="btn btn-link btn-square menu-btn" type="button" (click)="menuopen()">
+            <button class="btn btn-link btn-square menu-btn text-light" type="button" (click)="menuopen()">
                 <i class="bi bi-list fs-4"></i>
             </button>
             <a class="navbar-brand ms-2" routerLink="/alumno/panel">
                 <div class="row">
-                    <div class="col-auto"><img src="https://web-altux-files.s3.amazonaws.com/Nosotros/Logo-Altux-solo.png" name="logoimage" class="mx-100" alt="" /></div>
+                    <div class="col-auto">
+                        <img src="https://web-altux-files.s3.amazonaws.com/Nosotros/Logo-Altux-solo.png" name="logoimage" class="blanco mx-100" alt="" /></div>
                     <div class="col ps-0 align-self-center d-none d-sm-block">
-                        <h4 class="text-primary mb-0" style="font-weight: 900;">ALTUX</h4>
+                        <h4 class="text-light mb-0" style="font-weight: 900;">ALTUX</h4>
                     </div>
                 </div>
             </a>
@@ -600,14 +601,15 @@
         <div class="ms-auto">
             <div class="row">
                 <div class="col-auto align-self-center px-0 d-none d-xxxl-block">
-                    <i class="bi bi-three-dots-vertical opacity-3 text-secondary"></i>
+                    <i class="bi bi-three-dots-vertical opacity-3 text-light"></i>
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-square btn-link search-btn d-inline-block d-xl-none " id="searchtoggle">
                         <i class="bi bi-search"></i>
                     </button>   
-                    <button type="button" class="btn btn-square btn-link text-center d-none d-lg-inline-block" 
-                    id="gofullscreen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fullscreen" (click)="toggleFullScreen()"><i *ngIf="!isFullScreen" class="bi bi-fullscreen"></i><i *ngIf="isFullScreen" class="bi bi-fullscreen-exit"></i></button>
+                    <button type="button" class="btn text-light btn-square btn-link text-center d-none d-lg-inline-block" 
+                    id="gofullscreen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fullscreen" (click)="toggleFullScreen()">
+                    <i *ngIf="!isFullScreen" class="bi bi-fullscreen"></i><i *ngIf="isFullScreen" class="bi bi-fullscreen-exit"></i></button>
                     <!-- <div class="d-inline-block dropdown">
                         <a class="btn btn-square btn-link text-center dd-arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-grid"></i></a>
                         <div class="dropdown-menu dropdown-menu-center w-300">
@@ -690,11 +692,12 @@
                     </button> -->
                 </div>
                 <div class="col-auto align-self-center px-0  d-none d-xxxl-block">
-                    <i class="bi bi-three-dots-vertical opacity-3 text-secondary"></i>
+                    <i class="bi bi-three-dots-vertical opacity-3 text-light"></i>
                 </div>
                 <div class="col-auto">
                     <div class="dropdown" *ngIf="perfil">
-                        <a class="dd-arrow-none dropdown-toggle tempdata" id="userprofiledd" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                        <a class="dd-arrow-none dropdown-toggle tempdata" id="userprofiledd" data-bs-toggle="dropdown"
+                            aria-expanded="false" role="button">
                             <div class="row">
                                 <div class="col-auto align-self-center">
                                     <figure class="avatar avatar-40 rounded-circle coverimg vm">
@@ -703,8 +706,8 @@
                                 </div>
                                 <div class="col ps-0 align-self-center d-none d-lg-block">
                                     <p class="mb-0">
-                                        <span class="text-dark username">{{ userName }}</span><br>
-                                        <small class="small">Perú</small>
+                                        <span class="text-light username">{{ userName }}</span><br>
+                                        <small class="text-light small">Perú</small>
                                     </p>
                                 </div>
                                 <div class="col ps-0 align-self-center d-none d-lg-block">
@@ -713,14 +716,14 @@
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end w-300" aria-labelledby="userprofiledd">
-                            <div class="dropdown-info bg-theme">
+                            <div class="dropdown-info" style="background-color: #174791 !important;">
                                 <div class="row">
                                     <div class="col-auto">
                                         <figure class="avatar avatar-50 rounded-circle coverimg vm">
                                             <img src="{{userImg}}" alt="" id="userphotoonboarding3" name="userimage" />
                                         </figure>
                                     </div>
-                                    <div class="col align-self-center ps-0">
+                                    <div class="col align-self-center ps-0 text-light">
                                         <h6 class="mb-0"><span class="username">{{ userName }}</span></h6>
                                         <p class="text-muted small">DNI: {{ perfil.dni }}</p>
                                     </div>

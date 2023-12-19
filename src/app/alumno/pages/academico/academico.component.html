@@ -7,13 +7,104 @@
         </div>
     </div>
 </div>
+<!-- <iframe src="https://drive.google.com/file/d/1fxTrW4bCCAKroxFhFJtTj2XCkzNTGIdg/preview" width="640" height="480"
+allowfullscreen="allowfullscreen" allow="autoplay"></iframe> -->
 <!-- COURSES -->
-<div class="row" *ngFor="let courses of academico, let i = index">
-    <!-- joined people summary-->
-    <div class="col-12 col-md-3 col-lg-3"></div>
-    <div class="col-12 col-md-6 col-lg-6">
-        <!-- <iframe src="https://drive.google.com/file/d/1fxTrW4bCCAKroxFhFJtTj2XCkzNTGIdg/preview" width="640" height="480"
-        allowfullscreen="allowfullscreen" allow="autoplay"></iframe> -->
+<div class="row" *ngFor="let courses of academico, let i = index" style="margin: 2% 2% 2% 2%;">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card border-0 mb-4">
+            <div class="row h-100 mx-0">
+                <a href="javascript:void(0)" routerLink="/alumno/academico/{{courses.course.courses_code}}" class="col-sm-12 col-md-6 col-lg-6 py-3 position-relative" style="height: 230px !important;">
+                    <div class="coverimg position-absolute start-0 top-0 h-100 w-100 rounded" style="background-image: url('{{courses.course.detail.other_description.url_img_banner_main}}');">
+                        <img src="{{courses.course.detail.other_description.url_img_banner_main}}" alt="" style="display: none;">
+                    </div>
+                </a>
+                <div class="col-12 col-md-6 col-lg-6 pe-0 py-2">
+                    <div class="row" style="margin: 1% 1% 1% 1%;">
+                        <a href="javascript:void(0)" routerLink="/alumno/academico/{{courses.course.courses_code}}" class="col">
+                            <h6 class="fw-medium mb-0 text-uppercase">{{courses.course.courses_name}}</h6>
+                            <!-- <p class="text-secondary small">Social Media Monitor</p> -->
+                        </a>
+                    </div>
+                    <div class="row mt-3" style="margin: 1% 1% 1% 1%;">
+                        <div class="col mb-3">
+                            <p class="text-secondary small mb-0">{{courses.course.courses_prev_description}}</p>
+                        </div>
+                    </div>
+                    <div class="row text-center" style="margin: 1% 1% 1% 1%;">
+                        <div class="col-3">
+                            <p class="text-secondary small"><i class="bi bi-book avatar avatar-24 me-1"></i> <br>{{courses.course.detail.other_description.descripcion_general.num_creditos}}</p>
+                        </div>
+                        <div class="col-3" style="border-left: 1px solid rgb(210, 206, 206);">
+                            <p class="text-secondary small"><i class="bi bi-clock avatar avatar-24 me-1"></i> <br>{{courses.course.detail.other_description.descripcion_general.duration}}</p>
+                        </div>
+                        <div class="col-3" style="border-left: 1px solid rgb(210, 206, 206);">
+                            <p class="text-secondary small"><i class="bi bi-clipboard-check avatar avatar-24 me-1"></i> <br> {{courses.course.detail.other_description.descripcion_general.num_modulos}} Bloques</p>
+                        </div>
+                        <div class="col-3" style="border-left: 1px solid rgb(210, 206, 206);">
+                            <p class="text-secondary small"><i class="bi bi-journal-bookmark avatar avatar-24 me-1"></i> <br> Semi-Presencial</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3" style="margin: 1% 1% 1% 1%;">
+                        <div class="col">
+                            <div class="progress h-5 mb-2 bg-light-theme">
+                                <div class="progress-bar bg-theme" role="progressbar" style="width: 50%" aria-valuenow="50" 
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <p class="small text-secondary">Estado Diplomado <span class="float-end">50%</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-12 col-md-6 col-lg-6 mb-4">
+        <div class="card border-2">
+            <a class="card-header" href="javascript:void(0)" routerLink="/alumno/academico/{{courses.course.courses_code}}">
+                <figure class="coverimg rounded w-100 h-200" 
+                    style="background-image: url('{{courses.course.detail.other_description.url_img_banner_main}}');">
+                    <img src="{{courses.course.detail.other_description.url_img_banner_main}}" class="w-100" alt="" style="display: none;" />
+                </figure>
+            </a>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-6 mb-4">
+        <div class="card border-2">
+            <div class="card-body">
+                <h5 class="text-uppercase">{{courses.course.courses_name}}</h5>
+                <p class="text-secondary">{{courses.course.courses_prev_description}}</p>
+                <hr>
+                <div class="row align-items-center">
+                    <div class="col-10 row text-center">
+                        <div class="col-3">
+                            <p class="text-secondary"><i class="bi bi-book avatar avatar-24 me-1"></i> <br>{{courses.course.detail.other_description.descripcion_general.num_creditos}}</p>
+                        </div>
+                        <div class="col-3" style="border-left: 1px solid rgb(210, 206, 206);">
+                            <p class="text-secondary"><i class="bi bi-clock avatar avatar-24 me-1"></i> <br>{{courses.course.detail.other_description.descripcion_general.duration}}</p>
+                        </div>
+                        <div class="col-3" style="border-left: 1px solid rgb(210, 206, 206);">
+                            <p class="text-secondary"><i class="bi bi-clipboard-check avatar avatar-24 me-1"></i> <br> {{courses.course.detail.other_description.descripcion_general.num_modulos}} Bloques</p>
+                        </div>
+                        <div class="col-3" style="border-left: 1px solid rgb(210, 206, 206);border-right: 1px solid rgb(210, 206, 206);">
+                            <p class="text-secondary"><i class="bi bi-journal-bookmark avatar avatar-24 me-1"></i> <br> Semi-Presencial</p>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="d-flex justify-content-center">
+                            <div class="circle-small theme-blue">
+                                <circle-progress class="d-block vm" [percent]="10" [radius]="21" [outerStrokeWidth]="4" [innerStrokeWidth]="4" 
+                                [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" 
+                                [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" 
+                                [animationDuration]="300" [showTitle]="true" [showSubtitle]="false" [titleFontSize]="'15'" 
+                                [showUnits]="true" [backgroundPadding]="0"></circle-progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="col-12 col-md-6 col-lg-6">
         <div class="card border-2 mb-4">
             <a class="card-header" href="javascript:void(0)" routerLink="/alumno/academico/{{courses.course.courses_code}}">
                 <figure class="coverimg rounded w-100 h-250" style="background-image: url('{{courses.course.detail.other_description.url_img_banner_main}}');">
@@ -48,28 +139,13 @@
                                 [animationDuration]="300" [showTitle]="true" [showSubtitle]="false" [titleFontSize]="'15'" 
                                 [showUnits]="true" [backgroundPadding]="0"></circle-progress>
                             </div>
-                            <!-- <p class="small">11 <span class="text-green"><i class="bi bi-arrow-up fs-10"></i>3.15%</span></p> -->
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row gx-2 mb-2">
-                    <div class="col-3">
-                        <p class="text-secondary"><i class="bi bi-book avatar avatar-24 me-1"></i> {{courses.course.detail.other_description.descripcion_general.num_creditos}}</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="text-secondary"><i class="bi bi-clock avatar avatar-24 me-1"></i> {{courses.course.detail.other_description.descripcion_general.duration}}</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="text-secondary"><i class="bi bi-clipboard-check avatar avatar-24 me-1"></i> {{courses.course.detail.other_description.descripcion_general.num_modulos}} Bloques</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="text-secondary"><i class="bi bi-journal-bookmark avatar avatar-24 me-1"></i> Semi-Presencial</p>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
-    <div class="col-12 col-md-3 col-lg-3"></div>
+    <div class="col-12 col-md-3 col-lg-3"></div> -->
 </div>
 <!-- SPINNER -->
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">

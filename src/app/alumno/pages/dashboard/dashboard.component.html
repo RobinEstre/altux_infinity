@@ -217,7 +217,7 @@
 <div class="row" style="margin: 1%;">
     <div class="col-sm-12 col-md-6 col-lg-6 row">
         <div class="col-sm-12 col-md-12 col-lg-12 column-set mb-4">
-            <div class="card border-0 h-100">
+            <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-auto">
@@ -232,7 +232,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="text-secondary mb-3">Hora Perú: <b class="text-dark text-capitalize">{{date | date:'dd MMMM yy'}}</b></p>
+                    <p class="text-secondary mb-3">Hora Perú: <b class="text-dark">
+                        {{date | date:'dd'}} de {{date | date:'MMMM'}} del {{date | date:'yyyy'}}
+                    </b></p>
                     <div class="row text-center gx-2">
                         <p class="display-3 mb-0 fw-bold"><span id="time">{{date | date:'hh:mm:ss'}}</span><small><span class="h4 text-uppercase" id="ampm">{{date | date:' a'}}</span></small></p>
                         <!-- <p class="lead fw-normal" id="date">{{date | date:'dd/MM/yyyy'}}</p> -->
@@ -247,10 +249,10 @@
                     </p> -->
                 </div>
             </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
-                <div class="card-header">
+        </div>  
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
+            <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
+                <div class="card-header bg-light-theme">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <i class="bi bi-life-preserver h5 avatar avatar-40 bg-light-theme rounded"></i>
@@ -268,78 +270,80 @@
                         </form>
                     </div>
                 </div>
-                <div class="card-body py-3 row" *ngIf="detail_diplomado">
-                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                        <div class="card border-0">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <div class="circle-small theme-blue">
-                                            <circle-progress class="d-block vm" [percent]="detail_diplomado.porcen_asistencia" [radius]="21" [outerStrokeWidth]="4" 
-                                                [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" 
-                                                [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" 
-                                                [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" 
-                                                [showUnits]="false" [backgroundPadding]="0"></circle-progress>
-                                            <div class="avatar h6 bg-light-blue rounded-circle">
-                                                <i class="bi bi-pc-display-horizontal"></i>
+                <div class="card-body px-0" *ngIf="detail_diplomado">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="circle-small theme-blue">
+                                                <circle-progress class="d-block vm" [percent]="detail_diplomado.porcen_asistencia" [radius]="21" [outerStrokeWidth]="4" 
+                                                    [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" 
+                                                    [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" 
+                                                    [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" 
+                                                    [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                                <div class="avatar h6 bg-light-blue rounded-circle">
+                                                    <i class="bi bi-pc-display-horizontal"></i>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <p class="text-secondary small mb-1">Asistencia</p>
-                                        <h5 class="fw-medium">{{detail_diplomado.porcen_asistencia}}%</h5>
+                                        <div class="col">
+                                            <p class="text-secondary small mb-1">Asistencia</p>
+                                            <h5 class="fw-medium">{{detail_diplomado.porcen_asistencia}}%</h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-footer border-top">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="text-secondary small mb-1">Asistido</p>
-                                        <p>{{detail_diplomado.cantidad_asistencias}}</p>
-                                    </div>
-                                    <div class="col-6 border-left-dashed">
-                                        <p class="text-secondary small mb-1">Total Clases</p>
-                                        <p>{{detail_diplomado.cantidad_clases}}</p>
+                                <div class="card-footer border-top">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="text-secondary small mb-1">Asistido</p>
+                                            <p>{{detail_diplomado.cantidad_asistencias}}</p>
+                                        </div>
+                                        <div class="col-6 border-left-dashed">
+                                            <p class="text-secondary small mb-1">Total Clases</p>
+                                            <p>{{detail_diplomado.cantidad_clases}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                        <div class="card border-0">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <div class="circle-small theme-green">
-                                            <circle-progress class="d-block vm" [percent]="detail_diplomado.porcen_notas" [radius]="21" [outerStrokeWidth]="4" 
-                                                [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" 
-                                                [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" 
-                                                [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" 
-                                                [showUnits]="false" [backgroundPadding]="0"></circle-progress>
-                                            <div class="avatar h5 bg-light-green text-green rounded-circle">
-                                                <i class="bi bi-people"></i>
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="circle-small theme-green">
+                                                <circle-progress class="d-block vm" [percent]="detail_diplomado.porcen_notas" [radius]="21" [outerStrokeWidth]="4" 
+                                                    [innerStrokeWidth]="4" [space]="-4" [outerStrokeColor]="'var(--WinDOORS-theme)'" 
+                                                    [innerStrokeColor]="'rgba(var(--WinDOORS-theme-rgb), 0.2)'" [animation]="true" 
+                                                    [animationDuration]="300" [showTitle]="false" [showSubtitle]="false" [titleFontSize]="'15'" 
+                                                    [showUnits]="false" [backgroundPadding]="0"></circle-progress>
+                                                <div class="avatar h5 bg-light-green text-green rounded-circle">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col">
+                                            <p class="text-secondary small mb-1">Exámenes</p>
+                                            <h5 class="fw-medium">{{detail_diplomado.porcen_notas}}%</h5>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <p class="text-secondary small mb-1">Exámenes</p>
-                                        <h5 class="fw-medium">{{detail_diplomado.porcen_notas}}%</h5>
+                                </div>
+                                <div class="card-footer border-top">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="text-secondary small mb-1">Exámenes Realizados</p>
+                                            <p>{{detail_diplomado.cantidad_notas}}</p>
+                                        </div>
+                                        <div class="col-6 border-left-dashed">
+                                            <p class="text-secondary small mb-1">Total Exámenes</p>
+                                            <p>{{detail_diplomado.cantidad_notas_total}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer border-top">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="text-secondary small mb-1">Exámenes Realizados</p>
-                                        <p>{{detail_diplomado.cantidad_notas}}</p>
-                                    </div>
-                                    <div class="col-6 border-left-dashed">
-                                        <p class="text-secondary small mb-1">Total Exámenes</p>
-                                        <p>{{detail_diplomado.cantidad_notas_total}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                     <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                         <div class="card border-0">
@@ -434,15 +438,15 @@
                         </div>
                     </div> -->
                 </div>
-                <div class="card-footer" *ngIf="detail_diplomado">
+                <div class="card-footer bg-light-theme" *ngIf="detail_diplomado">
                     <a href="javascript:void(0)" routerLink="/alumno/academico/{{detail_diplomado.diplomado_code}}" class="btn btn-sm btn-outline-theme">Ir al Programa</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-6 column-set">
-        <div class="card border-0 theme-orange h-100">
-            <div class="card-header">
+        <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
+            <div class="card-header bg-light-theme">
                 <div class="row align-items-center">
                     <div class="col-auto">
                         <i class="bi bi-shield-check h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>

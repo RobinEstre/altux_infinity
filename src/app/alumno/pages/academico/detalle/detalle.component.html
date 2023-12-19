@@ -80,14 +80,20 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body"> 
                 <ul class="mb-0 treeview" id="treeviewExample">
-                    <li class="treeview-list-item" *ngFor="let data of modulos, let i = index">
-                        <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}" role="button" aria-expanded="true" *ngIf="modulo.numero_modulo==data.module_number">
-                            <p class="treeview-text text-uppercase">{{data.module_name}}</p>
+                    <li *ngFor="let data of modulos, let i = index" class="treeview-list-item {{data.bg_color}}">
+                        <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}" role="button" aria-expanded="true" class="text-dark"
+                            *ngIf="modulo.numero_modulo==data.module_number">
+                            <p class="treeview-text1 mx-3 text-uppercase">
+                                <span class="blue"><small style="font-size: 13px !important;">{{i+1}}</small></span>{{data.module_name}}
+                            </p>
                         </a>
-                        <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}" role="button" aria-expanded="false" *ngIf="modulo.numero_modulo!=data.module_number">
-                            <p class="treeview-text text-uppercase">{{data.module_name}}</p>
+                        <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}" role="button" aria-expanded="false" class="text-dark"
+                            *ngIf="modulo.numero_modulo!=data.module_number">
+                            <p class="treeview-text1 mx-3 text-uppercase">
+                                <span class="blue"><small style="font-size: 13px !important;">{{i+1}}</small></span>{{data.module_name}}
+                            </p>
                         </a>
                         <ul class="collapse treeview-list {{data.class}}" id="Bloque-{{i+1}}" data-show="false">
                             <li class="treeview-list-item">
@@ -98,7 +104,7 @@
                                     <div *ngFor="let recording of grabacion">
                                         <li class="treeview-list-item"  *ngIf=" recording.modulo_id === module_id ">
                                             <div class="treeview-item">
-                                                <a class="flex-1" href="javascript:void(0)">
+                                                <a class="flex-1" href="javascript:void(0)" (click)="openModalClass(recording)">
                                                     <p class="treeview-text">
                                                         <i class="bi bi-play-btn-fill text-danger mx-1"></i>
                                                         {{recording.clase.data_class.name_video_clase}}
@@ -284,6 +290,22 @@
         <div class="modal-footer" style=" display: flex; justify-content: center;">
             <button class="btn btn-danger mx-2" (click)="closeModalInfo()">CANCELAR</button>
             <button class="btn btn-success" (click)="openTest(id_examen)" *ngIf="btn_iniciar_exam">INICIAR</button>
+        </div>
+    </div>
+</ng-template>
+<!-- Modal Clase Grabada -->
+<ng-template #record let-modal>
+    <div class="modal-header">  
+        <h5 class="modal-title"><b>Visualizar Clase: {{detalle_class.clase.data_class.name_video_clase}}</b></h5>
+    </div>
+    <div class="modal-body row">
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+            <iframe src="https://drive.google.com/file/d/1UM0JeMv_9doVSuOXW9xiTclyj5YvyIy0/preview" width="640" 
+                height="480" allow="autoplay"></iframe>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <hr>
+            <button class="btn btn-danger text-light" (click)="closeModalClass()"> Cerrar</button>
         </div>
     </div>
 </ng-template>

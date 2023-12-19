@@ -1,18 +1,18 @@
 <div class="sidebar">
     <div class="container">
         <div class="row mb-4">
-            <div class="col align-self-center">
+            <div class="col align-self-center text-light">
                 <h6>Principal</h6>
             </div>
             <div class="col-auto">
-                <a class="" data-bs-toggle="collapse" data-bs-target="#usersidebarprofile" aria-expanded="false" role="button" aria-controls="usersidebarprofile">
+                <a class="text-light" data-bs-toggle="collapse" data-bs-target="#usersidebarprofile" aria-expanded="false" role="button" aria-controls="usersidebarprofile">
                     <i class="bi bi-person-circle"></i>
                 </a>
             </div>
         </div>
 
         <!-- user information -->
-        <div class="row text-center collapse " id="usersidebarprofile" >
+        <div class="row text-center collapse " id="usersidebarprofile">
             <div class="col-12">
                 <div class="avatar avatar-100 rounded-circle shadow-sm mb-3 bg-white">
                     <figure class="avatar avatar-90 rounded-circle coverimg">
@@ -21,8 +21,8 @@
                 </div>
             </div>
             <div class="col-12 mb-4">
-                <h6 class="mb-1" id="usernamedisplay">{{userName}}</h6>
-                <p class="text-secondary small">Perú</p>
+                <h6 class="mb-1 text-light" id="usernamedisplay">{{userName}}</h6>
+                <p class="text-light small">Perú</p>
             </div>
         </div>
 
@@ -32,17 +32,17 @@
                 <ul class="nav nav-pills">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/alumno/panel" routerLinkActive="active" (click)="menuclose()">
-                            <div class="avatar avatar-40 icon"><i class="bi bi-house-door"></i></div>
-                            <div class="col">Dashboard</div>
-                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                            <div class="avatar avatar-40 icon text-light"><i class="bi bi-house-door"></i></div>
+                            <div class="col text-light">Dashboard</div>
+                            <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/alumno/academico" routerLinkActive="active" (click)="menuclose()">
-                            <div class="avatar avatar-40 icon"><i class="bi bi-speedometer2"></i></div>
-                            <div class="col">Académico</div>
-                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                            <div class="avatar avatar-40 icon text-light"><i class="bi bi-speedometer2"></i></div>
+                            <div class="col text-light">Académico</div>
+                            <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
                         </a>
                     </li>
 
@@ -80,17 +80,17 @@
 
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/alumno/perfil" routerLinkActive="active" (click)="menuclose()">
-                            <div class="avatar avatar-40 icon"><i class="bi bi-person-circle"></i></div>
-                            <div class="col">Perfil</div>
-                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                            <div class="avatar avatar-40 icon text-light"><i class="bi bi-person-circle"></i></div>
+                            <div class="col text-light">Perfil</div>
+                            <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0)" aria-current="page" (click)="signout()">
-                            <div class="avatar avatar-40 icon"><i class="bi bi-box-arrow-right"></i></div>
-                            <div class="col">Cerrar Sesión</div>
-                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                            <div class="avatar avatar-40 icon text-light"><i class="bi bi-box-arrow-right"></i></div>
+                            <div class="col text-light">Cerrar Sesión</div>
+                            <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
                         </a>
                     </li>
 
@@ -463,7 +463,7 @@
 
         <!-- Quick links -->
         <div class="row mb-3">
-            <div class="col align-self-center">
+            <div class="col align-self-center text-light">
                 <h6>Enlaces Rápidos</h6>
             </div>
             <div class="col-auto">
@@ -471,11 +471,11 @@
         </div>
 
         <div class="card border-0  mb-3">
-            <div class="card-body">
+            <div class="card-body" style="background-color: #003D97;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">
                         <a routerLink="/alumno/perfil" routerLinkActive="active" 
-                            class="btn btn-square btn-outline-secondary border">
+                            class="btn btn-square btn-outline-secondary border-light text-light">
                             <i class="bi bi-person-circle"></i>
                             <!-- <span class="bi bi-person-circle position-relative">
                                 <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
@@ -484,7 +484,7 @@
                             </span> -->
                         </a>
                         <a href="javascript:void(0)" routerLinkActive="active" 
-                            class="btn btn-square btn-outline-secondary border">
+                            class="btn btn-square btn-outline-secondary border-light text-light">
                             <span class="bi bi-bell position-relative">
                                 <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle">
                                     <span class="visually-hidden">New alerts</span>
@@ -492,10 +492,10 @@
                             </span>
                         </a>
                         <a href="javascript:void(0)" routerLinkActive="active" 
-                            class="btn btn-square btn-outline-secondary border">
+                            class="btn btn-square btn-outline-secondary border-light text-light">
                             <i class="bi bi-gear"></i>
                         </a>
-                        <a href="javascript:void(0)" (click)="signout()" class="btn btn-square btn-outline-secondary border">
+                        <a href="javascript:void(0)" (click)="signout()" class="btn btn-square btn-outline-secondary border-light text-light">
                             <i class="bi bi-box-arrow-right"></i>
                         </a>
                     </div>

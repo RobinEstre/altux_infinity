@@ -180,7 +180,7 @@ export class CalendarComponent implements OnInit {
           }
           if(i.evento.clase){
             i.evento.clase.forEach(a=>{
-              name='Clase '+a.clase+' M'+a.modulo
+              name='Clase '+a.clase+' Bloque '+a.modulo
               new_date=this.datePipe.transform(new Date(year, month, day, horas, minutos, 0, 0), "yyyy-MM-dd HH:mm:ss")
             })
           }
@@ -202,7 +202,7 @@ export class CalendarComponent implements OnInit {
               minuto_fin=fecha_fin.getUTCHours()
 
               new_date=this.datePipe.transform(new Date(year, month, day, horas, minutos, 0, 0), "yyyy-MM-dd HH:mm:ss")
-              name=a.name_evaluacion+' --> Módulo '+a.modulo
+              name=a.name_evaluacion+' --> Bloque '+a.modulo
               end_date= this.datePipe.transform(new Date(year_fin, month_fin, day_fin, hora_fin, minuto_fin, 0, 0), "yyyy-MM-dd HH:mm:ss")
             })
           }

@@ -1,0 +1,14 @@
+
+.sidebar {
+    .nav {
+        .nav-item {
+            .nav-link {
+                &.active,
+                &:hover {
+                    color: var(--WinDOORS-theme);
+                    background-color: #003D97 !important;
+                }
+            }
+        }
+    }
+}
