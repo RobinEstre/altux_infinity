@@ -24,6 +24,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NgWizardModule } from 'ng-wizard';
 import { SharedModule } from '../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SafePipe } from './safe.pipe';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DashboardComponent,
     AcademicoComponent,
     DetalleComponent,
+    SafePipe,
     CalendarComponent
   ],
   imports: [

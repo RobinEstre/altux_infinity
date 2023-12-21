@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import localeEs from '@angular/common/locales/es';
 import {DatePipe, registerLocaleData} from "@angular/common";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { DomSanitizer } from '@angular/platform-browser';
 registerLocaleData(localeEs, 'es');
 
 @Component({
@@ -25,13 +26,13 @@ export class DetalleComponent implements OnInit {
   courseCode: any;
 
   constructor(private service: AcademicoService, private spinner: NgxSpinnerService,private route: ActivatedRoute,
-    private modalService: NgbModal,private routes: Router,) { 
+    private modalService: NgbModal,private routes: Router, private sanitizer : DomSanitizer,) { 
     //const name = Calendar.name; // add this line in your constructor
     this.courseCode = this.route.snapshot.params['code'];
   }
 
   course:any; modulo:any; modulos:any; grabacion:any; module_id:any; materials:any; tipo_material:any; class_module:any; link_clase:any; 
-  url_doc:any; evaluations:any; detalle_class:any
+  url_doc:any; evaluations:any; detalle_class:any; url_class:any
   id_examen:any; exam_expired:boolean=false; exam_generated:boolean=false; exam_finalizado:boolean=false; btn_iniciar_exam:boolean=true
 
   ngOnInit(): void {
@@ -296,8 +297,10 @@ export class DetalleComponent implements OnInit {
 
   openModalClass(data) {
     this.detalle_class=data
+    this.url_class=data.clase.data_class.url_clase_grabada
+    this.sanitizer.bypassSecurityTrustResourceUrl(this.url_class);
     this.modalRefClass = this.modalService.open(this.modalContentClass, { centered: true, size: 'xl' });
-    this.modalRef.result.then();
+    this.modalRefClass.result.then();
   }
 
   closeModalClass() {
