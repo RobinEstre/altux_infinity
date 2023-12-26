@@ -73,11 +73,14 @@ export class DetalleComponent implements OnInit {
           }else{
             bg_color = "color-file"        
           }
-          let clase=''
+          let clase='', name
           if(this.modulo.numero_modulo==i.module_number){clase='show'}
+          const split = i.module_name.split(' ')
+          split.splice(0, 2);
+          name=split.map(x=>x).join(" ")
           data.push({
             "id": i.id,
-            "module_name": i.module_name,
+            "module_name": name,
             "module_number": i.module_number,
             "module_detail": i.module_detail,
             'bg_color': bg_color,

@@ -75,12 +75,12 @@
                         <i class="bi bi-archive h5 avatar avatar-40 bg-light-theme rounded"></i>
                     </div>
                     <div class="col">
-                        <h6 class="fw-medium mb-0">Mis Archivos</h6>
+                        <h6 class="fw-medium mb-0">Mis Bloques</h6>
                         <p class="small text-secondary">{{course.name_diplomado}}</p>
                     </div>
                 </div>
             </div>
-            <div class="card-body"> 
+            <div class="card-body">
                 <ul class="mb-0 treeview" id="treeviewExample">
                     <li *ngFor="let data of modulos, let i = index" class="treeview-list-item {{data.bg_color}}">
                         <a data-bs-toggle="collapse" href="#Bloque-{{i+1}}" role="button" aria-expanded="true" class="text-dark"

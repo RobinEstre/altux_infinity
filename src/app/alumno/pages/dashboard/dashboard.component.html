@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row align-items-center page-title">
         <div class="col-12 col-md mb-2 mb-sm-0">
-            <h5 class="mb-0">MI INFINITY</h5>
+            <h5 class="mb-0">MY INFINITY</h5>
             <p class="text-secondary text-uppercase">Aula virtual inteligente.</p>
         </div>
     </div>
@@ -289,7 +289,7 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <p class="text-secondary small mb-1">Asistencia</p>
+                                            <p class="text-secondary small mb-1">Avance de Asistencia</p>
                                             <h5 class="fw-medium">{{(detail_diplomado.porcen_asistencia).toFixed(2)}}%</h5>
                                         </div>
                                     </div>
@@ -325,7 +325,7 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <p class="text-secondary small mb-1">Exámenes</p>
+                                            <p class="text-secondary small mb-1">Avance de Exámenes</p>
                                             <h5 class="fw-medium">{{(detail_diplomado.porcen_notas).toFixed(2)}}%</h5>
                                         </div>
                                     </div>
@@ -361,7 +361,7 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <p class="text-secondary small mb-1">Notas</p>
+                                            <p class="text-secondary small mb-1">Avance de Notas</p>
                                             <h5 class="fw-medium">{{(detail_diplomado.porcen_notas).toFixed(2)}}%</h5>
                                         </div>
                                     </div>
@@ -399,7 +399,7 @@
                                         <div class="col">
                                             <div class="row gx-0">
                                                 <div class="col">
-                                                    <p class="text-secondary small mb-1">Clases</p>
+                                                    <p class="text-secondary small mb-1">Avance de Clases</p>
                                                     <h5 class="fw-medium">{{(detail_diplomado.porcen_asistencia).toFixed(2)}}%</h5>
                                                 </div>
                                             </div>
@@ -424,7 +424,9 @@
                 </div>
                 <div class="card-footer bg-light-theme" *ngIf="detail_diplomado">
                     <a href="javascript:void(0)" routerLink="/alumno/academico/{{detail_diplomado.diplomado_code}}" 
-                        class="btn btn-sm btn-outline-theme">Ir al Programa</a>
+                        class="btn btn-sm btn-outline-theme parpadea">Ir al Programa</a>
+                    <a href="https://api.whatsapp.com/send/?phone=51900176243" 
+                        target="_blank" class="btn btn-sm btn-outline-dark mx-3">Soporte Académico</a>
                 </div>
             </div>
         </div>
@@ -458,15 +460,15 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let valCrono of cronograma">
-                            <td class="text-center" style="width: 60%;">
+                            <td class="" style="width: 60%;">
                                 <div class="row">
-                                    <div class="col-auto" *ngIf="valCrono.tipo=='pago'">
+                                    <div class="col-auto text-center" *ngIf="valCrono.tipo=='pago'">
                                         <i class="bi bi-calendar avatar avatar-40 bg-light-red text-red rounded"></i>
                                     </div>
-                                    <div class="col-auto" *ngIf="valCrono.tipo=='clase'">
+                                    <div class="col-auto text-center" *ngIf="valCrono.tipo=='clase'">
                                         <i class="bi bi-journal-medical avatar avatar-40 bg-light-blue text-blue rounded"></i>
                                     </div>
-                                    <div class="col-auto" *ngIf="valCrono.tipo=='evaluacion'">
+                                    <div class="col-auto text-center" *ngIf="valCrono.tipo=='evaluacion'">
                                         <i class="bi bi-file-earmark-binary avatar avatar-40 bg-light-green text-green rounded"></i>
                                     </div>
                                     <div class="col ps-0">
@@ -482,7 +484,7 @@
                             </td>
                             <td class="text-center" style="width: 40%;">
                                 <p class="text-trucate w-100" *ngIf="valCrono.tipo=='pago'">
-                                    <b>{{valCrono.detalle.num_cuota}}</b> <br>
+                                    <b>Pago N°{{valCrono.detalle.num_cuota.substr(-1)}}</b> <br>
                                     <span class="badge bg-red">{{valCrono.detalle.fecha_vencimiento*1000  | date:'dd/MM/yyyy'}}</span>
                                 </p>
                                 <p class="text-trucate w-100" *ngIf="valCrono.tipo=='clase'">
