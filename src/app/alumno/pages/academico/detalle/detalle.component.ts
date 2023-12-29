@@ -32,8 +32,8 @@ export class DetalleComponent implements OnInit {
   }
 
   course:any; modulo:any; modulos:any; grabacion:any; module_id:any; materials:any; tipo_material:any; class_module:any; link_clase:any; 
-  url_doc:any; evaluations:any; detalle_class:any; url_class:any
-  id_examen:any; exam_expired:boolean=false; exam_generated:boolean=false; exam_finalizado:boolean=false; btn_iniciar_exam:boolean=true
+  url_doc:any; evaluations:any; detalle_class:any; url_class:any; fecha_ahora:any=new Date()
+  id_examen:any; exam_expired:boolean=false; exam_generated:boolean=false; exam_finalizado:boolean=false; btn_iniciar_exam:boolean=true;
 
   ngOnInit(): void {
     this.getModuloActual()
@@ -64,9 +64,10 @@ export class DetalleComponent implements OnInit {
   getDetailDiplomado() {
     this.service.getDetailDiplomadoByCode(this.courseCode).subscribe(resp => {
       if (resp.success){
-        let data:any=[]
+        let data:any=[], num=0
         this.course=resp.data
         resp.data.modulos.forEach(i=>{
+          num++
           let bg_color
           if(i.module_number%2==0){
             bg_color = ""
@@ -74,7 +75,7 @@ export class DetalleComponent implements OnInit {
             bg_color = "color-file"        
           }
           let clase='', name
-          if(this.modulo.numero_modulo==i.module_number){clase='show'}
+          if(this.modulo){if(this.modulo.numero_modulo==i.module_number){clase='show'}}
           const split = i.module_name.split(' ')
           split.splice(0, 2);
           name=split.map(x=>x).join(" ")
@@ -88,8 +89,10 @@ export class DetalleComponent implements OnInit {
             "class": clase
           })
         })
+        this.getEvaluationsHans(data,num)
+        this.getMaterials(data,num)
+        this.clasesGrabadas(data,num)
         this.modulos=data
-        this.spinner.hide()
       }
     },error => {
       if(error.status==400){
@@ -123,54 +126,73 @@ export class DetalleComponent implements OnInit {
     body.classList.toggle('innermenu-close');
   }
 
-  clasesGrabadas(mod_id){
-    this.grabacion = []
-    let body = {
-      "course_code": this.courseCode,
-      "modulo_id": mod_id
-    };
-    this.service.clasesGrabadas(body).subscribe(resp => {
-      if (resp['success'] === true){
-        this.grabacion = resp['data'];
-      }
-    });
-    this.module_id=mod_id;
+  clasesGrabadas(data, mod_id){
+    const bloques=[{bloque:1,data:null},{bloque:2,data:null},{bloque:3,data:null},{bloque:4,data:null},
+    {bloque:5,data:null},{bloque:6,data:null},{bloque:7,data:null}]
+    let n=0
+    for(let i:any=0; i<data.length;i++){
+      let body = {
+        "course_code": this.courseCode,
+        "modulo_id": data[i].id
+      };
+      this.service.clasesGrabadas(body).subscribe(resp => {
+        if (resp['success'] === true){
+          bloques.forEach(a=>{
+            if(a.bloque==i+1){
+              a.data=resp.data
+            }
+          })
+          this.grabacion = bloques;
+        }
+      });
+      this.module_id=mod_id;
+    }
   }
 
-  getMaterials(num_module){
-    this.materials = [];
-    const body = {
-      "course_code": this.courseCode,
-      "num_module": num_module+1
-    };
-    this.service.getStudyMaterials(body).subscribe(res => {
-      this.materials = res.material;
-      let data:any = [];
-      res.material.forEach(i => {
-        if (data.length > 0){
-          const found = data.find(
-              (item) => item.type_material_id == i.type_material_id
-          );
-          if (found){
-            console.log('no encontro el valor')
-          }else {
+  getMaterials(resp, num_module){
+    const bloques=[{bloque:1,data:null},{bloque:2,data:null},{bloque:3,data:null},{bloque:4,data:null},
+    {bloque:5,data:null},{bloque:6,data:null},{bloque:7,data:null}]
+    let n=0
+    for(let i:any=0; i<resp.length;i++){
+      const body = {
+        "course_code": this.courseCode,
+        "num_module": i+1
+      };
+      this.service.getStudyMaterials(body).subscribe(res => {
+        if(res.success){
+          bloques.forEach(a=>{
+            if(a.bloque==i+1){
+              a.data=res.material
+            }
+          })
+        }
+        this.materials = bloques;
+        let data:any = [];
+        res.material.forEach(i => {
+          if (data.length > 0){
+            const found = data.find(
+                (item) => item.type_material_id == i.type_material_id
+            );
+            if (found){
+              console.log('no encontro el valor')
+            }else {
+              let json = {
+                "type_material_id": i.type_material_id,
+                "tipmat_name": i.tipmat_name,
+              }
+              data.push(json)
+            }
+          }else{
             let json = {
               "type_material_id": i.type_material_id,
               "tipmat_name": i.tipmat_name,
             }
             data.push(json)
           }
-        }else{
-          let json = {
-            "type_material_id": i.type_material_id,
-            "tipmat_name": i.tipmat_name,
-          }
-          data.push(json)
-        }
+        })
+        this.tipo_material = data
       })
-      this.tipo_material = data
-    })
-
+    }
   }
 
   abrirLink(modulo){
@@ -194,7 +216,7 @@ export class DetalleComponent implements OnInit {
     this.spinner.show()
     this.id_examen=data
     const body = {
-      "ficha_evaluacion_id": data.id,
+      "ficha_evaluacion_id": data.evaluation_student_id,
     };
     this.service.get_Action(body).subscribe(res => {
       if(res['success']==true){
@@ -266,16 +288,35 @@ export class DetalleComponent implements OnInit {
     });
   }
 
+  prueba(num_module, num){
+    //console.log(num)
+  }
+
   /*LISTAR EXAMEN HANS*/
-  getEvaluationsHans(num_module){
-    this.evaluations = [];
-    const body = {
-      "course_code": this.courseCode,
-      "modulo_id" : num_module
-    };
-    this.service.getEvaluationsHans(body).subscribe(res => {
-      this.evaluations = res.data;
-    });
+  getEvaluationsHans(data, num){
+    const body=[{bloque:1,data:null, promedio:0},{bloque:2,data:null, promedio:0},{bloque:3,data:null, promedio:0},{bloque:4,data:null, promedio:0},
+    {bloque:5,data:null, promedio:0},{bloque:6,data:null, promedio:0},{bloque:7,data:null, promedio:0}]
+    let n=0
+    for(let i:any=0; i<data.length;i++){
+      this.service.getEvaluations(this.courseCode,data[i].id).subscribe(res => {
+        if(res.success){
+          body.forEach(a=>{
+            if(a.bloque==i+1){
+              a.data=res.data
+              a.promedio=res.promedio
+            }
+          })
+          n++
+          if(n==data.length){
+            this.evaluations = body;
+            this.spinner.hide()
+          }
+        }
+      });
+    }
+    // this.service.getEvaluationsHans(body).subscribe(res => {
+    //   this.evaluations = res.data;
+    // });
   }
 
   openModal(url){
@@ -314,7 +355,7 @@ export class DetalleComponent implements OnInit {
     //const url = '/alumno/examen/'+this.courseCode+'/'+this.id+'/'+this.id_examen;
     this.closeModalInfo()
     const body = {
-      "ficha_evaluacion_id": data.id,
+      "ficha_evaluacion_id": data.evaluation_student_id,
     };
     this.service.create_Evaluation_Estudent(body).subscribe(resp => {
       if(resp['success']==true){

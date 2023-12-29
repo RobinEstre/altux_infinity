@@ -26,6 +26,10 @@ export class AcademicoService {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/evaluacion/crear-estudiante-evaluacion/',body);
   }
 
+  getEvaluations(code, modulo){
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/listar/evaluaciones-notas-studiante/?course_code='+code+'&modulo_id='+modulo);
+  }
+
   getClassModule(id) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'cursos/listar/modulos-diplomado/'+id);
   }

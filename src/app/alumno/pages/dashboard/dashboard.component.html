@@ -476,7 +476,8 @@
                                         <p class="text-secondary small" *ngIf="valCrono.tipo=='pago'">
                                             {{valCrono.detalle.num_cuota}}
                                         </p>
-                                        <p class="text-secondary small" *ngIf="valCrono.tipo!='pago'">
+                                        <p class="text-secondary small" *ngIf="valCrono.tipo!='pago'" 
+                                            routerLink="/alumno/academico/{{valCrono.detalle.diplomado_code}}">
                                             Bloque {{valCrono.detalle.modulo}}
                                         </p>
                                     </div>
@@ -487,11 +488,13 @@
                                     <b>Pago N°{{valCrono.detalle.num_cuota.substr(-1)}}</b> <br>
                                     <span class="badge bg-red">{{valCrono.detalle.fecha_vencimiento*1000  | date:'dd/MM/yyyy'}}</span>
                                 </p>
-                                <p class="text-trucate w-100" *ngIf="valCrono.tipo=='clase'">
+                                <p class="text-trucate w-100" *ngIf="valCrono.tipo=='clase'" 
+                                    routerLink="/alumno/academico/{{valCrono.detalle.diplomado_code}}">
                                     <b>Clase N°{{valCrono.detalle.clase}}</b> <br>
                                     <span class="badge bg-blue">{{valCrono.detalle.fecha_clase*1000  | date:'dd/MM/yyyy HH:mm'}}</span>
                                 </p>
-                                <p class="text-trucate w-100" *ngIf="valCrono.tipo=='evaluacion'">
+                                <p class="text-trucate w-100" *ngIf="valCrono.tipo=='evaluacion'"
+                                    routerLink="/alumno/academico/{{valCrono.detalle.diplomado_code}}">
                                     <b>{{valCrono.detalle.name_evaluacion}}</b> <br>
                                     <span class="badge bg-green">{{valCrono.detalle.fecha_inicio*1000  | date:'dd/MM/yyyy'}}</span>
                                 </p>
