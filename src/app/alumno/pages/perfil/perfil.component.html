@@ -92,7 +92,9 @@
                         <div class="col">
                             <p class="text-secondary small mb-1">Cumpleaños</p>
                             <p *ngIf="profile.fecha_naciiento==''">Próximamente</p>
-                            <p *ngIf="profile.fecha_naciiento!=''">{{profile.fecha_naciiento}}</p>
+                            <p *ngIf="profile.fecha_naciiento!=''" class="text-capitalize">
+                                {{profile.fecha_naciiento |  date:'d'}} de {{profile.fecha_naciiento |  date:'MMMM'}}
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, LOCALE_ID, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { PerfilService } from '../../services/perfil.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
@@ -6,11 +6,15 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import Swal from "sweetalert2";
+import localeEs from '@angular/common/locales/es';
+import {DatePipe, registerLocaleData} from "@angular/common";
+registerLocaleData(localeEs, 'es');
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss']
+  styleUrls: ['./perfil.component.scss'],
+  providers: [ { provide: LOCALE_ID, useValue: 'es' }, DatePipe]
 })
 export class PerfilComponent implements OnInit {
   @ViewChild('add') private modalContentAdd: TemplateRef<PerfilComponent>;
