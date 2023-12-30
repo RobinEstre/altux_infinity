@@ -32,7 +32,7 @@ export class DetalleComponent implements OnInit {
   }
 
   course:any; modulo:any; modulos:any; grabacion:any; module_id:any; materials:any; tipo_material:any; class_module:any; link_clase:any; 
-  url_doc:any; evaluations:any; detalle_class:any; url_class:any; fecha_ahora:any=new Date()
+  url_doc:any; evaluations:any; detalle_class:any; url_class:any; fecha_ahora:any=new Date(); diplomado_clase:any
   id_examen:any; exam_expired:boolean=false; exam_generated:boolean=false; exam_finalizado:boolean=false; btn_iniciar_exam:boolean=true;
 
   ngOnInit(): void {
@@ -54,8 +54,9 @@ export class DetalleComponent implements OnInit {
     this.service.getClassModule(this.courseCode).subscribe(resp => {
       if (resp.success){
         this.class_module=resp.modulos
+        this.diplomado_clase=resp.diplomado_clase
         let link='javajavascript:void(0)'
-        if(resp.link!=null){link=resp.link}
+        if(resp.diplomado_clase!=null){link=resp.diplomado_clase}
         this.link_clase=link
       }
     })
@@ -196,8 +197,8 @@ export class DetalleComponent implements OnInit {
   }
 
   abrirLink(modulo){
-    this.checkAsistencia(modulo.id,modulo.link.diplomado_clase_id)
-    window.open(modulo.link.url_clase,'_blank');
+    this.checkAsistencia(modulo.modulo_id, this.diplomado_clase.id)
+    window.open(this.diplomado_clase.class_url,'_blank');
   }
 
   checkAsistencia(mod_id, id){

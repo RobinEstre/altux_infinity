@@ -16,7 +16,7 @@
                 <!-- welcome message -->
                 <div class="col-12 col-md py-3 py-md-5">
                     <h2 class="fw-light mb-0 text-secondary">Bienvenid@,</h2>
-                    <h1 class="display-3 username text-uppercase">{{userName}}</h1>
+                    <h1 class="display-3 username text-uppercase" *ngIf="userName">{{userName}}</h1>
 
                     <!-- <iframe src="https://drive.google.com/file/d/1UM0JeMv_9doVSuOXW9xiTclyj5YvyIy0/preview" width="640" height="480" allow="autoplay"></iframe> -->
                     <!-- Swiper daily quote -->

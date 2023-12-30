@@ -50,9 +50,10 @@
                         <h5 class="mb-0 text-uppercase">{{class_module.nombre_modulo}}</h5>
                         <h6 class="text-secondary mb-0">{{class_module.fecha_clase*1000 | date:'dd/MM/yyyy HH:mm'}} - CLASE {{class_module.clase_num}}</h6>
                         <h6 *ngIf="class_module.en_vivo">
-                            <a href="javajavascript:void(0)" target="_blank" class="badge rounded-pill bg-success text-uppercase" (click)="abrirLink(class_module)"
+                            <a href="javajavascript:void(0)" class="badge rounded-pill bg-success text-uppercase text-light" 
+                                (click)="abrirLink(class_module)"
                                 style="margin-top: 10px; background:#00386A !important">
-                                <i class="bi bi-camera-video-fill"></i> Ver en Vivo
+                                <i class="bi bi-camera-video-fill"></i> Ver Clase en Vivo
                             </a>
                         </h6>
                     </div>
@@ -112,9 +113,13 @@
                                         <li class="treeview-list-item">
                                             <div class="treeview-item">
                                                 <a class="flex-1" href="javascript:void(0)" (click)="openModalClass(data.id,recording)">
-                                                    <p class="treeview-text">
+                                                    <p class="treeview-text" *ngIf="recording.clase.data_class.url_clase_grabada!=''">
                                                         <i class="bi bi-play-btn-fill text-danger mx-1"></i>
                                                         {{recording.clase.data_class.name_video_clase}}
+                                                    </p>
+                                                    <p class="treeview-text" *ngIf="!recording.clase.data_class">
+                                                        <i class="bi bi-play-btn-fill text-danger mx-1"></i>
+                                                        Sin Nombre
                                                     </p>
                                                 </a>
                                             </div>

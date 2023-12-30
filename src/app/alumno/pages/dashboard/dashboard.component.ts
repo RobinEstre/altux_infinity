@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   formMatricula = this.fb.group({
     diplomado: [null],
   })
-  userName = localStorage.getItem('USERNAME');
+  userName:any;
 
   date: Date = new Date();
 
@@ -93,6 +93,7 @@ export class DashboardComponent implements OnInit {
           }
         })
         this.cronograma=data
+        this.userName = localStorage.getItem('USERNAME');
       }
     },error => {
       if(error.status==400){
