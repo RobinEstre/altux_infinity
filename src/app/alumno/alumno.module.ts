@@ -25,6 +25,9 @@ import { NgWizardModule } from 'ng-wizard';
 import { SharedModule } from '../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SafePipe } from './safe.pipe';
+import { PagosComponent } from './pages/pagos/pagos.component';
+import { BibliotecaComponent } from './pages/biblioteca/biblioteca.component';
+import { NovedadesComponent } from './pages/novedades/novedades.component';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { SafePipe } from './safe.pipe';
     AcademicoComponent,
     DetalleComponent,
     SafePipe,
-    CalendarComponent
+    CalendarComponent,
+    PagosComponent,
+    BibliotecaComponent,
+    NovedadesComponent
   ],
   imports: [
     CommonModule,

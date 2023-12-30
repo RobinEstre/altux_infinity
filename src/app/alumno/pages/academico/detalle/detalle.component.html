@@ -111,7 +111,7 @@
                                     <div *ngFor="let recording of grabacion[i].data">
                                         <li class="treeview-list-item">
                                             <div class="treeview-item">
-                                                <a class="flex-1" href="javascript:void(0)" (click)="openModalClass(recording)">
+                                                <a class="flex-1" href="javascript:void(0)" (click)="openModalClass(data.id,recording)">
                                                     <p class="treeview-text">
                                                         <i class="bi bi-play-btn-fill text-danger mx-1"></i>
                                                         {{recording.clase.data_class.name_video_clase}}

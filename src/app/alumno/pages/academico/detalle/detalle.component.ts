@@ -339,7 +339,8 @@ export class DetalleComponent implements OnInit {
     this.modalRef.close();
   }
 
-  openModalClass(data) {
+  openModalClass(mod_id, data) {
+    this.checkAsistencia(mod_id, data.id)
     this.detalle_class=data
     this.url_class=data.clase.data_class.url_clase_grabada
     this.sanitizer.bypassSecurityTrustResourceUrl(this.url_class);

@@ -91,8 +91,8 @@
                         </div>
                         <div class="col">
                             <p class="text-secondary small mb-1">Cumpleaños</p>
-                            <p>Próximamente</p>
-                            <!-- <p>{{profile.fecha_naciiento}}</p> -->
+                            <p *ngIf="profile.fecha_naciiento==''">Próximamente</p>
+                            <p *ngIf="profile.fecha_naciiento!=''">{{profile.fecha_naciiento}}</p>
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,13 @@
                         <div class="col-auto">
                             <i class="bi bi-heart h5 text-theme mb-0"></i>
                         </div>
-                        <div class="col">
+                        <div class="col" *ngIf="profile.genero">
+                            <p class="text-secondary small mb-1">Género</p>
+                            <p *ngIf="profile.genero==''">Próximamente</p>
+                            <p *ngIf="profile.genero!='' && profile.genero=='F'">Femenino</p>
+                            <p *ngIf="profile.genero!='' && profile.genero=='M'">Masculino</p>
+                        </div>
+                        <div class="col" *ngIf="!profile.genero">
                             <p class="text-secondary small mb-1">Género</p>
                             <p>Próximamente</p>
                         </div>
