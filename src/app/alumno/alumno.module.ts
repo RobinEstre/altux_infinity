@@ -28,6 +28,7 @@ import { SafePipe } from './safe.pipe';
 import { PagosComponent } from './pages/pagos/pagos.component';
 import { BibliotecaComponent } from './pages/biblioteca/biblioteca.component';
 import { NovedadesComponent } from './pages/novedades/novedades.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { NovedadesComponent } from './pages/novedades/novedades.component';
     SharedModule,
     NgbModule,
     FullCalendarModule,
+    DataTablesModule,
     NgxDropzoneModule,
     FormsModule,
     ReactiveFormsModule,

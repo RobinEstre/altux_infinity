@@ -213,9 +213,10 @@ export class DetalleComponent implements OnInit {
     });
   }
 
-  action_Evaluation(data){
+  action_Evaluation(data, mod_id){
     this.spinner.show()
     this.id_examen=data
+    this.module_id=mod_id
     const body = {
       "ficha_evaluacion_id": data.evaluation_student_id,
     };
@@ -247,7 +248,7 @@ export class DetalleComponent implements OnInit {
             this.spinner.hide()
             break;
           case 'evaluacion_reanudado':
-            const url = '/alumno/examen/'+this.courseCode+'/'+data.module_id+'/'+data.id;
+            const url = '/alumno/examen/'+this.courseCode+'/'+mod_id+'/'+data.evaluation_student_id;
             this.spinner.hide()
             this.routes.navigate([url])
             break;
@@ -361,7 +362,7 @@ export class DetalleComponent implements OnInit {
     };
     this.service.create_Evaluation_Estudent(body).subscribe(resp => {
       if(resp['success']==true){
-        const url = '/alumno/examen/'+this.courseCode+'/'+data.module_id+'/'+data.id;
+        const url = '/alumno/examen/'+this.courseCode+'/'+this.module_id+'/'+data.evaluation_student_id;
         return this.routes.navigate([url])
       }
     })

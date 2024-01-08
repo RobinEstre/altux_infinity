@@ -42,7 +42,10 @@
               "./node_modules/@fullcalendar/timegrid/main.css",
               "./node_modules/@fullcalendar/list/main.css",
               "src/assets/vendor/jqvMap/jqvmap.min.css",
-              "src/assets/scss/style.scss"
+              "src/assets/scss/style.scss",
+
+              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
             ],
             "scripts": [              
               "src/assets/js/popper.min.js",
@@ -54,7 +57,14 @@
               "src/assets/vendor/chosen_v1.8.7/chosen.jquery.min.js",
               "src/assets/vendor/jqvMap/jquery.vmap.min.js",
               "src/assets/vendor/jqvMap/maps/jquery.vmap.world.js",
-              "src/assets/vendor/bootstrap-5/dist/js/bootstrap.bundle.js"
+              "src/assets/vendor/bootstrap-5/dist/js/bootstrap.bundle.js",
+              
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.js"
             ]
           },
           "configurations": {

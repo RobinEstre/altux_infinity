@@ -1,0 +1,479 @@
+<div class="card rounded-0 border-0 mb-4">
+    <figure class="coverimg w-100 h-300 mb-0 position-relative" style="background-image: url('https://cdn.discordapp.com/attachments/1011378535186845790/1189943514126094376/cover_perfil_altux.png?ex=65a00041&is=658d8b41&hm=9018ef16479a0bdc8bc2fd6ecf314390cf255c058f4ced6978773e85465a5e9e&');">
+        <!-- <div class="position-absolute bottom-0 end-0 m-3">
+            <button class="btn btn-light"><i class="bi bi-camera"></i> Change Cover</button>
+        </div> -->
+        <img src="https://cdn.discordapp.com/attachments/1011378535186845790/1189943514126094376/cover_perfil_altux.png?ex=65a00041&is=658d8b41&hm=9018ef16479a0bdc8bc2fd6ecf314390cf255c058f4ced6978773e85465a5e9e&" class="" style="display: none;" />
+    </figure>
+    <div class="card-body">
+        <div class="container px-0">
+            <div class="row align-items-start" *ngIf="profile">
+                <div class="col-auto position-relative">
+                    <figure class="avatar avatar-160 coverimg rounded-circle top-80 shadow-md border-3 border-light" 
+                        style="background-image: url('{{userImg}}');">
+                        <img src="{{userImg}}" alt="" style="display: none;" name="userimage" />
+                    </figure>
+                    <div class="position-absolute bottom-0 end-0 z-index-1 me-3 mb-1 h-auto">
+                        <button class="btn btn-theme btn-44 shadow-sm rounded-circle" (click)="openModalIMG()"><i class="bi bi-camera"></i></button>
+                    </div>
+                </div>
+                <div class="col pt-3">
+                    <h2>{{userName}} <span class="badge bg-green rounded vm fw-normal fs-12"><i class="bi bi-check-circle me-1"></i>Activo</span></h2>
+                    <p class="text-secondary mb-3"><i class="bi bi-credit-card-2-front me-1"></i>ID USUARIO: <b>{{profile.dni}}</b></p>
+                </div>
+                <div class="col-auto py-3 align-self-center">
+                    <button class="btn btn-outline-theme me-2" (click)="openModal()">
+                        <i class="bi bi-key-fill vm me-2"></i> Cambiar Contraseña
+                    </button>
+                    <!-- <button class="btn btn-theme"><i class="bi bi-lock vm me-2"></i> Cambiar Contraseña</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <!-- intro -->
+    <div class="card border-0 mb-4">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="bi bi-person-circle h5 me-1 avatar avatar-40 bg-light-theme rounded me-2"></i>
+                </div>
+                <div class="col ps-0">
+                    <h6 class="fw-medium mb-0">Mi Información</h6>
+                    <p class="text-secondary small">"Mis datos personales"</p>
+                </div>
+                <!-- <div class="col-auto">
+                    <button class="btn btn-sm btn-link"><i class="bi bi-pencil me-1 vm"></i> 
+                        <span class="d-inline">Editar </span> <span class="d-none d-md-inline">Perfil</span>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+        <div class="card-body gallery pb-0">
+            <!-- <p class="text-secondary mb-4">
+                WinDOORS is creative and multipurpose template. You can use it for CRM, Business application, Intranet Application, Portal service and Many more. It comes with unlimited possibilities and 10+ predefined styles which you can also mix up and create new style. Do support and spread a word for us.
+            </p> -->
+            <div class="row" *ngIf="profile">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <i class="bi bi-telephone h5 text-theme mb-0"></i>
+                        </div>
+                        <div class="col">
+                            <p class="text-secondary small mb-1">Celular</p>
+                            <p>{{profile.telefono}}</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <i class="bi bi-envelope h5 text-theme mb-0"></i>
+                        </div>
+                        <div class="col">
+                            <p class="text-secondary small mb-1">Correo Electrónico</p>
+                            <p>{{profile.email}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <i class="bi bi-briefcase h5 text-theme mb-0"></i>
+                        </div>
+                        <div class="col">
+                            <p class="text-secondary small mb-1">País</p>
+                            <p>{{profile.pais}}</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <i class="bi bi-calendar2-heart h5 text-theme mb-0"></i>
+                        </div>
+                        <div class="col">
+                            <p class="text-secondary small mb-1">Cumpleaños</p>
+                            <p *ngIf="profile.fecha_naciiento==''">Próximamente</p>
+                            <p *ngIf="profile.fecha_naciiento!=''" class="text-capitalize">
+                                {{profile.fecha_naciiento |  date:'d'}} de {{profile.fecha_naciiento |  date:'MMMM'}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <i class="bi bi-credit-card-2-front h5 text-theme mb-0"></i>
+                        </div>
+                        <div class="col">
+                            <p class="text-secondary small mb-1">N° Documento</p>
+                            <p>{{profile.dni}}</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <i class="bi bi-heart h5 text-theme mb-0"></i>
+                        </div>
+                        <div class="col" *ngIf="profile.genero">
+                            <p class="text-secondary small mb-1">Género</p>
+                            <p *ngIf="profile.genero==''">Próximamente</p>
+                            <p *ngIf="profile.genero!='' && profile.genero=='F'">Femenino</p>
+                            <p *ngIf="profile.genero!='' && profile.genero=='M'">Masculino</p>
+                        </div>
+                        <div class="col" *ngIf="!profile.genero">
+                            <p class="text-secondary small mb-1">Género</p>
+                            <p>Próximamente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- EDIT -->
+    <!-- <h6 class="title">Basic Details</h6>
+    <div class=" row mb-3">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="First Name" value="Maxartkiller" required class="form-control border-start-0">
+                    <label>First Name</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Last Name" value="" required class="form-control border-start-0">
+                    <label>Last Name</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="email" placeholder="Email Address" value="guest@maxartkiller.com" disabled required class="form-control border-start-0">
+                    <label>Email Address</label>
+                </div>
+            </div>
+            <div class="invalid-feedback mb-3">Add .com at last to insert valid data </div>
+        </div>
+    </div>
+
+    <h6 class="title">Address Details</h6>
+    <div class="row mb-3">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Address Line 1" value="" required class="form-control border-start-0">
+                    <label>Address Line 1</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="email" placeholder="Address Line 2" required class="form-control border-start-0">
+                    <label>Address Line 2</label>
+                </div>
+            </div>
+            <div class="invalid-feedback mb-3">Add insert valid data </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Landmark" required class="form-control border-start-0">
+                    <label>Landmark</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="email" placeholder="Street" required class="form-control border-start-0">
+                    <label>Street</label>
+                </div>
+            </div>
+            <div class="invalid-feedback mb-3">Add insert valid data </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Country" value="" required class="form-control border-start-0">
+                    <label>Country</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Pincode" value="" required class="form-control border-start-0">
+                    <label>Pincode</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="State" value="" required class="form-control border-start-0">
+                    <label>State</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="City" value="" required class="form-control border-start-0">
+                    <label>City</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+    </div>
+
+    <h6 class="title">Company Details</h6>
+    <div class="row mb-3">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Company name" value="" required class="form-control border-start-0">
+                    <label>Company name</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="email" placeholder="Company Registration" required class="form-control border-start-0">
+                    <label>Company Registration</label>
+                </div>
+            </div>
+            <div class="invalid-feedback mb-3">Add insert valid data </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="email" placeholder="Company ID" required class="form-control border-start-0">
+                    <label>Company ID</label>
+                </div>
+            </div>
+            <div class="invalid-feedback mb-3">Add insert valid data </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Address Line 1" value="" required class="form-control border-start-0">
+                    <label>Address Line 1</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="email" placeholder="Address Line 2" required class="form-control border-start-0">
+                    <label>Address Line 2</label>
+                </div>
+            </div>
+            <div class="invalid-feedback mb-3">Add insert valid data </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Landmark" required class="form-control border-start-0">
+                    <label>Landmark</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="email" placeholder="Street" required class="form-control border-start-0">
+                    <label>Street</label>
+                </div>
+            </div>
+            <div class="invalid-feedback mb-3">Add insert valid data </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Country" value="" required class="form-control border-start-0">
+                    <label>Country</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="Pincode" value="" required class="form-control border-start-0">
+                    <label>Pincode</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="State" value="" required class="form-control border-start-0">
+                    <label>State</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group mb-3 position-relative check-valid">
+                <div class="form-floating">
+                    <input type="text" placeholder="City" value="" required class="form-control border-start-0">
+                    <label>City</label>
+                </div>
+            </div>
+            <div class="invalid-feedback">Please enter valid input</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-theme" type="button">Submit</button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-white" type="button">Cancel</button>
+        </div>
+    </div> -->
+</div>
+<!-- Modal Restablecer -->
+<ng-template #add let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><b>Restablecer Contraseña</b></h5>
+        <!-- <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button> -->
+    </div>
+    <form [formGroup]="formPass" class="modal-body row">
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <input [type]="showpass ? 'text' : 'password'" placeholder="Ingrese Contraseña" formControlName="old_pass"
+                            required class="form-control border-start-0" autofocus>
+                        <label for="floatingInput">Contraseña antigua</label>
+                    </div>
+                    <span class="input-group-text text-secondary bg-white border-end-0" id="viewpassword" (click)="viewpassword()">
+                        <i class="bi bi-eye" *ngIf="!showpass"></i> <i class="bi bi-eye-slash" *ngIf="showpass"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- <small>Contraseña antigua</small>
+            <div class="input-group mb-4">
+                <a href="javascript:void(0)" class="input-group-text bg-white text-muted"
+                   (click)="togglePasswordMode()">
+                  <i [className]="'text-muted bi bi-'+iconpassword" aria-hidden="true"></i>
+                </a>
+                <input #passwordEyeRegister [type]="passwordTypeInput" name="password" class="form-control"
+                    placeholder="******" formControlName="old_pass" >
+            </div> -->
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <input [type]="showpass2 ? 'text' : 'password'" placeholder="Ingrese Contraseña" formControlName="new_pass"
+                            required class="form-control border-start-0" autofocus>
+                        <label for="floatingInput">Nueva contraseña</label>
+                    </div>
+                    <span class="input-group-text text-secondary bg-white border-end-0" id="viewpassword" (click)="viewpassword2()">
+                        <i class="bi bi-eye" *ngIf="!showpass2"></i> <i class="bi bi-eye-slash" *ngIf="showpass2"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- <small>Nueva contraseña</small>
+            <div class="input-group mb-4">
+                <a href="javascript:void(0)" class="input-group-text bg-white text-muted"
+                   (click)="togglePasswordMode2()">
+                  <i [className]="'text-muted fa fa-'+iconpassword2" aria-hidden="true"></i>
+                </a>
+                <input #passwordEyeRegister2 [type]="passwordTypeInput2" name="new_pass" class="form-control"
+                    placeholder="******" formControlName="old_pass" >
+            </div> -->
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <input [type]="showpass3 ? 'text' : 'password'" placeholder="Ingrese Contraseña" formControlName="confirm_pass"
+                            required class="form-control border-start-0" autofocus>
+                        <label for="floatingInput">Confirmar contraseña</label>
+                    </div>
+                    <span class="input-group-text text-secondary bg-white border-end-0" id="viewpassword" (click)="viewpassword3()">
+                        <i class="bi bi-eye" *ngIf="!showpass3"></i> <i class="bi bi-eye-slash" *ngIf="showpass3"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- <small>Confirmar contraseña</small>
+            <div class="input-group mb-4">
+                <a href="javascript:void(0)" class="input-group-text bg-white text-muted"
+                   (click)="togglePasswordMode3()">
+                  <i [className]="'text-muted fa fa-'+iconpassword3" aria-hidden="true"></i>
+                </a>
+                <input #passwordEyeRegister3 [type]="passwordTypeInput3" name="confirm_pass" class="form-control"
+                    placeholder="******" formControlName="old_pass" >
+            </div> -->
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <hr>
+            <button class="btn btn-danger text-light" (click)="closeModal()"> Cerrar</button>
+            <button class="btn btn-primary mx-2" [disabled]="!formPass.valid" (click)="update()"> Guardar</button>
+        </div>
+        <!-- <button class="col-sm-12 col-md-12 col-lg-12 my-2 btn btn-primary" [disabled]="!formPass.valid" (click)="update()">
+            <i class="fa fa-save"></i> Guardar</button> -->
+    </form>
+</ng-template>
+<!-- Modal IMG -->
+<ng-template #modal_img let-modal>
+    <div class="modal-body row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <h5>Cambiar Imagen Perfil</h5>
+            <hr>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 text-center" *ngFor="let data of profile.img_perfil, let i = index">
+            <a href="javascript:void(0)" (click)="updateImg(data, i)">
+                <div class="card mb-3">
+                    <p>Avatar {{i+1}}</p>
+                    <img src="{{data.url}}" alt="" style="height: 100%;">
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <hr>
+            <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                <ngx-dropzone-label>
+                    Selecciona Nueva Imagen
+                </ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                    [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <hr>
+            <button class="btn btn-danger text-light" (click)="closeModalIMG()"> Cerrar</button>
+            <button class="btn btn-primary mx-2" (click)="subirIMG()"> Actualizar</button>
+        </div>
+    </div>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner>

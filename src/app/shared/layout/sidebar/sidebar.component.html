@@ -30,14 +30,18 @@
         <div class="row mb-4">
             <div class="col-12 px-0">
                 <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" routerLink="/alumno/panel" routerLinkActive="active" (click)="menuclose()">
-                            <div class="avatar avatar-40 icon text-light"><i class="bi bi-house-door"></i></div>
-                            <div class="col text-light">Dashboard</div>
-                            <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
+                    <div *ngFor="let menuItem of menuItems">
+                        <div *ngIf="!menuItem.headTitle1">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" routerLink="{{menuItem.path}}" routerLinkActive="active" (click)="menuclose()">
+                                    <div class="avatar avatar-40 icon text-light"><i class="bi bi-{{menuItem.icon}}"></i></div>
+                                    <div class="col text-light">{{menuItem.title}}</div>
+                                    <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
+                                </a>
+                            </li>
+                        </div>
+                    </div>
+                    <!-- <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/alumno/academico" routerLinkActive="active" (click)="menuclose()">
                             <div class="avatar avatar-40 icon text-light"><i class="bi bi-speedometer2"></i></div>
                             <div class="col text-light">Académico</div>
@@ -65,7 +69,7 @@
                             <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/pages/dashboard/finance" routerLinkActive="active" (click)="menuclose()">
                             <div class="avatar avatar-40 icon"><i class="bi bi-cash-coin"></i></div>
                             <div class="col">Pagos</div>
@@ -95,15 +99,14 @@
                             <div class="col">Soporte</div>
                             <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                         </a>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" routerLink="/alumno/perfil" routerLinkActive="active" (click)="menuclose()">
                             <div class="avatar avatar-40 icon text-light"><i class="bi bi-person-circle"></i></div>
                             <div class="col text-light">Perfil</div>
                             <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
                         </a>
-                    </li>
-
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0)" aria-current="page" (click)="signout()">
                             <div class="avatar avatar-40 icon text-light"><i class="bi bi-box-arrow-right"></i></div>
@@ -111,7 +114,6 @@
                             <div class="arrow text-light"><i class="bi bi-chevron-right"></i></div>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -480,7 +482,7 @@
         </div> -->
 
         <!-- Quick links -->
-        <div class="row mb-3">
+        <div class="row mb-3" *ngIf="rol=='is_student'">
             <div class="col align-self-center text-light">
                 <h6>Enlaces Rápidos</h6>
             </div>
@@ -488,7 +490,7 @@
             </div>
         </div>
 
-        <div class="card border-0  mb-3">
+        <div class="card border-0  mb-3" *ngIf="rol=='is_student'">
             <div class="card-body" style="background-color: #003D97;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">

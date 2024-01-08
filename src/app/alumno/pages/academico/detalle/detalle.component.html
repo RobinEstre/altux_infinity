@@ -149,7 +149,7 @@
                                         </a>
                                         <ul class="collapse treeview-list" id="Bloque-{{data.module_number}}-2-1" data-show="true">
                                             <div *ngFor="let material of materials[i].data" >
-                                                <li class="treeview-list-item" *ngIf="3 === material.type_material_id">
+                                                <li class="treeview-list-item" *ngIf="1 === material.type_material_id">
                                                     <div class="treeview-item">
                                                         <a class="flex-1" href="javascript:void(0)" (click)="openModal(material)">
                                                             <p class="treeview-text">
@@ -226,8 +226,17 @@
                                                     </p>
                                                 </a>
                                             </div>
-                                            <div class="treeview-item" *ngIf="fecha_ahora>=evaluacion.fecha_evaluacion*1000">
-                                                <a class="flex-1" href="javascript:void(0)" (click)="action_Evaluation(evaluacion)">
+                                            <div class="treeview-item" *ngIf="evaluacion.fecha_evaluacion_fin && fecha_ahora>=evaluacion.fecha_evaluacion*1000 && fecha_ahora<=evaluacion.fecha_evaluacion_fin*1000">
+                                                <a class="flex-1" href="javascript:void(0)" (click)="action_Evaluation(evaluacion, data.id)">
+                                                    <p class="treeview-text">
+                                                        <span class="me-2 bi bi-file-earmark-medical text-blue"></span>
+                                                        {{evaluacion.evaluation_name}} | 
+                                                        <span class="badge bg-warning">Examen Progreso</span>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <div class="treeview-item" *ngIf="evaluacion.fecha_evaluacion_fin &&fecha_ahora>=evaluacion.fecha_evaluacion_fin*1000">
+                                                <a class="flex-1" href="javascript:void(0)" (click)="action_Evaluation(evaluacion, data.id)">
                                                     <p class="treeview-text" *ngIf="!evaluacion.nota">
                                                         <span class="me-2 bi bi-file-earmark-medical text-blue"></span>
                                                         {{evaluacion.evaluation_name}} | 
@@ -271,7 +280,7 @@
                                 </a>
                                 <ul class="collapse treeview-list" id="Bloque-{{data.module_number}}-4" data-show="false">
                                     <div *ngFor="let material of materials[i].data" >
-                                        <li class="treeview-list-item" *ngIf="1 === material.type_material_id">
+                                        <li class="treeview-list-item" *ngIf="3 === material.type_material_id">
                                             <div class="treeview-item">
                                                 <a class="flex-1" href="javascript:void(0)" (click)="openModal(material)">
                                                     <p class="treeview-text">
@@ -339,7 +348,7 @@
                           [titulo]="'HAS FINALIZADO TU EXÁMEN'" *ngIf="exam_finalizado"></app-modal-finalizado>
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="modal-footer" style=" display: flex; justify-content: center;">
-            <button class="btn btn-danger mx-2" (click)="closeModalInfo()">CANCELAR</button>
+            <button class="btn btn-danger mx-2" (click)="closeModalInfo()">CERRAR</button>
             <button class="btn btn-success" (click)="openTest(id_examen)" *ngIf="btn_iniciar_exam">INICIAR</button>
         </div>
     </div>

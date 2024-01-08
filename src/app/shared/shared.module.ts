@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentComponent } from './layout/content/content.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -10,6 +10,8 @@ import { ModalFinalizadoComponent } from './components/exam/modal-finalizado/mod
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalExpiredComponent } from './components/exam/modal-expired/modal-expired.component';
 import { ModalTestComponent } from './components/exam/modal-test/modal-test.component';
+import { PerfilSharedComponent } from './components/perfil/perfil.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 
@@ -21,17 +23,21 @@ import { ModalTestComponent } from './components/exam/modal-test/modal-test.comp
     SidebarComponent,
     ModalFinalizadoComponent,
     ModalExpiredComponent,
-    ModalTestComponent
+    ModalTestComponent,
+    PerfilSharedComponent
   ],
   imports: [
     CommonModule,
     NgxSpinnerModule,
+    NgxDropzoneModule,
     RouterModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   exports: [
     ContentComponent,
     HeaderComponent,
+    PerfilSharedComponent,
     ModalFinalizadoComponent,
     ModalExpiredComponent,
     ModalTestComponent,

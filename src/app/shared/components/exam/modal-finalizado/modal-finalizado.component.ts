@@ -52,7 +52,7 @@ export class ModalFinalizadoComponent implements OnInit {
           this.preguntas = preguntas
           this.service.get_Nota(this.examen.evaluacion_id).subscribe(data => {
             if (data['success'] == true) {
-              this.nota_evaluacion = data['data']['notes_evaluation']
+              this.nota_evaluacion = this.zfill(data['data']['notes_evaluation'], 2)
             }
           })
           this.spinner.hide()
@@ -82,6 +82,26 @@ export class ModalFinalizadoComponent implements OnInit {
           this.spinner.hide()
         }
       })
+    }
+  }
+
+  zfill(number, width) {
+    var numberOutput = Math.abs(number); /* Valor absoluto del número */
+    var length = number.toString().length; /* Largo del número */ 
+    var zero = "0"; /* String de cero */  
+    
+    if (width <= length) {
+        if (number < 0) {
+             return ("-" + numberOutput.toString()); 
+        } else {
+             return numberOutput.toString(); 
+        }
+    } else {
+        if (number < 0) {
+            return ("-" + (zero.repeat(width - length)) + numberOutput.toString()); 
+        } else {
+            return ((zero.repeat(width - length)) + numberOutput.toString()); 
+        }
     }
   }
 }

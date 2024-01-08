@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 mb-4">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="fw-medium mb-0">Registro Alumnos</h6>
+                        <p class="text-secondary small">Fichas - Leads - Matriculas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-end">
+                        <button class="btn btn-outline-primary mx-2" (click)="openModal()">Registrar</button>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <ul class="nav nav-tabs nav-WinDOORS" id="navtabscard3" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="tab13-tab" data-bs-toggle="tab" data-bs-target="#tab13" type="button" role="tab"
+                                    aria-controls="tab13-tab" aria-selected="true">Fichas</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab23-tab" data-bs-toggle="tab" data-bs-target="#tab23" type="button" role="tab" 
+                                    aria-controls="tab23" aria-selected="false">Leads</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab33-tab" data-bs-toggle="tab" data-bs-target="#tab33" type="button" role="tab" 
+                                    aria-controls="tab33" aria-selected="false">Matriculas</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="tab-content" id="nav-navtabscard3">
+                    <div class="tab-pane fade show active" id="tab13" role="tabpanel" aria-labelledby="tab13-tab" style="margin: 1% 1% 1% 1%">
+                        <h6 class="fw-medium">Tab 1</h6>
+                        <h5 class="mb-3">We all are artist in our field. We all are able to find symmetry in our routine</h5>
+                        <app-fichas></app-fichas>
+                    </div>
+                    <div class="tab-pane fade" id="tab23" role="tabpanel" aria-labelledby="tab23-tab" style="margin: 1% 1% 1% 1%">
+                        <h6 class="fw-medium">Tab 2</h6>
+                        <h5 class="mb-3">We all are artist in our field. We all are able to find symmetry in our routine</h5>
+                        <app-leads></app-leads>
+                    </div>
+                    <div class="tab-pane fade" id="tab33" role="tabpanel" aria-labelledby="tab33-tab" style="margin: 1% 1% 1% 1%">
+                        <h6 class="fw-medium">Tab 3</h6>
+                        <h5 class="mb-3">We all are artist in our field. We all are able to find symmetry in our routine</h5>
+                        <app-matriculas></app-matriculas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal IMG -->
+<ng-template #modal_ficha let-modal>
+    <div class="modal-body row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <h5>Registrar</h5>
+            <hr>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+           HOlaaa
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <hr>
+            <button class="btn btn-danger" (click)="closeModal()"> Cerrar</button>
+        </div>
+    </div>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner type="timer"></ngx-spinner>
