@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit, PLATFORM_ID, TemplateRef, ViewChild } from '@angular/core';
 import { AcademicoService } from 'src/app/alumno/services/academico.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class DetalleComponent implements OnInit {
   courseCode: any;
 
   constructor(private service: AcademicoService, private spinner: NgxSpinnerService,private route: ActivatedRoute,
-    private modalService: NgbModal,private routes: Router, private sanitizer : DomSanitizer,) { 
+    private modalService: NgbModal,private routes: Router, private sanitizer : DomSanitizer) { 
     //const name = Calendar.name; // add this line in your constructor
     this.courseCode = this.route.snapshot.params['code'];
   }
