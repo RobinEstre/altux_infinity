@@ -11,6 +11,7 @@ import { LeadsComponent } from './pages/registro/leads/leads.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { DataTablesModule } from 'angular-datatables';
     NgxSpinnerModule,
     DataTablesModule,
     FormsModule,
+    NgSelectModule,
     ReactiveFormsModule,
     VentasRoutingModule
   ]

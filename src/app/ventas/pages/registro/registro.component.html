@@ -54,21 +54,305 @@
         </div>
     </div>
 </div>
-<!-- Modal IMG -->
+<!-- Modal Registro -->
 <ng-template #modal_ficha let-modal>
-    <div class="modal-body row">
+    <form [formGroup]="formRegistro" class="modal-body row">
         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
             <h5>Registrar</h5>
             <hr>
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-           HOlaaa
+        <div class="col-lg-8 col-md-8 col-sm-12 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectDiplomado($event)" class="form-control border-start-0" formControlName="diplomado">
+                            <option value="" disabled selected>Seleccionar Diplomado</option>
+                            <option *ngFor="let dip of new_diplomados" value="{{dip.course_code}}">
+                                {{dip.course_name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectOption($event)" class="form-control border-start-0" formControlName="pais" name="pais">
+                            <option *ngFor="let city of countries" value="{{city.name}}">
+                                {{city.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="isperu">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="" formControlName="dni" class="form-control border-start-0" (keyup)="getInfoByDni($event)"
+                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="8" >
+                        <label for="floatingInput">Ingrese DNI</label>
+                    </div>
+                </div>
+                <div *ngIf="nameperson" class="text-center text-uppercase" style="border-radius: 5px; background: darkseagreen">
+                    <small><b>{{nameperson}}</b></small>
+                </div>
+                <div *ngIf="formRegistro.controls['dni'].invalid && (formRegistro.controls['dni'].dirty || formRegistro.controls['dni'].touched)" >
+                    <div *ngIf="formRegistro.controls['dni'].errors.required">
+                        <small class="text-danger">Por favor ingrese su número de DNI</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['dni'].errors.maxlength">
+                        <small class="text-danger">Excediste el número máximo de caracteres</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['dni'].errors.minlength">
+                        <small class="text-danger">Debe contener como mínimo 8 caracteres</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectTipoDoc($event)" class="form-control border-start-0" formControlName="tip_doc" name="tip_doc">
+                            <option value="" disabled selected>Seleccionar Tipo Documento</option>
+                            <option *ngFor="let numDoc of documento" value="{{numDoc.id}}">
+                                {{numDoc.name_doc}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Ingrese Contraseña" formControlName="num_doc" class="form-control border-start-0" maxlength="9" 
+                        autocomplete="off" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                        <label for="floatingInput">Ingrese N° de Documento</label>
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['num_doc'].invalid && (formRegistro.controls['num_doc'].dirty || formRegistro.controls['num_doc'].touched)" >
+                    <div *ngIf="formRegistro.controls['num_doc'].errors.required">
+                        <small class="text-danger">Por favor ingrese su N° de documento</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['num_doc'].errors.minlength">
+                        <small class="text-danger">Debe contener como mínimo 9 caracteres</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Ingrese Nombre" formControlName="nombres" class="form-control border-start-0" autocomplete="off">
+                        <label for="floatingInput">Ingrese Nombre</label>
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['nombres'].invalid && (formRegistro.controls['nombres'].dirty || formRegistro.controls['nombres'].touched)" >
+                    <div *ngIf="formRegistro.controls['nombres'].errors.required">
+                        <small class="text-danger">Por favor Ingrese Nombre</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Ingrese Apellido" formControlName="apellidos" class="form-control border-start-0" autocomplete="off">
+                        <label for="floatingInput">Ingrese Apellido</label>
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['apellidos'].invalid && (formRegistro.controls['apellidos'].dirty || formRegistro.controls['apellidos'].touched)" >
+                    <div *ngIf="formRegistro.controls['apellidos'].errors.required">
+                        <small class="text-danger">Por favor Ingrese Apellido</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Ingrese Correo" formControlName="email" type="email" class="form-control border-start-0" autocomplete="off">
+                        <label for="floatingInput">Ingrese Correo</label>
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['email'].invalid && (formRegistro.controls['email'].dirty || formRegistro.controls['email'].touched)" >
+                    <div *ngIf="formRegistro.controls['email'].errors.required">
+                        <small class="text-danger">Por favor ingrese su correo</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['email'].errors.email">
+                        <small class="text-danger">Por favor ingrese un correo válido</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-telephone"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Ingrese Celular" formControlName="telefono" class="form-control border-start-0" autocomplete="off"
+                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/[^0-9+]/g,'')">
+                        <label for="floatingInput">Ingrese Celular</label>
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['telefono'].invalid && (formRegistro.controls['telefono'].dirty || formRegistro.controls['telefono'].touched)" >
+                    <div *ngIf="formRegistro.controls['telefono'].errors.required">
+                        <small class="text-danger">Por favor ingrese su celular</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['telefono'].errors.maxlength">
+                        <small class="text-danger">El celular debe tener como maximo 15 caracteres</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['telefono'].errors.minlength">
+                        <small class="text-danger">Debe contener como maximo 9 caracteres</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectProcedencia($event)" class="form-control border-start-0" formControlName="procedencia_venta">
+                            <option value="" disabled selected>Seleccionar Procedencia</option>
+                            <option *ngFor="let proc of procedencia_venta" value="{{proc.name}}">
+                                {{proc.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectGrado($event)" class="form-control border-start-0" formControlName="grado_instruccion">
+                            <option value="" disabled selected>Seleccionar Grado</option>
+                            <option *ngFor="let grado of grado_instruccion" value="{{grado.name}}">
+                                {{grado.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Ingrese Apellido" formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off">
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['datecall'].invalid && (formRegistro.controls['datecall'].dirty || formRegistro.controls['datecall'].touched)" >
+                    <div *ngIf="formRegistro.controls['datecall'].errors.required">
+                        <small class="text-danger">Por favor ingrese la fecha</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="mostrarColegiatura">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar-check-fill"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Ingrese N° Colegiatura" formControlName="num_colegiatura" class="form-control border-start-0" autocomplete="off">
+                        <label for="floatingInput">Ingrese N° Colegiatura</label>
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['num_colegiatura'].invalid && (formRegistro.controls['num_colegiatura'].dirty || formRegistro.controls['num_colegiatura'].touched)" >
+                    <div *ngIf="formRegistro.controls['num_colegiatura'].errors.required">
+                        <small class="text-danger">Por favor ingresar el N° Colegiatura</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectCargo($event)" class="form-control border-start-0" formControlName="cargo">
+                            <option value="" disabled selected>Seleccionar Cargo</option>
+                            <option *ngFor="let carg of cargo" value="{{carg.name}}">
+                                {{carg.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="centro">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectCentro($event)" class="form-control border-start-0" formControlName="centro_laboral">
+                            <option value="" disabled selected>Seleccionar Centro Laboral</option>
+                            <option *ngFor="let cent of centro_laboral" value="{{cent.nombre}}">
+                                {{cent.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <small class="text-danger">(Si no encuentra su centro laboral, seleccionar otros)</small>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="otroLabor">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="Otro Centro Laboral" formControlName="otro_laboral" class="form-control border-start-0" autocomplete="off">
+                        <label for="floatingInput">Otro Centro Laboral</label>
+                    </div>
+                </div>
+                <div *ngIf="formRegistro.controls['otro_laboral'].invalid && (formRegistro.controls['otro_laboral'].dirty || formRegistro.controls['otro_laboral'].touched)" >
+                    <div *ngIf="formRegistro.controls['otro_laboral'].errors.required">
+                        <small class="text-danger">Por favor ingrese el centro laboral</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="area">
+            <div class="form-group mb-2 position-relative check-valid">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectArea($event)" class="form-control border-start-0" formControlName="area">
+                            <option value="" disabled selected>Seleccionar Area</option>
+                            <option *ngFor="let areaTrab of area_trabajo" value="{{areaTrab.name}}">
+                                {{areaTrab.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
             <hr>
             <button class="btn btn-danger" (click)="closeModal()"> Cerrar</button>
         </div>
-    </div>
+    </form>
 </ng-template>
 <!-- SPINNER -->
 <ngx-spinner type="timer"></ngx-spinner>
