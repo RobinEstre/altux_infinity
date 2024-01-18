@@ -95,7 +95,7 @@ export class MatriculasComponent implements OnInit {
       processing: true,
       language: MatriculasComponent.spanish_datatables
     }
-    this.service.getInfoUser().subscribe(data => {
+    this.service.getFichas().subscribe(data => {
       if(data.success){
         let dip:any=[];
         data['data'].forEach(i=>{

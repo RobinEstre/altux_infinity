@@ -95,35 +95,29 @@ export class LeadsComponent implements OnInit {
       processing: true,
       language: LeadsComponent.spanish_datatables
     }
-    this.service.getInfoUser().subscribe(data => {
+    this.service.getLeads().subscribe(data => {
       if(data.success){
         let dip:any=[];
         data['data'].forEach(i=>{
-          var splitted = i.diplomado.courses_name.split(" ");
-          splitted.splice(0,3);
-          var cadena= splitted.toString();
-          let nueva = 'DE: '+cadena.replace(/_|#|-|@|<>|,/g, " ")
+          const split = i.diplomado.courses_name.split(' ')
+          split.splice(0, 3);
+          let name=split.map(x=>x).join(" ")
           dip.push({
-            'created_at':i.created_at,
-            'is_referido': i.is_referido,
-            'dni_patrocinador': i.dni_patrocinador,
-            'name_patrocinador': i.name_patrocinador,
-            'num_colegiatura': i.num_colegiatura,
-            'type_doc': i.type_doc,
-            'name': i.name,
-            'lastname': i.latname,
-            'names':i.name+' '+i.latname,
-            'phone': i.phone,
-            'mail': i.email,
-            'courses_name': nueva,
-            'date_call': i.date_call,
-            'num_doc': i.num_doc,
-            'courses_code': i.diplomado.courses_code,
-            'id': i.id,
-            'pais': i.pais,
-            'grado_instruccion': i.grado_instruccion,
-            'details': i.details,
-            'procedencia_venta': i.procedencia_venta
+            "id": i.id,
+            "diplomado": i.diplomado,
+            'courses_name': name,
+            "estado": i.estado,
+            "nombres": i.nombres,
+            "apellidos": i.apellidos,
+            "dni": i.dni,
+            "email": i.email,
+            "telefono": i.telefono,
+            "seguimiento": i.seguimiento,
+            "numero_colegiatura": i.numero_colegiatura,
+            "procedencia": i.procedencia,
+            'created_at': i.created_at,
+            "updated_at": i.updated_at,
+            "vendedor": i.vendedor
           })
         })
         this.leads= dip;

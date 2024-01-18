@@ -18,19 +18,13 @@
                 <tbody>
                 <tr *ngFor="let valalumnos of fichas, index as id">
                     <td>{{id+1}}</td>
-                    <td>
-                        <div class="product-name">
-                            <a class="nombre text-dark" href="javascript:void(0);">
-                                {{valalumnos.names}}
-                            </a>
-                        </div>
-                    </td>
-                    <td class="text-center">{{valalumnos.dni}}</td>
+                    <td>{{valalumnos.names}}</td>
+                    <td class="text-center">{{valalumnos.num_doc}}</td>
                     <td class="text-center"><a href="https://wa.me/51{{valalumnos.phone}}" target="_blank">{{valalumnos.phone}}</a></td>
                     <td class="text-center">{{valalumnos.mail}}</td>
                     <td class="text-center">{{valalumnos.courses_name}}</td>
-                    <td class="text-center"><b>{{valalumnos.created_at | date:'d MMMM, y ⌚HH:mm' }}</b></td>
-                    <td class="text-center"><b>{{valalumnos.date_call*1000 | date:'d MMMM, y ⌚HH:mm' }}</b></td>
+                    <td class="text-center"><b>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</b></td>
+                    <td class="text-center"><b>{{valalumnos.date_call*1000 | date:'dd/MM/yyyy ⌚HH:mm' }}</b></td>
                     <td class="text-center">
                         <!-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Cliente"
                                 class="" (click)="openDelete(valalumnos.id)">

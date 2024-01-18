@@ -3,32 +3,26 @@
         <div class="table-responsive invoice-table" id="table">
             <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                 <thead>
-                <tr class="text-center">
-                    <th>Nº</th>
+                <tr>
+                    <th class="text-center">Nº</th>
                     <th>Nombres y Apellidos</th>
-                    <th>DNI</th>
-                    <th>Celular</th>
-                    <th>Correo</th>
-                    <th>Diplomado</th>
-                    <th>Fecha Registro</th>
-                    <th>Acciones</th>
+                    <th class="text-center">DNI</th>
+                    <th class="text-center">Celular</th>
+                    <th class="text-center">Correo</th>
+                    <th class="text-center">Diplomado</th>
+                    <th class="text-center">Fecha Registro</th>
+                    <th class="text-center">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let valalumnos of leads, index as id">
                     <td>{{id+1}}</td>
-                    <td>
-                        <div class="product-name">
-                            <a class="nombre text-dark" href="javascript:void(0);">
-                                {{valalumnos.names}}
-                            </a>
-                        </div>
-                    </td>
+                    <td>{{valalumnos.nombres}} {{valalumnos.apellidos}}</td>
                     <td class="text-center">{{valalumnos.dni}}</td>
-                    <td class="text-center"><a href="https://wa.me/51{{valalumnos.phone}}" target="_blank">{{valalumnos.phone}}</a></td>
-                    <td class="text-center">{{valalumnos.mail}}</td>
+                    <td class="text-center"><a href="https://wa.me/51{{valalumnos.telefono}}" target="_blank">{{valalumnos.telefono}}</a></td>
+                    <td class="text-center">{{valalumnos.email}}</td>
                     <td class="text-center">{{valalumnos.courses_name}}</td>
-                    <td class="text-center"><b>{{valalumnos.created_at | date:'d MMMM, y' }}</b></td>
+                    <td class="text-center"><b>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</b></td>
                     <td class="text-center">
                         <!-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Cliente"
                                 class="" (click)="openDelete(valalumnos.id)">

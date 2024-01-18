@@ -12,6 +12,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -25,8 +27,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     NgxSpinnerModule,
     DataTablesModule,
+    NgbModule,
     FormsModule,
     NgSelectModule,
     ReactiveFormsModule,

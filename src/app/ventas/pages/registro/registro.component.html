@@ -15,6 +15,44 @@
                         <button class="btn btn-outline-primary mx-2" (click)="openModal()">Registrar</button>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="tab-menu-heading">
+                                <div class="tabs-menu ">
+                                    <ul ngbNav #nav="ngbNav" [activeId]="1" class="panel-tabs nav">
+                                        <li class="me-2 mb-1" [ngbNavItem]="1">
+                                            <a ngbNavLink>Leads</a>
+                                            <ng-template ngbNavContent>
+                                                <div class="tab-pane">
+                                                    <br>
+                                                    <app-leads></app-leads>
+                                                </div>
+                                            </ng-template>
+                                        </li>
+                                        <li class="me-2 mb-1" [ngbNavItem]="2">
+                                            <a ngbNavLink>Fichas</a>
+                                            <ng-template ngbNavContent>
+                                                <div class="tab-pane">
+                                                    <br>
+                                                    <app-fichas></app-fichas>
+                                                </div>
+                                            </ng-template>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body">
+                            <div [ngbNavOutlet]="nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-end">
+                        <button class="btn btn-outline-primary mx-2" (click)="openModal()">Registrar</button>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
                         <ul class="nav nav-tabs nav-WinDOORS" id="navtabscard3" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="tab13-tab" data-bs-toggle="tab" data-bs-target="#tab13" type="button" role="tab"
@@ -31,8 +69,8 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
+            </div> -->
+            <!-- <div class="card-footer">
                 <div class="tab-content" id="nav-navtabscard3">
                     <div class="tab-pane fade show active" id="tab13" role="tabpanel" aria-labelledby="tab13-tab" style="margin: 1% 1% 1% 1%">
                         <h6 class="fw-medium">Tab 1</h6>
@@ -50,23 +88,29 @@
                         <app-matriculas></app-matriculas>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
 <!-- Modal Registro -->
 <ng-template #modal_ficha let-modal>
-    <form [formGroup]="formRegistro" class="modal-body row">
-        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+    <form [formGroup]="formRegistro" class="modal-body row was-validated">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center ficha">
             <h5>Registrar</h5>
             <hr>
+            <div class="btn-container">
+                <label class="switch btn-color-mode-switch">
+                    <input type="checkbox" name="color_mode" id="color_mode" value="1" (change)="select($event)">
+                    <label for="color_mode" data-on="F" data-off="M" class="btn-color-mode-switch-inner"></label>
+                </label>
+            </div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectDiplomado($event)" class="form-control border-start-0" formControlName="diplomado">
+                        <select (change)="selectDiplomado($event)" class="form-select border-start-0" formControlName="diplomado" required>
                             <option value="" disabled selected>Seleccionar Diplomado</option>
                             <option *ngFor="let dip of new_diplomados" value="{{dip.course_code}}">
                                 {{dip.course_name}}
@@ -77,11 +121,11 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-map"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectOption($event)" class="form-control border-start-0" formControlName="pais" name="pais">
+                        <select (change)="selectOption($event)" class="form-select border-start-0" formControlName="pais" name="pais" required>
                             <option *ngFor="let city of countries" value="{{city.name}}">
                                 {{city.name}}
                             </option>
@@ -90,13 +134,28 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-2" *ngIf="!ficha">
+            <div class="form-group mb-2 position-relative">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
+                    <div class="form-floating">
+                        <select (change)="selectMatricula($event)" class="form-select border-start-0" formControlName="tipo_matricula" required>
+                            <option value="" disabled selected>Seleccionar Tipo Matricula</option>
+                            <option *ngFor="let tipoMat of tipo_matricula" value="{{tipoMat.id}}">
+                                {{tipoMat.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="isperu">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
                     <div class="form-floating">
                         <input placeholder="" formControlName="dni" class="form-control border-start-0" (keyup)="getInfoByDni($event)"
-                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="8" >
+                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="8" required>
                         <label for="floatingInput">Ingrese DNI</label>
                     </div>
                 </div>
@@ -116,12 +175,91 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 mb-2" *ngIf="!ficha && discount">
+            <div class="card">
+                <div class="card-body">
+                    <div class="alert alert-primary nuevo text-center" role="alert">
+                        <b>DETALLE MATRÍCULA</b>
+                    </div>
+                    <div class="order-table table-responsive">
+                        <table class="table table-bordered" *ngIf="discount">
+                            <!-- <thead>
+                            <tr>
+                                <th scope="col"><small>Diplomado:</small></th>
+                                <th scope="col"><small>{{discount.diplomado_name}}</small></th>
+                            </tr>
+                            </thead> -->
+                            <tbody *ngIf="discount">
+                            <!-- <tr>
+                                <td class="text-dark">
+                                    <small>Total {{nombre_descuento}}:</small>
+                                </td>
+                                <td>
+                                    <small>S/ {{discount.price_diplomado}}.00</small>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td class="text-dark">
+                                    <small>{{nombre_descuento}}:</small>
+                                </td>
+                                <td *ngIf="mostrarDiscount">
+                                    <small>S/ {{discount.first_payment}}.00</small>
+                                </td>
+                                <td *ngIf="!mostrarDiscount">
+                                    <small>S/ {{discount.price_diplomado}}.00</small>
+                                </td>
+                            </tr>
+                            <!-- <tr  *ngIf="mostrarDiscount">
+                                <td class="text-dark">
+                                    <small>Primera Cuota:</small>
+                                </td>
+                                <td>
+                                    <small>S/ {{discount.first_payment}}.00</small>
+                                </td>
+                            </tr> -->
+                            <tr  *ngIf="mostrarDiscount">
+                                <td class="text-dark">
+                                    <small>Primera Cuota:</small>
+                                </td>
+                                <td>
+                                    <small>S/ {{discount.second_payment}}.00</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-dark">
+                                    <small>Descuento:</small>
+                                </td>
+                                <td>
+                                    <small>S/ {{discount.price_discount}}.00</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-dark">
+                                    <small><b>Total a Pagar:</b></small>
+                                </td>
+                                <!-- <td>
+                                    <b>
+                                        <small>S/ {{discount.total_payment}}.00</small>
+                                    </b>
+                                </td> -->
+                                <td>
+                                    <b>
+                                        <small>S/ {{discount.price_diplomado}}.00</small>
+                                    </b>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectTipoDoc($event)" class="form-control border-start-0" formControlName="tip_doc" name="tip_doc">
+                        <select (change)="selectTipoDoc($event)" class="form-select border-start-0" formControlName="tip_doc" required>
                             <option value="" disabled selected>Seleccionar Tipo Documento</option>
                             <option *ngFor="let numDoc of documento" value="{{numDoc.id}}">
                                 {{numDoc.name_doc}}
@@ -132,12 +270,12 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
                     <div class="form-floating">
                         <input placeholder="Ingrese Contraseña" formControlName="num_doc" class="form-control border-start-0" maxlength="9" 
-                        autocomplete="off" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                        autocomplete="off" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
                         <label for="floatingInput">Ingrese N° de Documento</label>
                     </div>
                 </div>
@@ -152,11 +290,11 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
                     <div class="form-floating">
-                        <input placeholder="Ingrese Nombre" formControlName="nombres" class="form-control border-start-0" autocomplete="off">
+                        <input placeholder="Ingrese Nombre" formControlName="nombres" class="form-control border-start-0" autocomplete="off" required>
                         <label for="floatingInput">Ingrese Nombre</label>
                     </div>
                 </div>
@@ -168,11 +306,11 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
                     <div class="form-floating">
-                        <input placeholder="Ingrese Apellido" formControlName="apellidos" class="form-control border-start-0" autocomplete="off">
+                        <input placeholder="Ingrese Apellido" formControlName="apellidos" class="form-control border-start-0" autocomplete="off" required>
                         <label for="floatingInput">Ingrese Apellido</label>
                     </div>
                 </div>
@@ -184,11 +322,11 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
                     <div class="form-floating">
-                        <input placeholder="Ingrese Correo" formControlName="email" type="email" class="form-control border-start-0" autocomplete="off">
+                        <input placeholder="Ingrese Correo" formControlName="email" type="email" class="form-control border-start-0" autocomplete="off" required>
                         <label for="floatingInput">Ingrese Correo</label>
                     </div>
                 </div>
@@ -203,12 +341,12 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-telephone"></i></span>
                     <div class="form-floating">
                         <input placeholder="Ingrese Celular" formControlName="telefono" class="form-control border-start-0" autocomplete="off"
-                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/[^0-9+]/g,'')">
+                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/[^0-9+]/g,'')" required>
                         <label for="floatingInput">Ingrese Celular</label>
                     </div>
                 </div>
@@ -226,11 +364,11 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectProcedencia($event)" class="form-control border-start-0" formControlName="procedencia_venta">
+                        <select (change)="selectProcedencia($event)" class="form-select border-start-0" formControlName="procedencia_venta" required>
                             <option value="" disabled selected>Seleccionar Procedencia</option>
                             <option *ngFor="let proc of procedencia_venta" value="{{proc.name}}">
                                 {{proc.name}}
@@ -241,11 +379,11 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectGrado($event)" class="form-control border-start-0" formControlName="grado_instruccion">
+                        <select (change)="selectGrado($event)" class="form-select border-start-0" formControlName="grado_instruccion" required>
                             <option value="" disabled selected>Seleccionar Grado</option>
                             <option *ngFor="let grado of grado_instruccion" value="{{grado.name}}">
                                 {{grado.name}}
@@ -255,14 +393,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!ficha && mostrarDate">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
                     <div class="form-floating">
-                        <input placeholder="Ingrese Apellido" formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off">
+                        <input placeholder="Ingrese Apellido" formControlName="fecha" type="date" class="form-control border-start-0" autocomplete="off" required>
                     </div>
                 </div>
+                <small class="text-muted">Ingresar Fecha 2do Pago</small>
+                <div *ngIf="formRegistro.controls['fecha'].invalid && (formRegistro.controls['fecha'].dirty || formRegistro.controls['fecha'].touched)" >
+                    <div *ngIf="formRegistro.controls['fecha'].errors.required">
+                        <small class="text-danger">Por favor ingrese la fecha, dar click en el icono de calendario</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="ficha">
+            <div class="form-group mb-2 position-relative">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="" formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
+                    </div>
+                </div>
+                <small class="text-muted">Fecha a contactar</small>
                 <div *ngIf="formRegistro.controls['datecall'].invalid && (formRegistro.controls['datecall'].dirty || formRegistro.controls['datecall'].touched)" >
                     <div *ngIf="formRegistro.controls['datecall'].errors.required">
                         <small class="text-danger">Por favor ingrese la fecha</small>
@@ -271,11 +426,11 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="mostrarColegiatura">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar-check-fill"></i></span>
                     <div class="form-floating">
-                        <input placeholder="Ingrese N° Colegiatura" formControlName="num_colegiatura" class="form-control border-start-0" autocomplete="off">
+                        <input placeholder="Ingrese N° Colegiatura" formControlName="num_colegiatura" class="form-control border-start-0" autocomplete="off" required>
                         <label for="floatingInput">Ingrese N° Colegiatura</label>
                     </div>
                 </div>
@@ -287,11 +442,11 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectCargo($event)" class="form-control border-start-0" formControlName="cargo">
+                        <select (change)="selectCargo($event)" class="form-select border-start-0" formControlName="cargo" required>
                             <option value="" disabled selected>Seleccionar Cargo</option>
                             <option *ngFor="let carg of cargo" value="{{carg.name}}">
                                 {{carg.name}}
@@ -301,12 +456,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="centro">
-            <div class="form-group mb-2 position-relative check-valid">
+        <!-- <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="centro">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectCentro($event)" class="form-control border-start-0" formControlName="centro_laboral">
+                        <select (change)="selectCentro($event)" class="form-select border-start-0" formControlName="centro_laboral" required>
                             <option value="" disabled selected>Seleccionar Centro Laboral</option>
                             <option *ngFor="let cent of centro_laboral" value="{{cent.nombre}}">
                                 {{cent.nombre}}
@@ -318,11 +473,11 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="otroLabor">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
                     <div class="form-floating">
-                        <input placeholder="Otro Centro Laboral" formControlName="otro_laboral" class="form-control border-start-0" autocomplete="off">
+                        <input placeholder="Otro Centro Laboral" formControlName="otro_laboral" class="form-control border-start-0" autocomplete="off" required>
                         <label for="floatingInput">Otro Centro Laboral</label>
                     </div>
                 </div>
@@ -332,27 +487,72 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="area">
-            <div class="form-group mb-2 position-relative check-valid">
+            <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
                     <div class="form-floating">
-                        <select (change)="selectArea($event)" class="form-control border-start-0" formControlName="area">
+                        <select (change)="selectArea($event)" class="form-select border-start-0" formControlName="area" required>
                             <option value="" disabled selected>Seleccionar Area</option>
-                            <option *ngFor="let areaTrab of area_trabajo" value="{{areaTrab.name}}">
-                                {{areaTrab.name}}
+                            <option *ngFor="let areaTrab of area_trabajo" value="{{areaTrab.nombre}}">
+                                {{areaTrab.nombre}}
                             </option>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
+            <br>
+            <div class="form-group form-check form-switch" *ngIf="isperu">
+                <input class="form-check-input" (change)="optionFacture($event)" required
+                       type="checkbox" formControlName="is_factura">
+                <label>
+                    Solicitar Factura
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-12 col-xl-12 text-center mb-2" *ngIf="mostrarSelect && !ficha">
+            <div class="form-group mb-2 position-relative">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                    <div class="form-floating">
+                        <input placeholder="" formControlName="ruc" class="form-control border-start-0" autocomplete="off" maxlength="11"
+                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="getInfoByRuc($event)" required>
+                        <label for="floatingInput">Ingrese Nº RUC</label>
+                    </div>
+                </div>
+                <div *ngIf="nameruc" class="text-center text-uppercase" style="border-radius: 5px; background: #2a5390">
+                    <small><b>{{nameruc}}</b></small>
+                </div>
+                <div *ngIf="formRegistro.controls['ruc'].invalid && (formRegistro.controls['ruc'].dirty || formRegistro.controls['ruc'].touched)" >
+                    <div *ngIf="formRegistro.controls['ruc'].errors.required">
+                        <small class="text-danger">Por favor ingrese su número de RUC</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['ruc'].errors.maxlength">
+                        <small class="text-danger">Excediste el número máximo de caracteres</small>
+                    </div>
+                    <div *ngIf="formRegistro.controls['ruc'].errors.minlength">
+                        <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
             <hr>
-            <button class="btn btn-danger" (click)="closeModal()"> Cerrar</button>
+            <button class="btn btn-danger text-light" (click)="closeModal()"> Cerrar</button>
+            <button class="btn btn-primary mx-3" (click)="ejecutar()">Registrar</button>
         </div>
     </form>
+</ng-template>
+<!-- Modal Pago-->
+<ng-template #modal_pago let-modal>
+    <div class="modal-header" style="display: flow-root">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="">
+        <button type="button" class="btn-close pull-right" aria-label="Close" (click)="closeModalInfo()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
 </ng-template>
 <!-- SPINNER -->
 <ngx-spinner type="timer"></ngx-spinner>

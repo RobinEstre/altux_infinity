@@ -1,0 +1,53 @@
+<div class="modal-body" *ngIf="generate">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center">
+            <h3>¡Estás a punto de finalizar tu pago en OEA Educación!</h3>
+        </div>
+        <br>
+        <div class="col-md-6 offset-md-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center bg-light text-dark">
+                        <p>Empresa: PagoEfectivo<br> Servicio: PagoEfectivo Soles</p>
+                    </div>
+                    <div class="col-6 text-center bg-primary" ng-show="displayTooltip">
+                        <p>Código de Pago</p>
+                        <h4>{{generate.payment_code}}</h4>
+                        <button class="copiar" ng-click="displayTooltip = true" (click)="copyToClipboard()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                            </svg>
+                            Copiar
+                        </button>
+                    </div>
+                    <div class="col-6 text-center text-light bg-dark">
+                        <p>Monto a Pagar</p>
+                        <h4>S/ {{monto}}.00</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center">
+            <h5>⏱️ Págalo antes del {{generate['expiration_date']*1000 | date:'d MMMM, y, h:mm:ss a'}}</h5>
+        </div>
+        <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center" >
+            <h6>Escanea el QR desde tu celular</h6>
+        </div>
+        <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center text-dark" >
+            <img src="{{generate['qr']}}" alt="" width="200" height="200">
+        </div>
+        <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center" >
+            <p>Págarlo desde tu billetera digital favorita.</p>
+        </div>
+        <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center">
+            <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-yape.d215fa90def057530f0f85a593924271.png" alt="">
+            <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-plin.4f5f8c16cab3838eb77f9e37a433250e.png" alt="">
+            <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-bbva.63c889ab8dfd5529da7a545e35b1632c.png" alt="">
+            <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-scotiabank.e953d876c1244e09509145fe54c30afc.png" alt="">
+            <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-interbank.03956fa648c2c938203b310744d912db.png" alt="">
+            <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-ligo.d5cfe5960f30edb82222c4fa65f204d1.png" alt="">
+            <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-tunki.931bb0d023c2c2bb1b602b60a4e1edd5.png" alt="">
+        </div>
+        <img src="https://theme.zdassets.com/theme_assets/170263/dcb41d3f8f0e08477f557d4ed583bb0db69578c3.png" alt="">
+    </div>
+</div>

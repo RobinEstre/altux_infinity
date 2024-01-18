@@ -12,8 +12,8 @@ import { ModalExpiredComponent } from './components/exam/modal-expired/modal-exp
 import { ModalTestComponent } from './components/exam/modal-test/modal-test.component';
 import { PerfilSharedComponent } from './components/perfil/perfil.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-
-
+import { FormPayComponent } from './components/form-pay/form-pay.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ModalFinalizadoComponent,
     ModalExpiredComponent,
     ModalTestComponent,
-    PerfilSharedComponent
+    PerfilSharedComponent,
+    FormPayComponent
   ],
   imports: [
     CommonModule,
@@ -32,10 +33,12 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NgxDropzoneModule,
     RouterModule,
     ReactiveFormsModule,
+    ClipboardModule,
     FormsModule
   ],
   exports: [
     ContentComponent,
+    FormPayComponent,
     HeaderComponent,
     PerfilSharedComponent,
     ModalFinalizadoComponent,
