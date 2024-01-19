@@ -23,8 +23,9 @@ export class RegistroComponent implements OnInit {
   constructor(private service: VentasService, private spinner: NgxSpinnerService,private modalService: NgbModal,private fb: FormBuilder,) { }
 
   formRegistro = this.fb.group({
-    is_referido: ['',],
-    is_factura: [null,],
+    id:[null],
+    is_referido: [false,],
+    is_factura: [false,],
     patrocinador: ['',],
     dni: [''],
     nombres: ['',],
@@ -55,7 +56,7 @@ export class RegistroComponent implements OnInit {
   new_diplomados: any[] = []; isperu = true; nameperson: any; dni_consulta:any; mostrarColegiatura: boolean = false; grado:any;
   centro: boolean = false; area: boolean = false; centro_laboral:any; otroLabor:boolean=false; area_trabajo:any; ficha: boolean = false; 
   procedencia:any; tipo_documento:any; select_diplomado:any; discount: any;mostrarDiscount:boolean = false; precio_pago:string ='';
-  mostrarDate: boolean = false;nombre_descuento:any;mostrarSelect: boolean = false;nameruc:any; _generate:any
+  mostrarDate: boolean = false;nombre_descuento:any;is_facture: boolean = false;nameruc:any; _generate:any
   documento:any = [
     {
       'id': '4',
@@ -197,7 +198,7 @@ export class RegistroComponent implements OnInit {
     this.ficha=false
     this.mostrarDate=false
     this.mostrarDiscount=false
-    this.mostrarSelect=false
+    this.is_facture=false
     this.discount=null
     this.nameperson=null
     this.nameruc=null
@@ -562,7 +563,7 @@ export class RegistroComponent implements OnInit {
   optionFacture(event){
     let ischecked = event.target.checked;
     if (ischecked === true){
-      this.mostrarSelect = true
+      this.is_facture = true
       this.formRegistro.controls['ruc'].setValidators([Validators.required,Validators.minLength(11), Validators.maxLength(11)]);
       this.formRegistro.controls['ruc'].updateValueAndValidity();
     }else{
@@ -570,7 +571,7 @@ export class RegistroComponent implements OnInit {
       this.formRegistro.controls['ruc'].updateValueAndValidity();
       this.formRegistro.controls['ruc'].setValue('');
       this.nameruc=null;
-      this.mostrarSelect = false
+      this.is_facture = false
     }
   }
 
@@ -702,7 +703,7 @@ export class RegistroComponent implements OnInit {
     pais =  this.formRegistro.controls['pais'].value;
     if (pais === 'Perú'){
       var num_doc = this.formRegistro.controls['dni'].value;
-      if(this.formRegistro.controls['is_factura'].value == false){
+      if(this.is_facture == false){
         rzon_social = this.formRegistro.controls['nombrescompletos'].value;
         var nombre = this.formRegistro.controls['name1'].value;
         var apellidos = this.formRegistro.controls['name2'].value;
@@ -714,7 +715,7 @@ export class RegistroComponent implements OnInit {
         rzon_social = this.nameruc;
         var nombre = this.formRegistro.controls['name1'].value;
         var apellidos = this.formRegistro.controls['name2'].value;
-        var num_documento_sunat = this.formRegistro.controls['ruc'].value.trim();
+        var num_documento_sunat = this.formRegistro.controls['ruc'].value;
         var tipo_doc: any = '6';
         var unixtimestamp = null;
       }
@@ -724,8 +725,8 @@ export class RegistroComponent implements OnInit {
       rzon_social = name;
       var nombre = this.formRegistro.controls['nombres'].value;
       var apellidos = this.formRegistro.controls['apellidos'].value;
-      var num_doc = this.formRegistro.controls['num_doc'].value.trim();
-      var num_documento_sunat = this.formRegistro.controls['num_doc'].value.trim();
+      var num_doc = this.formRegistro.controls['num_doc'].value;
+      var num_documento_sunat = this.formRegistro.controls['num_doc'].value;
       var tipo_doc: any = this.tipo_documento;
       var unixtimestamp = null;
     }
@@ -747,11 +748,11 @@ export class RegistroComponent implements OnInit {
       "telefono": this.formRegistro.controls['telefono'].value.trim(),
       "nombres": nombre,
       "apellidos": apellidos,
-      "is_facture": this.formRegistro.controls['is_factura'].value,
+      "is_facture": this.is_facture,
       "rzon_social": rzon_social,
       "date_nex_payment": unixtimestamp,
       "type_matricula": this.formRegistro.controls['tipo_matricula'].value,
-      "is_referido": null, //this.referido,
+      "is_referido": false, //this.referido,
       "dni_patrocinador":  this.formRegistro.controls['patrocinador'].value,
       "procedencia_venta":  this.formRegistro.controls['procedencia_venta'].value,
       "grado_instruccion": this.formRegistro.controls['grado_instruccion'].value,
@@ -766,7 +767,7 @@ export class RegistroComponent implements OnInit {
       "ubigeo": ubigeo,
       "direccion": direccion
     };
-    console.log(jsonbody)
+    //console.log(jsonbody)
     this.spinner.show();
     this.service.registrarMatricula(jsonbody).subscribe(data => {
       if (data['success'] === true){
@@ -829,7 +830,7 @@ export class RegistroComponent implements OnInit {
     pais =  this.formRegistro.controls['pais'].value;
     if (pais === 'Perú'){
       var num_doc = this.formRegistro.controls['dni'].value;
-      if(this.formRegistro.controls['is_factura'].value == false){
+      if(this.is_facture == false){
         rzon_social = this.formRegistro.controls['nombrescompletos'].value;
         var nombre = this.formRegistro.controls['name1'].value;
         var apellidos = this.formRegistro.controls['name2'].value;
@@ -841,7 +842,7 @@ export class RegistroComponent implements OnInit {
         rzon_social = this.nameruc;
         var nombre = this.formRegistro.controls['name1'].value;
         var apellidos = this.formRegistro.controls['name2'].value;
-        var num_documento_sunat = this.formRegistro.controls['ruc'].value.trim();
+        var num_documento_sunat = this.formRegistro.controls['ruc'].value;
         var tipo_doc: any = '6';
         var unixtimestamp = null;
       }
@@ -851,8 +852,8 @@ export class RegistroComponent implements OnInit {
       rzon_social = name;
       var nombre = this.formRegistro.controls['nombres'].value;
       var apellidos = this.formRegistro.controls['apellidos'].value;
-      var num_doc = this.formRegistro.controls['num_doc'].value.trim();
-      var num_documento_sunat = this.formRegistro.controls['num_doc'].value.trim();
+      var num_doc = this.formRegistro.controls['num_doc'].value;
+      var num_documento_sunat = this.formRegistro.controls['num_doc'].value;
       var tipo_doc: any = this.tipo_documento;
       var unixtimestamp = null;
     }
@@ -874,7 +875,7 @@ export class RegistroComponent implements OnInit {
       "telefono": this.formRegistro.controls['telefono'].value.trim(),
       "nombres": nombre,
       "apellidos": apellidos,
-      "is_facture": this.formRegistro.controls['is_factura'].value,
+      "is_facture": this.is_facture,
       "rzon_social": rzon_social,
       "date_nex_payment": unixtimestamp,
       "type_matricula": this.formRegistro.controls['tipo_matricula'].value,

@@ -20,4 +20,8 @@ export class PerfilService {
   selectImgUser(data) {
     return this.httpClient.put<any>(this.envUrl.urlAddress + 'users/seleccionar/avatar-perfil/', data);
   }
+
+  updatePassword(data){
+    return this.httpClient.put<any>(this.envUrl.urlAddress + 'users/actualizar-password/', data)
+  }
 }

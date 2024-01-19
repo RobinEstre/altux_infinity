@@ -1,1 +1,79 @@
-<p>alumnos works!</p>
+<div class="card border-0 mb-4">
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h6 class="fw-medium mb-0">Estudiantes Registrados</h6>
+                <p class="text-secondary small">Listar de todos los estudiantes registrados</p>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="grupos" class="card-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+                <div class="form-group">
+                    <label class="form-label"><b>Filtrar</b> </label>
+                    <ng-select formControlName="grupo"
+                                [items]="grupo"
+                                bindLabel="name_doc"
+                                bindValue="id"
+                                placeholder="Seleccionar"
+                                (change)="rerender()">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="table-responsive invoice-table" id="table">
+                    <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Nº</th>
+                            <th>Estudiante</th>
+                            <th>Diplomado</th>
+                            <th>Estado de Pago</th>
+                            <th>Monto</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Fecha Matricula</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let valregistro of registro, index as id">
+                            <td>{{id+1}}</td>
+                            <td class="text-center">{{valregistro.nombres}} {{valregistro.apellidos}}</td>
+                            <td class="text-center">{{valregistro.courses_name}}</td>
+                            <td>
+                                <div class="product-name">
+                                    <a href="javascript:void(0);" class="text-success"
+                                        *ngIf="valregistro.is_paid==true">
+                                        Contado
+                                    </a>
+                                    <a href="javascript:void(0);" class="text-warning"
+                                        *ngIf="valregistro.is_paid==false">
+                                        Cuotas
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-center text-success">S/.{{valregistro.total_price}}</td>
+                            <td class="text-center">{{valregistro.phone}}</td>
+                            <td class="text-center">{{valregistro.email}}</td>
+                            <td class="text-center">{{valregistro.fecha_matricula}}</td>
+                            <td class="text-center">
+                                <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Reenviar Acceso Estudiante"
+                                    class="mx-2" (click)="generateCode(valregistro.student_id, valregistro)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-envelope-exclamation" viewBox="0 0 16 16">
+                                        <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
+                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- SPINNER -->
+<ngx-spinner type="timer"></ngx-spinner>

@@ -102,7 +102,63 @@ export class PerfilSharedComponent implements OnInit {
     this.modalRefIMG.close()
   }
 
-  update(){}
+  update(){
+    const jsonbody = {
+      "old_pasword": this.formPass.controls['old_pass'].value,
+      "new_password":this.formPass.controls['new_pass'].value
+    };
+    this.spinner.show();
+    if(this.formPass.controls['new_pass'].value==this.formPass.controls['confirm_pass'].value){
+      this.service.updatePassword(jsonbody).subscribe(data => {
+        if (data["success"] === true) {
+          this.closeModal()
+          this.formPass.reset();
+          this.spinner.hide();
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '¡Se actualizó correctamente la contraseña!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      },error => {
+        if(error.status===400){
+          this.spinner.hide();
+          if(error.error.message!=null){
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: 'Advertencia!',
+              text: error.error.message,
+              showConfirmButton: false,
+              timer:2000
+            });
+          }
+          if(error.error.error.new_password){
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: 'Advertencia!',
+              text: 'Esta contraseña es demasiado corta. Debe contener al menos 8 caracteres.',
+              showConfirmButton: false,
+              timer:2000
+            });
+          }
+        }
+      });
+    }
+    else {
+      this.spinner.hide();
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: '¡Contraseñas no coinciden!',
+        showConfirmButton: false,
+        timer:2000
+      });
+    }
+  }
 
   updateImg(data, index){
     Swal.fire({

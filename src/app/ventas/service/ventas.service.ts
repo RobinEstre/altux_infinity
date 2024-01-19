@@ -21,6 +21,9 @@ export class VentasService {
   list_diplomados() {
     return this.httpClient.get(this.envUrl.urlAddress + 'cursos/todos');
   }
+  listregistro(data) {
+    return this.httpClient.post(this.envUrl.urlAddress + 'ventas/matricula/listar-estudiantes-matriculados/', data);
+  }
   validarDNI(data: number) {
     return this.httpClient.get(this.envUrl.urlAddress + 'ventas/matricula/validar-dni/' + data);
   }
@@ -44,6 +47,18 @@ export class VentasService {
     return this.httpClient.post(this.envUrl.urlAddress + 'ventas/matricula/registrar-matricula/', data)
   }
   registrarLinkMatricula(data) {
-      return this.httpClient.post(this.envUrl.urlAddress + 'ventas/generar/url-formulario-llenado/', data)
+    return this.httpClient.post(this.envUrl.urlAddress + 'ventas/generar/url-formulario-llenado/', data)
+  }
+  reenviarAcceso(data){
+    return this.httpClient.post(this.envUrl.urlAddress + 'alumno/reenviar-accesos/estudiante/', data)
+  }
+  registrarLinkPreMatricula(data) {
+    return this.httpClient.post(this.envUrl.urlAddress + 'ventas/ficha/generar-link-pago-con-tarjeta/', data)
+  }
+  generarPagoPreventa(data) {
+    return this.httpClient.post(this.envUrl.urlAddress + 'ventas/pre-venta/reservar-matricula/generar-codigo-de-pago/', data);
+  }
+  deleteClient(data) {
+    return this.httpClient.post(this.envUrl.urlAddress + 'ventas/pre-venta/eliminar-contacto-alumno/', data);
   }
 }

@@ -1,10 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, LOCALE_ID} from '@angular/core';
 import Swal from "sweetalert2";
+import localeEs from '@angular/common/locales/es';
+import {DatePipe, registerLocaleData} from "@angular/common";
+registerLocaleData(localeEs, 'es');
 
 @Component({
   selector: 'app-form-pay',
   templateUrl: './form-pay.component.html',
-  styleUrls: ['./form-pay.component.scss']
+  styleUrls: ['./form-pay.component.scss'],
+  providers: [ { provide: LOCALE_ID, useValue: 'es' }, DatePipe]
 })
 export class FormPayComponent implements OnInit {
 
