@@ -579,8 +579,8 @@ export class RegistroComponent implements OnInit {
     if(!this.ficha){
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-warning'
+          confirmButton: 'btn btn-warning',
+          cancelButton: 'btn btn-dark mx-3'
         },
         buttonsStyling: false
       })

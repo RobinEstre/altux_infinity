@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
         this.isShowAlert = 'success';
         setTimeout(() => {
           this.router.navigate(['/auth/login']);
-        }, 1500)
+        }, 3000)
       }
     },error=>{
       this.isShowAlert = 'danger';

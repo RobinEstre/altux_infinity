@@ -99,10 +99,9 @@ export class MatriculasComponent implements OnInit {
       if(data.success){
         let dip:any=[];
         data['data'].forEach(i=>{
-          var splitted = i.diplomado.courses_name.split(" ");
-          splitted.splice(0,3);
-          var cadena= splitted.toString();
-          let nueva = 'DE: '+cadena.replace(/_|#|-|@|<>|,/g, " ")
+          const split = i.diplomado.courses_name.split(' ')
+          split.splice(0, 3);
+          let name=split.map(x=>x).join(" ")
           dip.push({
             'created_at':i.created_at,
             'is_referido': i.is_referido,
@@ -115,7 +114,7 @@ export class MatriculasComponent implements OnInit {
             'names':i.name+' '+i.latname,
             'phone': i.phone,
             'mail': i.email,
-            'courses_name': nueva,
+            'courses_name': name,
             'date_call': i.date_call,
             'num_doc': i.num_doc,
             'courses_code': i.diplomado.courses_code,

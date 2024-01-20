@@ -3,34 +3,36 @@
         <div class="table-responsive invoice-table" id="table">
             <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                 <thead>
-                <tr class="text-center">
-                    <th>Nº</th>
-                    <th>Nombres y Apellidos</th>
-                    <th>DNI</th>
-                    <th>Celular</th>
-                    <th>Correo</th>
-                    <th>Diplomado</th>
-                    <th>Fecha Registro</th>
-                    <th>Estado Pago</th>
-                    <th>Acciones</th>
+                <tr>
+                    <th class="text-center"><small>Nº</small></th>
+                    <th><small>Nombres y Apellidos</small></th>
+                    <th class="text-center"><small>DNI</small></th>
+                    <th class="text-center"><small>Celular</small></th>
+                    <th class="text-center"><small>Diplomado</small></th>
+                    <th class="text-center"><small>Matrícula</small></th>
+                    <th class="text-center"><small>Descuento</small></th>
+                    <th class="text-center"><small>Pago Matrícula</small></th>
+                    <th class="text-center"><small>Fecha Pago</small></th>
+                    <th class="text-center"><small>Cuota 1</small></th>
+                    <th class="text-center"><small>Fecha Pago</small></th>
+                    <th class="text-center"><small>Recordatorio</small></th>
+                    <th class="text-center"><small>Acciones</small></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let valalumnos of matriculas, index as id">
-                    <td>{{id+1}}</td>
-                    <td>
-                        <div class="product-name">
-                            <a class="nombre text-dark" href="javascript:void(0);">
-                                {{valalumnos.names}}
-                            </a>
-                        </div>
-                    </td>
-                    <td class="text-center">{{valalumnos.dni}}</td>
-                    <td class="text-center"><a href="https://wa.me/51{{valalumnos.phone}}" target="_blank">{{valalumnos.phone}}</a></td>
-                    <td class="text-center">{{valalumnos.mail}}</td>
-                    <td class="text-center">{{valalumnos.courses_name}}</td>
-                    <td class="text-center"><b>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</b></td>
-                    <td class="text-center"><b>{{valalumnos.date_call*1000 | date:'dd/MM/yyyy ⌚HH:mm' }}</b></td>
+                    <td class="text-center"><small>{{id+1}}</small></td>
+                    <td><small>{{valalumnos.names}}</small></td>
+                    <td class="text-center"><small>{{valalumnos.num_doc}}</small></td>
+                    <td class="text-center"><small><a href="https://wa.me/51{{valalumnos.phone}}" target="_blank">{{valalumnos.phone}}</a></small></td>
+                    <td class="text-center"><small>{{valalumnos.courses_name}}</small></td>
+                    <td class="text-center"><small>S/ 150.00</small></td>
+                    <td class="text-center"><small>S/ 50.00</small></td>
+                    <td class="text-center"><small>S/ 100.00</small></td>
+                    <td class="text-center"><small>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</small></td>
+                    <td class="text-center"><small>S/ 170.00</small></td>
+                    <td class="text-center"><small><a href="javascript:void(0);"><span class="badge rounded-pill bg-danger">Pagar</span></a></small></td>
+                    <td class="text-center"><small>{{valalumnos.date_call*1000 | date:'dd/MM/yyyy' }}</small></td>
                     <td class="text-center">
                         <!-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Cliente"
                                 class="" (click)="openDelete(valalumnos.id)">

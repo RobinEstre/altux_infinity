@@ -19,7 +19,7 @@
                         </p>
                         <br>
                         <p class="h4 fw-light mb-4">Iniciar Sesión</p>
-                        <form [formGroup]="formLogin" class="mb-4">
+                        <form [formGroup]="formLogin" class="mb-4" (submit)="showSuccess()">
                             <!-- alert messages -->
                             <div class="alert alert-danger fade show mb-2 global-danger" role="alert" *ngIf="isShowAlert=='danger'">
                                 <div class="row">
@@ -50,7 +50,7 @@
                                         <label for="floatingInput">Usuario</label>
                                     </div>
                                     <!-- submit button -->
-                                    <button (click)="showSuccess()" class="btn btn-lg btn-theme z-index-5 btn-square-lg" type="button" id="submitbtn"><i class="bi bi-arrow-right"></i></button>
+                                    <button type="submit" class="btn btn-lg btn-theme z-index-5 btn-square-lg" id="submitbtn"><i class="bi bi-arrow-right"></i></button>
                                     <!-- routerLink="/auth/password" -->
                                 </div>
                             </div>

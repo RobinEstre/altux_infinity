@@ -146,13 +146,7 @@ export class FichasComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthMenu: [5, 10, 25],
-      dom: 'Bfrtip',
-      buttons: [
-        { extend: 'pdfHtml5', className: 'btn btn-primary', title:'Fichas Ventas'},
-        { extend: 'copy', className: 'btn btn-primary', title:'Fichas Ventas'},
-        { extend: 'print', className: 'btn btn-danger', title:'Fichas Ventas'},
-        { extend: 'excelHtml5', className: 'btn btn-success', title:'Fichas Ventas'}
-      ],
+      //dom: 'Bfrtip',
       processing: true,
       language: FichasComponent.spanish_datatables
     }
@@ -311,7 +305,7 @@ export class FichasComponent implements OnInit {
 
   openModalDel(id) {
     this.formDelete.controls['id'].setValue(id)
-    this.modalDel = this.modalService.open(this.modalDelete, { centered: true, size: 'sm' });
+    this.modalDel = this.modalService.open(this.modalDelete, { centered: true, size: 'sm', keyboard: false });
     this.modalDel.result.then();
   }
 
@@ -321,7 +315,7 @@ export class FichasComponent implements OnInit {
   
   openModalPay(alumno) {
     this.detalle=alumno
-    this.modalPay = this.modalService.open(this.modalPayment, { centered: true, size: 'md' });
+    this.modalPay = this.modalService.open(this.modalPayment, { centered: true, size: 'md', keyboard: false });
     this.formGenerate.controls['id'].setValue(alumno.id);
     this.formGenerate.controls.tipo_matricula.setValue('');
     this.formReserva.reset()
@@ -342,7 +336,7 @@ export class FichasComponent implements OnInit {
   }
 
   openModalPago() {
-    this.modalPag = this.modalService.open(this.modalPago, { centered: true, size: 'lg' });
+    this.modalPag = this.modalService.open(this.modalPago, { centered: true, size: 'lg', keyboard: false });
     this.modalPag.result.then();
   }
 
@@ -444,8 +438,8 @@ export class FichasComponent implements OnInit {
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-warning mx-3'
+        confirmButton: 'btn btn-warning',
+        cancelButton: 'btn btn-dark mx-3'
       },
       buttonsStyling: false
     })
@@ -454,8 +448,6 @@ export class FichasComponent implements OnInit {
       title: 'Elegir El Método De Pago',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
       confirmButtonText: '💰 PagoEfectivo',
       cancelButtonText: '💳 Tarjetas'
     }).then((result) => {

@@ -1,26 +1,29 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="card border-0 mb-4">
-            <div class="card-header">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
                 <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
                     <div class="col">
-                        <h6 class="fw-medium mb-0">Registro Alumnos</h6>
-                        <p class="text-secondary small">Fichas - Leads - Matriculas</p>
+                        <h6 class="fw-medium mb-0 text-uppercase">Listado y Registro Alumnos</h6>
+                        <p class="text-secondary small">Leads - Fichas - Matriculas</p>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-theme" (click)="openModal()"><i class="bi bi-plus"></i> Registrar</button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body py-3">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-end">
-                        <button class="btn btn-outline-primary mx-2" (click)="openModal()">Registrar</button>
-                    </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="panel panel-primary">
                             <div class="tab-menu-heading">
                                 <div class="tabs-menu ">
                                     <ul ngbNav #nav="ngbNav" [activeId]="1" class="panel-tabs nav">
                                         <li class="me-2 mb-1" [ngbNavItem]="1">
-                                            <a ngbNavLink>Leads</a>
+                                            <a ngbNavLink><i class="bi bi-star-fill"></i> Leads</a>
                                             <ng-template ngbNavContent>
                                                 <div class="tab-pane">
                                                     <br>
@@ -29,7 +32,7 @@
                                             </ng-template>
                                         </li>
                                         <li class="me-2 mb-1" [ngbNavItem]="2">
-                                            <a ngbNavLink>Fichas</a>
+                                            <a ngbNavLink><i class="bi bi-card-checklist"></i> Fichas</a>
                                             <ng-template ngbNavContent>
                                                 <div class="tab-pane">
                                                     <br>
@@ -38,7 +41,12 @@
                                             </ng-template>
                                         </li>
                                         <li class="me-2 mb-1" [ngbNavItem]="3">
-                                            <a ngbNavLink>Matrículas</a>
+                                            <a ngbNavLink>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill-exclamation" viewBox="0 0 16 16">
+                                                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                                                    <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5m0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
+                                                </svg> 
+                                                Matrículas</a>
                                             <ng-template ngbNavContent>
                                                 <div class="tab-pane">
                                                     <br>
@@ -56,54 +64,474 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-end">
-                        <button class="btn btn-outline-primary mx-2" (click)="openModal()">Registrar</button>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <ul class="nav nav-tabs nav-WinDOORS" id="navtabscard3" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="tab13-tab" data-bs-toggle="tab" data-bs-target="#tab13" type="button" role="tab"
-                                    aria-controls="tab13-tab" aria-selected="true">Leads</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="tab23-tab" data-bs-toggle="tab" data-bs-target="#tab23" type="button" role="tab" 
-                                    aria-controls="tab23" aria-selected="false">Fichas</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="tab33-tab" data-bs-toggle="tab" data-bs-target="#tab33" type="button" role="tab" 
-                                    aria-controls="tab33" aria-selected="false">Matriculas</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="card-footer">
-                <div class="tab-content" id="nav-navtabscard3">
-                    <div class="tab-pane fade show active" id="tab13" role="tabpanel" aria-labelledby="tab13-tab" style="margin: 1% 1% 1% 1%">
-                        <h6 class="fw-medium">Tab 1</h6>
-                        <h5 class="mb-3">We all are artist in our field. We all are able to find symmetry in our routine</h5>
-                        <app-leads></app-leads>
-                    </div>
-                    <div class="tab-pane fade" id="tab23" role="tabpanel" aria-labelledby="tab23-tab" style="margin: 1% 1% 1% 1%">
-                        <h6 class="fw-medium">Tab 2</h6>
-                        <h5 class="mb-3">We all are artist in our field. We all are able to find symmetry in our routine</h5>
-                        <app-fichas></app-fichas>
-                    </div>
-                    <div class="tab-pane fade" id="tab33" role="tabpanel" aria-labelledby="tab33-tab" style="margin: 1% 1% 1% 1%">
-                        <h6 class="fw-medium">Tab 3</h6>
-                        <h5 class="mb-3">We all are artist in our field. We all are able to find symmetry in our routine</h5>
-                        <app-matriculas></app-matriculas>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
 <!-- Modal Registro -->
 <ng-template #modal_ficha let-modal>
-    <form [formGroup]="formRegistro" class="modal-body row was-validated">
+    <form [formGroup]="formRegistro" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">Nuevo Registro</h5>
+            <p class="text-secondary title">M = Matrícula | F = Ficha</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated">
+                <div class="col-lg-12 col-md-12 col-sm-12 text-center ficha">
+                    <div class="btn-container">
+                        <label class="switch btn-color-mode-switch">
+                            <input type="checkbox" name="color_mode" id="color_mode" value="1" (change)="select($event)">
+                            <label for="color_mode" data-on="F" data-off="M" class="btn-color-mode-switch-inner"></label>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectDiplomado($event)" class="form-select border-start-0" formControlName="diplomado" required>
+                                    <option value="" disabled selected>Seleccionar Diplomado</option>
+                                    <option *ngFor="let dip of new_diplomados" value="{{dip.course_code}}">
+                                        {{dip.course_name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-map"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectOption($event)" class="form-select border-start-0" formControlName="pais" name="pais" required>
+                                    <option *ngFor="let city of countries" value="{{city.name}}">
+                                        {{city.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-2" *ngIf="!ficha">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectMatricula($event)" class="form-select border-start-0" formControlName="tipo_matricula" required>
+                                    <option value="" disabled selected>Seleccionar Tipo Matricula</option>
+                                    <option *ngFor="let tipoMat of tipo_matricula" value="{{tipoMat.id}}">
+                                        {{tipoMat.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2 text-center" *ngIf="isperu">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="dni" class="form-control border-start-0" (keyup)="getInfoByDni($event)"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="8" required>
+                                <label for="floatingInput">Ingrese DNI</label>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="tag mb-2 me-2" *ngIf="nameperson">
+                            <i class="bi bi-person vm ms-2 mx-2"></i> {{nameperson}}
+                        </a>
+                        <div *ngIf="formRegistro.controls['dni'].invalid && (formRegistro.controls['dni'].dirty || formRegistro.controls['dni'].touched)" >
+                            <div *ngIf="formRegistro.controls['dni'].errors.required">
+                                <small class="text-danger">Por favor ingrese su número de DNI</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['dni'].errors.maxlength">
+                                <small class="text-danger">Excediste el número máximo de caracteres</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['dni'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 8 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-2" *ngIf="!ficha && discount">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="alert alert-primary nuevo text-center" role="alert">
+                                <b>DETALLE MATRÍCULA</b>
+                            </div>
+                            <div class="order-table table-responsive">
+                                <table class="table table-bordered" *ngIf="discount">
+                                    <!-- <thead>
+                                    <tr>
+                                        <th scope="col"><small>Diplomado:</small></th>
+                                        <th scope="col"><small>{{discount.diplomado_name}}</small></th>
+                                    </tr>
+                                    </thead> -->
+                                    <tbody *ngIf="discount">
+                                    <!-- <tr>
+                                        <td class="text-dark">
+                                            <small>Total {{nombre_descuento}}:</small>
+                                        </td>
+                                        <td>
+                                            <small>S/ {{discount.price_diplomado}}.00</small>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="text-dark">
+                                            <small>{{nombre_descuento}}:</small>
+                                        </td>
+                                        <td *ngIf="mostrarDiscount">
+                                            <small>S/ {{discount.first_payment}}.00</small>
+                                        </td>
+                                        <td *ngIf="!mostrarDiscount">
+                                            <small>S/ {{discount.price_diplomado}}.00</small>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr  *ngIf="mostrarDiscount">
+                                        <td class="text-dark">
+                                            <small>Primera Cuota:</small>
+                                        </td>
+                                        <td>
+                                            <small>S/ {{discount.first_payment}}.00</small>
+                                        </td>
+                                    </tr> -->
+                                    <tr  *ngIf="mostrarDiscount">
+                                        <td class="text-dark">
+                                            <small>Primera Cuota:</small>
+                                        </td>
+                                        <td>
+                                            <small>S/ {{discount.second_payment}}.00</small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">
+                                            <small>Descuento:</small>
+                                        </td>
+                                        <td>
+                                            <small>S/ {{discount.price_discount}}.00</small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">
+                                            <small><b>Total a Pagar:</b></small>
+                                        </td>
+                                        <!-- <td>
+                                            <b>
+                                                <small>S/ {{discount.total_payment}}.00</small>
+                                            </b>
+                                        </td> -->
+                                        <td>
+                                            <b>
+                                                <small>S/ {{discount.price_diplomado}}.00</small>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectTipoDoc($event)" class="form-select border-start-0" formControlName="tip_doc" required>
+                                    <option value="" disabled selected>Seleccionar Tipo Documento</option>
+                                    <option *ngFor="let numDoc of documento" value="{{numDoc.id}}">
+                                        {{numDoc.name_doc}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Contraseña" formControlName="num_doc" class="form-control border-start-0" maxlength="9" 
+                                autocomplete="off" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
+                                <label for="floatingInput">Ingrese N° de Documento</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['num_doc'].invalid && (formRegistro.controls['num_doc'].dirty || formRegistro.controls['num_doc'].touched)" >
+                            <div *ngIf="formRegistro.controls['num_doc'].errors.required">
+                                <small class="text-danger">Por favor ingrese su N° de documento</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['num_doc'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 9 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Nombre" formControlName="nombres" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Ingrese Nombre</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['nombres'].invalid && (formRegistro.controls['nombres'].dirty || formRegistro.controls['nombres'].touched)" >
+                            <div *ngIf="formRegistro.controls['nombres'].errors.required">
+                                <small class="text-danger">Por favor Ingrese Nombre</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!isperu">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Apellido" formControlName="apellidos" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Ingrese Apellido</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['apellidos'].invalid && (formRegistro.controls['apellidos'].dirty || formRegistro.controls['apellidos'].touched)" >
+                            <div *ngIf="formRegistro.controls['apellidos'].errors.required">
+                                <small class="text-danger">Por favor Ingrese Apellido</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Correo" formControlName="email" type="email" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Ingrese Correo</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['email'].invalid && (formRegistro.controls['email'].dirty || formRegistro.controls['email'].touched)" >
+                            <div *ngIf="formRegistro.controls['email'].errors.required">
+                                <small class="text-danger">Por favor ingrese su correo</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['email'].errors.email">
+                                <small class="text-danger">Por favor ingrese un correo válido</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-telephone"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Celular" formControlName="telefono" class="form-control border-start-0" autocomplete="off"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/[^0-9+]/g,'')" required>
+                                <label for="floatingInput">Ingrese Celular</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['telefono'].invalid && (formRegistro.controls['telefono'].dirty || formRegistro.controls['telefono'].touched)" >
+                            <div *ngIf="formRegistro.controls['telefono'].errors.required">
+                                <small class="text-danger">Por favor ingrese su celular</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['telefono'].errors.maxlength">
+                                <small class="text-danger">El celular debe tener como maximo 15 caracteres</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['telefono'].errors.minlength">
+                                <small class="text-danger">Debe contener como maximo 9 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectProcedencia($event)" class="form-select border-start-0" formControlName="procedencia_venta" required>
+                                    <option value="" disabled selected>Seleccionar Procedencia</option>
+                                    <option *ngFor="let proc of procedencia_venta" value="{{proc.name}}">
+                                        {{proc.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectGrado($event)" class="form-select border-start-0" formControlName="grado_instruccion" required>
+                                    <option value="" disabled selected>Seleccionar Grado</option>
+                                    <option *ngFor="let grado of grado_instruccion" value="{{grado.name}}">
+                                        {{grado.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!ficha && mostrarDate">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Apellido" formControlName="fecha" type="date" class="form-control border-start-0" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <small class="text-muted">Ingresar Fecha 2do Pago</small>
+                        <div *ngIf="formRegistro.controls['fecha'].invalid && (formRegistro.controls['fecha'].dirty || formRegistro.controls['fecha'].touched)" >
+                            <div *ngIf="formRegistro.controls['fecha'].errors.required">
+                                <small class="text-danger">Por favor ingrese la fecha, dar click en el icono de calendario</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="ficha">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <small class="text-muted">Fecha a contactar</small>
+                        <div *ngIf="formRegistro.controls['datecall'].invalid && (formRegistro.controls['datecall'].dirty || formRegistro.controls['datecall'].touched)" >
+                            <div *ngIf="formRegistro.controls['datecall'].errors.required">
+                                <small class="text-danger">Por favor ingrese la fecha</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="mostrarColegiatura">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar-check-fill"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese N° Colegiatura" formControlName="num_colegiatura" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Ingrese N° Colegiatura</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['num_colegiatura'].invalid && (formRegistro.controls['num_colegiatura'].dirty || formRegistro.controls['num_colegiatura'].touched)" >
+                            <div *ngIf="formRegistro.controls['num_colegiatura'].errors.required">
+                                <small class="text-danger">Por favor ingresar el N° Colegiatura</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectCargo($event)" class="form-select border-start-0" formControlName="cargo" required>
+                                    <option value="" disabled selected>Seleccionar Cargo</option>
+                                    <option *ngFor="let carg of cargo" value="{{carg.name}}">
+                                        {{carg.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="centro">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectCentro($event)" class="form-select border-start-0" formControlName="centro_laboral" required>
+                                    <option value="" disabled selected>Seleccionar Centro Laboral</option>
+                                    <option *ngFor="let cent of centro_laboral" value="{{cent.nombre}}">
+                                        {{cent.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <small class="text-danger">(Si no encuentra su centro laboral, seleccionar otros)</small>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="otroLabor">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Otro Centro Laboral" formControlName="otro_laboral" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Otro Centro Laboral</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['otro_laboral'].invalid && (formRegistro.controls['otro_laboral'].dirty || formRegistro.controls['otro_laboral'].touched)" >
+                            <div *ngIf="formRegistro.controls['otro_laboral'].errors.required">
+                                <small class="text-danger">Por favor ingrese el centro laboral</small>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="area">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectArea($event)" class="form-select border-start-0" formControlName="area" required>
+                                    <option value="" disabled selected>Seleccionar Area</option>
+                                    <option *ngFor="let areaTrab of area_trabajo" value="{{areaTrab.nombre}}">
+                                        {{areaTrab.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
+                    <br>
+                    <div class="form-group form-check form-switch" *ngIf="isperu">
+                        <input class="form-check-input" (change)="optionFacture($event)"
+                               type="checkbox" formControlName="is_factura">
+                        <label>
+                            Solicitar Factura
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-md-12 text-center mb-2" *ngIf="is_facture && !ficha">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="ruc" class="form-control border-start-0" autocomplete="off" maxlength="11"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="getInfoByRuc($event)" required>
+                                <label for="floatingInput">Ingrese Nº RUC</label>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="tag mb-2 me-2" *ngIf="nameruc">
+                            <i class="bi bi-person vm ms-2 mx-2"></i> {{nameruc}}
+                        </a>
+                        <div *ngIf="formRegistro.controls['ruc'].invalid && (formRegistro.controls['ruc'].dirty || formRegistro.controls['ruc'].touched)" >
+                            <div *ngIf="formRegistro.controls['ruc'].errors.required">
+                                <small class="text-danger">Por favor ingrese su número de RUC</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['ruc'].errors.maxlength">
+                                <small class="text-danger">Excediste el número máximo de caracteres</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['ruc'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="ejecutar()" [disabled]="!formRegistro.valid">Registrar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
+                    <!-- <button class="btn btn-danger text-light" (click)="closeModal()"> Cerrar</button>
+                    <button class="btn btn-primary mx-3" (click)="ejecutar()">Registrar</button> -->
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- <form [formGroup]="formRegistro" class="modal-body row was-validated" style="background: #f6f9fd !important;">
         <div class="col-lg-12 col-md-12 col-sm-12 text-center ficha">
             <h5>Registrar</h5>
             <hr>
@@ -180,85 +608,6 @@
                     </div>
                     <div *ngIf="formRegistro.controls['dni'].errors.minlength">
                         <small class="text-danger">Debe contener como mínimo 8 caracteres</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 mb-2" *ngIf="!ficha && discount">
-            <div class="card">
-                <div class="card-body">
-                    <div class="alert alert-primary nuevo text-center" role="alert">
-                        <b>DETALLE MATRÍCULA</b>
-                    </div>
-                    <div class="order-table table-responsive">
-                        <table class="table table-bordered" *ngIf="discount">
-                            <!-- <thead>
-                            <tr>
-                                <th scope="col"><small>Diplomado:</small></th>
-                                <th scope="col"><small>{{discount.diplomado_name}}</small></th>
-                            </tr>
-                            </thead> -->
-                            <tbody *ngIf="discount">
-                            <!-- <tr>
-                                <td class="text-dark">
-                                    <small>Total {{nombre_descuento}}:</small>
-                                </td>
-                                <td>
-                                    <small>S/ {{discount.price_diplomado}}.00</small>
-                                </td>
-                            </tr> -->
-                            <tr>
-                                <td class="text-dark">
-                                    <small>{{nombre_descuento}}:</small>
-                                </td>
-                                <td *ngIf="mostrarDiscount">
-                                    <small>S/ {{discount.first_payment}}.00</small>
-                                </td>
-                                <td *ngIf="!mostrarDiscount">
-                                    <small>S/ {{discount.price_diplomado}}.00</small>
-                                </td>
-                            </tr>
-                            <!-- <tr  *ngIf="mostrarDiscount">
-                                <td class="text-dark">
-                                    <small>Primera Cuota:</small>
-                                </td>
-                                <td>
-                                    <small>S/ {{discount.first_payment}}.00</small>
-                                </td>
-                            </tr> -->
-                            <tr  *ngIf="mostrarDiscount">
-                                <td class="text-dark">
-                                    <small>Primera Cuota:</small>
-                                </td>
-                                <td>
-                                    <small>S/ {{discount.second_payment}}.00</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-dark">
-                                    <small>Descuento:</small>
-                                </td>
-                                <td>
-                                    <small>S/ {{discount.price_discount}}.00</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-dark">
-                                    <small><b>Total a Pagar:</b></small>
-                                </td>
-                                <!-- <td>
-                                    <b>
-                                        <small>S/ {{discount.total_payment}}.00</small>
-                                    </b>
-                                </td> -->
-                                <td>
-                                    <b>
-                                        <small>S/ {{discount.price_diplomado}}.00</small>
-                                    </b>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -465,38 +814,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="centro">
-            <div class="form-group mb-2 position-relative">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
-                    <div class="form-floating">
-                        <select (change)="selectCentro($event)" class="form-select border-start-0" formControlName="centro_laboral" required>
-                            <option value="" disabled selected>Seleccionar Centro Laboral</option>
-                            <option *ngFor="let cent of centro_laboral" value="{{cent.nombre}}">
-                                {{cent.nombre}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <small class="text-danger">(Si no encuentra su centro laboral, seleccionar otros)</small>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="otroLabor">
-            <div class="form-group mb-2 position-relative">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
-                    <div class="form-floating">
-                        <input placeholder="Otro Centro Laboral" formControlName="otro_laboral" class="form-control border-start-0" autocomplete="off" required>
-                        <label for="floatingInput">Otro Centro Laboral</label>
-                    </div>
-                </div>
-                <div *ngIf="formRegistro.controls['otro_laboral'].invalid && (formRegistro.controls['otro_laboral'].dirty || formRegistro.controls['otro_laboral'].touched)" >
-                    <div *ngIf="formRegistro.controls['otro_laboral'].errors.required">
-                        <small class="text-danger">Por favor ingrese el centro laboral</small>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="area">
             <div class="form-group mb-2 position-relative">
                 <div class="input-group input-group-lg">
@@ -550,10 +867,8 @@
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
             <hr>
-            <button class="btn btn-danger text-light" (click)="closeModal()"> Cerrar</button>
-            <button class="btn btn-primary mx-3" (click)="ejecutar()">Registrar</button>
         </div>
-    </form>
+    </form> -->
 </ng-template>
 <!-- Modal Pago-->
 <ng-template #modal_pago let-modal>
