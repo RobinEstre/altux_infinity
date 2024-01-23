@@ -654,7 +654,6 @@ export class RegistroComponent implements OnInit {
       "ubigeo": null,
       "direccion": null
     };
-    console.log(jsonbody)
     this.spinner.show()
     this.service.registrarPreVenta(jsonbody).subscribe(data => {
       if (data['success'] === true) {
