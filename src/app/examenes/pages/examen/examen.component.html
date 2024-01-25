@@ -40,7 +40,7 @@
                                         <i class="bi bi-list-task h5 avatar avatar-40 bg-light-theme rounded"></i>
                                     </div>
                                     <div class="col">
-                                        <h6 class="fw-medium mb-0 text-uppercase">{{respuestas[0].preguntas.texto}}</h6>
+                                        <h6 class="fw-medium mb-0 text-uppercase">{{respuestas[0].preguntas}}</h6>
                                         <!-- <p class="text-secondary small">Do your best</p> -->
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="modal-footer" style=" display: flex; justify-content: center;">
             <button class="btn btn-danger" (click)="closeModalTerminate()">CANCELAR</button>
-            <button class="btn btn-success" (click)="finalizar_Examen(examen.evaluacion_id)">ENVIAR</button>
+            <button class="btn btn-success mx-2" (click)="finalizar_Examen(examen.evaluacion_id)">ENVIAR</button>
         </div>
     </div>
 </ng-template>

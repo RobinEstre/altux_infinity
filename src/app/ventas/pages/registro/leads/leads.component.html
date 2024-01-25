@@ -50,7 +50,7 @@
         </div>
         <div class="card-body modal-body">
             <div class="row was-validated">
-                <div class="col-lg-12 col-md-12 col-sm-12 text-center ficha">
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-2 text-center ficha">
                     <div class="btn-container">
                         <label class="switch btn-color-mode-switch">
                             <input type="checkbox" name="color_mode" id="color_mode" value="1" (change)="select($event)">
@@ -141,6 +141,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="ficha">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <small class="text-muted">Fecha a contactar</small>
+                        <div *ngIf="formRegistro.controls['datecall'].invalid && (formRegistro.controls['datecall'].dirty || formRegistro.controls['datecall'].touched)" >
+                            <div *ngIf="formRegistro.controls['datecall'].errors.required">
+                                <small class="text-danger">Por favor ingrese la fecha</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
@@ -227,7 +243,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-auto">
-                    <button class="btn btn-sm btn-theme" (click)="saveRegister()" [disabled]="!formRegistro.valid">Registro Estado</button>
+                    <button class="btn btn-sm btn-theme" (click)="saveRegister()" [disabled]="!formRegistro.valid">Registrar</button>
                     <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
                 </div>
             </div>
@@ -277,6 +293,14 @@
             </div>
         </div>
     </form>
+</ng-template>
+<!-- Modal Pago-->
+<ng-template #modal_pago let-modal>
+    <div class="modal-header">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
+        <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModalInfo()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
 </ng-template>
 <!-- SPINNER -->
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
