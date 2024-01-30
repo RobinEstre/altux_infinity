@@ -32,16 +32,16 @@ export class FormPayComponent implements OnInit {
       return
     }
     if(this.monto==300){
-      this.nombre='Matricula y 1era Mensualidad'
+      this.nombre='Matricula y 1era Cuota'
       return
     }
     if(this.monto>300){
-      this.nombre='al Contado'
+      this.nombre='Al Contado'
       return
     }
   }
 
-  copyToClipboard() {    
+  copyToClipboard() {
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';

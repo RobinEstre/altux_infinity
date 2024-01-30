@@ -1,26 +1,33 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, LOCALE_ID, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgbModal, NgbModalConfig, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {MatriculaService} from "../services/matricula.service";
 import Swal from "sweetalert2";
 import {NgxSpinnerService} from "ngx-spinner";
+import localeEs from '@angular/common/locales/es';
+import {DatePipe, registerLocaleData} from "@angular/common";
+registerLocaleData(localeEs, 'es');
+
 // import Swiper core and required modules
 import SwiperCore, { Swiper, Autoplay, Pagination, Navigation } from "swiper";
 import { LocalhostKeys } from 'src/app/shared/enum/localhost-keys';
+import { SwiperComponent } from 'swiper/angular';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 @Component({
   selector: 'app-form-pay-matricula',
   templateUrl: './form-pay-matricula.component.html',
-  styleUrls: ['./form-pay-matricula.component.scss']
+  styleUrls: ['./form-pay-matricula.component.scss'],
+  providers: [ { provide: LOCALE_ID, useValue: 'es' }, DatePipe]
 })
 export class FormPayMatriculaComponent implements OnInit {
   @ViewChild('content') private modalContent: TemplateRef<FormPayMatriculaComponent>;
   private modalRef: NgbModalRef;
   @ViewChild('pago') private modalContentPago: TemplateRef<FormPayMatriculaComponent>;
   private modalRefPago: NgbModalRef;
+  @ViewChild(SwiperComponent) swiper: SwiperComponent;
   code:any
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private routes: Router, config: NgbModalConfig, private modalService: NgbModal,
     public service: MatriculaService, private spinner: NgxSpinnerService,) {
@@ -41,25 +48,8 @@ export class FormPayMatriculaComponent implements OnInit {
     year_expirate: [null],
   });
 
-
-  vendedor:any
-  mostrarDiscount:boolean = false;
-  mostrar_efectivo: boolean = false;
-  optionCard = true;
-  optionEfectivo = false;
-  precio_pago:any
-  discount:any
-  data:any
-  tipo_pago:any
-  btnPay:any
-  arrayMes:any=[]
-  fechanual:any=[]
-  methodPay = 'card';
-  mostrar_pago: boolean = false;
-  jsonbody:any
-  _generate:any
-  
-  isFullScreen: boolean = false;
+  vendedor:any; mostrarDiscount:boolean = false; mostrar_efectivo: boolean = false; optionCard = true; optionEfectivo = false; precio_pago:any; discount:any; data:any;
+  tipo_pago:any; btnPay:any; arrayMes:any=[]; fechanual:any=[]; methodPay = 'card'; mostrar_pago: boolean = false; jsonbody:any; _generate:any; isFullScreen: boolean = false;
 
   pagination = {
     el: '.pagination-wrap',
@@ -80,29 +70,55 @@ export class FormPayMatriculaComponent implements OnInit {
     this.loadyear()
   }
 
-  slideChange() {
+  slideChange(event) {
+    if(event[0].activeIndex==1){
+      var x = document.getElementsByClassName("btn-next");
+      for (let i = 0; i < x.length; i++) {
+        (<HTMLElement>x[i]).setAttribute("disabled", "disabled");
+      }
+    }
+    if(event[0].activeIndex==2){
+      var x = document.getElementsByClassName("btn-prev");
+      for (let i = 0; i < x.length; i++) {
+        (<HTMLElement>x[i]).setAttribute("disabled", "disabled");
+      }
+      return
+    }    
     document.getElementsByClassName('btn-next')[0].classList.remove('d-none');
     document.getElementsByClassName('btn-summary')[0].classList.add('d-none')
   }
 
-  summaryNavigate() {
-    document.getElementsByClassName('iconnext')[0].classList.add('d-none');
-    document.getElementsByClassName('iconloader')[0].classList.remove('d-none');
-
-    setTimeout(() => {
-      this.routes.navigate(['/onboarding/secondary']);
-    }, 3000)
-  }
-
   reachEnd() {
-    setTimeout(() => {
-      document.getElementsByClassName('btn-next')[0].classList.add('d-none');
-      document.getElementsByClassName('btn-summary')[0].classList.remove('d-none')
-    }, 50);
+    // setTimeout(() => {
+    //   document.getElementsByClassName('btn-next')[0].classList.add('d-none');
+    //   document.getElementsByClassName('btn-summary')[0].classList.remove('d-none')
+    // }, 50);
   }
 
   selectDomain(domain: string) {
     this.domain = domain;
+    this.optionCard = false;
+    this.optionEfectivo = false;
+    this.formExcPay.controls['number_card'].setValidators([]);
+    this.formExcPay.controls['month_expirate'].setValidators([]);
+    this.formExcPay.controls['year_expirate'].setValidators([]);
+    this.formExcPay.controls['cvv'].setValidators([]);
+    this.formExcPay.controls['number_card'].updateValueAndValidity();
+    this.formExcPay.controls['month_expirate'].updateValueAndValidity();
+    this.formExcPay.controls['year_expirate'].updateValueAndValidity();
+    this.formExcPay.controls['cvv'].updateValueAndValidity();
+    if(domain=='finance'){
+      this.optionCard=true
+      this.formExcPay.controls['number_card'].setValidators([Validators.required]);
+      this.formExcPay.controls['month_expirate'].setValidators([Validators.required]);
+      this.formExcPay.controls['year_expirate'].setValidators([Validators.required]);
+      this.formExcPay.controls['cvv'].setValidators([Validators.required]);
+      this.formExcPay.controls['number_card'].updateValueAndValidity();
+      this.formExcPay.controls['month_expirate'].updateValueAndValidity();
+      this.formExcPay.controls['year_expirate'].updateValueAndValidity();
+      this.formExcPay.controls['cvv'].updateValueAndValidity();
+    }
+    else{this.optionEfectivo=true}
   }
 
   listInit(){
@@ -114,7 +130,7 @@ export class FormPayMatriculaComponent implements OnInit {
         split.splice(0, 3);
         let name=split.map(x=>x).join(" ")
         this.data.discount.diplomado_name=name
-        this.vendedor=data['data']['user'].detail_user
+        this.vendedor=data['data']['user']
         this.discount=data['data']['data_matricula']['discount']
         if (this.discount['first_payment'] === 0) {
           this.mostrarDiscount = false;
@@ -128,6 +144,8 @@ export class FormPayMatriculaComponent implements OnInit {
         this.formMatricula.controls['telefono'].setValue(data['data']['data_matricula']['telefono'])
         this.formMatricula.controls['email'].setValue(data['data']['data_matricula']['email'])
         this.formMatricula.controls['pais'].setValue('Perú')
+        this.formExcPay.controls['month_expirate'].setValue('');
+        this.formExcPay.controls['year_expirate'].setValue('');
         if(data['data']['data_matricula']['pais']){
           this.formMatricula.controls['pais'].setValue(data['data']['data_matricula']['pais'])
         }
@@ -224,44 +242,8 @@ export class FormPayMatriculaComponent implements OnInit {
     this.formExcPay.controls['cvv'].updateValueAndValidity();
   }
 
-  selectMes(event){
-  }
-
-  selectYear(event){
-  }
-
-  seletMethodPay(option) {
-    this.methodPay = option.target.value;
-    if (this.methodPay === 'efective') {
-      this.tipo_pago='efective';
-      this.optionCard = false;
-      this.optionEfectivo = true;
-      this.mostrar_pago=false;
-      this.btnPay = 'Generar Código';
-      this.formExcPay.controls['number_card'].clearValidators();
-      this.formExcPay.controls['month_expirate'].clearValidators();
-      this.formExcPay.controls['year_expirate'].clearValidators();
-      this.formExcPay.controls['cvv'].clearValidators();
-    }
-    else {
-      this.tipo_pago='card';
-      this.mostrar_efectivo=false;
-      this.optionCard = true;
-      this.optionEfectivo = false;
-      this.btnPay = 'Pagar';
-      this.formExcPay.controls['number_card'].setValidators([Validators.required]);
-      this.formExcPay.controls['month_expirate'].setValidators([Validators.required]);
-      this.formExcPay.controls['year_expirate'].setValidators([Validators.required]);
-      this.formExcPay.controls['cvv'].setValidators([Validators.required]);
-    }
-    this.formExcPay.controls['number_card'].updateValueAndValidity();
-    this.formExcPay.controls['month_expirate'].updateValueAndValidity();
-    this.formExcPay.controls['year_expirate'].updateValueAndValidity();
-    this.formExcPay.controls['cvv'].updateValueAndValidity();
-  }
-
   exectPayment(){
-    if (this.methodPay === 'card') {
+    if (this.domain == 'finance') {
       this.payWithCard();
     }else {
       this.payWithEfective();
@@ -279,8 +261,7 @@ export class FormPayMatriculaComponent implements OnInit {
   }
 
   body(){
-    let num_documento_sunat
-    let razon
+    let num_documento_sunat, razon, tipo_pago, tipo_matricula, date
     if(this.data.is_facture==true){
       num_documento_sunat = this.data.num_documento_sunat
     }else {
@@ -289,9 +270,12 @@ export class FormPayMatriculaComponent implements OnInit {
     if( this.data.rzon_social){
       razon= this.data.rzon_social
     }else {razon=''}
+    if (this.domain == 'finance') {tipo_pago='card'}else {tipo_pago='efective'}
+    if( this.data.type_matricula){tipo_matricula= this.data.type_matricula}else{tipo_matricula= this.data.tipo_matricula}
+    if( this.data.date_nex_payment){date= this.data.date_nex_payment}else{date= null}    
     this.jsonbody = {
       "diplomado_code": this.data.diplomado_code,
-      "type_pay": this.tipo_pago,
+      "type_pay": tipo_pago,
       "pais": this.data.pais,
       "tipoDoc": this.data.tipoDoc,
       "num_documento": this.data.num_documento,
@@ -303,8 +287,8 @@ export class FormPayMatriculaComponent implements OnInit {
       "is_facture": this.data.is_facture,
       "num_ruc": num_documento_sunat,
       "rzon_social": razon,
-      "date_nex_payment": this.data.date_nex_payment,
-      "type_matricula": this.data.type_matricula,
+      "date_nex_payment": date,
+      "type_matricula": tipo_matricula,
       "id_student": this.data.id_student,
       "is_referido": this.data.is_referido,
       "dni_patrocinador": this.data.dni_patrocinador,
@@ -326,10 +310,10 @@ export class FormPayMatriculaComponent implements OnInit {
   realizarMatricula(jsonbody){
     this.spinner.show();
     this.service.registrarMatricula(jsonbody).subscribe(data => {
-      if(this.tipo_pago=='efective'){
+      if(this.jsonbody.type_pay == 'efective'){
         if(data['data']['object']=='error') {
-          this.closeModal()
-          this.formMatricula.reset();
+          this.formExcPay.controls['month_expirate'].setValue('');
+          this.formExcPay.controls['year_expirate'].setValue('');
           this.formExcPay.reset();
           Swal.fire({
             position: "center",
@@ -341,13 +325,12 @@ export class FormPayMatriculaComponent implements OnInit {
           });
           return
         }
-        else {
-          this._generate = data['data'];
-          this.closeModal()
-          this.openModalPago()
-          this.formMatricula.reset();
+        else if (data['success']==true){
+          this.swiper.swiperRef.slideNext();
+          let event=[{activeIndex: 2}]
+          this.slideChange(event) 
           this.formExcPay.reset();
-          this.codigoExpirado()
+          //this.codigoExpirado()
           Swal.fire({
             position: "center",
             icon: "success",
@@ -356,10 +339,13 @@ export class FormPayMatriculaComponent implements OnInit {
             showConfirmButton: false,
             timer:2000
           });
+          this._generate = data['data'];
         }
       }
-      else if(this.tipo_pago=='card'){
+      else{
         if (data['data']['object']=='error') {
+          this.formExcPay.controls['month_expirate'].setValue('');
+          this.formExcPay.controls['year_expirate'].setValue('');
           this.spinner.hide();
           this.formExcPay.reset();
           Swal.fire({
@@ -372,10 +358,11 @@ export class FormPayMatriculaComponent implements OnInit {
           });
         }
         else{
-          this.closeModal()
-          this.formMatricula.reset();
           this.formExcPay.reset();
-          this.codigoExpirado()
+          this.swiper.swiperRef.slideNext();
+          let event=[{activeIndex: 2}]
+          this.slideChange(event) 
+          //this.codigoExpirado()
           Swal.fire({
             position: "center",
             icon: "success",
@@ -386,6 +373,8 @@ export class FormPayMatriculaComponent implements OnInit {
           });
         }
       }
+      this.formExcPay.controls['month_expirate'].setValue('');
+      this.formExcPay.controls['year_expirate'].setValue('');
       this.spinner.hide();
     }, error => {
       this.spinner.hide();
@@ -421,7 +410,7 @@ export class FormPayMatriculaComponent implements OnInit {
           showConfirmButton: false,
           timer:2000
         });
-        return this.routes.navigate(['/']);
+        //return this.routes.navigate(['/']);
       }
       else {
         Swal.fire({
@@ -450,5 +439,26 @@ export class FormPayMatriculaComponent implements OnInit {
 
   closeModalPago() {
     this.modalRefPago.close();
+  }
+
+  copyToClipboard() {
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this._generate['payment_code'];
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: '¡Código Copiado!',
+      showConfirmButton: false,
+      timer:2000
+    });
   }
 }

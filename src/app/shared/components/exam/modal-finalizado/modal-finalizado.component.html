@@ -70,7 +70,7 @@
         <div class="card border-0 mb-4">
             <div class="card-footer">
                 <div *ngFor="let examen of preguntas, index as id">
-                    <h6 class="title">{{id+1+'.-'}} {{examen.preguntas}}</h6>
+                    <h6 class="title">{{id+1+'.-'}} {{examen.preguntas.texto}}</h6>
                     <div class="d-block text-center" *ngIf="motrar_nota">
                         <div *ngIf="examen.respuesta">
                             <a target="_blank" class="tag theme-green mb-2 me-2" *ngIf="examen.resultado">
