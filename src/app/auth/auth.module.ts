@@ -11,6 +11,11 @@ import { VerifyComponent } from './verify/verify.component';
 import { PasswordComponent } from './password/password.component';
 import { AuthenticationModule } from '../shared/auth/authentication.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormPayMatriculaComponent } from './form-pay-matricula/form-pay-matricula.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SharedModule } from '../shared/shared.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SwiperModule } from 'swiper/angular';
 
 
 @NgModule({
@@ -21,13 +26,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChangePasswordComponent,
     ForgotPasswordComponent,
     VerifyComponent,
-    PasswordComponent
+    PasswordComponent,
+    FormPayMatriculaComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
+    NgxSpinnerModule,
+    SharedModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    SwiperModule,
     AuthenticationModule
   ]
 })

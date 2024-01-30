@@ -1,0 +1,462 @@
+<!-- Begin page content -->
+<main class="main h-100 container-fluid bg-blur">
+    <!-- background -->
+    <div class="coverimg h-100 w-100 top-0 start-0 position-absolute" style="background: radial-gradient(circle, rgba(0,68,148,1) 0%, rgba(0,113,198,1) 0%, rgba(0,68,148,1) 100%) !important;">
+        <img src="" alt="" class="w-100" style="display: none;" />
+    </div>
+    <!-- background ends  -->
+    <div class="row h-100 z-index-1 position-relative">
+        <div class="col-12 mb-auto">
+            <!-- header -->
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand" routerLink="/auth/login">
+                        <div class="row">
+                            <div class="col-auto">
+                                <img src="https://web-altux-files.s3.amazonaws.com/infinity/Logo+Infinity+by+altux+en+blanco+completo.png" 
+                                name="logoimage" class="mx-100" alt="" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+            <!-- header ends -->
+        </div>
+        <div class="col-12 align-self-center py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="card bg-blur">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <img src="https://web-altux-files.s3.amazonaws.com/infinity/logo+infinity+azul+altux.png" alt="" />
+                                </div>
+                                <div class="col align-self-center text-center">
+                                    <h5 class="fw-normal">User Onboarding</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- content swiper -->
+                            <swiper #swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="pagination" [navigation]="navigation" [autoplay]="false" 
+                                (reachEnd)="reachEnd()" (slideChange)="slideChange($event)" class="onboarding-swiper swiper-no-swiping h-100 w-100">
+                                <ng-template swiperSlide>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="vendedor">
+                                            <div class="card border-0">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6 col-lg-6 col-xl-5 text-center">
+                                                            <div class="h-200 overflow-hidden rounded mb-3 position-relative z-index-0">
+                                                                <figure class="h-100 w-100 coverimg zoomout" style="background-image: url('https://oea-files.s3.amazonaws.com/imagenes-usuario/logo%2Baltux%2Bblanco-99c0154f-d10a-4810-b171-2690177a0972.jpeg');">
+                                                                    <img src="https://oea-files.s3.amazonaws.com/imagenes-usuario/logo%2Baltux%2Bblanco-99c0154f-d10a-4810-b171-2690177a0972.jpeg" alt="" class="d-none" />
+                                                                </figure>
+                                                            </div>
+                                                            <h6 class="text-truncate mb-1">{{vendedor.detail_user.nombres}} <br> {{vendedor.detail_user.apellidos}}</h6>
+                                                            <p class="text-secondary mb-3">
+                                                                <!-- <i class="bi bi-postcard"></i> {{vendedor.detail_user.dni}} <br> -->
+                                                                <i class="bi bi-phone"></i> {{vendedor.detail_user.telefono}} <br>
+                                                                <i class="bi bi-envelope"></i> {{vendedor.detail_user.email}}
+                                                            </p>
+                                                            <span class="tag bg-primary">Vendedor</span>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 col-lg-6 col-xl-7 border-left-dashed" *ngIf="data">
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col">
+                                                                    <h6 class="title">Detalle Estudiante:</h6>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="list-group list-group-flush bg-none" *ngIf="data" style="font-size: 13px;">
+                                                                <li class="list-group-item text-secondary">
+                                                                    <div class="row">
+                                                                        <div class="col-auto">
+                                                                            <i class="bi bi-check-circle text-muted"></i>
+                                                                        </div>
+                                                                        <div class="col-auto ps-0">
+                                                                            Estudiante: {{data.nombres}} {{data.apellidos}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item text-secondary">
+                                                                    <div class="row">
+                                                                        <div class="col-auto">
+                                                                            <i class="bi bi-check-circle text-muted"></i>
+                                                                        </div>
+                                                                        <div class="col-auto ps-0">
+                                                                            Correo: {{data.email}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item text-secondary">
+                                                                    <div class="row">
+                                                                        <div class="col-auto">
+                                                                            <i class="bi bi-check-circle text-muted"></i>
+                                                                        </div>
+                                                                        <div class="col-auto ps-0">
+                                                                            Celular: {{data.telefono}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item text-secondary">
+                                                                    <div class="row">
+                                                                        <div class="col-auto">
+                                                                            <i class="bi bi-check-circle text-muted"></i>
+                                                                        </div>
+                                                                        <div class="col-auto ps-0">
+                                                                            Dni: {{data.num_documento}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <!-- <li class="list-group-item text-secondary">
+                                                                    <div class="row">
+                                                                        <div class="col-auto">
+                                                                            <i class="bi bi-check-circle text-muted"></i>
+                                                                        </div>
+                                                                        <div class="col-auto ps-0">
+                                                                            País: {{data.pais}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li> -->
+                                                            </ul>
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col">
+                                                                    <h6 class="title">Detalle Matrícula:</h6>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="list-group list-group-flush bg-none" style="font-size: 13px;">
+                                                                <li class="list-group-item text-secondary">
+                                                                    <div class="row">
+                                                                        <div class="col-auto">
+                                                                            <i class="bi bi-check-circle text-muted"></i>
+                                                                        </div>
+                                                                        <div class="col-auto ps-0">
+                                                                            Diplomado: {{data.discount.diplomado_name}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item text-secondary">
+                                                                    <div class="row">
+                                                                        <div class="col-auto">
+                                                                            <i class="bi bi-check-circle text-muted"></i>
+                                                                        </div>
+                                                                        <div class="col-auto ps-0" *ngIf="data.tipo_matricula=='prematricula'||data.type_matricula=='prematricula'">
+                                                                            Matrícula
+                                                                        </div>
+                                                                        <div class="col-auto ps-0" *ngIf="data.tipo_matricula=='matriculacuota'||data.type_matricula=='matriculacuota'">
+                                                                            Matrícula + 1era Cuota
+                                                                        </div>
+                                                                        <div class="col-auto ps-0" *ngIf="data.tipo_matricula=='matriculacontado'||data.type_matricula=='matriculacontado'">
+                                                                            Pago al Contado
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template swiperSlide>
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 text-center align-self-center" style="border-right: 1px solid silver;">
+                                            <br><br><br>
+                                            <div class="alert alert-primary nuevo text-center" role="alert">
+                                                <b>DETALLE MATRÍCULA</b>
+                                            </div>
+                                            <div class="order-table table-responsive">
+                                                <table class="table table-bordered" *ngIf="discount">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="text-dark" *ngIf="data.tipo_matricula=='prematricula'||data.type_matricula=='prematricula'||data.tipo_matricula=='matriculacuota'||data.type_matricula=='matriculacuota'">
+                                                            <small>Matrícula</small>
+                                                        </td>
+                                                        <td class="text-dark" *ngIf="data.tipo_matricula=='matriculacontado'||data.type_matricula=='matriculacontado'">
+                                                            <small>Diplomado Contado</small>
+                                                        </td>
+                                                        <td *ngIf="+discount.first_payment!=0">
+                                                            <small>S/ {{discount.first_payment}}.00</small>
+                                                        </td>
+                                                        <td *ngIf="data.tipo_matricula=='matriculacontado'||data.type_matricula=='matriculacontado'">
+                                                            <small>S/ {{discount.price_diplomado}}.00</small>
+                                                        </td>
+                                                    </tr>
+                                                    <tr   *ngIf="data.tipo_matricula=='matriculacuota'||data.type_matricula=='matriculacuota'">
+                                                        <td class="text-dark">
+                                                            <small>Primera Cuota:</small>
+                                                        </td>
+                                                        <td>
+                                                            <small>S/ {{discount.second_payment}}.00</small>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-dark">
+                                                            <small>Descuento:</small>
+                                                        </td>
+                                                        <td>
+                                                            <small>S/ {{discount.price_discount}}.00</small>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-dark">
+                                                            <small><b>Total a Pagar:</b></small>
+                                                        </td>
+                                                        <td>
+                                                            <b>
+                                                                <small>S/ {{discount.total_payment}}.00</small>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 text-center align-self-center">
+                                            <br><br>
+                                            <p class="h4 fw-light mb-3">Escoge el Método de Pago</p>
+                                            <div class="row d-flex justify-content-center gx-3" id="domain-select">
+                                                <div class="col-auto">
+                                                    <div class="select-box text-center mb-3" [ngClass]="{'active': domain === 'finance'}" data-title="finance" (click)="selectDomain('finance')">
+                                                        <div class="avatar avatar-60">
+                                                            <i class="bi bi-coin"></i>
+                                                        </div>
+                                                        <p class="small">Tarjeta Crédito/Débito</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="select-box text-center mb-3" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">
+                                                        <div class="avatar avatar-60">
+                                                            <i class="bi bi-wifi"></i>
+                                                        </div>
+                                                        <p class="small">Pago Efectivo</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form [formGroup]="formExcPay" class="row">
+                                                <div class="row" *ngIf="optionCard">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <br>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text bordes">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-2-front img_svg" viewBox="0 0 16 16">
+                                                                        <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
+                                                                        <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+                                                                    </svg>
+                                                                </span>
+                                                                <input autocomplete="off" type="text" formControlName="number_card" class="form-control text-secondary bordes"
+                                                                       onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="16" placeholder="Nº Tarjeta" name="number_card" >
+                                                            </div>
+                                                            <div *ngIf="formExcPay.controls['number_card'].invalid && (formExcPay.controls['number_card'].dirty || formExcPay.controls['number_card'].touched)" >
+                                                                <div *ngIf="formExcPay.controls['number_card'].errors.required">
+                                                                    <small class="text-danger">Por favor ingrese su número de tarjeta</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                                                        <div class="form-group">
+                                                            <div  class="select-box">
+                                                                <select class="form-select border-start-0" formControlName="month_expirate" required>
+                                                                    <option value="" disabled selected>MES VENCIMIENTO</option>
+                                                                    <option *ngFor="let tipoMat of arrayMes" value="{{tipoMat.mes}}">
+                                                                        {{tipoMat.mes}}
+                                                                    </option>
+                                                                </select>
+                                                                <div *ngIf="formExcPay.controls['month_expirate'].invalid && (formExcPay.controls['month_expirate'].dirty || formExcPay.controls['month_expirate'].touched)" >
+                                                                    <div *ngIf="formExcPay.controls['month_expirate'].errors.required">
+                                                                        <small class="text-danger">Por favor seleccione un mes</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                                                        <div class="form-group">
+                                                            <div  class="select-box">
+                                                                <select class="form-select border-start-0" formControlName="year_expirate" required>
+                                                                    <option value="" disabled selected>AÑO VENCIMIENTO</option>
+                                                                    <option *ngFor="let tipoMat of fechanual" value="{{tipoMat.year}}">
+                                                                        {{tipoMat.year}}
+                                                                    </option>
+                                                                </select>
+                                                                <div *ngIf="formExcPay.controls['year_expirate'].invalid && (formExcPay.controls['year_expirate'].dirty || formExcPay.controls['year_expirate'].touched)" >
+                                                                    <div *ngIf="formExcPay.controls['year_expirate'].errors.required">
+                                                                        <small class="text-danger">Por favor seleccione un año</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <span class="input-group-text bordes">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card img_svg" viewBox="0 0 16 16">
+                                                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                                                        <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                                                                    </svg>
+                                                                </span>
+                                                                <input type="text" autocomplete="off" formControlName="cvv"
+                                                                       class="form-control text-secondary bordes"
+                                                                       onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
+                                                                       maxlength="4" name="cvv" placeholder="CVV">
+                                                            </div>
+                                                            <div *ngIf="formExcPay.controls['cvv'].invalid && (formExcPay.controls['cvv'].dirty || formExcPay.controls['cvv'].touched)" >
+                                                                <div *ngIf="formExcPay.controls['cvv'].errors.required">
+                                                                    <small class="text-danger">Por favor ingrese su CVV</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="billing-details" *ngIf="optionEfectivo">
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 mb-2 text-center">
+                                                        <img src="https://image4.owler.com/logo/pagoefectivo_owler_20210802_224551_original.png" alt="" style="width: 100%;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 text-center" *ngIf="discount" style="margin-top: 8px;">
+                                                    <button [disabled]="!formExcPay.valid" class="btn btn-primary btn-block" (click)="exectPayment()">
+                                                        Pagar S/ {{+discount.price_diplomado.toFixed(2)}}
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template swiperSlide>
+                                    <div class="row h-100">
+                                        <div class="col-12 col-md-12 align-self-center text-center pt-2">
+                                            <div class="row" *ngIf="_generate">
+                                                <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center">
+                                                    <h3>¡Estás a punto de finalizar tu pago en ALTUX!</h3>
+                                                </div>
+                                                <br>
+                                                <div class="col-md-6 offset-md-3">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-12 text-center bg-light text-dark">
+                                                                <p>Empresa: PagoEfectivo<br> Servicio: PagoEfectivo Soles</p>
+                                                            </div>
+                                                            <div class="col-6 text-center" ng-show="displayTooltip" style="background-color: #ffcc00;">
+                                                                <p class="">Código de Pago</p>
+                                                                <h4 class="">{{_generate.payment_code}}</h4>
+                                                                <button class="copiar" ng-click="displayTooltip = true" (click)="copyToClipboard()">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                                                        <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                                                    </svg>
+                                                                    Copiar
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-6 text-center text-light bg-dark">
+                                                                <p>Monto a Pagar</p>
+                                                                <h4>S/ {{_generate['amount']/100}}.00</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center">
+                                                    <h5>⏱️ Págalo antes del {{_generate['expiration_date']*1000 | date:'d MMMM, y, h:mm:ss a'}}</h5>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center" >
+                                                    <h6>Escanea el QR desde tu celular</h6>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center text-dark" >
+                                                    <img src="{{_generate['qr']}}" alt="" width="200" height="200">
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center" >
+                                                    <p>Págarlo desde tu billetera digital favorita.</p>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 mt-2 col-lg-12 text-center">
+                                                    <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-yape.d215fa90def057530f0f85a593924271.png" alt="">
+                                                    <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-plin.4f5f8c16cab3838eb77f9e37a433250e.png" alt="">
+                                                    <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-bbva.63c889ab8dfd5529da7a545e35b1632c.png" alt="">
+                                                    <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-scotiabank.e953d876c1244e09509145fe54c30afc.png" alt="">
+                                                    <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-interbank.03956fa648c2c938203b310744d912db.png" alt="">
+                                                    <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-ligo.d5cfe5960f30edb82222c4fa65f204d1.png" alt="">
+                                                    <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/logo-qr-tunki.931bb0d023c2c2bb1b602b60a4e1edd5.png" alt="">
+                                                </div>
+                                                <img src="https://theme.zdassets.com/theme_assets/170263/dcb41d3f8f0e08477f557d4ed583bb0db69578c3.png" alt="">
+                                            </div>
+                                            <img *ngIf="!_generate" src="https://clyaconsultores.com/redetron/wp-content/uploads/2016/06/pago-exitoso.jpg" alt="" style="width: 70%;">
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </swiper>
+                            <!-- content ends -->
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <button class="btn btn-theme btn-square btn-prev"><i class="bi bi-arrow-left"></i></button>
+                                </div>
+                                <div class="col align-self-center">
+                                    <div class="pagination-wrap swiper-pagination pagination-smallline position-relative bottom-0"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-theme btn-square btn-next"><i class="bi bi-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-auto">
+            <!-- footer -->
+            <app-auth-footer class="footer row text-white"></app-auth-footer>
+            <!-- footer ends -->
+        </div>
+    </div>
+</main>
+<!-- Empieza modal pago-->
+<ng-template #content let-modal>
+    <div class="modal-header" style="display: flow-root">
+        <img src="https://oea-files.s3.amazonaws.com/web/oea+onu_.png" alt="">
+        <button type="button" class="btn-close pull-right" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="formExcPay" (ngSubmit)="exectPayment()">
+            <div class="billing-details" *ngIf="optionEfectivo">
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-2 text-center" *ngIf="discount">
+                    <br>
+                    <div class="form-group">
+                        <label><b>Total: </b>S/ {{discount.price_diplomado}}.00</label>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Descuento: </b>S/ {{discount.price_discount}}.00</label>
+                    </div>
+                    <div class="form-group">
+                        <label *ngIf="mostrarDiscount"><b>Primera Cuota: </b>S/ {{discount.first_payment}}.00</label>
+                    </div>
+                    <div class="form-group">
+                        <label *ngIf="mostrarDiscount"><b>Segunda Cuota: </b>S/ {{discount.second_payment}}.00</label>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Total a Pagar: </b>S/ {{discount.total_payment}}.00</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="modal-footer row">
+                <div class="col-lg-6 col-md-6 m-auto text-center">
+                    <button type="submit" [disabled]="!formExcPay.valid" class="btn btn-primary btn-block">{{btnPay}} {{precio_pago}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<!--Empieza modal pago-efectivo-->
+<ng-template #pago let-modal>
+    <div class="modal-header" style="display: flow-root">
+        <img src="https://oea-files.s3.amazonaws.com/web/oea+onu_.png" alt="">
+        <button type="button" class="btn-close pull-right" aria-label="Close" (click)="closeModalPago()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner>

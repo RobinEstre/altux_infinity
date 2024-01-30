@@ -6,6 +6,7 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { routeExam } from './shared/routes/route-exam';
 import { routeVentas } from './shared/routes/route-ventas';
 import { routeAcademico } from './shared/routes/route-academico';
+import { FormPayMatriculaComponent } from './auth/form-pay-matricula/form-pay-matricula.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -28,6 +29,10 @@ const routes: Routes = [
     component: ContentComponent,
     canActivate: [AuthGuard],
     children: routeVentas
+  },
+  {
+    path:'matricula-pago/:code',
+    component: FormPayMatriculaComponent
   },
   {
     path: 'academico',

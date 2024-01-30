@@ -70,6 +70,8 @@ export class LeadsComponent implements OnInit {
   private modalRefSeguimiento: NgbModalRef;
   @ViewChild('register') private modal: TemplateRef<LeadsComponent>;
   private modalRef: NgbModalRef;
+  @ViewChild('modal_pago') private modalContentPago: TemplateRef<LeadsComponent>;
+  private modalRefPago: NgbModalRef;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -87,6 +89,7 @@ export class LeadsComponent implements OnInit {
     grado_instruccion:[''],
     cargo:[''],
     area:[''],
+    datecall:['']
   });
   tipo_matricula: any[] = [
     {
@@ -127,7 +130,7 @@ export class LeadsComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   leads:any; estado:any; ficha:boolean=false; discount:any; data_detail:any; is_facture:boolean=false; nameruc:any; mostrarDiscount:boolean=false
-  mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false
+  mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;
 
   ngOnInit(): void {
     this.listarCarteraAlumnos();
@@ -275,6 +278,15 @@ export class LeadsComponent implements OnInit {
 
   closeModalSeguimiento() {
     this.modalRefSeguimiento.close();
+  }
+
+  openModalInfo() {
+    this.modalRefPago = this.modalService.open(this.modalContentPago, { centered: true, size: 'lg' });
+    this.modalRefPago.result.then();
+  }
+
+  closeModalInfo() {
+    this.modalRefPago.close();
   }
 
   getInfoByRuc(event){
@@ -433,6 +445,108 @@ export class LeadsComponent implements OnInit {
   saveSeguimiento(){}
 
   saveRegister(){
+    if(!this.ficha){
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-warning',
+          cancelButton: 'btn btn-dark mx-3'
+        },
+        buttonsStyling: false
+      })
+      swalWithBootstrapButtons.fire({
+        title: 'Elegir El Método De Pago',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '💰 PagoEfectivo',
+        cancelButtonText: '💳 Tarjetas'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.registerMatricula()
+        }
+        else if (result.isDismissed) {
+          this.generarLinkPago()
+        }
+      })
+    }
+    else if(this.ficha){
+      this.registerFicha()
+    }
+  }
+  
+  registerFicha(){
+    let js=this.formRegistro.controls['datecall'].value;
+    var unixtimestamp= (new Date(js).getTime())/1000
+    let body= {
+      "pais": "Perú",
+      "type_doc": 1,
+      "name": this.data_detail.nombres,
+      "lastname": this.data_detail.apellidos,
+      "num_document": this.data_detail.dni,
+      "num_documento_sunat": null,
+      "course_code": this.data_detail.diplomado.courses_code,
+      "phone": this.data_detail.telefono,
+      "email": this.data_detail.email,
+      "procedencia_venta": this.data_detail.procedencia,
+      "grado_instruccion": this.formRegistro.controls['grado_instruccion'].value,
+      "num_colegiatura": this.data_detail.numero_colegiatura,
+      "date_call":unixtimestamp.toString(),
+      "cargo":this.formRegistro.controls['cargo'].value,
+      "area":this.formRegistro.controls['area'].value,
+      "is_referido": false,
+      "dni_patrocinador": null,
+      "name_patrocinador": null,
+      "centro_laboral": null,
+      "estado_civil": null,
+      "fecha_nacimiento": null,
+      "genero": null,
+      "ubigeo": null,
+      "direccion": null
+    };
+    this.spinner.show()
+    this.service.registrarPreVenta(body).subscribe(data => {
+      if (data['success'] === true) {
+        this.closeModal();
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial ☺!',
+          text: '¡Se Agregó Cliente!',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+       if (error.error['message']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error['message'], '¡Error!');
+        }else if (error.error.errors['non_field_errors']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error.errors['non_field_errors'][0],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error.errors['non_field_errors'][0], '¡Error!');
+        }
+      }
+    });
+  }
+
+  registerMatricula(){
     let rzon_social, num_documento_sunat
     if(this.is_facture == false){
       rzon_social = this.data_detail.nombres + ' ' + this.data_detail.apellidos;
@@ -451,7 +565,7 @@ export class LeadsComponent implements OnInit {
       "pais": "Perú",
       "tipoDoc": 1,
       "num_documento": this.data_detail.dni,
-      "num_documento_sunat": this.data_detail.dni,
+      "num_documento_sunat": num_documento_sunat,
       "email": this.data_detail.email,
       "telefono": this.data_detail.telefono,
       "nombres": this.data_detail.nombres,
@@ -476,5 +590,174 @@ export class LeadsComponent implements OnInit {
       "ubigeo": null,
       "direccion": null
     }
+    this.spinner.show();
+    this.service.registrarMatricula(body).subscribe(data => {
+      if (data['success'] === true){
+        if(data['data']['object']=='error'){
+          this.spinner.hide();
+          this.closeModal();
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: '¡Error!',
+            text: '¡No se pudo generar el codigo, inténtelo nuevamente!',
+            showConfirmButton: false,
+            timer:2000
+          });
+        }
+        else{
+          this._generate = data['data'];
+          this.closeModal();
+          this.spinner.hide();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: '¡Genial ☺!',
+            text: '¡Se generó código de Pago!',
+            showConfirmButton: false,
+            timer:2000
+          });
+          this.openModalInfo();
+        }
+      }
+    },error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+        if (error.error.message['non_field_errors']) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: '¡Error!',
+            text: error.error.message['non_field_errors'][0],
+            showConfirmButton: false,
+            timer:2000
+          });
+        }else if (error.error['message']) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: '¡Error!',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer:2000
+          });
+        }
+      }
+    });
+  }
+
+  generarLinkPago(){
+    let rzon_social, num_documento_sunat
+    if(this.is_facture == false){
+      rzon_social = this.data_detail.nombres + ' ' + this.data_detail.apellidos;
+      num_documento_sunat = this.data_detail.dni;
+    }
+    else {
+      rzon_social = this.nameruc;
+      num_documento_sunat = this.formRegistro.controls['ruc'].value;
+    }
+    if(this.formRegistro.controls['tipo_matricula'].value=='prematricula'){
+      let js=this.formRegistro.controls['fecha'].value;
+      var unixtimestamp:any= (new Date(js).getTime()+960*60000)/1000
+    }
+    let body={
+      "diplomado_code": this.data_detail.diplomado.courses_code,
+      "pais": "Perú",
+      "tipoDoc": 1,
+      "num_documento": this.data_detail.dni,
+      "num_documento_sunat": num_documento_sunat,
+      "email": this.data_detail.email,
+      "telefono": this.data_detail.telefono,
+      "nombres": this.data_detail.nombres,
+      "apellidos": this.data_detail.apellidos,
+      "is_facture": this.is_facture,
+      "rzon_social": rzon_social,
+      "date_nex_payment": unixtimestamp,
+      "procedencia_venta": this.data_detail.procedencia,
+      "grado_instruccion": this.formRegistro.controls['grado_instruccion'].value,
+      "num_colegiatura": this.data_detail.numero_colegiatura,
+      "cargo": this.formRegistro.controls['cargo'].value,
+      "area": this.formRegistro.controls['area'].value,
+      "is_referido": false,
+      "id_student": null,
+      "dni_patrocinador": null,
+      "name_patrocinador": null,
+      "centro_laboral": null,
+      "estado_civil": null,
+      "fecha_nacimiento": null,
+      "genero": null,
+      "ubigeo": null,
+      "direccion": null,
+      "tipo_matricula": this.formRegistro.controls['tipo_matricula'].value,
+      "discount": this.discount
+    }
+    this.spinner.show();
+    this.service.registrarLinkMatricula(body).subscribe(data => {
+      if( data['success']==true){data['data']
+        let linkpago='http://localhost:4200/matricula-pago/'+data['data']
+        this.copyText(linkpago)
+        this.closeModal()
+        this.spinner.hide()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial ☺!',
+          text: '¡Link Copiado!',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      else {
+        this.spinner.hide()
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: '¡Error!',
+          text: data['message'],
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+       if (error.error['message']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer: 3500
+          })
+        }else if (error.error.errors['non_field_errors']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error.errors['non_field_errors'][0],
+            showConfirmButton: false,
+            timer: 3500
+          })
+        }
+      }
+    });
+  }
+  
+  copyText(name){
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = name;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+  addSeguimiento(){
   }
 }

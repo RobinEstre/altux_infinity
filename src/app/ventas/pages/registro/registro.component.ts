@@ -877,7 +877,6 @@ export class RegistroComponent implements OnInit {
       "is_facture": this.is_facture,
       "rzon_social": rzon_social,
       "date_nex_payment": unixtimestamp,
-      "type_matricula": this.formRegistro.controls['tipo_matricula'].value,
       "is_referido": null, //this.referido,
       "dni_patrocinador":  this.formRegistro.controls['patrocinador'].value,
       "procedencia_venta":  this.formRegistro.controls['procedencia_venta'].value,
@@ -891,13 +890,15 @@ export class RegistroComponent implements OnInit {
       "fecha_nacimiento": nacimiento,
       "genero": genero,
       "ubigeo": ubigeo,
-      "direccion": direccion
+      "direccion": direccion,
+      "tipo_matricula": this.formRegistro.controls['tipo_matricula'].value,
+      "discount": this.discount
     };
     console.log(jsonbody)
     this.spinner.show();
     this.service.registrarLinkMatricula(jsonbody).subscribe(data => {
       if( data['success']==true){data['data']
-        let linkpago='https://virtual.oea.edu.pe/matricula-pago/'+data['data']
+        let linkpago='http://localhost:4200/matricula-pago/'+data['data']
         this.copyText(linkpago)
         this.closeModal()
         this.spinner.hide()

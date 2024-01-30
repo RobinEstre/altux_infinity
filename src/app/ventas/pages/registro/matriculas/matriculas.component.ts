@@ -85,13 +85,6 @@ export class MatriculasComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthMenu: [5, 10, 25],
-      dom: 'Bfrtip',
-      buttons: [
-        { extend: 'pdfHtml5', className: 'btn btn-primary', title:'Fichas Ventas'},
-        { extend: 'copy', className: 'btn btn-primary', title:'Fichas Ventas'},
-        { extend: 'print', className: 'btn btn-danger', title:'Fichas Ventas'},
-        { extend: 'excelHtml5', className: 'btn btn-success', title:'Fichas Ventas'}
-      ],
       processing: true,
       language: MatriculasComponent.spanish_datatables
     }
