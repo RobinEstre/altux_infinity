@@ -6,7 +6,6 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 
 const routes: Routes = [
-  
   {
     path: '',
     children: [

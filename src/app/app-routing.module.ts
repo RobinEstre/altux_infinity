@@ -5,6 +5,7 @@ import { content } from './shared/routes/routes';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { routeExam } from './shared/routes/route-exam';
 import { routeVentas } from './shared/routes/route-ventas';
+import { routeAcademico } from './shared/routes/route-academico';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -27,6 +28,12 @@ const routes: Routes = [
     component: ContentComponent,
     canActivate: [AuthGuard],
     children: routeVentas
+  },
+  {
+    path: 'academico',
+    component: ContentComponent,
+    canActivate: [AuthGuard],
+    children: routeAcademico
   },
 ]
 
