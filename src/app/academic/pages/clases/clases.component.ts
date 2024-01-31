@@ -83,23 +83,39 @@ export class ClasesComponent implements OnInit {
   }
 
   listDiplomado() {
-    this.Service.listar_diplomado().subscribe(data => {
-      let dip=[];
-      data['data'].forEach(i=>{
-        var splitted = i.course.courses_name.split(" ");
-        var name = i.course.courses_name.split(" ");
-        splitted.splice(0,3);
-        name.splice(0,2);
-        var primero = name.toString().charAt(0)
-        var cadena= splitted.toString();
-        let nueva = 'D'+primero+': '+cadena.replace(/_|#|-|@|<>|,/g, " ")
-        dip.push({
-          'courses_name': nueva,
-          'courses_code': i.course.courses_code
+    this.Service.list_diplomados().subscribe(data => {
+      if (data['success'] === 'true'){
+        let dip:any=[];
+        data['courses'].forEach(i=>{
+          const split = i.course.courses_name.split(' ')
+          split.splice(0, 3);
+          let name=split.map(x=>x).join(" ")
+          dip.push({
+            'course_name': name,
+            'course_code': i.course.courses_code
+          })
         })
-      })
-      this.diplomado = dip;
+        this.diplomado=dip;
+      }
+    }, error => {
     });
+    // this.Service.listar_diplomado().subscribe(data => {
+    //   let dip=[];
+    //   data['data'].forEach(i=>{
+    //     var splitted = i.course.courses_name.split(" ");
+    //     var name = i.course.courses_name.split(" ");
+    //     splitted.splice(0,3);
+    //     name.splice(0,2);
+    //     var primero = name.toString().charAt(0)
+    //     var cadena= splitted.toString();
+    //     let nueva = 'D'+primero+': '+cadena.replace(/_|#|-|@|<>|,/g, " ")
+    //     dip.push({
+    //       'courses_name': nueva,
+    //       'courses_code': i.course.courses_code
+    //     })
+    //   })
+    //   this.diplomado = dip;
+    // });
     this.formgrupos.controls['grupo'].disable();
     this.formgrupos.controls['modulo'].disable();
   }

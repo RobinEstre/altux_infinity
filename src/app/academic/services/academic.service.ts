@@ -12,6 +12,10 @@ export class AcademicService {
   listar_diplomado(){
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/formulario/listar-diplomados/');
   }
+  
+  list_diplomados() {
+    return this.httpClient.get(this.envUrl.urlAddress + 'cursos/todos');
+  }
 
   list_group(data: string){
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/gestionar/diplomado/groups/'+ data);

@@ -330,7 +330,7 @@ export class FormPayMatriculaComponent implements OnInit {
           let event=[{activeIndex: 2}]
           this.slideChange(event) 
           this.formExcPay.reset();
-          //this.codigoExpirado()
+          this.codigoExpirado()
           Swal.fire({
             position: "center",
             icon: "success",
@@ -362,7 +362,7 @@ export class FormPayMatriculaComponent implements OnInit {
           this.swiper.swiperRef.slideNext();
           let event=[{activeIndex: 2}]
           this.slideChange(event) 
-          //this.codigoExpirado()
+          this.codigoExpirado()
           Swal.fire({
             position: "center",
             icon: "success",

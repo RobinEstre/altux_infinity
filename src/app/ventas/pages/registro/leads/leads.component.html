@@ -10,7 +10,7 @@
                     <th class="text-center">Celular</th>
                     <th class="text-center">Correo</th>
                     <th class="text-center">Diplomado</th>
-                    <th class="text-center">Estado</th>
+                    <!-- <th class="text-center">Estado</th> -->
                     <th class="text-center">Fecha Registro</th>
                     <th class="text-center">Acciones</th>
                 </tr>
@@ -23,16 +23,16 @@
                     <td class="text-center"><a href="https://wa.me/51{{valalumnos.telefono}}" target="_blank">{{valalumnos.telefono}}</a></td>
                     <td class="text-center">{{valalumnos.email}}</td>
                     <td class="text-center">{{valalumnos.courses_name}}</td>
-                    <td class="text-center">{{valalumnos.estado.nombre}}</td>
+                    <!-- <td class="text-center">{{valalumnos.estado.nombre}}</td> -->
                     <td class="text-center"><b>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</b></td>
                     <td class="text-center">
-                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Generar Código de Pago"
-                                class="my-1 mx-3" (click)="openModalSeguimiento(valalumnos)">
-                            <i class="bi bi-cart-plus"></i>
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Seguimiento"
+                                class="" (click)="openModalSeguimiento(valalumnos)">
+                            <i class="bi bi-binoculars"></i>
                         </a>
-                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Generar Código de Pago"
-                                class="my-1 mx-3" (click)="openModal(valalumnos)">
-                            <i class="bi bi-cart-plus"></i>
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Matrícula | Ficha"
+                                class="mx-3" (click)="openModal(valalumnos)">
+                            <i class="bi bi-person-lines-fill"></i>
                         </a>
                     </td>
                 </tr>
@@ -254,7 +254,7 @@
 <ng-template #seguimiento let-modal>
     <form [formGroup]="formSeguimiento" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
-            <h5 class="mb-1 title">REGISTRO ESTADO</h5>
+            <h5 class="mb-1 title">REGISTRO SEGUIMIENTO</h5>
         </div>
         <div class="card-body modal-body">
             <div class="row was-validated">

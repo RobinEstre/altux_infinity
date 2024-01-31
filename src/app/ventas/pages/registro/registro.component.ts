@@ -143,7 +143,7 @@ export class RegistroComponent implements OnInit {
         this.new_diplomados=dip;
       }
     }, error => {
-    });    
+    });
     this.service.getCentroLaboral().subscribe(data => {
       if (data['success'] === true){
         this.centro_laboral = data['data'];
@@ -877,7 +877,7 @@ export class RegistroComponent implements OnInit {
       "is_facture": this.is_facture,
       "rzon_social": rzon_social,
       "date_nex_payment": unixtimestamp,
-      "is_referido": null, //this.referido,
+      "is_referido": false, //this.referido,
       "dni_patrocinador":  this.formRegistro.controls['patrocinador'].value,
       "procedencia_venta":  this.formRegistro.controls['procedencia_venta'].value,
       "grado_instruccion": this.formRegistro.controls['grado_instruccion'].value,

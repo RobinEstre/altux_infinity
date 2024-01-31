@@ -302,9 +302,30 @@ export class DetalleComponent implements OnInit {
     for(let i:any=0; i<data.length;i++){
       this.service.getEvaluations(this.courseCode,data[i].id).subscribe(res => {
         if(res.success){
+          let datos:any=[]
+          res.data.forEach(i=>{
+            if(i.evaluation_name!="Examen Sustitutorio"&&res.data.length==4){
+              datos.push({
+                evaluation_name:  i.evaluation_name,
+                evaluation_student_id: i.evaluation_student_id,
+                fecha_evaluacion: i.fecha_evaluacion,
+                fecha_evaluacion_fin: i.fecha_evaluacion_fin,
+                nota: i.nota
+              })
+            }
+            if(res.data.length==3){
+              datos.push({
+                evaluation_name:  i.evaluation_name,
+                evaluation_student_id: i.evaluation_student_id,
+                fecha_evaluacion: i.fecha_evaluacion,
+                fecha_evaluacion_fin: i.fecha_evaluacion_fin,
+                nota: i.nota
+              })
+            }
+          })
           body.forEach(a=>{
             if(a.bloque==i+1){
-              a.data=res.data
+              a.data=datos
               a.promedio=res.promedio
             }
           })
