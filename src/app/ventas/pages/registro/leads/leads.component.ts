@@ -750,7 +750,7 @@ export class LeadsComponent implements OnInit {
     this.spinner.show();
     this.service.registrarLinkMatricula(body).subscribe(data => {
       if( data['success']==true){data['data']
-        let linkpago='http://localhost:4200/matricula-pago/'+data['data']
+        let linkpago='https://app.altux.edu.pe/matricula-pago/'+data['data']
         this.copyText(linkpago)
         this.closeModal()
         this.spinner.hide()
