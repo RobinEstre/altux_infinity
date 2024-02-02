@@ -133,15 +133,15 @@ export class LeadsComponent implements OnInit {
   mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;
 
   ngOnInit(): void {
-    this.listarCarteraAlumnos();
+    this.listarLeads();
   }
 
-  listarCarteraAlumnos(){
+  listarLeads(){
     this.spinner.show()
     this.dtOptions={
       pagingType: 'full_numbers',
-      pageLength: 10,
-      lengthMenu: [5, 10, 25],
+      pageLength: 15,
+      lengthMenu: [10, 15, 20, 25],
       //dom: 'Bfrtip',
       processing: true,
       language: LeadsComponent.spanish_datatables
@@ -271,7 +271,7 @@ export class LeadsComponent implements OnInit {
   }
 
   openModalSeguimiento(data) {
-    this.formSeguimiento.controls.estado.setValue('')
+    this.data_detail=data
     this.modalRefSeguimiento = this.modalService.open(this.modalSeguimiento,{centered: true, size: 'sm', keyboard: false, backdrop : 'static'});
     this.modalRefSeguimiento.result.then();
   }
@@ -442,7 +442,61 @@ export class LeadsComponent implements OnInit {
     }
   }
 
-  saveSeguimiento(){}
+  rerender(){
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.listarLeads()
+    });
+  }
+
+  saveSeguimiento(){
+    this.spinner.show()
+    let body={
+      "detalle": this.formSeguimiento.controls.reason.value
+    }
+    this.service.registrarSeguimiento(this.data_detail.id, body).subscribe(data => {
+      if (data['success'] === true) {
+        this.closeModalSeguimiento();
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial ☺!',
+          text: '¡Se Registró el Seguimiento!',
+          showConfirmButton: false,
+          timer:2000
+        });
+        this.rerender()
+      }
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+       if (error.error['message']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error['message'], '¡Error!');
+        }else if (error.error.errors['non_field_errors']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error.errors['non_field_errors'][0],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error.errors['non_field_errors'][0], '¡Error!');
+        }
+      }
+    });
+  }
 
   saveRegister(){
     if(!this.ficha){
@@ -517,6 +571,7 @@ export class LeadsComponent implements OnInit {
           showConfirmButton: false,
           timer:2000
         });
+        this.rerender()
       }
     }, error => {
       this.spinner.hide();
@@ -619,6 +674,7 @@ export class LeadsComponent implements OnInit {
           });
           this.openModalInfo();
         }
+        this.rerender()
       }
     },error => {
       this.spinner.hide();
@@ -756,8 +812,5 @@ export class LeadsComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-  }
-
-  addSeguimiento(){
   }
 }

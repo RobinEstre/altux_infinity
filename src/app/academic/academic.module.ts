@@ -12,6 +12,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LeadsComponent } from './pages/leads/leads.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -19,13 +21,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PanelComponent,
     ClasesComponent,
     MaterialesComponent,
-    DiplomadosComponent
+    DiplomadosComponent,
+    LeadsComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     NgxSpinnerModule,
     DataTablesModule,
+    NgxDropzoneModule,
     NgbModule,
     FormsModule,
     NgSelectModule,
