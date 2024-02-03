@@ -37,6 +37,10 @@ export class AcademicService {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/clase/listar-todo-diplomado-clase/', data)
   }
 
+  registerLeads(data){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/registrar/excel-leads/', data)
+  }
+
   delEstadeClass(data){
     return this.httpClient.delete(this.envUrl.urlAddress + 'academico/clase/eliminar-diplomado-clase/'+ data)
   }

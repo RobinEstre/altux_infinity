@@ -81,22 +81,21 @@ export class AlumnosComponent implements OnInit {
     this.service.listregistro(jsonbody).subscribe(data => {
       let dip=[];
       data['data'].forEach(i=>{
-        const split = i.courses_name.split(' ')
+        const split = i.course_name.split(' ')
         split.splice(0, 3);
         let name=split.map(x=>x).join(" ")
         dip.push({
-          'courses_name': name,
-          'apellidos': i.apellidos,
-          'email': i.email,
-          'fecha_matricula': i.fecha_matricula,
-          'is_paid': i.is_paid,
-          'nombres': i.nombres,
+          'course_name': name,
+          'course_code': i.course_code,
+          'name_student': i.name_student,
+          'lastname_student': i.lastname_student,
+          'correo': i.correo,
+          'matricula_fecha': i.matricula_fecha,
           'phone': i.phone,
-          'total_price': i.total_price,
-          'vendedor_id': i.vendedor_id,
-          'venta_id': i.venta_id,
-          'student_id': i.student_id,
-          'diplomado_code': i.diplomado_code,
+          'precio_total': i.precio_total,
+          'id_vendedor': i.id_vendedor,
+          'id_venta': i.id_venta,
+          'id_student': i.id_student,
         })
       })
       this.registro = dip;
@@ -139,13 +138,23 @@ export class AlumnosComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.obtenerEstudiantes()
-    });
+  rerender(event): void {
+    try{
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.obtenerEstudiantes()
+      });
+    }catch(e){
+      this.grupos.controls['grupo'].setValue('matriculacuota');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.obtenerEstudiantes()
+      });
+    }
   }
 
   obtenerEstudiantes(){
@@ -192,7 +201,7 @@ export class AlumnosComponent implements OnInit {
     let name=nombre['nombres']+' '+nombre['apellidos']
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
+        confirmButton: 'btn btn-success mx-2',
         cancelButton: 'btn btn-danger'
       },
       buttonsStyling: false

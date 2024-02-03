@@ -22,43 +22,28 @@
                 <tbody>
                 <tr *ngFor="let valalumnos of matriculas, index as id">
                     <td class="text-center"><small>{{id+1}}</small></td>
-                    <td><small>{{valalumnos.names}}</small></td>
-                    <td class="text-center"><small>{{valalumnos.num_doc}}</small></td>
-                    <td class="text-center"><small><a href="https://wa.me/51{{valalumnos.phone}}" target="_blank">{{valalumnos.phone}}</a></small></td>
-                    <td class="text-center"><small>{{valalumnos.courses_name}}</small></td>
-                    <td class="text-center"><small>S/ 150.00</small></td>
-                    <td class="text-center"><small>S/ 50.00</small></td>
-                    <td class="text-center"><small>S/ 100.00</small></td>
-                    <td class="text-center"><small>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</small></td>
-                    <td class="text-center"><small>S/ 170.00</small></td>
-                    <td class="text-center"><small><a href="javascript:void(0);"><span class="badge rounded-pill bg-danger">Pagar</span></a></small></td>
-                    <td class="text-center"><small>{{valalumnos.date_call*1000 | date:'dd/MM/yyyy' }}</small></td>
+                    <td><small>{{valalumnos.nombres}} {{valalumnos.apellidos}}</small></td>
+                    <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                    <td class="text-center"><small><a href="https://wa.me/51{{valalumnos.celular}}" target="_blank">{{valalumnos.celular}}</a></small></td>
+                    <td class="text-center"><small>{{valalumnos.diplomado_name}}</small></td>
+                    <td class="text-center"><small>S/ {{(+valalumnos.matricula).toFixed(2)}}</small></td>
+                    <td class="text-center"><small>S/ {{(+valalumnos.descuento).toFixed(2)}}</small></td>
+                    <td class="text-center"><small>S/ {{(+valalumnos.pago_matricula).toFixed(2)}}</small></td>
+                    <td class="text-center"><small>{{valalumnos.fecha_pago | date:'dd/MM/yyyy' }}</small></td>
+                    <td class="text-center"><small>S/ {{(+valalumnos.cuota_1).toFixed(2)}}</small></td>
+                    <td class="text-center"><small><a href="javascript:void(0);">
+                        <span class="badge rounded-pill bg-danger text-capitalize">{{valalumnos.fecha_pago_pendiente}}</span></a></small>
+                    </td>
+                    <td class="text-center"><small>{{valalumnos.recordatorio*1000 | date:'dd/MM/yyyy'}}</small></td>
                     <td class="text-center">
-                        <!-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Cliente"
-                                class="" (click)="openDelete(valalumnos.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                            </svg>
+                        <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="right" title="Generar Código de Pago"
+                            (click)="openModalPay(valalumnos)">
+                            <i class="bi bi-cash-stack"></i>
                         </a>
-                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Generar Código de Pago"
-                                class="my-1 mx-3"
-                                (click)="openModalPay(valalumnos.id, valalumnos.names,
-                                valalumnos.courses_name, valalumnos.num_doc, valalumnos.courses_code)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
-                                <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
-                                <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
-                                <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-                            </svg>
+                        <a href="javascript:void(0);" class="mx-2" data-bs-toggle="tooltip" data-bs-placement="right"
+                            title="Actualizar Fecha 2 Pago" (click)="openModalDate(valalumnos)">
+                            <i class="bi bi-calendar-week"></i>
                         </a>
-                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Cliente"
-                            class="" (click)="openModalEdit(valalumnos)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                            </svg>
-                        </a> -->
                     </td>
                 </tr>
                 </tbody>
@@ -66,7 +51,133 @@
         </div>
     </div>
 </div>
+<!-- Empieza modal reserva-->
+<ng-template #pay let-modal>
+    <form [formGroup]="formGenerate" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">GENERAR CÓDIGO DE PAGO</h5>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated">
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="text-theme mx-2"><i class="bi bi-book"></i></span>
+                            <b>Diplomado:</b>
+                        </label>
+                        <p class="sub_info">{{data_detalle.diplomado_name}}</p>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="text-theme mx-2"><i class="bi bi-person"></i></span>
+                            <b>Cliente:</b>
+                        </label>
+                        <p class="sub_info">{{data_detalle.nombres}} {{data_detalle.apellidos}}</p>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="text-theme mx-2"><i class="bi bi-person"></i></span>
+                            <b>Tipo Matrícula:</b>
+                        </label>
+                        <p class="sub_info">Primera Mensualidad</p>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
+                    <div class="form-group form-check form-switch my-2">
+                        <input class="form-check-input" (change)="optionFacture($event)" type="checkbox" formControlName="is_factura">
+                        <label>
+                            Solicitar Factura
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 mb-3" *ngIf="mostrarSelect">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="ruc" class="form-control border-start-0" autocomplete="off" maxlength="11"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="getInfoByRuc($event)" required>
+                                <label for="floatingInput">Ingrese Nº RUC</label>
+                            </div>
+                        </div>
+                        <div *ngIf="nameruc" class="text-center text-uppercase" style="border-radius: 5px; background: #2a5390">
+                            <small><b>{{nameruc}}</b></small>
+                        </div>
+                        <div *ngIf="formGenerate.controls['ruc'].invalid && (formGenerate.controls['ruc'].dirty || formGenerate.controls['ruc'].touched)" >
+                            <div *ngIf="formGenerate.controls['ruc'].errors.required">
+                                <small class="text-danger">Por favor ingrese su número de RUC</small>
+                            </div>
+                            <div *ngIf="formGenerate.controls['ruc'].errors.maxlength">
+                                <small class="text-danger">Excediste el número máximo de caracteres</small>
+                            </div>
+                            <div *ngIf="formGenerate.controls['ruc'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="generatePay()" [disabled]="!formGenerate.valid">Generar Pago</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalPay()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!--Modal Pago-->
+<ng-template #pago let-modal>
+    <div class="modal-header">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
+        <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModalPago()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
+</ng-template>
+<!-- Empieza modal fecha-->
+<ng-template #date let-modal>
+    <form [formGroup]="formDate" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">REPROGRAMAR FECHA</h5>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated">
+                <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" type="date" formControlName="fecha" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Ingrese Fecha</label>
+                            </div>
+                        </div>
+                        <div *ngIf="nameruc" class="text-center text-uppercase" style="border-radius: 5px; background: #2a5390">
+                            <small><b>{{nameruc}}</b></small>
+                        </div>
+                        <div *ngIf="formGenerate.controls['ruc'].invalid && (formGenerate.controls['ruc'].dirty || formGenerate.controls['ruc'].touched)" >
+                            <div *ngIf="formGenerate.controls['ruc'].errors.required">
+                                <small class="text-danger">Por favor ingrese fecha</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="actDatePago()" [disabled]="!formDate.valid">Reprogramar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalDate()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
 <!-- SPINNER -->
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
-    <p style="color: white" > Cargando... </p>
-</ngx-spinner>
+<ngx-spinner type="timer"></ngx-spinner>

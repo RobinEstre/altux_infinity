@@ -87,12 +87,12 @@ export class ClasesComponent implements OnInit {
       if (data['success'] === 'true'){
         let dip:any=[];
         data['courses'].forEach(i=>{
-          const split = i.course.courses_name.split(' ')
+          const split = i.diplomado_name.split(' ')
           split.splice(0, 3);
           let name=split.map(x=>x).join(" ")
           dip.push({
             'course_name': name,
-            'course_code': i.course.courses_code
+            'course_code': i.diplomado_code
           })
         })
         this.diplomado=dip;

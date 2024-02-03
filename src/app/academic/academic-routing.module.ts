@@ -5,6 +5,7 @@ import { PanelComponent } from './pages/panel/panel.component';
 import { ClasesComponent } from './pages/clases/clases.component';
 import { MaterialesComponent } from './pages/materiales/materiales.component';
 import { DiplomadosComponent } from './pages/diplomados/diplomados.component';
+import { LeadsComponent } from './pages/leads/leads.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'diplomados',
         component: DiplomadosComponent
+      },
+      {
+        path: 'leads',
+        component: LeadsComponent
       },
       {
         path: 'perfil',

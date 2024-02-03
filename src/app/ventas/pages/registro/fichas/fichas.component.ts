@@ -536,7 +536,7 @@ export class FichasComponent implements OnInit {
     };
     this.service.registrarLinkPreMatricula(jsonbody).subscribe(data => {
       if( data['success']==true){data['data']
-        this.linkpago='http://localhost:4200/matricula-pago/'+data['data']
+        this.linkpago='https://app.altux.edu.pe/matricula-pago/'+data['data']
         this.copyText(this.linkpago)
         this.formGenerate.reset();
         this.discount=null;
