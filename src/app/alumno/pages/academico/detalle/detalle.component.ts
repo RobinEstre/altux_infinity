@@ -313,7 +313,7 @@ export class DetalleComponent implements OnInit {
                 nota: i.nota
               })
             }
-            if(res.data.length==3){
+            if(i.evaluation_name!="Examen Sustitutorio"&&res.data.length==3){
               datos.push({
                 evaluation_name:  i.evaluation_name,
                 evaluation_student_id: i.evaluation_student_id,
