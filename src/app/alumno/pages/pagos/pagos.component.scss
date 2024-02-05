@@ -1,0 +1,37 @@
+.calendar{
+    //margin:.25em 10px 10px 0;
+    padding-top:5px;
+    float:left;
+    width:80px;
+    background:transparent;
+    font:bold 35px/55px Arial Black, Arial, Helvetica, sans-serif;
+    text-align:center;
+    //color:#000;
+    //text-shadow:#fff 0 1px 0;     
+    border:1px solid #E33A59;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;      
+    position:relative;
+    // -moz-box-shadow:0 2px 2px #888;
+    // -webkit-box-shadow:0 2px 2px #888;
+    //box-shadow:0 2px 2px #888;
+}
+
+.calendar em{
+    display:block;
+    font:normal bold 15px/30px Arial, Helvetica, sans-serif;
+    color:#fff;
+    text-shadow:#E33A59 0 -1px 0; 
+    background:#E33A59;
+    background:-webkit-gradient(linear, left top, left bottom, from(#E33A59), to(#E33A59)); 
+    background:-moz-linear-gradient(top,  #E33A59,  #E33A59); 
+    -moz-border-radius-top-right:5px;
+    -webkit-border-top-right-radius:5px;   
+    border-top-right-radius:5px;
+    -moz-border-radius-top-left:5px;
+    -webkit-border-top-left-radius:5px;    
+    border-top-left-radius:5px;
+    border-top:1px solid #E33A59;
+    margin-top: -6px;
+}

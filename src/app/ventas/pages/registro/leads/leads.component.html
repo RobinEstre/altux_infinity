@@ -80,20 +80,23 @@
                                 <b>DETALLE MATRÍCULA</b>
                             </div>
                             <div class="order-table table-responsive">
-                                <table class="table table-bordered" *ngIf="discount">
+                                <table class="table table-bordered">
                                     <tbody>
                                     <tr>
-                                        <td class="text-dark">
+                                        <td class="text-dark" *ngIf="+discount.first_payment!=0">
+                                            <small>Matrícula:</small>
+                                        </td>
+                                        <td class="text-dark" *ngIf="+discount.first_payment==0">
                                             <small>{{nombre_descuento}}:</small>
                                         </td>
-                                        <td *ngIf="mostrarDiscount">
+                                        <td *ngIf="+discount.first_payment!=0">
                                             <small>S/ {{discount.first_payment}}.00</small>
                                         </td>
-                                        <td *ngIf="!mostrarDiscount">
+                                        <td *ngIf="+discount.first_payment==0">
                                             <small>S/ {{discount.price_diplomado}}.00</small>
                                         </td>
                                     </tr>
-                                    <tr  *ngIf="mostrarDiscount">
+                                    <tr *ngIf="+discount.first_payment!=0 && !mostrarDiscount">
                                         <td class="text-dark">
                                             <small>Primera Cuota:</small>
                                         </td>
@@ -115,7 +118,7 @@
                                         </td>
                                         <td>
                                             <b>
-                                                <small>S/ {{discount.price_diplomado}}.00</small>
+                                                <small>S/ {{discount.total_payment}}.00</small>
                                             </b>
                                         </td>
                                     </tr>
@@ -172,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
+                <!-- <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
@@ -201,7 +204,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
                     <br>
                     <div class="form-group form-check form-switch">

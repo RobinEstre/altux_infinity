@@ -8,9 +8,245 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <img src="https://web-altux-files.s3.amazonaws.com/infinity/proximamente..png" 
-            alt="" style="width: 100%;">
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
+        <swiper [slidesPerView]="'auto'" [centeredSlides]="true" [pagination]="false" [autoplay]="{delay: 2000}" class="creditcards">
+            <ng-template swiperSlide>
+                <div class="card border-0 mb-2 theme-blue">
+                    <div class="card-body">
+                        <div class="row align-items-center mb-4">
+                            <div class="col-auto align-self-center">
+                                <img src="assets/img/visa.png" alt="">
+                            </div>
+                            <div class="col text-end">
+                                <p class="size-12">
+                                    <span class="text-muted small">City Bank</span><br>
+                                    <span class="">Credit Card</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="fw-medium h6 mb-3">
+                            000 0000 0001 546598
+                        </p>
+                        <div class="row">
+                            <div class="col-auto size-12">
+                                <p class="mb-0 text-muted small">Expiry</p>
+                                <p>09/023</p>
+                            </div>
+                            <div class="col text-end size-12">
+                                <p class="mb-0 text-muted small">Card Holder</p>
+                                <p>Maxartkiller</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row amount-data">
+                    <div class="col">
+                        <p class="text-secondary small mb-1">Expense</p>
+                        <p>1500.00 <small class="text-success">18.0% <i class="bi bi-arrow-up"></i></small></p>
+                    </div>
+                    <div class="col-auto text-end">
+                        <p class="text-secondary small mb-1">Limit Remain</p>
+                        <p>13500.00</p>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class="card border-0 theme-pink mb-2">
+                    <div class="card-body">
+                        <div class="row align-items-center mb-4">
+                            <div class="col-auto align-self-center">
+                                <img src="assets/img/visa.png" alt="">
+                            </div>
+                            <div class="col text-end">
+                                <p class="size-12">
+                                    <span class="text-muted small">City Bank</span><br>
+                                    <span class="">Credit Card</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="fw-medium h6 mb-3">
+                            000 0000 0001 546598
+                        </p>
+                        <div class="row">
+                            <div class="col-auto size-12">
+                                <p class="mb-0 text-muted small">Expiry</p>
+                                <p>09/023</p>
+                            </div>
+                            <div class="col text-end size-12">
+                                <p class="mb-0 text-muted small">Card Holder</p>
+                                <p>Maxartkiller</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row amount-data">
+                    <div class="col">
+                        <p class="text-secondary small mb-1">Expense</p>
+                        <p>3650.00 <small class="text-danger">11.0% <i class="bi bi-arrow-down"></i></small></p>
+                    </div>
+                    <div class="col-auto text-end">
+                        <p class="text-secondary small mb-1">Limit Remain</p>
+                        <p>35500.00</p>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class="card border-0 theme-yellow mb-2">
+                    <div class="card-body">
+                        <div class="row align-items-center mb-4">
+                            <div class="col-auto align-self-center">
+                                <img src="assets/img/visa.png" alt="">
+                            </div>
+                            <div class="col text-end">
+                                <p class="size-12">
+                                    <span class="text-muted small">City Bank</span><br>
+                                    <span class="">Credit Card</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="fw-medium h6 mb-3">
+                            000 0000 0001 546598
+                        </p>
+                        <div class="row">
+                            <div class="col-auto size-12">
+                                <p class="mb-0 text-muted small">Expiry</p>
+                                <p>09/023</p>
+                            </div>
+                            <div class="col text-end size-12">
+                                <p class="mb-0 text-muted small">Card Holder</p>
+                                <p>Maxartkiller</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row amount-data">
+                    <div class="col">
+                        <p class="text-secondary small mb-1">Expense</p>
+                        <p>1500.00 <small class="text-success">18.0 <i class="bi bi-arrow-up"></i></small></p>
+                    </div>
+                    <div class="col-auto text-end">
+                        <p class="text-secondary small mb-1">Limit Remain</p>
+                        <p>13500.00</p>
+                    </div>
+                </div>
+            </ng-template>
+        </swiper>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card border-0 mb-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <p class="small mb-1"><b>Pago Pendiente del Mes</b></p>
+                        <h5 class="fw-medium text-orange">S/ 150.00</h5>
+                        <span class="badge rounded-pill bg-dark text-capitalize">S/ Pagar</span>
+                        <span class="badge rounded-pill bg-danger text-capitalize mx-2">> Mensualidad 3</span>
+                    </div>
+                    <div class="col-auto">
+                        <p class="calendar">
+                            <em class="text-capitalize">
+                                Febrero
+                            </em>30
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card border-0 mb-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <p class="small mb-1"><b>Pago Adelantado Total</b></p>
+                        <div class="d-flex">
+                            <h5 class="fw-medium text-orange">S/ 600.00</h5>
+                            <small class="mx-2 text-secondary"> <b style="text-decoration-line: line-through;">S/ 750.00</b> - 20%</small>
+                        </div>
+                        <span class="badge rounded-pill bg-dark text-capitalize">S/ Pagar</span>
+                        <span class="badge rounded-pill bg-danger text-capitalize mx-2">> Mensualidad 3,4,5,6,7</span>
+                    </div>
+                    <div class="col-auto text-warning">
+                        <i class="bi bi-send-plus" style="font-size: 62px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card border-0 mb-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <p class="small mb-1"><b>Pago Adelantado Total</b></p>
+                        <div class="d-flex">
+                            <h5 class="fw-medium text-orange">S/ 600.00</h5>
+                            <small class="mx-2 text-secondary"> <b style="text-decoration-line: line-through;">S/ 750.00</b> - 20%</small>
+                        </div>
+                        <span class="badge rounded-pill bg-dark text-capitalize">S/ Pagar</span>
+                        <span class="badge rounded-pill bg-danger text-capitalize mx-2">> Mensualidad 3,4,5,6,7</span>
+                    </div>
+                    <div class="col-auto text-warning">
+                        <i class="bi bi-send-plus" style="font-size: 62px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h5>Historial de Pagos</h5>
+                <hr>
+                <div class="table-responsive invoice-table" id="table">
+                    <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead>
+                        <tr>
+                            <th class="text-center"><small>Concepto</small></th>
+                            <th class="text-center"><small>Importe</small></th>
+                            <th class="text-center"><small>F. Vencimiento</small></th>
+                            <th class="text-center"><small>Estado</small></th>
+                            <th class="text-center"><small>Pago</small></th>
+                            <th class="text-center"><small>Comprobante</small></th>
+                            <th class="text-center"><small>F. Pago</small></th>
+                            <th class="text-center"><small>Método Pago</small></th>
+                            <th class="text-center"><small>Promoción</small></th>
+                            <th class="text-center"><small>Saldo</small></th>
+                            <th class="text-center"><small></small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let valalumnos of pagos, index as id">
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
+                            <!-- <td class="text-center"><small><a href="javascript:void(0);">
+                                <span class="badge rounded-pill bg-danger text-capitalize">{{valalumnos.fecha_pago_pendiente}}</span></a></small>
+                            </td> -->
+                            <!-- <td class="text-center"><small>{{valalumnos.recordatorio*1000 | date:'dd/MM/yyyy'}}</small></td> -->
+                            <td class="text-center">
+                                <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="right" title="Generar Código de Pago"
+                                    (click)="openModalPay(valalumnos)">
+                                    <i class="bi bi-cash-stack"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

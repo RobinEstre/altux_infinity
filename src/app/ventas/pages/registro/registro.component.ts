@@ -585,7 +585,7 @@ export class RegistroComponent implements OnInit {
         buttonsStyling: false
       })
       swalWithBootstrapButtons.fire({
-        title: 'Elegir El Método De Pago',
+        title: 'MÉTODO DE PAGO',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

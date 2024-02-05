@@ -445,7 +445,7 @@ export class FichasComponent implements OnInit {
     })
 
     swalWithBootstrapButtons.fire({
-      title: 'Elegir El Método De Pago',
+      title: 'MÉTODO DE PAGO',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: '💰 PagoEfectivo',
