@@ -260,30 +260,85 @@
             <h5 class="mb-1 title">REGISTRO SEGUIMIENTO</h5>
         </div>
         <div class="card-body modal-body">
-            <div class="row was-validated">
-                <div class="col-md-12 col-sm-12 col-lg-12 mb-2">
-                    <!-- <div class="form-group mb-2 position-relative">
+            <div class="row was-validated mb-3">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <div class="form-group position-relative mb-2">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
                             <div class="form-floating">
                                 <select (change)="selectSeguimiento($event)" class="form-select border-start-0" formControlName="estado" required>
                                     <option value="" disabled selected>Seleccionar Estado</option>
-                                    <option *ngFor="let valSeg of estado" value="{{valSeg.id}}">
-                                        {{valSeg.nombre}}
+                                    <option *ngFor="let valSeg of estado_seg" value="{{valSeg.id}}">
+                                        {{valSeg.name}}
                                     </option>
                                 </select>
                             </div>
                         </div>
-                    </div> -->
-                    <div class="form-group mb-3 position-relative">
+                    </div>
+                    <div class="form-group position-relative">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-chat-right-text"></i></span>
                             <div class="form-floating">
-                                <textarea required class="form-control border-start-0 h-auto" rows="3" formControlName="reason"></textarea>
-                                <label>Motivo Seguimiento</label>
+                                <textarea required class="form-control" placeholder="Motivo Seguimiento" id="floatingTextarea2" formControlName="reason" rows="2"></textarea>
+                                <label for="floatingTextarea2">Motivo Seguimiento</label>
                             </div>
+                            <!-- <div class="form-floating">
+                                <textarea required class="form-control border-start-0 h-auto" rows="3" formControlName="reason" id="floatingInput"></textarea>
+                                <label for="floatingInput">Motivo Seguimiento</label>
+                            </div> -->
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card border-0 h-100">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="bi bi-clock-history h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="fw-medium mb-0">Historial Seguimiento</h6>
+                            <p class="text-secondary small"><span class="badge badge-sm bg-yellow">No Contesta</span><span class="badge badge-sm bg-red mx-2">Perdido</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body px-1 pb-0">
+                    <table class="table table-borderless mb-0 w-100">
+                        <thead class="d-none">
+                            <tr class="text-muted">
+                                <th class="w-200">Historial Seguimiento</th>
+                                <th data-breakpoints="xs sm" class="w-80">No Contesta - Perdido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.perdido, index as id">
+                            <td>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-x-circle avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_contesta, index as id">
+                            <td>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-telephone-x avatar avatar-40 bg-light-yellow text-yellow rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

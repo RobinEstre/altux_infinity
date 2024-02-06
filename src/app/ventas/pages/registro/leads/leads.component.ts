@@ -126,6 +126,10 @@ export class LeadsComponent implements OnInit {
     {'name': 'TÉCNICO'},
     {'name': 'ESTUDIANTE'}
   ];
+  estado_seg:any=[
+    {id: 'no_contesta', name: 'No Contesta'},
+    {id: 'perdido', name: 'Perdido'}
+  ];
   dtOptions: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -270,9 +274,11 @@ export class LeadsComponent implements OnInit {
     this.nameruc=null
   }
 
-  openModalSeguimiento(data) {
+  openModalSeguimiento(data){
+    this.formSeguimiento.reset()
     this.data_detail=data
-    this.modalRefSeguimiento = this.modalService.open(this.modalSeguimiento,{centered: true, size: 'sm', keyboard: false, backdrop : 'static'});
+    this.formSeguimiento.controls.estado.setValue('')
+    this.modalRefSeguimiento = this.modalService.open(this.modalSeguimiento,{centered: true, size: 'md', keyboard: false, backdrop : 'static'});
     this.modalRefSeguimiento.result.then();
   }
 
@@ -454,6 +460,7 @@ export class LeadsComponent implements OnInit {
   saveSeguimiento(){
     this.spinner.show()
     let body={
+      "tipo_seguimiento": this.formSeguimiento.controls.estado.value,
       "detalle": this.formSeguimiento.controls.reason.value
     }
     this.service.registrarSeguimiento(this.data_detail.id, body).subscribe(data => {

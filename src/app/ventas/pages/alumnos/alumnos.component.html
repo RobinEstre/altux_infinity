@@ -45,7 +45,7 @@
                                 <tbody>
                                 <tr *ngFor="let valregistro of registro, index as id">
                                     <td>{{id+1}}</td>
-                                    <td class="text-center">{{valregistro.name_student}} {{valregistro.lastname_student}}</td>
+                                    <td>{{valregistro.name_student}} {{valregistro.lastname_student}}</td>
                                     <td class="text-center">{{valregistro.course_name}}</td>
                                     <td class="text-center">
                                         <a href="javascript:void(0);" class="text-success">
@@ -54,7 +54,7 @@
                                     </td>
                                     <td class="text-center text-success">S/ {{(+valregistro.precio_total).toFixed(2)}}</td>
                                     <td class="text-center">{{valregistro.phone}}</td>
-                                    <td class="text-center">{{valregistro.correo}}</td>
+                                    <td>{{valregistro.correo}}</td>
                                     <td class="text-center">{{valregistro.matricula_fecha | date:'dd/MM/yyyy'}}</td>
                                     <td class="text-center">
                                         <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Reenviar Acceso Estudiante"

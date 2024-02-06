@@ -12,4 +12,8 @@ export class PagosService {
   getPagos() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + '');
   }
+
+  getCourses() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar-cursos/');
+  }
 }

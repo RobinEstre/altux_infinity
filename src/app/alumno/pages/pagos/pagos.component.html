@@ -9,49 +9,36 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
-        <swiper [slidesPerView]="'auto'" [centeredSlides]="true" [pagination]="false" [autoplay]="{delay: 2000}" class="creditcards">
-            <ng-template swiperSlide>
-                <div class="card border-0 mb-2 theme-blue">
-                    <div class="card-body">
-                        <div class="row align-items-center mb-4">
-                            <div class="col-auto align-self-center">
-                                <img src="assets/img/visa.png" alt="">
-                            </div>
-                            <div class="col text-end">
-                                <p class="size-12">
-                                    <span class="text-muted small">City Bank</span><br>
-                                    <span class="">Credit Card</span>
-                                </p>
+    <div class="col-lg-5 col-md-5 col-sm-12 mb-4">
+        <swiper [slidesPerView]="'auto'" [centeredSlides]="true" [pagination]="false" (slideChange)="changeSlide($event)">
+            <ng-template swiperSlide *ngFor="let courses of courses, let i = index">
+                <div class="card border-0" style="margin: 1% 1% 1% 1%;">
+                    <div class="row mx-0">
+                        <div class="col-6 pe-0 bg-theme text-white half-circle-vertical py-4 z-index-1" style="border-radius: 7px;">
+                            <div class="position-relative">
+                                <h4 class="mb-0">{{courses.course.courses_name}}</h4>
+                                <p>Diplomado</p>
+                                <p class="text-muted small">Buy more, Get more</p>
                             </div>
                         </div>
-                        <p class="fw-medium h6 mb-3">
-                            000 0000 0001 546598
-                        </p>
-                        <div class="row">
-                            <div class="col-auto size-12">
-                                <p class="mb-0 text-muted small">Expiry</p>
-                                <p>09/023</p>
-                            </div>
-                            <div class="col text-end size-12">
-                                <p class="mb-0 text-muted small">Card Holder</p>
-                                <p>Maxartkiller</p>
-                            </div>
+                        <div class="col-6 position-relative">
+                            <figure class="coverimg position-absolute w-100 h-100 start-0 top-0 m-0" style="background-image: url('{{courses.course.detail.other_description.url_img_banner_main}}');border-radius: 7px;">
+                                <img src="{{courses.course.detail.other_description.url_img_banner_main}}" class="mw-100" alt="" style="display: none;">
+                            </figure>
                         </div>
                     </div>
                 </div>
-                <div class="row amount-data">
+                <div class="row mt-3" style="margin: 1% 1% 1% 1%;">
                     <div class="col">
-                        <p class="text-secondary small mb-1">Expense</p>
-                        <p>1500.00 <small class="text-success">18.0% <i class="bi bi-arrow-up"></i></small></p>
-                    </div>
-                    <div class="col-auto text-end">
-                        <p class="text-secondary small mb-1">Limit Remain</p>
-                        <p>13500.00</p>
+                        <div class="progress h-5 mb-2 bg-light-theme">
+                            <div class="progress-bar bg-theme" role="progressbar" [style.width.%]="courses.porcentaje.toFixed(2)"
+                            aria-valuenow="courses.porcentaje.toFixed(2)" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="small text-secondary">Estado Diplomado <span class="float-end">{{courses.porcentaje.toFixed(2)}}%</span></p>
                     </div>
                 </div>
             </ng-template>
-            <ng-template swiperSlide>
+            <!-- <ng-template swiperSlide>
                 <div class="card border-0 theme-pink mb-2">
                     <div class="card-body">
                         <div class="row align-items-center mb-4">
@@ -130,7 +117,7 @@
                         <p>13500.00</p>
                     </div>
                 </div>
-            </ng-template>
+            </ng-template> -->
         </swiper>
     </div>
 </div>
@@ -195,6 +182,204 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="card border-0 mb-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-auto">
+                <i class="bi bi-shop h5 avatar avatar-40 bg-light-theme rounded"></i>
+            </div>
+            <div class="col-auto align-self-center">
+                <h6 class="d-inline-block mb-0">Historial de Pagos</h6>
+                <p class="text-secondary small">Todos los pagos del diplomado</p>
+            </div>
+            <div class="col-12 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
+            </div>
+            <div class="col-auto ms-auto">
+                <div class="input-group border">
+                    <span class="input-group-text text-theme"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <table class="table footable" data-show-toggle="true">
+            <thead>
+                <tr class="text-muted">
+                    <th class="w-12"></th>
+                    <th class="">ID</th>
+                    <th>Raised By</th>
+                    <th data-breakpoints="xs sm">Contact Details</th>
+                    <th data-breakpoints="xs sm">Assigned To</th>
+                    <th data-breakpoints="xs">Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>2054ID</td>
+                    <td>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-1.jpg');">
+                                    <img src="assets/img/user-1.jpg" alt="" class="d-none" name="userimage" />
+                                </figure>
+                            </div>
+                            <div class="col ps-0">
+                                <p class="mb-0">David Warner</p>
+                                <p class="text-secondary small">United Kingdom</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="mb-0">david@sales..core.com</p>
+                        <p class="text-secondary small">+44 8466585****1154</p>
+                    </td>
+                    <td>
+                        <p class="mb-0">Jr. Sing</p>
+                        <p class="text-secondary small">Technical Helpdesk</p>
+                    </td>
+                    <td>
+                        <span class="badge badge-sm bg-yellow">Pending</span>
+                    </td>
+                    <td>
+                        <div class="dropdown d-inline-block">
+                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>105ID</td>
+                    <td>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-2.jpg');">
+                                    <img src="assets/img/user-2.jpg" alt="" class="d-none" />
+                                </figure>
+                            </div>
+                            <div class="col ps-0">
+                                <p class="mb-0">Winnie John</p>
+                                <p class="text-secondary small">Australia</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="mb-0">winnie@sales..core.com</p>
+                        <p class="text-secondary small">+44 8466585****1154</p>
+                    </td>
+                    <td>
+                        <p class="mb-0">Brett Lee</p>
+                        <p class="text-secondary small">Assi. Server Expert</p>
+                    </td>
+                    <td>
+                        <span class="badge badge-sm bg-blue">Waiting</span>
+                    </td>
+                    <td>
+                        <div class="dropdown d-inline-block">
+                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>058ID</td>
+                    <td>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-3.jpg');">
+                                    <img src="assets/img/user-3.jpg" alt="" class="d-none" />
+                                </figure>
+                            </div>
+                            <div class="col ps-0">
+                                <p class="mb-0">Alicia Smith</p>
+                                <p class="text-secondary small">United States</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="mb-0">alicia@sales..core.com</p>
+                        <p class="text-secondary small">+44 8466585****1154</p>
+                    </td>
+                    <td>
+                        <p class="mb-0">Gal Seddist</p>
+                        <p class="text-secondary small">Finance Head</p>
+                    </td>
+                    <td>
+                        <span class="badge badge-sm bg-green">Complete</span>
+                    </td>
+                    <td>
+                        <div class="dropdown d-inline-block">
+                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>500ID</td>
+                    <td>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-4.jpg');">
+                                    <img src="assets/img/user-4.jpg" alt="" class="d-none" />
+                                </figure>
+                            </div>
+                            <div class="col ps-0">
+                                <p class="mb-0">Jr. Chen Li</p>
+                                <p class="text-secondary small">United Kingdom</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="mb-0">cheli@sales..core.com</p>
+                        <p class="text-secondary small">+44 8466585****1154</p>
+                    </td>
+                    <td>
+                        <p class="mb-0">Tech Guruji</p>
+                        <p class="text-secondary small">Product Manager</p>
+                    </td>
+                    <td>
+                        <span class="badge badge-sm bg-red">Rejected</span>
+                    </td>
+                    <td>
+                        <div class="dropdown d-inline-block">
+                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <div class="card">

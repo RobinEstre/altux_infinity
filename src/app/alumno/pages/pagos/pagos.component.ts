@@ -9,6 +9,7 @@ import {NgbModal, NgbModalConfig, NgbModalRef} from "@ng-bootstrap/ng-bootstrap"
 import { FormBuilder, Validators } from '@angular/forms';
 import { PagosService } from '../../services/pagos.service';
 registerLocaleData(localeEs, 'es');
+declare var $: any;
 
 @Component({
   selector: 'app-pagos',
@@ -78,10 +79,54 @@ export class PagosComponent implements OnInit {
     config.keyboard = false;
   }
 
-  pagos:any; data_detalle:any
+  pagos:any; data_detalle:any; courses:any;
 
   ngOnInit(): void {
-    this.listarCarteraAlumnos();
+    this.getCourses()
+    //this.listarCarteraAlumnos();
+  }
+  
+  getCourses(){
+    this.service.getCourses().subscribe(resp=>{
+      if(resp.success){
+        resp.courses.forEach(i=>{
+          const split = i.course.courses_name.split(' ')
+          split.pop();
+          split.pop();
+          split.splice(0, 3);
+          let name=split.map(x=>x).join(" ")
+          let modulos:any=i.course.detail.other_description.descripcion_general.num_modulos
+          let porcentaje:any=(i.modulo_actual*100)/modulos
+          i.porcentaje=porcentaje
+          i.course.courses_name=name
+        })
+        this.courses=resp.courses
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: error.error.message,
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      if(error.status==500){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      this.spinner.hide()
+    })
   }
 
   listarCarteraAlumnos(){
@@ -132,8 +177,40 @@ export class PagosComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    //this.dtTrigger.next();
+  ngAfterViewInit() {
+    /* footable */
+    $('.footable').footable({
+      "paging": {
+        "enabled": true,
+        "container": '#footable-pagination',
+        "countFormat": "{CP} de {TP}",
+        "limit": 3,
+        "position": "right",
+        "size": 5
+      },
+      "sorting": {
+        "enabled": true
+      },
+    }, function (ft: any) {
+      $('#footablestot').html($('.footable-pagination-wrapper .label').html())
+
+      $('.footable-pagination-wrapper ul.pagination li').on('click', function () {
+        setTimeout(function () {
+          $('#footablestot').html($('.footable-pagination-wrapper .label').html());
+        }, 200);
+      });
+    });
+
+    var chosensimple: any = $('.chosenoptgroup')
+    chosensimple.chosen().on('change', function (event: any, el: any) {
+      var textdisplay_element = $(".chosenoptgroup + .chosen-container .chosen-single > span");
+      var selected_element = $(".chosenoptgroup option:selected");
+      var selected_value = selected_element.val();
+      if (selected_element.closest('optgroup').length > 0) {
+        var parent_optgroup = selected_element.closest('optgroup').attr('label');
+        textdisplay_element.text(parent_optgroup + ' ' + selected_value).trigger("chosen:updated");
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -149,5 +226,9 @@ export class PagosComponent implements OnInit {
 
   closeModalPay() {
     this.modalPay.close();
+  }
+
+  changeSlide(event){
+    console.log(event[0])
   }
 }
