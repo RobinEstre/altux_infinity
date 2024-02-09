@@ -356,12 +356,24 @@ export class LeadsComponent implements OnInit {
 
   select(event){
     this.ficha=event.target.checked
+    this.formRegistro.controls['datecall'].setValidators([]);
+    this.formRegistro.controls['datecall'].updateValueAndValidity();
+    this.formRegistro.controls['tipo_matricula'].setValidators([]);
+    this.formRegistro.controls['tipo_matricula'].updateValueAndValidity();
+    this.formRegistro.controls['fecha'].setValidators([]);
+    this.formRegistro.controls['fecha'].updateValueAndValidity();
     if(!this.ficha){
+      this.formRegistro.controls['tipo_matricula'].setValidators([Validators.required]);
+      this.formRegistro.controls['tipo_matricula'].updateValueAndValidity();
+      this.formRegistro.controls['fecha'].setValidators([Validators.required]);
+      this.formRegistro.controls['fecha'].updateValueAndValidity();
       this.formRegistro.controls['tipo_matricula'].setValue('')
       this.formRegistro.controls['fecha'].setValue(null)
       this.discount=null
     }
     else if(this.ficha){
+      this.formRegistro.controls['datecall'].setValidators([Validators.required]);
+      this.formRegistro.controls['datecall'].updateValueAndValidity();
       this.formRegistro.controls['datecall'].setValue(null)
     }
   }

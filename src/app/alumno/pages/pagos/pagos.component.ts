@@ -203,7 +203,6 @@ export class PagosComponent implements OnInit {
         //this.dtTrigger.next();
         this.spinner.hide()
         this.generateCheckbox();
-        console.log(this.pagos)
       }
     },error=>{
       if(error.status==400){
@@ -279,6 +278,9 @@ export class PagosComponent implements OnInit {
   openModalPay() {
     //this.data_detalle=data;
     this.nameruc=null
+    this.optionCard=true
+    this.optionEfectivo=false
+    this.arrayCheck=[]
     this.formExcPay.reset()
     this.formExcPay.controls['month_expirate'].setValue('');
     this.formExcPay.controls['year_expirate'].setValue('');
@@ -290,7 +292,6 @@ export class PagosComponent implements OnInit {
       }
     }
     this.generateCheckbox()
-    console.log(this.arrayCheck)
 
     this.modalPay = this.modalService.open(this.modalPayment, { centered: true, size: 'md' });
     this.modalPay.result.then();
@@ -426,17 +427,17 @@ export class PagosComponent implements OnInit {
       this.is_pay=true;
       if (indice == this.pagos.length-1) {
         this.checkbox[indice].is_checked = checkedType.checked;
-        this.monto_final+= +this.pagos[indice]['importe'];
+        this.monto_final+= +this.pagos[indice]['saldo'];
         return;
       }
       this.checkbox[indice + 1].is_disabled = disabledType.enabled;
       this.checkbox[indice].is_checked = checkedType.checked;
-      this.monto_final+= +this.pagos[indice]['importe'];
+      this.monto_final+= +this.pagos[indice]['saldo'];
     }
     else if (event.target.checked == false){
       for (let i = id+1; i < this.pagos.length; i++) {
         if(this.checkbox[i].is_checked == true){
-          this.monto_final-= +this.pagos[i]['importe'];
+          this.monto_final-= +this.pagos[i]['saldo'];
         }
         this.checkbox[i].is_disabled = disabledType.disabled;
         this.checkbox[i].is_checked = checkedType.unchecked;
@@ -447,7 +448,7 @@ export class PagosComponent implements OnInit {
         return;
       }
       if(this.checkbox[id].is_checked == true){
-        this.monto_final-= +this.pagos[id]['importe'];
+        this.monto_final-= +this.pagos[id]['saldo'];
       }
       this.checkbox[id].is_checked = checkedType.unchecked;
     }

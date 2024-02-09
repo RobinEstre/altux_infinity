@@ -137,11 +137,6 @@
                             </div>
                         </div>
                         <small class="text-muted">Ingresar Fecha 2do Pago</small>
-                        <div *ngIf="formRegistro.controls['fecha'].invalid && (formRegistro.controls['fecha'].dirty || formRegistro.controls['fecha'].touched)" >
-                            <div *ngIf="formRegistro.controls['fecha'].errors.required">
-                                <small class="text-danger">Por favor ingrese la fecha, dar click en el icono de calendario</small>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="ficha">
@@ -149,7 +144,7 @@
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
                             <div class="form-floating">
-                                <input placeholder="" formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
+                                <input formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
                             </div>
                         </div>
                         <small class="text-muted">Fecha a contactar</small>

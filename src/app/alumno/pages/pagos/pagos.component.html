@@ -67,7 +67,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <i class="bi bi-shop h5 avatar avatar-40 bg-light-theme rounded"></i>
+                                        <i class="bi bi-clock-history h5 avatar avatar-40 bg-light-theme rounded"></i>
                                     </div>
                                     <div class="col-auto align-self-center">
                                         <h6 class="d-inline-block mb-0">Historial de Pagos</h6>
@@ -115,7 +115,7 @@
                                                 <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
                                             </td>
                                             <td class="text-center"> 
-                                                <div *ngIf="valPagos.estado_pago">{{valPagos.metodo_pago}}</div>
+                                                <div *ngIf="valPagos.estado_pago" class="text-capitalize">{{valPagos.metodo_pago}}</div>
                                                 <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
                                             </td>
                                             <td class="text-center"> 
@@ -387,7 +387,7 @@
                     <button class="btn btn-dark" [ngClass]="{'active': domain === 'finance'}" data-title="finance" (click)="selectDomain('finance')">Tarjeta Crédito/Débito</button>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-warning" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">Pago Efectivo</button>
+                    <button class="btn btn-warning" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">PagoEfectivo</button>
                 </div>
             </div>
         </div>
