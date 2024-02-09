@@ -218,7 +218,7 @@
                                             <p class="h4 fw-light mb-3">Escoge el Método de Pago</p>
                                             <div class="row d-flex justify-content-center gx-3" id="domain-select">
                                                 <div class="col-auto">
-                                                    <button class="btn btn-dark">Tarjeta Crédito/Débito</button>
+                                                    <button class="btn btn-dark" [ngClass]="{'active': domain === 'finance'}" data-title="finance" (click)="selectDomain('finance')">Tarjeta Crédito/Débito</button>
                                                     <!-- <div class="select-box text-center mb-3" [ngClass]="{'active': domain === 'finance'}" data-title="finance" (click)="selectDomain('finance')">
                                                         <div class="avatar avatar-60">
                                                             <i class="bi bi-coin"></i>
@@ -227,7 +227,7 @@
                                                     </div> -->
                                                 </div>
                                                 <div class="col-auto">
-                                                    <button class="btn btn-warning">Pago Efectivo</button>
+                                                    <button class="btn btn-warning" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">Pago Efectivo</button>
                                                     <!-- <div class="select-box text-center mb-3" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">
                                                         <div class="avatar avatar-60">
                                                             <i class="bi bi-wifi"></i>

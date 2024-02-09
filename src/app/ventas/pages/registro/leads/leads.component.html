@@ -153,11 +153,6 @@
                             </div>
                         </div>
                         <small class="text-muted">Fecha a contactar</small>
-                        <div *ngIf="formRegistro.controls['datecall'].invalid && (formRegistro.controls['datecall'].dirty || formRegistro.controls['datecall'].touched)" >
-                            <div *ngIf="formRegistro.controls['datecall'].errors.required">
-                                <small class="text-danger">Por favor ingrese la fecha</small>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
@@ -319,7 +314,7 @@
                                     </div>
                                     <div class="col ps-0">
                                         <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy'}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
                                     </div>
                                 </div>
                             </td>
@@ -332,7 +327,7 @@
                                     </div>
                                     <div class="col ps-0">
                                         <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy'}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
                                     </div>
                                 </div>
                             </td>

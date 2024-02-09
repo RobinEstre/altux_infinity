@@ -66,6 +66,9 @@ export class FichasComponent implements OnInit {
       sortAscending: ": Activar para ordenar la tabla en orden ascendente"
     }
   }
+  @ViewChild('seguimiento') private modalSeguimiento: TemplateRef<FichasComponent>;
+  private modalRefSeguimiento: NgbModalRef;
+
   @ViewChild('delete') private modalDelete: TemplateRef<FichasComponent>;
   private modalDel: NgbModalRef;
 
@@ -116,10 +119,14 @@ export class FichasComponent implements OnInit {
     ruc:[''],
     fecha:[null]
   });
+  formSeguimiento = this.fb.group({
+    estado:['',],
+    reason: ['',Validators.required],
+  });
 
   fichas:any;isperu = true; mostrarColegiatura: boolean = false; referido:boolean=false; mostrar_patrocinador: boolean = false; nameperson:any
   namepatrocinador:any; detalle:any; nameruc:any; discount:any; mostrarDate: boolean = false; mostrarSelect: boolean = false; _generate:any
-  nombre_descuento:any; precio_pago:any; mostrarDiscount:boolean=false; linkpago:any; num_ruc:boolean=false
+  nombre_descuento:any; precio_pago:any; mostrarDiscount:boolean=false; linkpago:any; num_ruc:boolean=false; data_detail:any;
   
   tipo_matricula: any[] = [
     {
@@ -134,6 +141,10 @@ export class FichasComponent implements OnInit {
       'id': 'matriculacontado',
       'name': 'Al Contado',
     },
+  ];
+  estado_seg:any=[
+    {id: 'no_contesta', name: 'No Contesta'},
+    {id: 'perdido', name: 'Perdido'}
   ];
 
   ngOnInit(): void {
@@ -177,7 +188,8 @@ export class FichasComponent implements OnInit {
             'pais': i.pais,
             'grado_instruccion': i.grado_instruccion,
             'details': i.details,
-            'procedencia_venta': i.procedencia_venta
+            'procedencia_venta': i.procedencia_venta,
+            'seguimiento': i.seguimiento
           })
         })
         this.fichas= dip;
@@ -342,6 +354,18 @@ export class FichasComponent implements OnInit {
 
   closeModalPago() {
     this.modalPag.close();
+  }
+
+  openModalSeguimiento(data){
+    this.formSeguimiento.reset()
+    this.data_detail=data
+    this.formSeguimiento.controls.estado.setValue('')
+    this.modalRefSeguimiento = this.modalService.open(this.modalSeguimiento,{centered: true, size: 'md', keyboard: false, backdrop : 'static'});
+    this.modalRefSeguimiento.result.then();
+  }
+
+  closeModalSeguimiento() {
+    this.modalRefSeguimiento.close();
   }
 
   rerender(){
@@ -672,5 +696,53 @@ export class FichasComponent implements OnInit {
         });
       });
     }
+  }
+
+  saveSeguimiento(){
+    this.spinner.show()
+    let body={
+      "tipo_seguimiento": this.formSeguimiento.controls.estado.value,
+      "detalle": this.formSeguimiento.controls.reason.value
+    }
+    this.service.registrarSeguimientoFicha(this.data_detail.id, body).subscribe(data => {
+      if (data['success'] === true) {
+        this.closeModalSeguimiento();
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial ☺!',
+          text: '¡Se Registró el Seguimiento!',
+          showConfirmButton: false,
+          timer:2000
+        });
+        this.rerender()
+      }
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+       if (error.error['message']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error['message'], '¡Error!');
+        }else if (error.error.errors['non_field_errors']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error.errors['non_field_errors'][0],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error.errors['non_field_errors'][0], '¡Error!');
+        }
+      }
+    });
   }
 }

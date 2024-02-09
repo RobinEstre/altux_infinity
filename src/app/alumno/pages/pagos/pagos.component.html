@@ -1,127 +1,236 @@
-<!-- page title bar -->
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row align-items-center page-title">
         <div class="col-12 col-md mb-2 mb-sm-0">
             <h5 class="mb-0">Mis Pagos</h5>
             <p class="text-secondary">Próximamente</p>
-            <!-- <p class="text-secondary">Pago de diplomados.</p> -->
         </div>
     </div>
 </div>
-<div class="row justify-content-center">
-    <div class="col-lg-5 col-md-5 col-sm-12 mb-4">
-        <swiper [slidesPerView]="'auto'" [centeredSlides]="true" [pagination]="false" (slideChange)="changeSlide($event)">
-            <ng-template swiperSlide *ngFor="let courses of courses, let i = index">
-                <div class="card border-0" style="margin: 1% 1% 1% 1%;">
-                    <div class="row mx-0">
-                        <div class="col-6 pe-0 bg-theme text-white half-circle-vertical py-4 z-index-1" style="border-radius: 7px;">
-                            <div class="position-relative">
-                                <h4 class="mb-0">{{courses.course.courses_name}}</h4>
-                                <p>Diplomado</p>
-                                <p class="text-muted small">Buy more, Get more</p>
-                            </div>
-                        </div>
-                        <div class="col-6 position-relative">
-                            <figure class="coverimg position-absolute w-100 h-100 start-0 top-0 m-0" style="background-image: url('{{courses.course.detail.other_description.url_img_banner_main}}');border-radius: 7px;">
-                                <img src="{{courses.course.detail.other_description.url_img_banner_main}}" class="mw-100" alt="" style="display: none;">
-                            </figure>
-                        </div>
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <img src="https://web-altux-files.s3.amazonaws.com/infinity/proximamente..png" 
+            alt="" style="width: 100%;">
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-bag-check h5 avatar avatar-40 bg-light-theme rounded"></i>
                     </div>
-                </div>
-                <div class="row mt-3" style="margin: 1% 1% 1% 1%;">
                     <div class="col">
-                        <div class="progress h-5 mb-2 bg-light-theme">
-                            <div class="progress-bar bg-theme" role="progressbar" [style.width.%]="courses.porcentaje.toFixed(2)"
-                            aria-valuenow="courses.porcentaje.toFixed(2)" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p class="small text-secondary">Estado Diplomado <span class="float-end">{{courses.porcentaje.toFixed(2)}}%</span></p>
+                        <h6 class="fw-medium mb-0 text-uppercase">Mis Pagos</h6>
+                        <p class="text-secondary small">Pago de Diplomados</p>
                     </div>
                 </div>
-            </ng-template>
-            <!-- <ng-template swiperSlide>
-                <div class="card border-0 theme-pink mb-2">
-                    <div class="card-body">
-                        <div class="row align-items-center mb-4">
-                            <div class="col-auto align-self-center">
-                                <img src="assets/img/visa.png" alt="">
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <swiper [slidesPerView]="'auto'" [centeredSlides]="true" [pagination]="false" (slideChange)="changeSlide($event)">
+                            <ng-template swiperSlide *ngFor="let courses of courses, let i = index">
+                                <div class="card border-0" style="margin: 1% 1% 1% 1%;">
+                                    <div class="row mx-0">
+                                        <div class="col-6 pe-0 bg-theme text-white half-circle-vertical py-4 z-index-1" style="border-radius: 7px;">
+                                            <div class="position-relative">
+                                                <h4 class="mb-0">{{courses.course.courses_name}}</h4>
+                                                <p>Diplomado</p>
+                                                <p class="text-muted small">"Actualizados marcamos la diferencia." INFINITY</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 position-relative">
+                                            <figure class="coverimg position-absolute w-100 h-100 start-0 top-0 m-0" style="background-image: url('{{courses.course.detail.other_description.url_img_banner_main}}');border-radius: 7px;">
+                                                <img src="{{courses.course.detail.other_description.url_img_banner_main}}" class="mw-100" alt="" style="display: none;">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3" style="margin: 1% 1% 1% 1%;">
+                                    <div class="col">
+                                        <div class="progress h-5 bg-light-theme">
+                                            <div class="progress-bar bg-theme" role="progressbar" [style.width.%]="courses.porcentaje.toFixed(2)"
+                                            aria-valuenow="courses.porcentaje.toFixed(2)" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <p class="small text-secondary">Estado Diplomado <span class="float-end">{{courses.porcentaje.toFixed(2)}}%</span></p>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </swiper>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card border-0 mb-4">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-shop h5 avatar avatar-40 bg-light-theme rounded"></i>
+                                    </div>
+                                    <div class="col-auto align-self-center">
+                                        <h6 class="d-inline-block mb-0">Historial de Pagos</h6>
+                                        <p class="text-secondary small">Todos los pagos del diplomado</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col text-end">
-                                <p class="size-12">
-                                    <span class="text-muted small">City Bank</span><br>
-                                    <span class="">Credit Card</span>
-                                </p>
-                            </div>
-                        </div>
-                        <p class="fw-medium h6 mb-3">
-                            000 0000 0001 546598
-                        </p>
-                        <div class="row">
-                            <div class="col-auto size-12">
-                                <p class="mb-0 text-muted small">Expiry</p>
-                                <p>09/023</p>
-                            </div>
-                            <div class="col text-end size-12">
-                                <p class="mb-0 text-muted small">Card Holder</p>
-                                <p>Maxartkiller</p>
+                            <div class="card-body" *ngIf="pagos.length">
+                                <div class="table-responsive invoice-table" id="table">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr class="text-muted text-center">
+                                                <th>Concepto</th>
+                                                <th>Importe</th>
+                                                <th>F. Vencimiento</th>
+                                                <th>Estado</th>
+                                                <th>Pago</th>
+                                                <th>Comprobante</th>
+                                                <th>F. Pago</th>
+                                                <th>Método Pago</th>
+                                                <th>Promoción</th>
+                                                <th>Saldo</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let valPagos of pagos, index as id">
+                                            <td class="text-center">{{valPagos.concepto}}</td>
+                                            <td class="text-center">S/ {{valPagos.importe.toFixed(2)}}</td>
+                                            <td class="text-center">{{valPagos.fecha_vencimiento*1000 | date:'dd/MM/yyyy'}}</td>
+                                            <td class="text-center">
+                                                <span class="badge badge-sm bg-green" *ngIf="valPagos.estado_pago">Pagado <i class="bi bi-check-lg"></i></span>
+                                                <span class="badge badge-sm bg-yellow" *ngIf="!valPagos.estado_pago">Pendiente <i class="bi bi-list"></i></span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.pago.toFixed(2)}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td class="text-center"> 
+                                                <div *ngIf="valPagos.estado_pago">{{valPagos.comprobante}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td class="text-center"> 
+                                                <div *ngIf="valPagos.estado_pago">{{valPagos.fecha_pago | date:'dd/MM/yyyy'}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td class="text-center"> 
+                                                <div *ngIf="valPagos.estado_pago">{{valPagos.metodo_pago}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td class="text-center"> 
+                                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.promocion.toFixed(2)}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-danger">S/ {{valPagos.promocion.toFixed(2)}}</div>
+                                            </td>
+                                            <td class="text-center"> 
+                                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.saldo.toFixed(2)}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-danger">S/ {{valPagos.saldo.toFixed(2)}}</div>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" (change)="updateCheckbox(id, $event)" *ngIf="!valPagos.estado_pago"
+                                                    [checked]="checkbox[id]['is_checked']" [disabled]="checkbox[id]['is_disabled']" >
+                                                <div *ngIf="valPagos.estado_pago">✅</div>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="pagos">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-end">
+                                                <h6>
+                                                    <span>Saldo final:</span>
+                                                </h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <span>S/ {{monto_final.toFixed(2)}}</span>
+                                            </td>
+                                            <td>
+                                                <button *ngIf="is_pay"
+                                                        class="btn btn-primary text-white text-center"
+                                                        (click)="openModalPay()">
+                                                    <small>Pagar</small>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- <table class="table footable" data-show-toggle="true">
+                                    <thead>
+                                        <tr class="text-muted">
+                                            <th class="w-15">Concepto</th>
+                                            <th class="">Importe</th>
+                                            <th data-breakpoints="xs sm">F. Vencimiento</th>
+                                            <th>Estado</th>
+                                            <th data-breakpoints="xs sm">Pago</th>
+                                            <th data-breakpoints="xs sm">Comprobante</th>
+                                            <th data-breakpoints="xs sm">F. Pago</th>
+                                            <th data-breakpoints="xs sm">Método Pago</th>
+                                            <th data-breakpoints="xs sm">Promoción</th>
+                                            <th data-breakpoints="xs sm">Saldo</th>
+                                            <th>Acc</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let valPagos of pagos, index as id">
+                                            <td>{{valPagos.concepto}}</td>
+                                            <td>S/ {{valPagos.importe.toFixed(2)}}</td>
+                                            <td>{{valPagos.fecha_vencimiento*1000 | date:'dd/MM/yyyy'}}</td>
+                                            <td>
+                                                <span class="badge badge-sm bg-green" *ngIf="valPagos.estado_pago">Pagado <i class="bi bi-check-lg"></i></span>
+                                                <span class="badge badge-sm bg-yellow" *ngIf="!valPagos.estado_pago">Pendiente <i class="bi bi-list"></i></span>
+                                            </td>
+                                            <td>
+                                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.pago.toFixed(2)}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td> 
+                                                <div *ngIf="valPagos.estado_pago">{{valPagos.comprobante}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td> 
+                                                <div *ngIf="valPagos.estado_pago">{{valPagos.fecha_pago | date:'dd/MM/yyyy'}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td> 
+                                                <div *ngIf="valPagos.estado_pago">{{valPagos.metodo_pago}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                                            </td>
+                                            <td> 
+                                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.promocion.toFixed(2)}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-danger">-</div>
+                                            </td>
+                                            <td> 
+                                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.saldo.toFixed(2)}}</div>
+                                                <div *ngIf="!valPagos.estado_pago" class="text-danger">S/ {{valPagos.saldo.toFixed(2)}}</div>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" (change)="onChange( $event)" *ngIf="!valPagos.estado_pago"
+                                                    [checked]="checkbox[id]['is_checked']" [disabled]="checkbox[id]['is_disabled']" >
+                                                <div *ngIf="valPagos.estado_pago">
+                                                    <p>
+                                                        😄 ✅
+                                                    </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row amount-data">
-                    <div class="col">
-                        <p class="text-secondary small mb-1">Expense</p>
-                        <p>3650.00 <small class="text-danger">11.0% <i class="bi bi-arrow-down"></i></small></p>
-                    </div>
-                    <div class="col-auto text-end">
-                        <p class="text-secondary small mb-1">Limit Remain</p>
-                        <p>35500.00</p>
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template swiperSlide>
-                <div class="card border-0 theme-yellow mb-2">
-                    <div class="card-body">
-                        <div class="row align-items-center mb-4">
-                            <div class="col-auto align-self-center">
-                                <img src="assets/img/visa.png" alt="">
-                            </div>
-                            <div class="col text-end">
-                                <p class="size-12">
-                                    <span class="text-muted small">City Bank</span><br>
-                                    <span class="">Credit Card</span>
-                                </p>
-                            </div>
-                        </div>
-                        <p class="fw-medium h6 mb-3">
-                            000 0000 0001 546598
-                        </p>
-                        <div class="row">
-                            <div class="col-auto size-12">
-                                <p class="mb-0 text-muted small">Expiry</p>
-                                <p>09/023</p>
-                            </div>
-                            <div class="col text-end size-12">
-                                <p class="mb-0 text-muted small">Card Holder</p>
-                                <p>Maxartkiller</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row amount-data">
-                    <div class="col">
-                        <p class="text-secondary small mb-1">Expense</p>
-                        <p>1500.00 <small class="text-success">18.0 <i class="bi bi-arrow-up"></i></small></p>
-                    </div>
-                    <div class="col-auto text-end">
-                        <p class="text-secondary small mb-1">Limit Remain</p>
-                        <p>13500.00</p>
-                    </div>
-                </div>
-            </ng-template> -->
-        </swiper>
+            </div>
+        </div>
     </div>
 </div>
-<div class="row justify-content-center">
+
+<!-- <div class="row justify-content-center">
     <div class="col-lg-3 col-md-3 col-sm-12">
         <div class="card border-0 mb-4">
             <div class="card-body">
@@ -183,249 +292,81 @@
             </div>
         </div>
     </div>
-</div>
-<div class="card border-0 mb-4">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-auto">
-                <i class="bi bi-shop h5 avatar avatar-40 bg-light-theme rounded"></i>
-            </div>
-            <div class="col-auto align-self-center">
-                <h6 class="d-inline-block mb-0">Historial de Pagos</h6>
-                <p class="text-secondary small">Todos los pagos del diplomado</p>
-            </div>
-            <div class="col-12 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
-            </div>
-            <div class="col-auto ms-auto">
-                <div class="input-group border">
-                    <span class="input-group-text text-theme"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search...">
+</div> -->
+
+<!-- <div class="card">
+    <div class="card-body">
+        <div class="card-header bg-light-theme">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="bi bi-bag-check h5 avatar avatar-40 bg-light-theme rounded"></i>
+                </div>
+                <div class="col">
+                    <h6 class="fw-medium mb-0 text-uppercase">Mis Pagos</h6>
+                    <p class="text-secondary small">Pago de Diplomados</p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card-body p-0">
-        <table class="table footable" data-show-toggle="true">
-            <thead>
-                <tr class="text-muted">
-                    <th class="w-12"></th>
-                    <th class="">ID</th>
-                    <th>Raised By</th>
-                    <th data-breakpoints="xs sm">Contact Details</th>
-                    <th data-breakpoints="xs sm">Assigned To</th>
-                    <th data-breakpoints="xs">Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td>2054ID</td>
-                    <td>
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-1.jpg');">
-                                    <img src="assets/img/user-1.jpg" alt="" class="d-none" name="userimage" />
-                                </figure>
-                            </div>
-                            <div class="col ps-0">
-                                <p class="mb-0">David Warner</p>
-                                <p class="text-secondary small">United Kingdom</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="mb-0">david@sales..core.com</p>
-                        <p class="text-secondary small">+44 8466585****1154</p>
-                    </td>
-                    <td>
-                        <p class="mb-0">Jr. Sing</p>
-                        <p class="text-secondary small">Technical Helpdesk</p>
-                    </td>
-                    <td>
-                        <span class="badge badge-sm bg-yellow">Pending</span>
-                    </td>
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>105ID</td>
-                    <td>
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-2.jpg');">
-                                    <img src="assets/img/user-2.jpg" alt="" class="d-none" />
-                                </figure>
-                            </div>
-                            <div class="col ps-0">
-                                <p class="mb-0">Winnie John</p>
-                                <p class="text-secondary small">Australia</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="mb-0">winnie@sales..core.com</p>
-                        <p class="text-secondary small">+44 8466585****1154</p>
-                    </td>
-                    <td>
-                        <p class="mb-0">Brett Lee</p>
-                        <p class="text-secondary small">Assi. Server Expert</p>
-                    </td>
-                    <td>
-                        <span class="badge badge-sm bg-blue">Waiting</span>
-                    </td>
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>058ID</td>
-                    <td>
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-3.jpg');">
-                                    <img src="assets/img/user-3.jpg" alt="" class="d-none" />
-                                </figure>
-                            </div>
-                            <div class="col ps-0">
-                                <p class="mb-0">Alicia Smith</p>
-                                <p class="text-secondary small">United States</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="mb-0">alicia@sales..core.com</p>
-                        <p class="text-secondary small">+44 8466585****1154</p>
-                    </td>
-                    <td>
-                        <p class="mb-0">Gal Seddist</p>
-                        <p class="text-secondary small">Finance Head</p>
-                    </td>
-                    <td>
-                        <span class="badge badge-sm bg-green">Complete</span>
-                    </td>
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>500ID</td>
-                    <td>
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <figure class="avatar avatar-50 mb-0 coverimg rounded-circle" style="background-image: url('assets/img/user-4.jpg');">
-                                    <img src="assets/img/user-4.jpg" alt="" class="d-none" />
-                                </figure>
-                            </div>
-                            <div class="col ps-0">
-                                <p class="mb-0">Jr. Chen Li</p>
-                                <p class="text-secondary small">United Kingdom</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="mb-0">cheli@sales..core.com</p>
-                        <p class="text-secondary small">+44 8466585****1154</p>
-                    </td>
-                    <td>
-                        <p class="mb-0">Tech Guruji</p>
-                        <p class="text-secondary small">Product Manager</p>
-                    </td>
-                    <td>
-                        <span class="badge badge-sm bg-red">Rejected</span>
-                    </td>
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <h5>Historial de Pagos</h5>
-                <hr>
-                <div class="table-responsive invoice-table" id="table">
-                    <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <div class="table-responsive" id="table2">
+                    <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                         <thead>
-                        <tr>
-                            <th class="text-center"><small>Concepto</small></th>
-                            <th class="text-center"><small>Importe</small></th>
-                            <th class="text-center"><small>F. Vencimiento</small></th>
-                            <th class="text-center"><small>Estado</small></th>
-                            <th class="text-center"><small>Pago</small></th>
-                            <th class="text-center"><small>Comprobante</small></th>
-                            <th class="text-center"><small>F. Pago</small></th>
-                            <th class="text-center"><small>Método Pago</small></th>
-                            <th class="text-center"><small>Promoción</small></th>
-                            <th class="text-center"><small>Saldo</small></th>
-                            <th class="text-center"><small></small></th>
-                        </tr>
+                            <tr class="text-muted">
+                                <th>Concepto</th>
+                                <th>Importe</th>
+                                <th>F. Vencimiento</th>
+                                <th>Estado</th>
+                                <th>Pago</th>
+                                <th>Comprobante</th>
+                                <th>F. Pago</th>
+                                <th>Método Pago</th>
+                                <th>Promoción</th>
+                                <th>Saldo</th>
+                                <th>Acc</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let valalumnos of pagos, index as id">
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <td class="text-center"><small>{{valalumnos.dni}}</small></td>
-                            <!-- <td class="text-center"><small><a href="javascript:void(0);">
-                                <span class="badge rounded-pill bg-danger text-capitalize">{{valalumnos.fecha_pago_pendiente}}</span></a></small>
-                            </td> -->
-                            <!-- <td class="text-center"><small>{{valalumnos.recordatorio*1000 | date:'dd/MM/yyyy'}}</small></td> -->
+                        <tr *ngFor="let valPagos of pagos, index as id">
+                            <td>{{valPagos.concepto}}</td>
+                            <td>S/ {{valPagos.importe.toFixed(2)}}</td>
+                            <td>{{valPagos.fecha_vencimiento*1000 | date:'dd/MM/yyyy'}}</td>
+                            <td>
+                                <span class="badge badge-sm bg-green" *ngIf="valPagos.estado_pago">Pagado <i class="bi bi-check-lg"></i></span>
+                                <span class="badge badge-sm bg-yellow" *ngIf="!valPagos.estado_pago">Pendiente <i class="bi bi-list"></i></span>
+                            </td>
+                            <td>
+                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.pago.toFixed(2)}}</div>
+                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                            </td>
+                            <td> 
+                                <div *ngIf="valPagos.estado_pago">{{valPagos.comprobante}}</div>
+                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                            </td>
+                            <td> 
+                                <div *ngIf="valPagos.estado_pago">{{valPagos.fecha_pago | date:'dd/MM/yyyy'}}</div>
+                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                            </td>
+                            <td> 
+                                <div *ngIf="valPagos.estado_pago">{{valPagos.metodo_pago}}</div>
+                                <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
+                            </td>
+                            <td> 
+                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.promocion.toFixed(2)}}</div>
+                                <div *ngIf="!valPagos.estado_pago" class="text-danger">-</div>
+                            </td>
+                            <td> 
+                                <div *ngIf="valPagos.estado_pago">S/ {{valPagos.saldo.toFixed(2)}}</div>
+                                <div *ngIf="!valPagos.estado_pago" class="text-danger">S/ {{valPagos.saldo.toFixed(2)}}</div>
+                            </td>
                             <td class="text-center">
-                                <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="right" title="Generar Código de Pago"
-                                    (click)="openModalPay(valalumnos)">
-                                    <i class="bi bi-cash-stack"></i>
-                                </a>
+                                <input type="checkbox" (change)="updateCheckbox(id, $event)" *ngIf="!valPagos.estado_pago"
+                                    [checked]="checkbox[id]['is_checked']" [disabled]="checkbox[id]['is_disabled']" >
+                                <div *ngIf="valPagos.estado_pago">
+                                    <p>
+                                        😄 ✅
+                                    </p>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -434,4 +375,138 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<!-- Empieza modal pago-->
+<ng-template #pay let-modal>
+    <form [formGroup]="formExcPay" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-3 title">Método de Pago</h5>
+            <div class="row d-flex justify-content-center " id="domain-select">
+                <div class="col-auto">
+                    <button class="btn btn-dark" [ngClass]="{'active': domain === 'finance'}" data-title="finance" (click)="selectDomain('finance')">Tarjeta Crédito/Débito</button>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-warning" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">Pago Efectivo</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated mb-3" *ngIf="optionCard">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <br>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text bordes">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-2-front img_svg" viewBox="0 0 16 16">
+                                    <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
+                                    <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+                                </svg>
+                            </span>
+                            <input autocomplete="off" type="text" formControlName="number_card" class="form-control text-secondary bordes" required
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="16" placeholder="Nº Tarjeta" name="number_card" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                    <div class="form-group">
+                        <div  class="select-box">
+                            <select class="form-select border-start-0" formControlName="month_expirate" required>
+                                <option value="" disabled selected>MES VENCIMIENTO</option>
+                                <option *ngFor="let tipoMat of arrayMes" value="{{tipoMat.mes}}">
+                                    {{tipoMat.mes}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                    <div class="form-group">
+                        <div  class="select-box">
+                            <select class="form-select border-start-0" formControlName="year_expirate" required>
+                                <option value="" disabled selected>AÑO VENCIMIENTO</option>
+                                <option *ngFor="let tipoMat of fechanual" value="{{tipoMat.year}}">
+                                    {{tipoMat.year}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-text bordes">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card img_svg" viewBox="0 0 16 16">
+                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                    <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                                </svg>
+                            </span>
+                            <input type="text" autocomplete="off" formControlName="cvv"
+                                    class="form-control text-secondary bordes" required
+                                    onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
+                                    maxlength="4" name="cvv" placeholder="CVV">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
+                    <div class="form-group form-check form-switch my-2">
+                        <input class="form-check-input" (change)="optionFacture($event)" type="checkbox" formControlName="is_factura">
+                        <label>
+                            Solicitar Factura
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 mb-3" *ngIf="mostrarSelect">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="ruc" class="form-control border-start-0" autocomplete="off" maxlength="11"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="getInfoByRuc($event)" required>
+                                <label for="floatingInput">Ingrese Nº RUC</label>
+                            </div>
+                        </div>
+                        <div *ngIf="nameruc" class="text-center text-uppercase text-light" style="border-radius: 5px; background: #2a5390">
+                            <small><b>{{nameruc}}</b></small>
+                        </div>
+                        <div *ngIf="formExcPay.controls['ruc'].invalid && (formExcPay.controls['ruc'].dirty || formExcPay.controls['ruc'].touched)" >
+                            <div *ngIf="formExcPay.controls['ruc'].errors.required">
+                                <small class="text-danger">Por favor ingrese su número de RUC</small>
+                            </div>
+                            <div *ngIf="formExcPay.controls['ruc'].errors.maxlength">
+                                <small class="text-danger">Excediste el número máximo de caracteres</small>
+                            </div>
+                            <div *ngIf="formExcPay.controls['ruc'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="billing-details" *ngIf="optionEfectivo">
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-2 text-center">
+                    <img src="https://image4.owler.com/logo/pagoefectivo_owler_20210802_224551_original.png" alt="" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="exectPayment()" [disabled]="!formExcPay.valid">Pagar S/ {{monto_final.toFixed(2)}}</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalPay()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!-- Empieza modal pago-->
+<ng-template #pago let-modal>
+    <div class="modal-header">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
+        <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModalPago()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

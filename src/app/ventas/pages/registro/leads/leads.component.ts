@@ -362,6 +362,7 @@ export class LeadsComponent implements OnInit {
       this.discount=null
     }
     else if(this.ficha){
+      this.formRegistro.controls['datecall'].setValue(null)
     }
   }
 

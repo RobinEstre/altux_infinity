@@ -59,6 +59,9 @@ export class VentasService {
   registrarSeguimiento(id, data) {
     return this.httpClient.put<any>(this.envUrl.urlAddress + 'marketing/agregar/seguimiento-leads/'+id, data)
   }
+  registrarSeguimientoFicha(id, data) {
+    return this.httpClient.put<any>(this.envUrl.urlAddress + 'ventas/insertar/seguimiento-ficha/'+id, data)
+  }
   registrarMatricula(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'ventas/matricula/registrar-matricula/', data)
   }
