@@ -1,0 +1,199 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">CREAR EXAMEN</h6>
+                        <p class="text-secondary small">Registro de Nuevo Exámen</p>
+                    </div>
+                    <div class="col-auto">
+                        <a href="https://oea-files-academico.s3.amazonaws.com/plantillas/plantilla_formulario_evaluacion_001.xlsx" 
+                            class="btn btn-theme">
+                            <i class="bi bi-download"></i> Descargar Plantilla
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <form [formGroup]="formgrupos">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+                            <div class="form-group">
+                                <ng-select formControlName="diplomado"
+                                            [items]="diplomado"
+                                            bindLabel="courses_name"
+                                            bindValue="courses_code"
+                                            placeholder="SELECCIONAR DIPLOMADO"
+                                            (change)="listModule($event)">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+                            <div class="form-group">
+                                <ng-select formControlName="modulo"
+                                            [items]="modulo"
+                                            bindLabel="module_name"
+                                            bindValue="id"
+                                            placeholder="SELECCIONAR BLOQUE"
+                                            (change)="selectModule($event)">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 mb-2">
+                            <div class="form-group">
+                                <ng-select formControlName="tipo_examen"
+                                            [items]="tipo_examen"
+                                            bindLabel="type_name"
+                                            bindValue="id"
+                                            placeholder="SELECCIONAR TIPO EXAMEN"
+                                            (change)="selectTypeExamen($event)">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>                    
+                </form>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                        <!--CONFIG-->
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!--DETALLES-->
+                                        <form [formGroup]="formdetail">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12 col-lg-6" hidden>
+                                                    <div class="form-group">
+                                                        <div class="input-group my-2">
+                                                        <span class="input-group-text bordes">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill img_svg" viewBox="0 0 16 16">
+                                                              <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                                                            </svg>
+                                                        </span>
+                                                            <input autocomplete="off" class="form-control text-dark bordes"
+                                                                   formControlName="maximo_preguntas" type="text" placeholder="N° Preguntas Para Exámen" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 col-lg-6 ">
+                                                    <div class="form-group">
+                                                        <div class="input-group my-2">
+                                                            <span class="input-group-text img_svg">
+                                                                <i class="bi bi-bookmark-x-fill"></i>
+                                                            </span>
+                                                            <span class="input-group-text text-danger">
+                                                                Nota Aprobatoria Mínima
+                                                            </span>
+                                                            <input autocomplete="off" class="form-control text-dark bordes"
+                                                                   formControlName="minimo_nota" type="text" placeholder="Nota Minima" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 col-lg-6 ">
+                                                    <div class="form-group">
+                                                        <div class="input-group my-2">
+                                                            <span class="input-group-text img_svg">
+                                                                <i class="bi bi-bookmark-star-fill"></i>
+                                                            </span>
+                                                            <span class="input-group-text text-success">
+                                                                Nota Aprobatoria Máxima
+                                                            </span>
+                                                            <input autocomplete="off" class="form-control text-dark bordes"
+                                                                   formControlName="maximo_nota" type="text" placeholder="Nota Máxima" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 col-lg-6 ">
+                                                    <div class="form-group">
+                                                        <div class="input-group my-2">
+                                                            <span class="input-group-text bordes">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="img_svg bi-calendar-check-fill" viewBox="0 0 16 16">
+                                                                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                                                                </svg>
+                                                            </span>
+                                                            <input class="form-control text-dark bordes" type="datetime-local" formControlName="fecha_inicio" autocomplete="off">
+                                                        </div>
+                                                        <small class="text-muted">Ingresar Fecha de Inicio</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 col-lg-6 ">
+                                                    <div class="form-group">
+                                                        <div class="input-group my-2">
+                                                        <span class="input-group-text bordes">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="img_svg bi-calendar-check-fill" viewBox="0 0 16 16">
+                                                                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                                                            </svg>
+                                                        </span>
+                                                            <input class="form-control text-dark bordes" type="datetime-local" formControlName="fecha_fin" autocomplete="off">
+                                                        </div>
+                                                        <small class="text-muted">Ingresar Fecha de Fin</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <div class="input-group my-2">
+                                                        <span class="input-group-text bordes">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="img_svg bi-file-earmark-medical-fill" viewBox="0 0 16 16">
+                                                              <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-3 2v.634l.549-.317a.5.5 0 1 1 .5.866L7 7l.549.317a.5.5 0 1 1-.5.866L6.5 7.866V8.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L5 7l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V5.5a.5.5 0 1 1 1 0zm-2 4.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm0 2h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+                                                            </svg>
+                                                        </span>
+                                                            <input autocomplete="off" class="form-control text-dark bordes" [value]="diplomado_name+' - '+modulo_name+'- '+examen_name"
+                                                                   formControlName="nombre_examen" type="text" placeholder="Nombre de Examen" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-sm-12 col-lg-2"></div>
+                                                <div class="col-md-4 col-sm-12 col-lg-4 text-center">
+                                                    <button class="btn btn-primary" [disabled]="!formdetail.valid" (click)="detail_Exam()">
+                                                        Registrar Preguntas
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-4 col-sm-12 col-lg-4 text-center">
+                                                    <button class="btn btn-success text-light" [disabled]="!formdetail.valid" (click)="openFile()">
+                                                        <i class="bi bi-cloud-upload"></i> Subir Excel
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-12 col-lg-2"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="_generate">
+                        <!--PREGUNTAS-->
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-sm-12"></div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                    <div class="alert alert-primary nuevo">
+                                                        <b>{{diplomado_name}} - {{modulo_name}} - {{examen_name}}</b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-12"></div>
+                                            </div>
+                                            <app-questions [detalle_examen]="_generate" [maximo]="max_quiz" (miEvento) = "registrar($event)" 
+                                                [archivo]="data" *ngIf="_generate"></app-questions>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

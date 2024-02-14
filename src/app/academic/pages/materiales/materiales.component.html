@@ -1,1 +1,227 @@
-<p>materiales works!</p>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-journal-bookmark-fill h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Materiales</h6>
+                        <p class="text-secondary small">Agregar Material de Diplomado</p>
+                    </div>
+                    <form [formGroup]="formgrupos" class="col-auto">
+                        <div class="form-group">
+                            <ng-select formControlName="diplomado"
+                                        [items]="diplomado"
+                                        bindLabel="courses_name"
+                                        bindValue="courses_code"
+                                        placeholder="SELECCIONAR DIPLOMADO"
+                                        (change)="listGroup($event)">
+                            </ng-select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center" *ngIf="modulo">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <ul class="mb-0 treeview" id="treeviewExample">
+                            <li *ngFor="let data of modulo, let i = index" class="treeview-list-item {{data.bg_color}}">
+                                <a data-bs-toggle="collapse" href="#Bloque-{{data.module_number}}" role="button" aria-expanded="true" class="text-dark"
+                                    *ngIf="modulo && modulo.numero_modulo==data.module_number">
+                                    <p class="treeview-text1 mx-3 text-uppercase">
+                                        <span class="blue"><small style="font-size: 13px !important;">{{i+1}}</small></span>{{data.module_name}}
+                                    </p>
+                                </a>
+                                <a data-bs-toggle="collapse" href="#Bloque-{{data.module_number}}" role="button" aria-expanded="false" class="text-dark"
+                                    *ngIf="modulo && modulo.numero_modulo!=data.module_number">
+                                    <p class="treeview-text1 mx-3 text-uppercase">
+                                        <span class="blue"><small style="font-size: 13px !important;">{{i+1}}</small></span>{{data.module_name}}
+                                    </p>
+                                </a>
+                                <a data-bs-toggle="collapse" href="#Bloque-{{data.module_number}}" role="button" aria-expanded="false" class="text-dark"
+                                    *ngIf="!modulo">
+                                    <p class="treeview-text1 mx-3 text-uppercase">
+                                        <span class="blue"><small style="font-size: 13px !important;">{{i+1}}</small></span>{{data.module_name}}
+                                    </p>
+                                </a>
+                                <ul class="collapse treeview-list {{data.class}}" id="Bloque-{{data.module_number}}" data-show="false">
+                                    <li class="treeview-list-item" *ngIf="materials">
+                                        <a data-bs-toggle="collapse" href="#Bloque-{{data.module_number}}-2" role="button" aria-expanded="false">
+                                            <p class="treeview-text text-uppercase">material de estudio</p>
+                                        </a>
+                                        <ul class="collapse treeview-list" id="Bloque-{{data.module_number}}-2" data-show="false">
+                                            <li class="treeview-list-item">
+                                                <a data-bs-toggle="collapse" href="#Bloque-{{data.module_number}}-2-1" role="button" aria-expanded="false" class="d-flex">
+                                                    <p class="treeview-text text-uppercase">diapositivas</p>
+                                                    <a class="text-success mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Material"
+                                                        (click)="openModal(1, data.id, 'Diapositiva')">
+                                                        <i class="bi bi-file-earmark-plus-fill" style="font-size: 20px;"></i>
+                                                    </a>
+                                                </a>
+                                                <ul class="collapse treeview-list" id="Bloque-{{data.module_number}}-2-1" data-show="true">
+                                                    <div *ngFor="let material of materials[i].data" >
+                                                        <li class="treeview-list-item" *ngIf="1 === material.type_material_id">
+                                                            <div class="treeview-item d-flex">
+                                                                <a class="flex-1" href="javascript:void(0)" (click)="openModalDoc(material)">
+                                                                    <p class="treeview-text">
+                                                                        <span class="me-2 bi bi-filetype-pdf text-danger" *ngIf="material.mat_icon === 'pdf'"></span>
+                                                                        <span class="me-2 bi bi-filetype-xls text-success" *ngIf="material.mat_icon === 'xls'||material.mat_icon === 'xlsx'"></span>
+                                                                        <span class="me-2 bi bi-filetype-doc text-primary" *ngIf="material.mat_icon === 'doc'||material.mat_icon === 'docx'"></span>
+                                                                        <span class="me-2 bi bi-filetype-ppt text-warning" *ngIf="material.mat_icon === 'ppt'||material.mat_icon === 'pptx'"></span>
+                                                                        {{material.mat_name}}
+                                                                    </p>
+                                                                </a>
+                                                                <a class="text-danger mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Material"
+                                                                    (click)="withConfirmation(material.id_material)">
+                                                                    <i class="bi bi-trash-fill" style="font-size: 20px;"></i>
+                                                                </a>
+                                                            </div>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </li>
+                                            <li class="treeview-list-item">
+                                                <a data-bs-toggle="collapse" href="#Bloque-{{data.module_number}}-2-2" role="button" aria-expanded="false" class="d-flex">
+                                                    <p class="treeview-text text-uppercase">material complementario</p>
+                                                    <a class="text-success mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Material"
+                                                        (click)="openModal(2, data.id, 'Material Complementario')">
+                                                        <i class="bi bi-file-earmark-plus-fill" style="font-size: 20px;"></i>
+                                                    </a>
+                                                </a>
+                                                <ul class="collapse treeview-list" id="Bloque-{{data.module_number}}-2-2" data-show="true">
+                                                    <div *ngFor="let material of materials[i].data" >
+                                                        <li class="treeview-list-item" *ngIf="2 === material.type_material_id">
+                                                            <div class="treeview-item d-flex">
+                                                                <a class="flex-1" href="javascript:void(0)" (click)="openModalDoc(material)">
+                                                                    <p class="treeview-text">
+                                                                        <span class="me-2 bi bi-filetype-pdf text-danger" *ngIf="material.mat_icon === 'pdf'"></span>
+                                                                        <span class="me-2 bi bi-filetype-xls text-success" *ngIf="material.mat_icon === 'xls'"></span>
+                                                                        <span class="me-2 bi bi-filetype-doc text-primary" *ngIf="material.mat_icon === 'doc'"></span>
+                                                                        <span class="me-2 bi bi-filetype-ppt text-warning" *ngIf="material.mat_icon === 'ppt'"></span>
+                                                                        {{material.mat_name}}
+                                                                    </p>
+                                                                </a>
+                                                                <a class="text-danger mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Material"
+                                                                    (click)="withConfirmation(material.id_material)">
+                                                                    <i class="bi bi-trash-fill" style="font-size: 20px;"></i>
+                                                                </a>
+                                                            </div>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="treeview-list-item" *ngIf="materials">
+                                        <a data-bs-toggle="collapse" href="#Bloque-{{data.module_number}}-4" role="button" aria-expanded="false" class="d-flex">
+                                            <p class="treeview-text text-uppercase">lectura</p>
+                                            <a class="text-success mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Material"
+                                                (click)="openModal(3, data.id, 'Lectura')">
+                                                <i class="bi bi-file-earmark-plus-fill" style="font-size: 20px;"></i>
+                                            </a>
+                                        </a>
+                                        <ul class="collapse treeview-list" id="Bloque-{{data.module_number}}-4" data-show="false">
+                                            <div *ngFor="let material of materials[i].data" >
+                                                <li class="treeview-list-item" *ngIf="3 === material.type_material_id">
+                                                    <div class="treeview-item d-flex">
+                                                        <a class="flex-1" href="javascript:void(0)" (click)="openModalDoc(material)">
+                                                            <p class="treeview-text">
+                                                                <span class="me-2 bi bi-filetype-pdf text-danger" *ngIf="material.mat_icon === 'pdf'"></span>
+                                                                <span class="me-2 bi bi-filetype-xls text-success" *ngIf="material.mat_icon === 'xls'"></span>
+                                                                <span class="me-2 bi bi-filetype-doc text-primary" *ngIf="material.mat_icon === 'doc'"></span>
+                                                                <span class="me-2 bi bi-filetype-ppt text-warning" *ngIf="material.mat_icon === 'ppt'"></span>
+                                                                {{material.mat_name}}
+                                                            </p>
+                                                        </a>
+                                                        <a class="text-danger mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Material"
+                                                            (click)="withConfirmation(material.id_material)">
+                                                            <i class="bi bi-trash-fill" style="font-size: 20px;"></i>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Empieza modal confirmacion-->
+<ng-template #terminate let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">{{nombre}}</h5>
+            <p class="text-secondary title">{{nombre_tipo}}</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <ngx-dropzone (change)="onSelect($event)" class="dropzone">
+                        <ngx-dropzone-label>
+                            <i class="bi bi-cloud-arrow-up h2 avatar avatar-80 rounded-circle bg-light-theme mb-3"></i>
+                            <h5>Subir Archivo</h5>
+                        </ngx-dropzone-label>
+                    </ngx-dropzone>
+                    <!-- <app-drag-drop (miEvento) = "droppedFiles($event)"></app-drag-drop> -->
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="files.length">
+                    <div class="row gx-2 mb-4" *ngFor="let f of files">
+                        <div class="col-auto">
+                            <div class="avatar avatar-40 rounded bg-blue text-white">
+                                <i class="bi bi-file-earmark-arrow-up h5 vm"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">{{ f.name }}</p>
+                            <p class="small text-secondary">{{ +f.size.toFixed(2) }} mb</p>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-square btn-link text-danger" (click)="onRemove($event)">
+                                <i class="bi bi-x-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="addMaterial()" *ngIf="files.length">Registrar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalTerminate()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- Modal Documentos -->
+<ng-template #docs let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><b>Visualizar Documento: {{url_doc.mat_name}}</b></h5>
+    </div>
+    <div class="modal-body row">
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+            <ngx-doc-viewer
+                url="{{url_doc.mat_url_doc}}"
+                viewer="google"
+                style="width:100%;height:80vh;"
+            >
+            </ngx-doc-viewer>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <hr>
+            <a href="{{url_doc.mat_url_doc}}" target="_blank" type="button" class="btn btn-primary text-light mx-2"> Descargar</a>
+            <button class="btn btn-danger text-light" (click)="closeModal()"> Cerrar</button>
+        </div>
+    </div>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

@@ -9,6 +9,8 @@
 
 @import '~ng-wizard/themes/ng_wizard.min.css';
 
+@import '../node_modules/angular-archwizard/styles/archwizard.css';
+
 .lightbox{
     display: flex !important;
     flex-direction: column;

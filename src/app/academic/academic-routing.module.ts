@@ -6,6 +6,9 @@ import { ClasesComponent } from './pages/clases/clases.component';
 import { MaterialesComponent } from './pages/materiales/materiales.component';
 import { DiplomadosComponent } from './pages/diplomados/diplomados.component';
 import { LeadsComponent } from './pages/leads/leads.component';
+import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { CrearExamenComponent } from './pages/crear-examen/crear-examen.component';
+import { AddDiplomadoComponent } from './pages/add-diplomado/add-diplomado.component';
 
 const routes: Routes = [
   {
@@ -28,12 +31,24 @@ const routes: Routes = [
         component: DiplomadosComponent
       },
       {
+        path: 'publicar-diplomado/:code',
+        component: AddDiplomadoComponent
+      },
+      {
         path: 'leads',
         component: LeadsComponent
       },
       {
         path: 'perfil',
         component: PerfilSharedComponent
+      },
+      {
+        path: 'examenes',
+        component: ExamenesComponent
+      },
+      {
+        path: 'crear-examenes',
+        component: CrearExamenComponent
       },
     ]
   }

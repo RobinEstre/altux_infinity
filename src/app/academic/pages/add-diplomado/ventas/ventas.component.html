@@ -1,0 +1,71 @@
+<form [formGroup]="formVentas" class="row my-3">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <br>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-baseline" style="color: #fd5000">
+        <b class="text-dark">Precio Mensual:</b>
+        <div class="text-center wi">
+            <input class="form-control text-dark bordes" type="text" formControlName="matricula"
+            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="keyMes($event)">
+            <small>Matrícula</small>
+        </div>
+        <b>+</b>
+        <div class="text-center" style="width: 5%;">
+            <input class="form-control text-dark" type="text" formControlName="mes" style="border-color: silver;"
+            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="keyMes($event)" readonly>
+            <small class="text-dark">Mes</small>
+        </div>
+        <b>x</b>
+        <div class="text-center wi">
+            <input class="form-control text-dark bordes" type="text" formControlName="mensualidades"
+            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="keyMes($event)">
+            <small>Mensualidades</small>
+        </div>
+        <b>+</b>
+        <div class="text-center wi">
+            <input class="form-control text-dark bordes" type="text" formControlName="certificado"
+            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="keyMes($event)">
+            <small>Certificado</small>
+        </div>
+        <b>=</b>
+        <div class="text-center wi">
+            <input class="form-control text-dark" type="text" formControlName="total" style="border-color: silver;"
+            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" readonly>
+            <small class="text-dark">Total</small>
+        </div>
+        <b>-</b>
+        <div class="text-center wi">
+            <input class="form-control text-dark" type="text" formControlName="descuento" style="border-color: silver;"
+            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" readonly>
+            <small class="text-dark">Dscto. 10%</small>
+        </div>
+        <b>=</b>
+        <div class="text-center wi">
+            <input class="form-control text-dark bordes" type="text" formControlName="contado" style="border-color: silver;"
+            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" readonly>
+            <small>Al contado</small>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <br>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12"></div>
+    <div class="col-lg-2 col-md-2 col-sm-12">    
+        <b>Fecha Inicio:</b>    
+        <div class="form-group">
+            <input class="form-control text-dark" type="date" placeholder=""
+                formControlName="fecha_inicio" (change)="obtenerFechaPago()">
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12">   
+        <b>Fecha Cierre:</b>     
+        <div class="form-group">
+            <input class="form-control text-dark" type="date" placeholder=""
+                formControlName="fecha_fin">
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12"></div>
+</form>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

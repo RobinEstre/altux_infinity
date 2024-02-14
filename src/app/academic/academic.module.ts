@@ -14,7 +14,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LeadsComponent } from './pages/leads/leads.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-
+import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { ModalDetailComponent } from './pages/examenes/modal-detail/modal-detail.component';
+import { ModalExamComponent } from './pages/examenes/modal-exam/modal-exam.component';
+import { ModalNotasComponent } from './pages/examenes/modal-detail/modal-notas/modal-notas.component';
+import { CrearExamenComponent } from './pages/crear-examen/crear-examen.component';
+import { QuestionsComponent } from './pages/crear-examen/questions/questions.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { AddDiplomadoComponent } from './pages/add-diplomado/add-diplomado.component';
+import { PlanEstudioComponent } from './pages/add-diplomado/plan-estudio/plan-estudio.component';
+import { VentasComponent } from './pages/add-diplomado/ventas/ventas.component';
+import { ArchwizardModule } from 'angular-archwizard';
 
 @NgModule({
   declarations: [
@@ -22,7 +32,16 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ClasesComponent,
     MaterialesComponent,
     DiplomadosComponent,
-    LeadsComponent
+    LeadsComponent,
+    ExamenesComponent,
+    ModalDetailComponent,
+    ModalExamComponent,
+    ModalNotasComponent,
+    CrearExamenComponent,
+    QuestionsComponent,
+    AddDiplomadoComponent,
+    PlanEstudioComponent,
+    VentasComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +52,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NgbModule,
     FormsModule,
     NgSelectModule,
+    NgxDropzoneModule,
+    ArchwizardModule,
+    NgxDocViewerModule,
     ReactiveFormsModule,
     AcademicRoutingModule
   ]

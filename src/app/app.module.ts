@@ -28,6 +28,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SafePipe } from './alumno/safe.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,6 +60,7 @@ const ngWizardConfig: NgWizardConfig = {
     JustLightboxModule.forRoot(),
     LightboxModule,
     FullCalendarModule,
+    NgbModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

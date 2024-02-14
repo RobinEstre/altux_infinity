@@ -1,0 +1,110 @@
+<div class="table-responsive invoice-table" id="table">
+    <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+        <tr class="text-center">
+            <th>N°</th>
+            <th>Estudiante</th>
+            <th>DNI</th>
+            <th>Celular</th>
+            <th>Nota</th>
+            <th>Fecha Examen</th>
+            <th>Tiempo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let valdetail of detail_notes, index as id">
+            <td class="text-center text-dark">
+                {{id+1}}
+            </td>
+            <td>
+                <div class="product-name">
+                    <b class="text-dark">
+                        {{valdetail.nombre}} {{valdetail.apellido}}
+                    </b>
+                </div>
+            </td>
+            <td class="text-center text-dark">
+                {{valdetail.dni}}
+            </td>
+            <td class="text-center text-dark">
+                {{valdetail.phone}}
+            </td>
+            <td class="text-center text-dark">
+                <div *ngIf="valdetail.detalle">
+                    <div class="center" *ngFor="let valnote of valdetail.detalle">
+                        <a href="javascript:void(0);" (click)="onMouseEnter(valnote.nota_evaluacion, valdetail)" *ngIf="13>valnote.nota_evaluacion&&valnote.nota_evaluacion>0">
+                            <span class="blue" style="background: red">{{valnote.nota_evaluacion}}</span>
+                        </a>
+                        <a href="javascript:void(0);"  (click)="onMouseEnter(valnote.nota_evaluacion, valdetail)" *ngIf="valnote.nota_evaluacion>12">
+                            <span class="blue" style="background: seagreen">{{valnote.nota_evaluacion}}</span>
+                        </a>
+                    </div>
+                </div>
+                <div  *ngIf="valdetail.detalle.length==0">
+                    Sin Nota
+                </div>
+            </td>
+            <td class="text-center text-dark">
+                <div class="center" *ngFor="let valfecha of valdetail.detalle">
+                    <div *ngIf="valfecha">
+                        {{valfecha.fecha*1000 | date:'d MMMM, y hh:mm a'}}
+                    </div>
+                </div>
+                <div  *ngIf="valdetail.detalle.length==0">
+                    Sin Registro
+                </div>
+            </td>
+            <td class="text-center text-dark">
+                <div class="center" *ngFor="let valtime of valdetail.detalle">
+                    <div *ngIf="valtime.tiempo_examen<3600">
+                        <b>{{valtime.tiempo_examen*1000 | date:'mm'}}</b> minuto(s)
+                        <b>{{valtime.tiempo_examen*1000 | date:'ss'}}</b> segundos
+                    </div>
+                    <div *ngIf="valtime.tiempo_examen>=3600">
+                        <b>59</b> minuto(s)
+                        <b>59</b> segundos
+                    </div>
+                    <div *ngIf="valtime.tiempo_examen==null">
+                        <b>59</b> minuto(s)
+                        <b>59</b> segundos
+                    </div>
+                </div>
+                <div *ngIf="valdetail.detalle.length==0">
+                    Sin Registro
+                </div>
+                <div *ngIf="valdetail.detalle==null">
+                    <b>59</b> minuto(s)
+                    <b>59</b> segundos
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--MODAL NOTA-->
+<ng-template #nota let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <!-- <div class="card-header">
+            <h5 class="mb-1">{{nombre}}</h5>
+            <p class="text-secondary title">Preguntas y Respuestas</p>
+        </div> -->
+        <div class="card-body modal-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <app-modal-notas [titulo]="nombre" [id_examen]="id_examen" [nota]="notas" [id_student]="id_student"
+                                    [student]="student"></app-modal-notas>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalNota()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

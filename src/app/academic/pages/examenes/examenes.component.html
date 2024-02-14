@@ -1,0 +1,167 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Exámenes</h6>
+                        <p class="text-secondary small">Listado - Registro</p>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-theme"><i class="bi bi-plus"></i> Registrar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                        <div class="table-responsive invoice-table" id="table">
+                            <table class="table table-striped table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Nº</th>
+                                    <th>Nombre</th>
+                                    <th class="text-center">Tipo</th>
+                                    <th class="text-center">Fecha Inicio</th>
+                                    <th class="text-center">Fecha Fin</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let valexamen of examen, let i = index">
+                                    <td class="text-center">
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        {{valexamen.evaluation_form.name}}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0);" class="">
+                                            {{valexamen.evaluation_type.type_name}}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        {{valexamen.detail.fecha_inicio*1000 |  date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{valexamen.detail.fecha_fin*1000 |  date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="" href="javascript:void(0);" (click)="openModalInfo(valexamen)"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Fecha">
+                                            <i class="bi bi-calendar-week"></i>
+                                        </a>
+                                        <a class="mx-2" href="javascript:void(0);" (click)="openModalExam(valexamen)"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Verificar Examen">
+                                            <i class="bi bi-file-earmark-medical"></i>
+                                        </a>
+                                        <a class="" href="javascript:void(0);" (click)="openModalDetail(valexamen)"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Ver Notas">
+                                            <i class="bi bi-file-earmark-binary"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--MODAL FECHA-->
+<ng-template #new let-modal>
+    <form [formGroup]="formExamen" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">{{nombre}}</h5>
+            <p class="text-secondary title">Actualizar Fechas</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated">
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar" style="font-size: 15px;"></i></span>
+                            <div class="form-floating">
+                                <input formControlName="fecha_inicio" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <small class="text-muted">Ingresar Fecha de Inicio</small>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar" style="font-size: 15px;"></i></span>
+                            <div class="form-floating">
+                                <input formControlName="fecha_fin" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <small class="text-muted">Ingresar Fecha de Fin</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="updateFecha()" [disabled]="!formExamen.valid">Subir</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!--MODAL DETALLE-->
+<ng-template #detail let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">{{nombre}}</h5>
+            <p class="text-secondary title">Detalle Exámen Estudiantes</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <app-modal-detail [detail]="detail_examen" [nombre]="nombre"></app-modal-detail>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalDetail()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--MODAL EXAMEN-->
+<ng-template #exam let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">{{nombre}}</h5>
+            <p class="text-secondary title">Preguntas y Respuestas</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <app-modal-exam [titulo]="nombre" [id_examen]="id_examen"></app-modal-exam>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalExam()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

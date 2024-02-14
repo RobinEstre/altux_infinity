@@ -111,7 +111,7 @@ export class ClasesComponent implements OnInit {
     //     let nueva = 'D'+primero+': '+cadena.replace(/_|#|-|@|<>|,/g, " ")
     //     dip.push({
     //       'courses_name': nueva,
-    //       'courses_code': i.course.courses_code
+    //       'course_code': i.course.course_code
     //     })
     //   })
     //   this.diplomado = dip;
@@ -125,7 +125,7 @@ export class ClasesComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthMenu: [5, 10, 25],
-      dom: 'Bfrtip',
+      //dom: 'Bfrtip',
       processing: true,
       language: ClasesComponent.spanish_datatables
     }
@@ -135,7 +135,7 @@ export class ClasesComponent implements OnInit {
 
   listGroup(event) {
     try {
-      this.code = event.courses_code
+      this.code = event.course_code
       this.mostrar=false
       this.Service.list_group(this.code).subscribe(data => {
         this.group = data['data'];
@@ -154,28 +154,52 @@ export class ClasesComponent implements OnInit {
 
   listModule(event) {
     try {
-      this.code = event.courses_code
       this.mostrar=false
-      this.Service.list_module2(this.code).subscribe(data => {
-        this.module = data['data'];
+      if(event.course_code==null){
         this.formgrupos.controls['modulo'].setValue(null);
-        this.formgrupos.controls['modulo'].enable();
-      });
+        this.formgrupos.controls['modulo'].disable();
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          // Destroy the table first
+          dtInstance.destroy();
+          // Call the dtTrigger to rerender again
+          this.list()
+        });
+      }else{
+        this.code = event.course_code
+        this.mostrar=false
+        this.Service.list_module2(this.code).subscribe(data => {
+          this.module = data['data'];
+          this.formgrupos.controls['modulo'].setValue(null);
+          this.formgrupos.controls['modulo'].enable();
+        });
+      }
     }
     catch (e) {
+      this.mostrar=false
       this.formgrupos.controls['modulo'].setValue(null);
       this.formgrupos.controls['modulo'].disable();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.list()
+      });
     }
   }
 
   selectModule(event){
     try{
-      this.mostrar=true
+      if(event.id==null){
+        this.mostrar=false
+        this.formgrupos.controls['modulo'].setValue(null);
+      }else{
+        this.mostrar=true
+      }
       this.rerender()
     } catch (e) {
-      console.log(e)
       this.mostrar=false
       this.formgrupos.controls['modulo'].setValue(null);
+      this.rerender()
     }
   }
 
@@ -245,6 +269,7 @@ export class ClasesComponent implements OnInit {
   }
 
   rerender(): void {
+    this.spinner.show()
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();
@@ -276,7 +301,7 @@ export class ClasesComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthMenu: [5, 10, 25],
-      dom: 'Bfrtip',
+      //dom: 'Bfrtip',
       processing: true,
       language: ClasesComponent.spanish_datatables
     }
@@ -357,15 +382,15 @@ export class ClasesComponent implements OnInit {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        cancelButton: 'btn btn-danger mx-2'
       },
       buttonsStyling: false
     })
 
     swalWithBootstrapButtons.fire({
-      title: 'Esta Segur@ de Eliminar la Clase??',
+      title: '¿Esta Segur@ de Eliminar la Clase?',
       icon: 'question',
-      text:'Al Eliminar La Clase Será de Forma Permanente',
+      text:'Será de Forma Permanente',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

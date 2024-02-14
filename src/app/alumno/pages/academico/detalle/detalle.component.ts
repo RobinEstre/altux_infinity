@@ -304,7 +304,7 @@ export class DetalleComponent implements OnInit {
         if(res.success){
           let datos:any=[]
           res.data.forEach(i=>{
-            if(res.data.length==5){
+            if(res.data.length==2){
               if(i.evaluation_name!="Examen Sustitutorio"){
                 datos.push({
                   evaluation_name:  i.evaluation_name,

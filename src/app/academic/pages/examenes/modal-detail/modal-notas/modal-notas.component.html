@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+        <div class="card border-0 overflow-hidden">
+            <div class="card-body position-relative">
+                <div class="coverimg w-75 h-100 end-0 top-0 position-absolute cover-right-center-img" 
+                    style="background-image: url('assets/img/offer-1.png');">
+                    <img src=" assets/img/offer-1.png" class="w-100" alt="" style="display: none;" />
+                </div>
+                <div class="row align-items-center h-100">
+                    <div class="col-8 py-2">
+                        <h4 class="text-theme">{{titulo}}</h4>
+                        <h4 class="text-theme">Tu Nota: {{nota}}</h4>
+                        <h5 class="fw-medium" *ngIf="nota>13">¡Felicitaciones! ¡Aprobaste tu examen, sigue así!</h5>
+                        <h5 class="fw-medium" *ngIf="nota<13">¡Oh! Vemos que no te fue bien en tu examen, te recuerdo que puedes dar tu examen sustitutorio. ¡Ánimo tú puedes!</h5>
+                        <p class="text-secondary">Estas son tus respuestas que has contestado en el examen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 text-center mb-4">
+        <span class="badge bg-success">Correcto</span>
+        <span class="badge bg-danger mx-2">Incorrecto</span>
+        <span class="badge bg-warning text-light">Sin responder</span>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 mb-4">
+            <div class="card-footer">
+                <div *ngFor="let examen of preguntas, index as id">
+                    <h6 class="title">{{id+1+'.-'}} {{examen.preguntas.texto}}</h6>
+                    <div class="d-block text-center">
+                        <div *ngIf="examen.respuesta">
+                            <a target="_blank" class="tag theme-green mb-2 me-2" *ngIf="examen.resultado">
+                                {{examen.respuesta}}
+                            </a>
+                            <a target="_blank" class="tag theme-red mb-2 me-2" *ngIf="!examen.resultado">
+                                {{examen.respuesta}}
+                            </a>
+                        </div>
+                        <div *ngIf="!examen.respuesta">
+                            <a target="_blank" class="tag theme-orange mb-2 me-2">
+                                Sin Responder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="modal-body">
+            <div class="text-center">
+                <h4>EVALUACION: <b class="text-success">{{student}}</b></h4>
+                <p class="text-muted" style="font-size: 0.8vw;">{{titulo}}</p>
+                <h5>Nota: <b class="text-success" *ngIf="nota>12"> {{nota}} </b>
+                    <b class="text-danger" *ngIf="13>nota"> {{nota}} </b></h5>
+                <h5>Respuestas:</h5>
+                <br>
+            </div>
+            <div>
+                <div class="row" *ngFor="let examen of preguntas, index as id">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="text-justify">
+                            <h5 class="text-muted">{{id+1+'.-'}} {{examen.preguntas.texto}}</h5>
+                        </div>
+                        <div class="form-group text-center">
+                            <div *ngIf="examen.respuesta">
+                                <h6 *ngIf="examen.resultado==true" class="text-success">
+                                    {{examen.respuesta}}
+                                </h6>
+                                <h6 *ngIf="examen.resultado==false" class="text-danger">
+                                    {{examen.respuesta}}
+                                </h6>
+                            </div>
+                            <div *ngIf="!examen.respuesta">
+                                <h6 class="text-danger">
+                                    Sin Responder
+                                </h6>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>
