@@ -87,7 +87,7 @@ export class PlanEstudioComponent implements OnInit {
       for(let i=0; i<1; i++){
         this.modulos.push({
           id:i,
-          nombre:'Módulo '+(i+1),
+          nombre:'Bloque '+(i+1),
           status:false,
           fechas_clases:null,
           fecha_final:null,
@@ -136,7 +136,7 @@ export class PlanEstudioComponent implements OnInit {
     let i= this.modulos.length
     this.modulos.push({
       id:i,
-      nombre:'Módulo '+(i+1),
+      nombre:'Bloque '+(i+1),
       status:false,
       fechas_clases:null,
       fecha_final:null,

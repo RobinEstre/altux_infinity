@@ -1,72 +1,100 @@
-<div class="card my-2">
-    <div class="card-body row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="alert alert-primary nuevo">
-                <b>SUBIR PROGRAMA</b>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-journal-bookmark-fill h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Diplomados y Cursos</h6>
+                        <p class="text-secondary small">Crear Nuevo Diplomado o Curso</p>
+                    </div>
+                </div>
             </div>
-            <hr>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-12" *ngFor="let valtipos of tipos; let i = index">
-            <div class="card" style="border: 1px solid rgb(147, 146, 146); border-radius:15px">
-                <div class="container row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-end">
-                        <br>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                        <a href="javascript:void(0);" class="" (click)="crearTemporal(valtipos.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                            </svg>
-                        </a>
-                        <br>
-                        {{valtipos.nombre}}
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-end">
-                        <br>
+            <div class="card-body py-3">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-md-3 col-sm-12" *ngFor="let valtipos of tipos; let i = index">
+                        <div class="card" style="border: 1px solid rgb(147, 146, 146); border-radius:15px">
+                            <div class="container row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 text-end">
+                                    <br>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                    <a href="javascript:void(0);" class="" (click)="crearTemporal(valtipos.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                        </svg>
+                                    </a>
+                                    <br>
+                                    {{valtipos.nombre}}
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 text-end">
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <hr>
-            <div class="alert alert-primary nuevo">
-                <b>DIPLOMADOS Y CURSOS TEMPORALES</b>
-            </div>            
-            <div class="table-responsive invoice-table" id="table">
-                <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                    <thead>
-                    <tr>
-                        <th class="text-center">Nº</th>
-                        <th>Diplomado</th>
-                        <th class="text-center">Fecha Registro</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let valtemporal of temporales, index as id">
-                        <td class="text-center">{{id+1}}</td>
-                        <td>
-                            <div *ngIf="valtemporal.details.diplomado_name">
-                                {{valtemporal.details.diplomado_name}}                                
-                            </div>
-                            <div *ngIf="!valtemporal.details.diplomado_name">
-                                Sin Registro                              
-                            </div>
-                        </td>
-                        <td class="text-center"><b>{{valtemporal.created_at | date:'dd/MM/yyyyy ⌚HH:mm' }}</b></td>
-                        <td class="text-center">
-                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Diplomado"
-                               class="" routerLink="/academico/publicar-diplomado/{{valtemporal.url_code}}">
-                               <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Diplomado"
-                                class="text-danger mx-3" (click)="delete(valtemporal)">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-clock-history h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">DIPLOMADOS Y CURSOS TEMPORALES</h6>
+                        <p class="text-secondary small">Listado de los Diplomados y Cursos sin Terminar de Crearse al 100%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="table-responsive invoice-table" id="table">
+                            <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Nº</th>
+                                    <th>Diplomado</th>
+                                    <th class="text-center">Fecha Registro</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let valtemporal of temporales, index as id">
+                                    <td class="text-center">{{id+1}}</td>
+                                    <td>
+                                        <div *ngIf="valtemporal.details.diplomado_name">
+                                            {{valtemporal.details.diplomado_name}}                                
+                                        </div>
+                                        <div *ngIf="!valtemporal.details.diplomado_name">
+                                            Sin Registro                              
+                                        </div>
+                                    </td>
+                                    <td class="text-center"><b>{{valtemporal.created_at | date:'dd/MM/yyyyy ⌚HH:mm' }}</b></td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Diplomado"
+                                        class="" routerLink="/academico/publicar-diplomado/{{valtemporal.url_code}}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Diplomado"
+                                            class="text-danger mx-3" (click)="delete(valtemporal)">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
