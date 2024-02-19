@@ -141,4 +141,80 @@ export class ModalDetailComponent implements OnInit {
   onmouseleave(event: any): void {
     this.closeModalNota()
   }
+
+  resetExam(data){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger mx-2'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: '¿Está Seguro de Formatear el Examen?',
+      text: data.nombre+' '+data.apellido,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Seguro',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let body={
+          "student_id": data.id_estudiante,
+          "sheet_id": this.id_examen
+        }
+        this.resetExamen(body)
+      }
+    })
+  }
+
+  resetExamen(body){
+    this.spinner.show()
+    this.Service.resetExamen(body).subscribe(resp => {
+      if(resp.success){
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          // Destroy the table first
+          dtInstance.destroy();
+          // Call the dtTrigger to rerender again
+          this.listInit()
+        });
+        this.spinner.hide()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "¡Genial :)!",
+          text: "Examen Formateado",
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: error.error.message,
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      if(error.status==500){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      // this.closeModal()
+      this.spinner.hide()
+    })
+  }
 }

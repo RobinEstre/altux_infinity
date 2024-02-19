@@ -161,42 +161,23 @@
                                 <b>DETALLE MATRÍCULA</b>
                             </div>
                             <div class="order-table table-responsive">
-                                <table class="table table-bordered" *ngIf="discount">
-                                    <!-- <thead>
+                                <table class="table table-bordered">
+                                    <tbody>
                                     <tr>
-                                        <th scope="col"><small>Diplomado:</small></th>
-                                        <th scope="col"><small>{{discount.diplomado_name}}</small></th>
-                                    </tr>
-                                    </thead> -->
-                                    <tbody *ngIf="discount">
-                                    <!-- <tr>
-                                        <td class="text-dark">
-                                            <small>Total {{nombre_descuento}}:</small>
+                                        <td class="text-dark" *ngIf="+discount.first_payment!=0">
+                                            <small>Matrícula:</small>
                                         </td>
-                                        <td>
-                                            <small>S/ {{discount.price_diplomado}}.00</small>
-                                        </td>
-                                    </tr> -->
-                                    <tr>
-                                        <td class="text-dark">
+                                        <td class="text-dark" *ngIf="+discount.first_payment==0">
                                             <small>{{nombre_descuento}}:</small>
                                         </td>
-                                        <td *ngIf="mostrarDiscount">
+                                        <td *ngIf="+discount.first_payment!=0">
                                             <small>S/ {{discount.first_payment}}.00</small>
                                         </td>
-                                        <td *ngIf="!mostrarDiscount">
+                                        <td *ngIf="+discount.first_payment==0">
                                             <small>S/ {{discount.price_diplomado}}.00</small>
                                         </td>
                                     </tr>
-                                    <!-- <tr  *ngIf="mostrarDiscount">
-                                        <td class="text-dark">
-                                            <small>Primera Cuota:</small>
-                                        </td>
-                                        <td>
-                                            <small>S/ {{discount.first_payment}}.00</small>
-                                        </td>
-                                    </tr> -->
-                                    <tr  *ngIf="mostrarDiscount">
+                                    <tr *ngIf="+discount.first_payment!=0 && !mostrarDiscount">
                                         <td class="text-dark">
                                             <small>Primera Cuota:</small>
                                         </td>
@@ -216,14 +197,9 @@
                                         <td class="text-dark">
                                             <small><b>Total a Pagar:</b></small>
                                         </td>
-                                        <!-- <td>
-                                            <b>
-                                                <small>S/ {{discount.total_payment}}.00</small>
-                                            </b>
-                                        </td> -->
                                         <td>
                                             <b>
-                                                <small>S/ {{discount.price_diplomado}}.00</small>
+                                                <small>S/ {{discount.total_payment}}.00</small>
                                             </b>
                                         </td>
                                     </tr>
@@ -467,7 +443,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="area">
+                <!-- <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="area">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
@@ -481,7 +457,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
                     <br>
                     <div class="form-group form-check form-switch" *ngIf="isperu">

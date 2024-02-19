@@ -48,11 +48,11 @@ export class AlumnosComponent implements OnInit {
   grupo: any[] = [
     {
       'id': 'matriculacuota',
-      'name_doc': 'Matrícula Cuota',
+      'name_doc': 'Alumnos Cuota',
     },
     {
       'id': 'matriculacontado',
-      'name_doc': 'Matrícula Contado',
+      'name_doc': 'Alumnos Contado',
     },
   ];
   verGrupo: string = '';
@@ -198,7 +198,7 @@ export class AlumnosComponent implements OnInit {
   }
 
   generateCode(id, nombre){
-    let name=nombre['nombres']+' '+nombre['apellidos']
+    let name=nombre['name_student']+' '+nombre['lastname_student']
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success mx-2',
@@ -217,7 +217,7 @@ export class AlumnosComponent implements OnInit {
       cancelButtonText: 'No, Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.reenviarAcceso(id, nombre.diplomado_code)
+        this.reenviarAcceso(id, nombre.course_code)
       }
     })
   }

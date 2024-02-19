@@ -9,6 +9,7 @@
             <th>Nota</th>
             <th>Fecha Examen</th>
             <th>Tiempo</th>
+            <th>Acc</th>
         </tr>
         </thead>
         <tbody>
@@ -16,23 +17,13 @@
             <td class="text-center text-dark">
                 {{id+1}}
             </td>
-            <td>
-                <div class="product-name">
-                    <b class="text-dark">
-                        {{valdetail.nombre}} {{valdetail.apellido}}
-                    </b>
-                </div>
-            </td>
-            <td class="text-center text-dark">
-                {{valdetail.dni}}
-            </td>
-            <td class="text-center text-dark">
-                {{valdetail.phone}}
-            </td>
-            <td class="text-center text-dark">
+            <td>{{valdetail.nombre}} {{valdetail.apellido}}</td>
+            <td class="text-center">{{valdetail.dni}}</td>
+            <td class="text-center">{{valdetail.phone}}</td>
+            <td class="text-center">
                 <div *ngIf="valdetail.detalle">
                     <div class="center" *ngFor="let valnote of valdetail.detalle">
-                        <a href="javascript:void(0);" (click)="onMouseEnter(valnote.nota_evaluacion, valdetail)" *ngIf="13>valnote.nota_evaluacion&&valnote.nota_evaluacion>0">
+                        <a href="javascript:void(0);" (click)="onMouseEnter(valnote.nota_evaluacion, valdetail)" *ngIf="13>valnote.nota_evaluacion&&valnote.nota_evaluacion>=0">
                             <span class="blue" style="background: red">{{valnote.nota_evaluacion}}</span>
                         </a>
                         <a href="javascript:void(0);"  (click)="onMouseEnter(valnote.nota_evaluacion, valdetail)" *ngIf="valnote.nota_evaluacion>12">
@@ -44,7 +35,7 @@
                     Sin Nota
                 </div>
             </td>
-            <td class="text-center text-dark">
+            <td class="text-center">
                 <div class="center" *ngFor="let valfecha of valdetail.detalle">
                     <div *ngIf="valfecha">
                         {{valfecha.fecha*1000 | date:'d MMMM, y hh:mm a'}}
@@ -54,7 +45,7 @@
                     Sin Registro
                 </div>
             </td>
-            <td class="text-center text-dark">
+            <td class="text-center">
                 <div class="center" *ngFor="let valtime of valdetail.detalle">
                     <div *ngIf="valtime.tiempo_examen<3600">
                         <b>{{valtime.tiempo_examen*1000 | date:'mm'}}</b> minuto(s)
@@ -76,6 +67,12 @@
                     <b>59</b> minuto(s)
                     <b>59</b> segundos
                 </div>
+            </td>
+            <td class="text-center">
+                <a class="" href="javascript:void(0);" (click)="resetExam(valdetail)"
+                    data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Examen">
+                    <i class="bi bi-file-earmark-excel-fill"></i>
+                </a>
             </td>
         </tr>
         </tbody>

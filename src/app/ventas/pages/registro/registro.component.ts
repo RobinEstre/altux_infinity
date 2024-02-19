@@ -80,9 +80,7 @@ export class RegistroComponent implements OnInit {
     },
   ];
   procedencia_venta:any=[
-    {'name': 'LEADS'},
-    {'name': 'POST OEA'},
-    {'name': 'POST EXTERNO'},
+    {'name': 'POST ALTUX'},
     {'name': 'TRABAJO DE CAMPO'},
     {'name': 'BASE ANTERIOR'}
   ];
@@ -114,7 +112,7 @@ export class RegistroComponent implements OnInit {
     },
     {
       'id': 'matriculacuota',
-      'name': 'Matricula + 1° Mensualidad',
+      'name': 'Matricula + 1° Cuota',
     },
     {
       'id': 'matriculacontado',
@@ -894,7 +892,6 @@ export class RegistroComponent implements OnInit {
       "tipo_matricula": this.formRegistro.controls['tipo_matricula'].value,
       "discount": this.discount
     };
-    console.log(jsonbody)
     this.spinner.show();
     this.service.registrarLinkMatricula(jsonbody).subscribe(data => {
       if( data['success']==true){data['data']

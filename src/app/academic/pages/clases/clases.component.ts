@@ -83,16 +83,16 @@ export class ClasesComponent implements OnInit {
   }
 
   listDiplomado() {
-    this.Service.list_diplomados().subscribe(data => {
-      if (data['success'] === 'true'){
+    this.Service.listar_diplomados().subscribe(data => {
+      if (data.success){
         let dip:any=[];
-        data['courses'].forEach(i=>{
-          const split = i.diplomado_name.split(' ')
+        data['data'].forEach(i=>{
+          const split = i.courses_name.split(' ')
           split.splice(0, 3);
           let name=split.map(x=>x).join(" ")
           dip.push({
             'course_name': name,
-            'course_code': i.diplomado_code
+            'course_code': i.courses_code
           })
         })
         this.diplomado=dip;

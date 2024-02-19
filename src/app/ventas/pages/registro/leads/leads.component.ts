@@ -98,7 +98,7 @@ export class LeadsComponent implements OnInit {
     },
     {
       'id': 'matriculacuota',
-      'name': 'Matricula + 1° Mensualidad',
+      'name': 'Matricula + 1° Cuota',
     },
     {
       'id': 'matriculacontado',

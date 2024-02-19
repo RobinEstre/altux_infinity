@@ -25,6 +25,10 @@ export class ExamenesService {
     return this.httpClient.get(this.envUrl.urlAddress + 'academico/listar-notas-ficha-evaluacion/'+data)
   }
 
+  resetExamen(data){
+    return this.httpClient.put<any>(this.envUrl.urlAddress + 'academico/reestablecer/evaluacion-estudiante/',data)
+  }
+
   mostrar_NotaExamen(data){
     return this.httpClient.post(this.envUrl.urlAddress + 'academico/evaluacion/estudiante/listar/evaluacion/',data);
   }

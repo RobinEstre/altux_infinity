@@ -46,45 +46,52 @@ export class MaterialesComponent implements OnInit {
 
   listGroup(event) {
     try {
-      this.spinner.show()
       this.nombre = event.courses_name
       this.code = event.courses_code
       this.mostrar = false
       this.modulo=null
       this.materials=null
       this.tipo_material=null
-      this.service.list_module(this.code).subscribe(resp => {
-        if (resp['success'] === true){
-          let data:any=[], num=0
-          resp.data.forEach(i=>{
-            num++
-            let bg_color
-            if(i.module_number%2==0){
-              bg_color = ""
-            }else{
-              bg_color = "color-file"        
-            }
-            let clase='', name
-            if(this.modulo){if(this.modulo.numero_modulo==i.module_number){clase='show'}}
-            const split = i.module_name.split(' ')
-            split.splice(0, 2);
-            name=split.map(x=>x).join(" ")
-            data.push({
-              "id": i.id,
-              "module_name": name,
-              "module_number": i.module_number,
-              "module_detail": i.module_detail,
-              'bg_color': bg_color,
-              "clase": i.clase,
-              "class": clase
+      if(event!=null){
+        this.spinner.show()
+        this.service.list_module(this.code).subscribe(resp => {
+          if (resp['success'] === true){
+            let data:any=[], num=0
+            resp.data.forEach(i=>{
+              num++
+              let bg_color
+              if(i.module_number%2==0){
+                bg_color = ""
+              }else{
+                bg_color = "color-file"        
+              }
+              let clase='', name
+              if(this.modulo){if(this.modulo.numero_modulo==i.module_number){clase='show'}}
+              const split = i.module_name.split(' ')
+              split.splice(0, 2);
+              name=split.map(x=>x).join(" ")
+              data.push({
+                "id": i.id,
+                "module_name": name,
+                "module_number": i.module_number,
+                "module_detail": i.module_detail,
+                'bg_color': bg_color,
+                "clase": i.clase,
+                "class": clase
+              })
             })
-          })
-          this.modulo=data
-          this.spinner.hide()
-          this.getMaterials(data)
-        }
-      })
+            this.modulo=data
+            this.spinner.hide()
+            this.getMaterials(data)
+          }
+        })
+      }else{
+      }
     }catch (e) {
+      this.mostrar = false
+      this.modulo=null
+      this.materials=null
+      this.tipo_material=null
     }
   }
 
