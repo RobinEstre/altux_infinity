@@ -25,6 +25,7 @@ import { AddDiplomadoComponent } from './pages/add-diplomado/add-diplomado.compo
 import { PlanEstudioComponent } from './pages/add-diplomado/plan-estudio/plan-estudio.component';
 import { VentasComponent } from './pages/add-diplomado/ventas/ventas.component';
 import { ArchwizardModule } from 'angular-archwizard';
+import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ArchwizardModule } from 'angular-archwizard';
     QuestionsComponent,
     AddDiplomadoComponent,
     PlanEstudioComponent,
-    VentasComponent
+    VentasComponent,
+    AlumnosComponent
   ],
   imports: [
     CommonModule,

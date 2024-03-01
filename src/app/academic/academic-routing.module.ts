@@ -9,6 +9,7 @@ import { LeadsComponent } from './pages/leads/leads.component';
 import { ExamenesComponent } from './pages/examenes/examenes.component';
 import { CrearExamenComponent } from './pages/crear-examen/crear-examen.component';
 import { AddDiplomadoComponent } from './pages/add-diplomado/add-diplomado.component';
+import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,10 @@ const routes: Routes = [
       {
         path: 'crear-examenes',
         component: CrearExamenComponent
+      },
+      {
+        path: 'alumnos',
+        component: AlumnosComponent
       },
     ]
   }
