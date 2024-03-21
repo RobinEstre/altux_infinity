@@ -238,7 +238,7 @@ export class RegistroComponent implements OnInit {
           this.service.getInfoDNI(dni_consulta.tipo, dni_consulta.documento).subscribe(dni_val => {
             this.spinner.hide();
             this.formRegistro.controls['dni'].enable();
-            if (dni_val.data['success'] === false) {
+            if (dni_val.data.estado === false) {
               this.nameperson = null;
               this.formRegistro.controls['dni'].setValue('');
               Swal.fire({
@@ -250,10 +250,9 @@ export class RegistroComponent implements OnInit {
               });
             }else{
               let dni = {
-                "dni": dni_val.data['dni'],
-                "nombres": dni_val.data['nombres'],
-                "apellidoPaterno": dni_val.data['apellidoPaterno'],
-                "apellidoMaterno":  dni_val.data['apellidoMaterno'],
+                "nombres": dni_val.data.resultado['nombres'],
+                "apellidoPaterno": dni_val.data.resultado['apellido_paterno'],
+                "apellidoMaterno":  dni_val.data.resultado['apellido_materno'],
               }
               Swal.fire({
                 position: "center",
@@ -262,7 +261,7 @@ export class RegistroComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1000
               });
-              this.nameperson = dni['nombres'] + ' ' + dni['apellidoPaterno'] + ' ' + dni['apellidoMaterno'];
+              this.nameperson = dni_val.data.resultado.nombre_completo;
               this.formRegistro.controls['nombrescompletos'].setValue(this.nameperson);
               this.formRegistro.controls['name1'].setValue(dni['nombres']);
               this.formRegistro.controls['name2'].setValue(dni['apellidoMaterno'] + ' ' + dni['apellidoMaterno']);
@@ -319,10 +318,9 @@ export class RegistroComponent implements OnInit {
             timer: 1500
           });
         }
-        else if (data['data']['estado']=='ACTIVO'){
+        else if (data['data'].resultado['estado']=='ACTIVO'){
           //this.rucexist = data;
-          this.nameruc = data['data']['razonSocial'];
-          console.log(this.nameruc)
+          this.nameruc = data['data'].resultado['razon_social'];
           Swal.fire({
             position: "center",
             icon: "success",
@@ -331,7 +329,7 @@ export class RegistroComponent implements OnInit {
             timer: 1500
           });
         }
-        else if (data['data']['estado'] !='ACTIVO') {
+        else if (data['data'].resultado['estado'] !='ACTIVO') {
           Swal.fire({
             position: "center",
             icon: "warning",

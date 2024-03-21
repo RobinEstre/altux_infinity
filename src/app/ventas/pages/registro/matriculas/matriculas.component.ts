@@ -235,10 +235,8 @@ export class MatriculasComponent implements OnInit {
             timer: 1500
           });
         }
-        else if (data['data']['estado']=='ACTIVO'){
-          //this.rucexist = data;
-          this.nameruc = data['data']['razonSocial'];
-          console.log(this.nameruc)
+        else if (data['data'].resultado['estado']=='ACTIVO'){
+          this.nameruc = data['data'].resultado['razon_social'];
           Swal.fire({
             position: "center",
             icon: "success",
@@ -247,7 +245,7 @@ export class MatriculasComponent implements OnInit {
             timer: 1500
           });
         }
-        else if (data['data']['estado'] !='ACTIVO') {
+        else if (data['data'].resultado['estado'] !='ACTIVO') {
           Swal.fire({
             position: "center",
             icon: "warning",

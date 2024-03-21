@@ -1,0 +1,256 @@
+<form [formGroup]="formCompromiso" class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12 card">
+        <div class="row contenedor">
+            <h5>Datos</h5>
+            <div class="col-lg-8 col-md-8 col-sm-12 text-muted text-uppercase d-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <p class="mx-2">{{detail.nombres}} {{detail.apellidos}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 text-muted text-uppercase d-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-vcard-fill" viewBox="0 0 16 16">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5ZM9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8Zm1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96c.026-.163.04-.33.04-.5ZM7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/>
+                </svg>
+                <p class="mx-2">{{detail.dni}}</p>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 text-muted text-uppercase d-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+                    <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z"/>
+                    <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034v.21Zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791Z"/>
+                </svg>
+                <p class="mx-2">{{detail.email}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 text-muted text-uppercase d-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                </svg>
+                <p class="mx-2">{{detail.celular}}</p>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12" *ngIf="pago_partes">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check" formControlName="cuotas" (change)="changeCheck($event)">
+                  <small class="form-check-label" for="check">50%</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 card text-center">
+        <div class="contenedor">
+            <br>
+            <a class="" href="javascript:void(0);" style="color: #fd5000">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+              </svg>
+            </a>
+            <br>
+            <small>Deuda sin Descuento</small>
+            <h4>{{total | currency: 'S/ '}}</h4>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf="mostrar_cuotas">
+        <div class="row contenedor">
+            <div class="col-lg-3 col-md-3 col-sm-12 text-center"></div>
+            <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                <small>Fecha Próximo Pago</small>
+                <input class="form-control text-dark" formControlName="fecha" type="datetime-local" min="{{fecha_bloquear}}">
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 text-center"></div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf="!pago_partes">
+        <div class="row contenedor">
+            <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                <h5 for="customRange1" class="form-label">Descuento: <output id="num">0</output>%</h5>
+            </div>
+            <div class="col-sm-12 col-md-2 col-lg-2 text-center">{{minimo}}%</div>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <input type="range" class="form-range" [value]="0" min="{{minimo}}" max="{{maximo}}" id="customRange2" 
+                    formControlName="rango" (change)="change()" oninput="num.value = this.value">
+            </div>
+            <div class="col-sm-12 col-md-2 col-lg-2 text-center">{{maximo}}%</div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 card" *ngIf="!pago_partes">
+        <div class="row">
+            <div class="contenedor" style="margin-bottom: -3px !important">
+                <h4>Detalle Cuotas</h4>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Cuota</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center">Monto</th>
+                            <th class="text-center" *ngIf="!pago_partes">Descuento</th>
+                            <th class="text-center" *ngIf="!pago_partes">Total S/</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let valdetail of cuotas, index as id">
+                            <td class="text-center">
+                                <b class="text-dark">
+                                    {{valdetail['num_cuota']}}
+                                </b>
+                            </td>
+                            <td class="text-center text-danger">
+                                Vencido
+                            </td>
+                            <td class="text-center">
+                                S/{{valdetail['monto_pagar']}}
+                            </td>
+                            <td class="text-center text-danger" *ngIf="!pago_partes">
+                                <div *ngIf="valdetail.num_cuota!='Certificado'">
+                                    {{descuento}}% => {{(descuento/100)*valdetail['monto_pagar'] | currency: 'S/'}}
+                                </div>
+                                <div *ngIf="valdetail.num_cuota=='Certificado'">0%</div>
+                            </td>
+                            <td class="text-center" *ngIf="!pago_partes">
+                                <div *ngIf="valdetail.num_cuota!='Certificado'">
+                                    {{valdetail['monto_pagar']-((descuento/100)*valdetail['monto_pagar']) | currency: 'S/'}}
+                                </div>
+                                <div *ngIf="valdetail.num_cuota=='Certificado'">{{valdetail['monto_pagar'] | currency: 'S/'}}</div>
+                            </td>
+                        </tr>
+                        <tr class="active-row" *ngIf="descuento>0">
+                            <td class="text-end" colspan="2">Total</td>
+                            <td class="text-center">{{total | currency: 'S/ '}}</td>
+                            <td class="text-center">{{(total*(descuento/100))-(220*(descuento/100)) | currency: 'S/ '}}</td>
+                            <td class="text-center">{{(total-(total*(descuento/100)))+(220*(descuento/100)) | currency: 'S/ '}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 card">
+        <div class="row contenedor" *ngIf="!mostrar_cuotas">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>Detalle Pago</h4>
+            </div>
+            <div class="col-md-6 col-sm-12 col-lg-6 mb-3">
+                <div class="form-group form-check form-switch" *ngIf="!pago_partes">
+                    <input class="form-check-input" (change)="optionFacture($event)"
+                           type="checkbox" formControlName="is_factura">
+                    <label>
+                        Solicitar Factura
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-6 text-center mb-2">
+                <div class="form-group" *ngIf="mostrarSelect">
+                    <input  type="text" formControlName="ruc"
+                            (keyup)="getInfoByRuc($event)"
+                            class="form-control text-secondary"
+                            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
+                            maxlength="11"
+                            placeholder="Ingrese Nº RUC" name="user_ruc" >
+                    <div *ngIf="formCompromiso.controls['ruc'].invalid && (formCompromiso.controls['ruc'].dirty || formCompromiso.controls['ruc'].touched)" >
+                        <div *ngIf="formCompromiso.controls['ruc'].errors.required">
+                            <small class="text-danger">Por favor ingrese su número de RUC</small>
+                        </div>
+                        <div *ngIf="formCompromiso.controls['ruc'].errors.maxlength">
+                            <small class="text-danger">Excediste el número máximo de caracteres</small>
+                        </div>
+                        <div *ngIf="formCompromiso.controls['ruc'].errors.minlength">
+                            <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                        </div>
+                    </div>
+                    <div *ngIf="nameruc!=''" class="text-center my-3" style="border-radius: 5px; background: darkseagreen">
+                        <small><b>{{nameruc}}</b></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+                <a class="" href="javascript:void(0);" style="color: #fd5000">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                    <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                </svg>
+                </a>
+                <br>
+                <small>Total Descuento</small>
+                <h4>{{(total*(descuento/100))-(220*(descuento/100)) | currency: 'S/ '}}</h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 text-center" style="border-left: 1px solid #dbdbdb;">
+                <a class="" href="javascript:void(0);" style="color: #fd5000">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                    <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                </svg>
+                </a>
+                <br>
+                <small>Total a Pagar</small>
+                <h4>{{(total-(total*(descuento/100)))+(220*(descuento/100)) | currency: 'S/ '}}</h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 text-center" style="border-left: 1px solid #dbdbdb;">
+                <br>
+                <br>
+                <button class="btn btn-success" (click)="generarPago()" [disabled]="!validar_generar">Generar Pago</button>
+            </div>
+        </div>
+        <div class="row contenedor" *ngIf="mostrar_cuotas">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>Detalle Pago</h4>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 text-center">
+                <a class="" href="javascript:void(0);" style="color: #fd5000">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                    <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                </svg>
+                </a>
+                <br>
+                <small>Primera Cuota</small>
+                <h4>{{total/2 | currency: 'S/ '}}</h4>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 text-center" style="border-left: 1px solid #dbdbdb;">
+                <a class="" href="javascript:void(0);" style="color: #fd5000">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                    <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                </svg>
+                </a>
+                <br>
+                <small>Segunda Cuota</small>
+                <h4>{{total/2 | currency: 'S/ '}}</h4>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 text-center" style="border-left: 1px solid #dbdbdb;">
+                <a class="" href="javascript:void(0);" style="color: #fd5000">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                    <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                </svg>
+                </a>
+                <br>
+                <small>Total a Pagar</small>
+                <h4>{{(total-(total*(descuento/100)))+(220*(descuento/100)) | currency: 'S/ '}}</h4>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 text-center" style="border-left: 1px solid #dbdbdb;">
+                <br>
+                <br>
+                <button class="btn btn-success" (click)="generarPago()" [disabled]="!validar_generar">Generar Pago</button>
+            </div>
+        </div>
+    </div>
+</form>
+<!--MODAL DESCUENTO Y COMISIONES-->
+<ng-template #com let-modal>
+    <div class="modal-header" style="display: flow-root">
+        <img src="https://oea-files.s3.amazonaws.com/web/oea+onu_.png" alt="">
+        <button type="button" class="btn-close pull-right" aria-label="Close" (click)="closeModalCom()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

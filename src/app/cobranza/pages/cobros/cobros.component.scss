@@ -1,0 +1,135 @@
+.asist{
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  .img_svg{
+   color: #398adb;
+  }
+  .ne{
+    font-weight: bold;
+  }
+  .center{
+    display: inline-flex;
+  }
+  .nuevo{
+    border-radius: 10px;
+    background: white;
+    color: #398adb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+  }
+  .accordion-principal{
+    background-image: url(https://oea-files.s3.amazonaws.com/web_backend/imagenes_de_prueba/img_fonto02.png);
+    border-radius: 20px;
+    opacity: 80%;
+    color: white;
+    height: 70px;
+    background-size: 100% 130%;
+    background-repeat: revert;
+  }
+  
+  .form-control{
+    color: #1b1e21;
+  }
+  
+  
+  .check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-check-input:checked {
+    background-color: #398adb;
+    border-color: black;
+  }
+  .form-check-input:focus {
+    border-color: black;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem #398adb;
+  }
+  
+  .btn-success-migracion{
+    background-color: #005300;
+  }
+  
+  table{
+    thead{
+      tr{
+        th{
+          text-align: center;
+          font-size: 12px;
+        }
+      }
+    }
+    tbody{
+      tr{
+        td{
+          text-align: center;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  
+  .media-img{
+    color: #398adb;
+  }
+  .media-body{
+    p{
+      font-size: 0.8vw;
+    }
+  }
+  
+  .parpadea {
+    animation-name: parpadeo;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  
+    -webkit-animation-name:parpadeo;
+    -webkit-animation-duration: 2.5s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+  }
+  
+  .blue {
+    border-radius: 0.8em;
+    -moz-border-radius: 0.8em;
+    -webkit-border-radius: 0.8em;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.6em;
+    margin-right: 15px;
+    text-align: center;
+    width: 1.6em;
+  }
+  
+  @-moz-keyframes parpadeo{
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+  }
+  
+  @-webkit-keyframes parpadeo {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+  }
+  
+  @keyframes parpadeo {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+  }
+  
+  .card-detail{
+    border-radius: 10px;
+    border: 1px solid #398adb !important;
+  }
+  
+  .text-primary{
+    color: #398adb !important
+  }

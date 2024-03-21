@@ -1,0 +1,158 @@
+<div class="container">
+    <div class="row" *ngIf="detail">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="table-responsive invoice-table" id="table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="text-center">
+                        <th>N°</th>
+                        <th>Cuota</th>
+                        <th>Fecha pago</th>
+                        <th>Estado</th>
+                        <th>Pago Cuota</th>
+                        <th>Pagar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let valdetail of detail, index as id">
+                        <td>
+                            {{id+1}}
+                        </td>
+                        <td>
+                            <div class="product-name">
+                                <b class="text-dark">
+                                    {{valdetail['num_cuota']}}
+                                </b>
+                            </div>
+                        </td>
+                        <td class="text-center">{{valdetail['fecha_vencimiento']*1000 | date:'d MMMM, y'}}</td>
+                        <td class="text-center">
+                            <div *ngIf="valdetail.is_paid==true">
+                                <p class="text-success">Pagado</p>
+                            </div>
+                            <div *ngIf="valdetail.is_paid==false">
+                                <div *ngIf="fecha_ahora  < valdetail['fecha_vencimiento']*1000">
+                                    <p class="text-warning">Pendiente</p>
+                                </div>
+                                <div *ngIf="fecha_ahora >valdetail['fecha_vencimiento']*1000">
+                                    <p class="text-danger">Vencido</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            S/{{valdetail['monto_pagar']}}
+                        </td>
+                        <td class="text-center">
+                            <div *ngIf="!valdetail['is_paid'] === true">
+                                <input type="checkbox"
+                                       [checked]="checkbox[id]['is_checked']"
+                                       (change)="updateCheckbox( id, $event)"
+                                       [disabled]="checkbox[id]['is_disabled']">
+                            </div>
+                            <div *ngIf="valdetail['is_paid'] === true">
+                                <p>
+                                    ✅
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-end">
+                            <h6>
+                                <span>Saldo final:</span>
+                            </h6>
+                        </td>
+                        <td class="text-center">
+                            <span>S/ {{total}}</span>
+                        </td>
+                        <td *ngIf="diplomado">
+                            <button *ngIf="is_pay"
+                                    class="btn btn-primary text-white text-center"
+                                    (click)="openModalInfo(diplomado.code_course)">
+                                <small>Pagar</small>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Empieza modal pago-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
+        <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="formExcPay" (ngSubmit)="exectPayment()" *ngIf="ocultar">
+            <div *ngIf="optionCard">
+                <div class="col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
+                    <div class="alert alert-primary nuevo text-center">
+                        <div *ngFor="let c of checkbox" class="my-2">
+                            <h6 *ngIf="c.is_checked==1" class="text-dark"><b> Mensualidad</b> Nº {{c.id+1}} <br></h6>
+                        </div>
+                        <h6 class="mx-1 text-dark" >TOTAL A PAGAR: <b>S/ {{monto_final}}.00</b></h6>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-12 mb-3">
+                    <div class="form-group form-check form-switch">
+                        <input class="form-check-input" (change)="optionFacture($event)"
+                               type="checkbox" formControlName="is_factura">
+                        <label>
+                            Solicitar Factura
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-xl-12 text-center mb-2">
+                    <div class="form-group" *ngIf="mostrarSelect">
+                        <input  type="text"  formControlName="ruc"
+                                (keyup)="getInfoByRuc($event)"
+                                class="form-control text-secondary"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
+                                maxlength="11"
+                                placeholder="Ingrese Nº RUC" name="user_ruc" >
+                        <div *ngIf="formExcPay.controls['ruc'].invalid && (formExcPay.controls['ruc'].dirty || formExcPay.controls['ruc'].touched)" >
+                            <div *ngIf="formExcPay.controls['ruc'].errors.required">
+                                <small class="text-danger">Por favor ingrese su número de RUC</small>
+                            </div>
+                            <div *ngIf="formExcPay.controls['ruc'].errors.maxlength">
+                                <small class="text-danger">Excediste el número máximo de caracteres</small>
+                            </div>
+                            <div *ngIf="formExcPay.controls['ruc'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                            </div>
+                        </div>
+                        <div *ngIf="nameruc!=''" class="text-center my-3" style="border-radius: 5px; background: darkseagreen">
+                            <small><b>{{nameruc}}</b></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="modal-footer row">
+                <div class="col-lg-6 col-md-6 m-auto text-center">
+                    <button type="submit" class="btn btn-primary btn-block text-white text-center" [disabled]="!validar_generar">
+                        {{btnPay}}
+                        <label>S/ {{monto_final}}.00</label>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<!-- Empieza modal pago-->
+<ng-template #pago let-modal>
+    <div class="modal-header">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
+        <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModalPago()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

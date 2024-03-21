@@ -326,10 +326,9 @@ export class AlumnosComponent implements OnInit {
               });
             }else{
               let dni = {
-                "dni": dni_val.data['dni'],
-                "nombres": dni_val.data['nombres'],
-                "apellidoPaterno": dni_val.data['apellidoPaterno'],
-                "apellidoMaterno":  dni_val.data['apellidoMaterno'],
+                "nombres": dni_val.data.resultado['nombres'],
+                "apellidoPaterno": dni_val.data.resultado['apellido_paterno'],
+                "apellidoMaterno":  dni_val.data.resultado['apellido_materno'],
               }
               Swal.fire({
                 position: "center",
@@ -338,7 +337,7 @@ export class AlumnosComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1000
               });
-              this.nameperson = dni['nombres'] + ' ' + dni['apellidoPaterno'] + ' ' + dni['apellidoMaterno'];
+              this.nameperson = dni_val.data.resultado.nombre_completo;
               this.formRegistro.controls['nombres'].setValue(dni['nombres']);
               this.formRegistro.controls['apellidos'].setValue(dni['apellidoMaterno'] + ' ' + dni['apellidoMaterno']);
               this.formRegistro.controls['telefono'].enable();

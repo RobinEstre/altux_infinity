@@ -1,0 +1,934 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Reporte de Pagos</h6>
+                        <p class="text-secondary small">Gestión de pagos de alumnos</p>
+                    </div>
+                    <div class="col-auto" style="font-size: 20px;">
+                        <span class="badge rounded-pill bg-success text-capitalize">Pagado</span>
+                        <span class="badge rounded-pill bg-warning text-capitalize mx-2">Pendiente</span>
+                        <span class="badge rounded-pill bg-danger text-capitalize">Vencido</span>
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="formgrupos" class="card-body py-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 col-sm-12 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <ng-select formControlName="diplomado"
+                                        [items]="diplomado"
+                                        bindLabel="courses_name"
+                                        bindValue="courses_code"
+                                        placeholder="SELECCIONAR DIPLOMADO"
+                                        (change)="select_diplomat($event)">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="table-responsive my-2" id="table">
+                            <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                <tr class="text-center" *ngIf="detalle_fecha.length>0">
+                                    <th>Estudiante</th>
+                                    <th></th>
+                                    <th>Celular</th>
+                                    <th>DNI</th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[0].fecha_activa, else mat" class="parpadea text-danger">
+                                            Mat <br> {{detalle_fecha[0].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #mat>
+                                            Mat <br> {{detalle_fecha[0].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[0].fecha_activa, else M01" class="parpadea text-danger">
+                                            M01 <br> {{detalle_fecha[0].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #M01>
+                                            M01 <br> {{detalle_fecha[0].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[1].fecha_activa, else M02" class="parpadea text-danger">
+                                            M02 <br> {{detalle_fecha[1].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #M02>
+                                            M02 <br> {{detalle_fecha[1].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[2].fecha_activa, else M03" class="parpadea text-danger">
+                                            M03 <br> {{detalle_fecha[2].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #M03>
+                                            M03 <br> {{detalle_fecha[2].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[3].fecha_activa, else M04" class="parpadea text-danger">
+                                            M04 <br> {{detalle_fecha[3].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #M04>
+                                            M04 <br> {{detalle_fecha[3].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[4].fecha_activa, else M05" class="parpadea text-danger">
+                                            M05 <br> {{detalle_fecha[4].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #M05>
+                                            M05 <br> {{detalle_fecha[4].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[5].fecha_activa, else M06" class="parpadea text-danger">
+                                            M06 <br> {{detalle_fecha[5].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #M06>
+                                            M06 <br> {{detalle_fecha[5].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[6].fecha_activa, else M07" class="parpadea text-danger">
+                                            M07 <br> {{detalle_fecha[6].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #M07>
+                                            M07 <br> {{detalle_fecha[6].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>
+                                        <div *ngIf="detalle_fecha[7].fecha_activa, else Cert" class="parpadea text-danger">
+                                            Cert<br> {{detalle_fecha[7].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </div>
+                                        <ng-template #Cert>
+                                            Cert<br> {{detalle_fecha[7].fecha_vencimiento *1000 | date:'dd/MM/y' }}
+                                        </ng-template>
+                                    </th>
+                                    <th>Deuda</th>
+                                    <th>MV</th>
+                                    <th>Total</th>
+                                    <th>Acc</th>
+                                </tr>
+                                <tr class="text-center" *ngIf="detalle_fecha.length==0">
+                                    <th>Estudiante</th>
+                                    <th></th>
+                                    <th>Celular</th>
+                                    <th>DNI</th>
+                                    <th>Mat</th>
+                                    <th>M01</th>
+                                    <th>M02</th>
+                                    <th>M03</th>
+                                    <th>M04</th>
+                                    <th>M05</th>
+                                    <th>M06</th>
+                                    <th>M07</th>
+                                    <th>Cert</th>
+                                    <th>Deuda</th>
+                                    <th>MV</th>
+                                    <th>Total</th>
+                                    <th>Acc</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let valstudents of students">
+                                    <td class="text-left text-dark">
+                                        {{valstudents.apellidos}} {{valstudents.nombres}}
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.is_suscrib==true">
+                                            <p class="text-success" style="font-size: 15px;">✔</p>
+                                        </div>
+                                        <div *ngIf="valstudents.is_suscrib==false">
+                                            <p class="text-danger" style="font-size: 15px;">X</p>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div style="display: inline-flex">
+                                            <a href="https://wa.me/51{{valstudents['celular']}}" target="_blank" class="text-dark">
+                                                <b>{{valstudents['celular']}}</b>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center text-dark">
+                                        <b>{{valstudents['dni']}}</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.matricula.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 0, valstudents.nombres, valstudents.matricula.is_paid, valstudents.id, valstudents.matricula.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.matricula.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.matricula.fecha*1000">
+                                                <p class="text-warning ne" (click)="modificarPago(valstudents.sales_id, 0, valstudents.nombres, valstudents.matricula.is_paid, valstudents.id, valstudents.matricula.monto, valstudents.cuotas)">
+                                                    {{valstudents.matricula.monto}}</p>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.matricula.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 0, valstudents.nombres, valstudents.matricula.is_paid, valstudents.id, valstudents.matricula.monto, valstudents.cuotas)">
+                                                    {{valstudents.matricula.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.mes1.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 0, valstudents.nombres, valstudents.mes1.is_paid, valstudents.id,valstudents.matricula.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.mes1.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.mes1.fecha*1000">
+                                                <p class="text-warning ne" (click)="modificarPago(valstudents.sales_id, 0, valstudents.nombres, valstudents.mes1.is_paid, valstudents.id,valstudents.mes1.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes1.monto}}</p>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.mes1.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 0, valstudents.nombres, valstudents.mes1.is_paid, valstudents.id,valstudents.mes1.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes1.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.mes2.is_paid==true">
+                                            <p class="text-success ne" 
+                                            (click)="modificarPago(valstudents.sales_id, 1, valstudents.nombres, valstudents.mes2.is_paid, valstudents.id,valstudents.mes2.monto, valstudents.cuotas)"
+                                            >0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.mes2.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.mes2.fecha*1000">
+                                                <a href="javascript:void(0);" (click)="modificarPago(valstudents.sales_id, 1, valstudents.nombres, valstudents.mes2.is_paid, valstudents.id,valstudents.mes2.monto, valstudents.cuotas)">
+                                                    <p class="text-warning ne">{{valstudents.mes2.monto}}</p>
+                                                </a>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.mes2.fecha*1000">
+                                                <p class="text-danger ne" 
+                                                (click)="modificarPago(valstudents.sales_id, 1, valstudents.nombres, valstudents.mes2.is_paid, valstudents.id,valstudents.mes2.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes2.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.mes3.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 2, valstudents.nombres, valstudents.mes3.is_paid, valstudents.id,valstudents.mes3.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.mes3.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.mes3.fecha*1000">
+                                                <a href="javascript:void(0);" (click)="modificarPago(valstudents.sales_id, 2, valstudents.nombres, valstudents.mes3.is_paid, valstudents.id,valstudents.mes3.monto, valstudents.cuotas)"><!--(click)="prontoPago(valstudents.sales_id, 2)">-->
+                                                    <p class="text-warning ne">{{valstudents.mes3.monto}}</p>
+                                                </a>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.mes3.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 2, valstudents.nombres, valstudents.mes3.is_paid, valstudents.id,valstudents.mes3.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes3.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.mes4.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 3, valstudents.nombres, valstudents.mes4.is_paid, valstudents.id,valstudents.mes4.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.mes4.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.mes4.fecha*1000">
+                                                <p class="text-warning ne" (click)="modificarPago(valstudents.sales_id, 3, valstudents.nombres, valstudents.mes4.is_paid, valstudents.id,valstudents.mes4.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes4.monto}}</p>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.mes4.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 3, valstudents.nombres, valstudents.mes4.is_paid, valstudents.id,valstudents.mes4.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes4.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.mes5.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 4, valstudents.nombres, valstudents.mes5.is_paid, valstudents.id,valstudents.mes5.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.mes5.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.mes5.fecha*1000">
+                                                <p class="text-warning ne" (click)="modificarPago(valstudents.sales_id, 4, valstudents.nombres, valstudents.mes5.is_paid, valstudents.id,valstudents.mes5.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes5.monto}}</p>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.mes5.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 4, valstudents.nombres, valstudents.mes5.is_paid, valstudents.id,valstudents.mes5.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes5.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.mes6.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 5, valstudents.nombres, valstudents.mes6.is_paid, valstudents.id,valstudents.mes6.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.mes6.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.mes6.fecha*1000">
+                                                <p class="text-warning ne" (click)="modificarPago(valstudents.sales_id, 5, valstudents.nombres, valstudents.mes6.is_paid, valstudents.id,valstudents.mes6.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes6.monto}}</p>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.mes6.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 5, valstudents.nombres, valstudents.mes6.is_paid, valstudents.id,valstudents.mes6.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes6.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.mes7.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 6, valstudents.nombres, valstudents.mes7.is_paid, valstudents.id,valstudents.mes7.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.mes7.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.mes7.fecha*1000">
+                                                <p class="text-warning ne" (click)="modificarPago(valstudents.sales_id, 6, valstudents.nombres, valstudents.mes7.is_paid, valstudents.id,valstudents.mes7.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes7.monto}}</p>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.mes7.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 6, valstudents.nombres, valstudents.mes7.is_paid, valstudents.id,valstudents.mes7.monto, valstudents.cuotas)">
+                                                    {{valstudents.mes7.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="valstudents.cert.is_paid==true">
+                                            <p class="text-success ne" (click)="modificarPago(valstudents.sales_id, 7, valstudents.nombres, valstudents.cert.is_paid, valstudents.id,valstudents.cert.monto, valstudents.cuotas)">0</p>
+                                        </div>
+                                        <div *ngIf="valstudents.cert.is_paid!=true">
+                                            <div *ngIf="fecha_ahora  < valstudents.cert.fecha*1000">
+                                                <p class="text-warning ne" (click)="modificarPago(valstudents.sales_id, 7, valstudents.nombres, valstudents.cert.is_paid, valstudents.id,valstudents.cert.monto, valstudents.cuotas)">
+                                                    {{valstudents.cert.monto}}</p>
+                                            </div>
+                                            <div *ngIf="fecha_ahora >valstudents.cert.fecha*1000">
+                                                <p class="text-danger ne" (click)="modificarPago(valstudents.sales_id, 7, valstudents.nombres, valstudents.cert.is_paid, valstudents.id,valstudents.cert.monto, valstudents.cuotas)">
+                                                    {{valstudents.cert.monto}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge rounded-pill bg-danger text-capitalize" *ngIf="valstudents.deuda!=0">{{valstudents.deuda}}</span>
+                                        <span class="badge rounded-pill bg-success text-capitalize" *ngIf="valstudents.deuda==0">{{valstudents.deuda}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge rounded-pill bg-dark text-capitalize">{{valstudents.mv}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-dark"><b>{{valstudents.saldo}}</b></p>
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="" href="javascript:void(0);" (click)="openModalDetail(valstudents.cuotas,valstudents.id)" 
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Detalle Pagos">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </a>
+                                        <a class="text-dark mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" 
+                                            title="Pronto Pago" (click)="prontoPago(valstudents.sales_id, valstudents)">
+                                            <i class="bi bi-bag-check-fill"></i>
+                                        </a>
+                                        <a class="" href="javascript:void(0);" (click)="openModalCompromiso(valstudents)"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Compromiso de Pago">
+                                            <i class="bi bi-calendar-week"></i>
+                                        </a>
+                                        <a class="text-dark mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Modificar Estudiante" 
+                                            (click)="openModal(valstudents.id, valstudents.nombres, valstudents.cuotas)">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a class="" href="javascript:void(0);" (click)="reportStudent(valstudents.id, valstudents.nombres)" 
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Asistencia">
+                                            <i class="bi bi-person-square"></i>
+                                        </a>
+                                        <a class="text-dark mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" 
+                                            title="Historial Estudiante" (click)="openModalControl(valstudents.id, valstudents.nombres)">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--MODAL DESCUENTO Y COMISIONES SIN USAR-->
+<ng-template #com let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">DETALLE PAGO CUOTAS</h5>
+        </div>
+        <div class="card-body modal-body">
+            <app-comisiones-descuentos [detail]="detalle_comisiones" [course_code]="course_code"></app-comisiones-descuentos>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalCom()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--MODAL DETALLE #1-->
+<ng-template #detail let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">Detalle Pagos</h5>
+        </div>
+        <div class="card-body modal-body">
+            <app-cuotas [detail]="_detail" [diplomado]="_diplomado"></app-cuotas>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalDetail()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--MODAL PRONTO PAGO #2-->
+<ng-template #vencido let-modal>
+    <form [formGroup]="formGenerate" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">Pronto Pago</h5>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated">
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-3 text-center">
+                    <div class="form-group text-muted">
+                        <h5>{{meses_pagar}}</h5>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 text-center" *ngIf="discount">
+                    <div class="form-group">
+                        <h5><b>Precio Total: </b>S/ {{total_pagar}}.00</h5>
+                    </div>
+                    <div class="form-group">
+                        <h5><b>Descuento (10 %): </b>S/ {{total_descuento}}.00</h5>
+                    </div>
+                    <div class="form-group">
+                        <h4><b>Total a Pagar: </b>S/ {{total_pagar-total_descuento}}.00</h4>
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
+                    <div class="form-group form-check form-switch">
+                        <input class="form-check-input" (change)="optionFacture($event)"
+                               type="checkbox" formControlName="is_factura">
+                        <label>
+                            Solicitar Factura
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-xl-12 text-center">
+                    <div class="form-group mb-2 position-relative" *ngIf="mostrarSelect">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="ruc" class="form-control border-start-0" autocomplete="off" maxlength="11"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="getInfoByRuc($event)" required>
+                                <label for="floatingInput">Ingrese Nº RUC</label>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="tag mb-2 me-2" *ngIf="nameruc">
+                            <i class="bi bi-person vm ms-2 mx-2"></i> {{nameruc}}
+                        </a>
+                        <div *ngIf="formGenerate.controls['ruc'].invalid && (formGenerate.controls['ruc'].dirty || formGenerate.controls['ruc'].touched)" >
+                            <div *ngIf="formGenerate.controls['ruc'].errors.required">
+                                <small class="text-danger">Por favor ingrese su número de RUC</small>
+                            </div>
+                            <div *ngIf="formGenerate.controls['ruc'].errors.maxlength">
+                                <small class="text-danger">Excediste el número máximo de caracteres</small>
+                            </div>
+                            <div *ngIf="formGenerate.controls['ruc'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="generateProntoPago()" [disabled]="!formGenerate.valid">Generar Pago S/ {{total_pagar-total_descuento}}.00</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalVencido()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!-- MODAL COMPROMISO PAGO #3-->
+<ng-template #new let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">Generar Compromiso de Pago</h5>
+            <p class="text-secondary title">Pagos Mensualidades Vencidas</p>
+        </div>
+        <form [formGroup]="formCompromiso" class="card-body modal-body">
+            <div class="row was-validated" *ngIf="detalle_cuota.length>0">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="table-responsive invoice-table" id="table">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr class="text-center">
+                                <th>Cuota</th>
+                                <th>Fecha pago</th>
+                                <th>Estado</th>
+                                <th>Monto</th>
+                                <th>Pagar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let valdetail of detalle_cuota, index as id">
+                                <td>
+                                    <div class="product-name">
+                                        <small>
+                                            <b class="text-dark">
+                                                {{valdetail['num_cuota']}}
+                                            </b>
+                                        </small>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <small>
+                                        {{valdetail['fecha_vencimiento']*1000 | date:'d MMMM, y'}}
+                                    </small>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="valdetail.is_paid==true">
+                                        <small class="text-success">Pagado</small>
+                                    </div>
+                                    <div *ngIf="valdetail.is_paid==false">
+                                        <div *ngIf="fecha_ahora  < valdetail['fecha_vencimiento']*1000">
+                                            <small class="text-warning">Pendiente</small>
+                                        </div>
+                                        <div *ngIf="fecha_ahora >valdetail['fecha_vencimiento']*1000">
+                                            <small class="text-danger">Vencido</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <small>S/{{valdetail['monto_pagar']}}</small>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="!valdetail['deshabilitado'] === true">
+                                        <input type="checkbox"
+                                               [checked]="checkbox[id]['is_checked']"
+                                               (change)="updateCheckbox( id, $event, valdetail.id)"
+                                               [disabled]="checkbox[id]['is_disabled']">
+                                    </div>
+                                    <div *ngIf="valdetail['deshabilitado'] === true">
+                                        <small>
+                                            Generado
+                                        </small>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="is_pay">
+                    <label class="">Ingrese Fecha Pago</label>
+                    <input class="form-control text-dark" formControlName="fecha" type="datetime-local" required>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 my-2" *ngIf="is_pay">
+                    <div class="form-group">
+                        <label class="">Ingrese Observación</label>
+                        <div class="form-floating text-muted">
+                            <textarea class="form-control bordes text-dark" maxlength="230" formControlName="otro"
+                                placeholder="" id="floatingTextarea" required></textarea>
+                            <label for="floatingTextarea">Observación - max 230 caracteres</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="detalle_cuota.length==0">
+                <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                    <h5>
+                        NO DISPONIBLE
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="student_compromiso.length>0">
+                    <h5>
+                        Compromisos Generados
+                    </h5>
+                    <div class="card card-detail" *ngFor="let detalle of student_compromiso"  style="margin: 2% 2% 2% 2%">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                                <b style="color:#fd5000">{{detalle.diplomado.inicio}}</b>{{detalle.diplomado.nombre}}
+                                <br>
+                                <div *ngFor="let cuota of detalle.detalle_venta.cuotas" style="display: inline-flex; margin-bottom: -40px;">
+                                    <p class="mx-2">{{cuota.nombre}}</p>
+                                </div>
+                                <hr style="margin-top: 10px;">
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 text-center" style="display: inline-flex; margin-top: -10px; justify-content: center">
+                                <p>Estado: </p>
+                                <div class="mx-2">
+                                    <span class="badge bg-success badge-lg me-1 mb-1 mt-1" *ngIf="detalle.estado=='success'">Pagado</span>
+                                    <span class="badge bg-danger badge-lg me-1 mb-1 mt-1" *ngIf="detalle.estado=='expired'">Expirado</span>
+                                    <span class="badge bg-warning badge-lg me-1 mb-1 mt-1" *ngIf="detalle.estado=='pending'">Proceso</span>
+                                </div>
+                                <p class="mx-2">Fecha Vencimiento</p>
+                                <b class="text-primary">{{detalle.fecha_pago*1000 |  date:'d MMMM, y'}}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="generatePay()" [disabled]="!formCompromiso.valid" *ngIf="detalle_cuota.length>0">Generar Compromiso</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalCompromiso()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--MODAL INFO STUDENT-->
+<ng-template #infostudent let-modal>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div>
+                        <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModalInfoStudent()"></button>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="alert my-3 alert-primary nuevo">
+                        <strong class="mx-1"><b>—INFORMACIÓN ALUMNO: </b></strong> <b class="text-muted"> {{nombres_apellidos}}</b>
+                    </div>
+                </div>
+                <div class="row default-according style-1 faq-accordio">
+                    <ngb-accordion #acc="ngbAccordion" class="" [closeOthers]="true" activeIds="asist">
+                        <ngb-panel id="asist" type="dark">
+                            <ng-template ngbPanelTitle>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 text-white">
+                                        REPORTE ASISTENCIA
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr class="text-center">
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let item of report_student.asistence; let b = index">
+                                            <td class="text-left">
+                                                Bloque {{b+1}}
+                                            </td>
+                                            <td class="text-center" colspan="2">
+                                                <div *ngIf="item.detalle_assitence.length">
+                                                    <div class="col-lg-12 col-sm-12 col-md-12" *ngFor="let val of item.detalle_assitence; let a = index ">
+                                                        <div class="text-center" style="display: inline-flex;">
+                                                            <div style="margin-right: 10px">Clase Nº {{a+1}}</div>
+                                                            <div> {{val.date_class *100 / 100 | date:'📅 d MMMM, y'}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="!item.detalle_assitence.length">
+                                                    <p>Sin registro</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                    <br>
+                    <ngb-accordion #acc="ngbAccordion" class="" [closeOthers]="true" activeIds="notes">
+                        <ngb-panel id="notes" type="primary">
+                            <ng-template ngbPanelTitle>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 text-white">
+                                        REPORTE NOTAS
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div class="row">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr class="text-center">
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let itemnotas of report_student.notas; let b = index">
+                                            <td class="text-left">
+                                                Bloque {{itemnotas.num_modulo}}
+                                            </td>
+                                            <td class="">
+                                                <div *ngIf="itemnotas.detalle_nota.length">
+                                                    <div class="col-sm-12 col-lg-12 col-md-12" *ngFor="let valnotes of itemnotas.detalle_nota; let a = index ">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                                                                <b> {{valnotes.name_evaluacion}}</b>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 text-left">
+                                                                {{valnotes.nota}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="!itemnotas.detalle_nota.length">
+                                                    <p>Sin registro</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- Empieza modal unsusbcribe-->
+<ng-template #edit let-modal>
+    <div>
+        <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" role="alert">
+            <div class="alert my-3 alert-primary nuevo">
+                <strong class="mx-1"><b>— </b></strong><b>GESTIÓN ESTUDIANTE</b>
+            </div>
+        </div>
+    </div>
+    <!-- <app-unsubscribe-student [detail_student]="detail_student" (miEvento)="updateEstudent($event)" [code]="course_code" [nombre]="nombre" [cuotas]="cuotas"></app-unsubscribe-student> -->
+</ng-template>
+<!-- Empieza modal control-->
+<ng-template #control let-modal>
+    <div>
+        <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModalControl()"></button>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" role="alert">
+            <div class="alert my-3 alert-primary nuevo">
+                <strong class="mx-1"><b>— </b></strong><b>HISTORIAL ESTUDIANTE</b>
+            </div>
+        </div>
+    </div>
+    <!-- <app-control-students [detail_student]="detail_student" [code]="course_code" [rol]="'academico'" [nombre]="nombre"></app-control-students> -->
+</ng-template>
+<!-- Empieza modal gestion-->
+<ng-template #infomigra let-modal>
+    <div>
+        <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModalMigracion()"></button>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-6 col-sm-12" role="alert">
+            <div class="alert my-3 alert-primary nuevo">
+                <strong class="mx-1"><b>— </b></strong><b>Gestión Pagos</b>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12 col-md-12">
+                <p *ngIf="name_student" class="text-center text-uppercase">Estudiante: <span class="badge badge-pill badge-dark" style="font-size: 0.6vw;"><b>{{name_student}}</b></span>
+                <p class="text-center"> <b class="text-success" *ngIf="status_pay"> Mensualidad Pagada</b>  <b class="text-danger" *ngIf="!status_pay">Mensualidad no Pagada</b> </p>
+                <p class="text-center text-uppercase">
+                    <b >{{name_mensualidad}}</b>  | <b>{{monto_mensualidad}}</b>
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+           <div class="card">
+                <form class="form" [formGroup]="formMat" (submit)="gestionMigracionPago()">
+                    <div class="card-body">
+                        <div class="row  mb-2">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="option_select">Selecciona una opción*</label>
+                                    <div class="form-group my-2">
+                                        <ng-select formControlName="option_select"
+                                                    [items]="optionsMigration"
+                                                    bindLabel='value'
+                                                    bindValue='id'
+                                                    placeholder="SELECCIONAR OPCIÓN"
+                                                    id="option_select"
+                                                    (change)="onChangeMigracion($event)">
+                                        </ng-select>
+                                        <div *ngIf="formMat.controls['option_select'].invalid && (formMat.controls['option_select'].dirty ||
+                                                                                formMat.controls['option_select'].touched)" >
+                                            <div *ngIf="formMat.controls['option_select'].errors.required">
+                                                <small class="text-danger">Por favor seleccione una opción</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="show_registro">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="banco">Seleccionar medio de pago *</label>
+                                        <div class="form-group my-2">
+                                            <ng-select formControlName="banco"
+                                                        [items]="bancosPagos"
+                                                        bindLabel='value'
+                                                        bindValue='id'
+                                                        placeholder="SELECCIONAR OPCIÓN"
+                                                        id="banco"
+                                                        (change)="OnchangeBancoMigracion($event)">
+                                            </ng-select>
+                                            <div *ngIf="formMat.controls['banco'].invalid && (formMat.controls['banco'].dirty ||
+                                                                                formMat.controls['banco'].touched)" >
+                                                <div *ngIf="formMat.controls['banco'].errors.required">
+                                                    <small class="text-danger">Por favor seleccione una opción</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="n_opreacion">Nº Operación *</label>
+                                        <input class="form-control text-dark" formControlName="n_opreacion" id="n_opreacion" type="text"
+                                                placeholder="Nº operación">
+                                        <div *ngIf="formMat.controls['n_opreacion'].invalid && (formMat.controls['n_opreacion'].dirty ||
+                                                                                formMat.controls['n_opreacion'].touched)" >
+                                            <div *ngIf="formMat.controls['n_opreacion'].errors.required">
+                                                <small class="text-danger">Por favor ingresar el N° de operación</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="fecha_pago">Nº Fecha de pago *</label>
+                                        <input class="form-control text-dark" formControlName="fecha_pago" id="fecha_pago" type="date">
+                                        <div *ngIf="formMat.controls['fecha_pago'].invalid && (formMat.controls['fecha_pago'].dirty ||
+                                                                                formMat.controls['fecha_pago'].touched)" >
+                                            <div *ngIf="formMat.controls['fecha_pago'].errors.required">
+                                                <small class="text-danger">Por favor ingresar la fecha de pago</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="importe">Importe *</label>
+                                        <input class="form-control text-dark" formControlName="importe" id="importe" type="number"
+                                                placeholder="importe">
+                                        <div *ngIf="formMat.controls['importe'].invalid && (formMat.controls['importe'].dirty ||
+                                                                                formMat.controls['importe'].touched)" >
+                                            <div *ngIf="formMat.controls['importe'].errors.required">
+                                                <small class="text-danger">Por favor ingresar el importe</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="show_corregir">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="monto_correccion">Monto Pago a corregir</label>
+                                        <input class="form-control text-dark" formControlName="monto_correccion"  id="monto_correccion" type="number"
+                                                placeholder="Monto a corregir">
+                                        <div *ngIf="formMat.controls['monto_correccion'].invalid && (formMat.controls['monto_correccion'].dirty ||
+                                                                                formMat.controls['monto_correccion'].touched)" >
+                                            <div *ngIf="formMat.controls['monto_correccion'].errors.required">
+                                                <small class="text-danger">Por favor ingresar el monto a corregir</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input class="form-check-input" (change)="optionRealizoPago($event)"
+                                                type="checkbox" formControlName="status_pay">
+                                        <label>
+                                            Realizó pago ?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="state_info_consulta">
+                            <div *ngIf="data_info_indice.length>0">
+                                <div class="col-sm-12 col-md-12 col-lg-12" *ngFor="let data of data_info_indice">
+                                    <div *ngIf="data.metodo_pago=='pagoefectivo' || data.metodo_pago=='tarjeta'">
+                                        <br>
+                                        <p *ngIf="data['codigo_pago']">Código de pago generado: <b class="text-uppercase">{{data['codigo_pago']}}</b></p>
+                                        <p>Fecha Pago: <b class="text-uppercase">{{data['fecha'] | date:'d MMMM, y, H:mm:ss '}}</b></p>
+                                        <p class="text-center text-uppercase"><b>{{data['metodo_pago']}}</b></p>
+                                    </div>
+                                    <div *ngIf="data.metodo_pago=='manual'">
+                                        <br>
+                                        <p>Método de Pago: <b class="text-uppercase">{{data['metodo_pago']}}</b></p>
+                                        <hr>
+                                        <div *ngIf="data.detalle.is_paid==false">
+                                            <div *ngFor="let det of data.detalle.pago_manual">
+                                                <p>Banco: <b class="text-uppercase">{{det['banco']}}</b></p>
+                                                <p>Fecha Pago: <b class="text-uppercase">{{det['fecha_pago'] | date:'d MMMM, y'}}</b></p>
+                                                <p>Importe: <b class="text-uppercase">S/ {{det['importe_pago']}}.00</b></p>
+                                                <p>N° Operacion: <b class="text-uppercase">{{det['num_operacion']}}</b></p>
+                                                <hr>
+                                            </div>
+                                            <p>Deuda: <b class="text-uppercase text-danger"> S/ {{data.detalle['monto_pagar']}}.00</b></p>
+                                            <p>Fecha Vencimiento: <b class="text-uppercase text-danger">{{data.detalle['fecha_vencimiento']*1000 | date:'d MMMM, y, H:mm:ss'}}</b></p>
+                                        </div>
+                                        <div *ngIf="data.detalle.is_paid==true">
+                                            <div *ngFor="let det of data.detalle.pago_manual">
+                                                <p>Banco: <b class="text-uppercase">{{det['banco']}}</b></p>
+                                                <p>Fecha Pago: <b class="text-uppercase">{{det['fecha_pago'] | date:'d MMMM, y'}}</b></p>
+                                                <p>Importe: <b class="text-uppercase">{{det['importe_pago']}}</b></p>
+                                                <p>N° Operacion: <b class="text-uppercase">{{det['num_operacion']}}</b></p>
+                                                <hr>
+                                            </div>
+                                            <p class="text-center text-success"><b class="text-uppercase">PAGADO</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="data_info_indice.length==0">
+                                <p>NO SE ENCONTRO PAGO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="btn_show">
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-success-migracion text-white" [disabled]="!formMat.valid"  type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+           </div>
+        </div>
+    </div>
+</ng-template>
+<!-- Empieza modal pago Efectivo-->
+<ng-template #pago let-modal>
+    <div class="modal-header">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
+        <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModalPago()"></button>
+    </div>
+    <app-form-pay [generate]="_generate"></app-form-pay>
+</ng-template>
+<!--SPINNER-->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>
