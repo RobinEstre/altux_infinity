@@ -4,7 +4,7 @@
             <div class="card-header bg-light-theme">
                 <div class="row align-items-center">
                     <div class="col-auto">
-                        <i class="bi bi-persons h5 avatar avatar-40 bg-light-theme rounded"></i>
+                        <i class="bi bi-people h5 avatar avatar-40 bg-light-theme rounded"></i>
                     </div>
                     <div class="col">
                         <h6 class="fw-medium mb-0 text-uppercase">Alumnos</h6>
@@ -65,7 +65,8 @@
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        {{valStudent.student.last_login_timetamps_unix*1000 |  date:'dd/MM/yyyy HH:mm'}}
+                                        <div *ngIf="valStudent.student.last_login_timetamps_unix">{{valStudent.student.last_login_timetamps_unix*1000 |  date:'dd/MM/yyyy HH:mm'}}</div>
+                                        <div *ngIf="!valStudent.student.last_login_timetamps_unix">Sin conexión</div>
                                         <!-- <a class="" href="javascript:void(0);" (click)="openModalInfo(valStudent)"
                                             data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Fecha">
                                             <i class="bi bi-calendar-week"></i>
@@ -85,8 +86,8 @@
 <ng-template #register let-modal>
     <form [formGroup]="formRegistro" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
-            <h5 class="mb-1">HOlaa</h5>
-            <p class="text-secondary title">HOlaa</p>
+            <h5 class="mb-1">Registro</h5>
+            <p class="text-secondary title">Crear nuevo alumno</p>
         </div>
         <div class="card-body modal-body">
             <div class="row was-validated">
@@ -287,7 +288,7 @@
                 <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="mostrarColegiatura">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar-check-fill"></i></span>
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar-person"></i></span>
                             <div class="form-floating">
                                 <input placeholder="Ingrese N° Colegiatura" formControlName="num_colegiatura" class="form-control border-start-0" autocomplete="off" required>
                                 <label for="floatingInput">Ingrese N° Colegiatura</label>
