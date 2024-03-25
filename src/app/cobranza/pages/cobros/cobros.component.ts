@@ -9,6 +9,7 @@ import {DatePipe, registerLocaleData} from "@angular/common";
 import localeEs from "@angular/common/locales/es";
 import { CobranzaService } from '../../services/cobranza.service';
 registerLocaleData(localeEs, 'es');
+declare var $: any;
 
 enum disabledType {
   enabled,
@@ -444,7 +445,8 @@ export class CobrosComponent implements OnInit {
       'code_course': this.course_code,
       'id': id
     }
-    this.modalRefDetail = this.modalService.open(this.modalContentDetail, { centered: true, size: 'lg'});
+    this.modalRefDetail = this.modalService.open(this.modalContentDetail, {backdrop : 'static', centered: true, keyboard: false,
+    windowClass: 'animate__animated animate__backInUp', size: 'lg' });
     this.modalRefDetail.result.then();
   }
 
@@ -455,8 +457,8 @@ export class CobrosComponent implements OnInit {
     this.Service.listReportStudent(data).subscribe(data => {
       if(data['success']==true){
         this.report_student=data['data']
-        this.spinner.hide()
-        this.modalRefInfoStudent = this.modalService.open(this.modalContentInfoStudent, { centered: true, size: 'lg'});
+        this.modalRefInfoStudent = this.modalService.open(this.modalContentInfoStudent, {backdrop : 'static', centered: true, keyboard: false,
+        windowClass: 'animate__animated animate__backInUp', size: 'lg' });
         this.modalRefInfoStudent.result.then();
         this.spinner.hide()
       }
@@ -518,7 +520,8 @@ export class CobrosComponent implements OnInit {
         'id': id
       }
     }
-    this.modalPay = this.modalService.open(this.modalPayment, { centered: true, size: 'md' });
+    this.modalPay = this.modalService.open(this.modalPayment, {backdrop : 'static', centered: true, keyboard: false,
+    windowClass: 'animate__animated animate__backInUp', size: 'md' });
     this.modalPay.result.then();
   }
 
@@ -699,7 +702,8 @@ export class CobrosComponent implements OnInit {
         'id': id
       }
     }
-    this.modalCon = this.modalService.open(this.modalControl, { centered: true, size: 'lg' });
+    this.modalCon = this.modalService.open(this.modalControl, {backdrop : 'static', centered: true, keyboard: false,
+    windowClass: 'animate__animated animate__backInUp', size: 'lg' });
     this.modalCon.result.then();
   }
 
@@ -727,7 +731,8 @@ export class CobrosComponent implements OnInit {
         this.descuento=desc
         this.total_pagar=+res['total_pagar']
         this.total_descuento=(10/100)*this.total_pagar
-        this.modalRefVencido = this.modalService.open(this.modalControlVencido, { centered: true, size: 'md' });
+        this.modalRefVencido = this.modalService.open(this.modalControlVencido, {backdrop : 'static', centered: true, keyboard: false,
+        windowClass: 'animate__animated animate__backInUp', size: 'md' });
         this.modalRefVencido.result.then();
         this.spinner.hide();
       }
@@ -948,7 +953,8 @@ export class CobrosComponent implements OnInit {
     this.show_corregir = false
     this.state_info_consulta = false
     this.formMat.controls['option_select'].setValue(null);
-    this.modalPag = this.modalService.open(this.modalPago, { centered: true, size: 'lg' });
+    this.modalPag = this.modalService.open(this.modalPago, {backdrop : 'static', centered: true, keyboard: false,
+    windowClass: 'animate__animated animate__backInUp', size: 'lg' });
     this.modalPag.result.then();
   }
 
@@ -1321,16 +1327,17 @@ export class CobrosComponent implements OnInit {
         this.listCompromisoStudent()
 
         this.formCompromiso.reset()
-        this.modalContentNew = this.modalService.open(this.modalNew, { centered: true, size: 'md' });
+        this.modalContentNew = this.modalService.open(this.modalNew, {backdrop : 'static', centered: true, keyboard: false,
+        windowClass: 'animate__animated animate__backInUp', size: 'md' });
         this.modalContentNew.result.then();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: '¡Genial :)!',
-          text: '¡Solicitud Enviada!',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "success",
+        //   title: '¡Genial :)!',
+        //   text: '¡Solicitud Enviada!',
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // });
       }
     },error => {
       if(error.status===400){

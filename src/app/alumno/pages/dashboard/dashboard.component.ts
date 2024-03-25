@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
                 "monto_pagar": i.evento.pago[0].monto_pagar,
                 "fecha_vencimiento": i.evento.pago[0].fecha_vencimiento,
                 "diplomado_code": i.evento.pago[0].diplomado_code,
-                "diplomado": name
+                "diplomado": i.evento.pago[0].diplomado
               }
             })
           }
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
                 "clase": i.evento.clase[0].clase,
                 "fecha_clase": i.evento.clase[0].fecha_clase,
                 "diplomado_code": i.evento.clase[0].diplomado_code,
-                "diplomado": name,
+                "diplomado": i.evento.clase[0].diplomado,
                 "modulo": i.evento.clase[0].modulo
               }
             })
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
                 "fecha_inicio": i.evento.evaluacion[0].fecha_inicio,
                 "name_evaluacion": i.evento.evaluacion[0].name_evaluacion,
                 "diplomado_code": i.evento.evaluacion[0].diplomado_code,
-                "diplomado": name,
+                "diplomado": i.evento.evaluacion[0].diplomado,
                 "modulo": i.evento.evaluacion[0].modulo
               }
             })

@@ -586,137 +586,62 @@
         </div>
     </div>
 </ng-template>
-<!--MODAL INFO STUDENT-->
-<ng-template #infostudent let-modal>
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div>
-                        <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModalInfoStudent()"></button>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="alert my-3 alert-primary nuevo">
-                        <strong class="mx-1"><b>—INFORMACIÓN ALUMNO: </b></strong> <b class="text-muted"> {{nombres_apellidos}}</b>
-                    </div>
-                </div>
-                <div class="row default-according style-1 faq-accordio">
-                    <ngb-accordion #acc="ngbAccordion" class="" [closeOthers]="true" activeIds="asist">
-                        <ngb-panel id="asist" type="dark">
-                            <ng-template ngbPanelTitle>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 text-white">
-                                        REPORTE ASISTENCIA
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <ng-template ngbPanelContent>
-                                <div class="row">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr class="text-center">
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr *ngFor="let item of report_student.asistence; let b = index">
-                                            <td class="text-left">
-                                                Bloque {{b+1}}
-                                            </td>
-                                            <td class="text-center" colspan="2">
-                                                <div *ngIf="item.detalle_assitence.length">
-                                                    <div class="col-lg-12 col-sm-12 col-md-12" *ngFor="let val of item.detalle_assitence; let a = index ">
-                                                        <div class="text-center" style="display: inline-flex;">
-                                                            <div style="margin-right: 10px">Clase Nº {{a+1}}</div>
-                                                            <div> {{val.date_class *100 / 100 | date:'📅 d MMMM, y'}}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div *ngIf="!item.detalle_assitence.length">
-                                                    <p>Sin registro</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </ng-template>
-                        </ngb-panel>
-                    </ngb-accordion>
-                    <br>
-                    <ngb-accordion #acc="ngbAccordion" class="" [closeOthers]="true" activeIds="notes">
-                        <ngb-panel id="notes" type="primary">
-                            <ng-template ngbPanelTitle>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 text-white">
-                                        REPORTE NOTAS
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <ng-template ngbPanelContent>
-                                <div class="row">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr class="text-center">
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr *ngFor="let itemnotas of report_student.notas; let b = index">
-                                            <td class="text-left">
-                                                Bloque {{itemnotas.num_modulo}}
-                                            </td>
-                                            <td class="">
-                                                <div *ngIf="itemnotas.detalle_nota.length">
-                                                    <div class="col-sm-12 col-lg-12 col-md-12" *ngFor="let valnotes of itemnotas.detalle_nota; let a = index ">
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-                                                                <b> {{valnotes.name_evaluacion}}</b>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 text-left">
-                                                                {{valnotes.nota}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div *ngIf="!itemnotas.detalle_nota.length">
-                                                    <p>Sin registro</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </ng-template>
-                        </ngb-panel>
-                    </ngb-accordion>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
-<!-- Empieza modal unsusbcribe-->
+<!-- MODAL GESTION ESTUDIANTE #4-->
 <ng-template #edit let-modal>
-    <div>
-        <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModal()"></button>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12" role="alert">
-            <div class="alert my-3 alert-primary nuevo">
-                <strong class="mx-1"><b>— </b></strong><b>GESTIÓN ESTUDIANTE</b>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">Gestión Estudiante</h5>
+        </div>
+        <div class="card-body modal-body">
+            <!-- <app-unsubscribe-student [detail_student]="detail_student" (miEvento)="updateEstudent($event)" [code]="course_code" 
+                [nombre]="nombre" [cuotas]="cuotas"></app-unsubscribe-student> -->
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
     <!-- <app-unsubscribe-student [detail_student]="detail_student" (miEvento)="updateEstudent($event)" [code]="course_code" [nombre]="nombre" [cuotas]="cuotas"></app-unsubscribe-student> -->
 </ng-template>
+<!--MODAL INFO STUDENT #5-->
+<ng-template #infostudent let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 text-uppercase">Información Alumno: <b>{{nombres_apellidos}}</b></h5>
+            <p class="text-secondary title">Notas y Asistencias</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <app-estudiante [report_student]="report_student"></app-estudiante>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalInfoStudent()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
 <!-- Empieza modal control-->
 <ng-template #control let-modal>
-    <div>
-        <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModalControl()"></button>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12" role="alert">
-            <div class="alert my-3 alert-primary nuevo">
-                <strong class="mx-1"><b>— </b></strong><b>HISTORIAL ESTUDIANTE</b>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">Historial Estudiante</h5>
+        </div>
+        <div class="card-body modal-body">
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalControl()">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,116 @@
+<div class="row" *ngIf="report_student">
+    <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="card border-0 theme-yellow bg-gradient-theme-light">
+            <div class="card-body">
+                <div class="row align-items-center mb-3">
+                    <div class="col-auto">
+                        <i class="bi bi-bullseye h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0">Reporte Asistencias</h6>
+                        <p class="small text-secondary">Asistencias de todos los bloques del alumno</p>
+                    </div>
+                </div>
+                <div class="card-body px-0">
+                    <table class="table table-borderless footable mb-0" data-show-toggle="true">
+                        <thead class="d-none">
+                            <tr class="text-muted">
+                                <th class="w-12"></th>
+                                <th class="w-200">Router </th>
+                                <!-- <th data-breakpoints="xs sm" class="w-80">Password</th> -->
+                                <th data-breakpoints="all"></th>
+                                <!-- <th data-breakpoints="all" data-title="Description">Description</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of report_student.asistence; let b = index">
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-book avatar avatar-40 bg-light-theme rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Bloque {{b+1}}</p>
+                                        <p class="text-secondary small" *ngIf="!item.detalle_assitence.length">
+                                            <span class="text-danger">Sin registro</span>
+                                        </p>
+                                        <p class="text-secondary small" *ngIf="item.detalle_assitence.length">
+                                            <span class="text-green">Registros: {{item.detalle_assitence.length}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngFor="let val of item.detalle_assitence; let a = index" style="margin-left: -40px;">
+                                    <span class="badge bg-success">Clase Nº {{a+1}} |  {{val.date_class*100 | date:'📅 dd/MM/yyyy'}}</span> <br>
+                                </div>
+                            </td>
+                            <!-- <td>
+                                This is located at first floor near B201 room. Assigned for 25-30 employees.
+                            </td> -->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="card border-0 theme-green bg-gradient-theme-light">
+            <div class="card-body">
+                <div class="row align-items-center mb-3">
+                    <div class="col-auto">
+                        <i class="bi bi-bullseye h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0">Reporte Notas</h6>
+                        <p class="small text-secondary">Promedio 
+                            <span class="badge bg-success" *ngIf="report_student.promedio_final>=13">{{report_student.promedio_final}}</span>
+                            <span class="badge bg-danger" *ngIf="report_student.promedio_final<13">{{report_student.promedio_final}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="card-body px-0">
+                    <table class="table table-borderless footable mb-0" data-show-toggle="true">
+                        <thead class="d-none">
+                            <tr class="text-muted">
+                                <th class="w-12"></th>
+                                <th class="w-200">Router </th>
+                                <th data-breakpoints="all"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of report_student.notas; let b = index">
+                            <td class="w-12"></td>
+                            <td class="w-200">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-book avatar avatar-40 bg-light-theme rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">Bloque {{item.num_modulo}}</p>
+                                        <!-- <p class="text-secondary small" *ngIf="!item.detalle_nota.length">
+                                            <span class="text-danger">Sin registro</span>
+                                        </p>
+                                        <p class="text-secondary small" *ngIf="item.detalle_nota.length">
+                                            <span class="text-green">Registros: {{item.detalle_nota.length}}</span>
+                                        </p> -->
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngFor="let valnotes of item.detalle_nota; let a = index" style="margin-left: -40px;">
+                                    {{valnotes.name_evaluacion}} 
+                                    <span class="badge bg-success" *ngIf="valnotes.nota>=13">{{valnotes.nota}}</span>
+                                    <span class="badge bg-danger" *ngIf="valnotes.nota<13">{{valnotes.nota}}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

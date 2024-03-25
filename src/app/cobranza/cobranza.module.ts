@@ -15,6 +15,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { ArchwizardModule } from 'angular-archwizard';
 import { ComisionesDescuentosComponent } from './pages/cobros/comisiones-descuentos/comisiones-descuentos.component';
 import { CuotasComponent } from './pages/cobros/cuotas/cuotas.component';
+import { EstudianteComponent } from './pages/cobros/estudiante/estudiante.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CuotasComponent } from './pages/cobros/cuotas/cuotas.component';
     PanelComponent,
     CobrosComponent,
     ComisionesDescuentosComponent,
-    CuotasComponent
+    CuotasComponent,
+    EstudianteComponent
   ],
   imports: [
     CommonModule,
