@@ -147,7 +147,7 @@ export class PagosComponent implements OnInit {
           const split = i.course.courses_name.split(' ')
           split.pop();
           split.pop();
-          split.splice(0, 3);
+          //split.splice(0, 3);
           let name=split.map(x=>x).join(" ")
           let modulos:any=i.course.detail.other_description.descripcion_general.num_modulos
           let porcentaje:any=(i.modulo_actual*100)/modulos

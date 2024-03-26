@@ -43,7 +43,7 @@
                             </td>
                             <td>
                                 <div *ngFor="let val of item.detalle_assitence; let a = index" style="margin-left: -40px;">
-                                    <span class="badge bg-success">Clase Nº {{a+1}} |  {{val.date_class*100 | date:'📅 dd/MM/yyyy'}}</span> <br>
+                                    <span class="badge bg-success">Clase Nº {{a+1}} |  {{val.date_class *100 / 100 | date:'📅 dd/MM/yyyy'}}</span> <br>
                                 </div>
                             </td>
                             <!-- <td>

@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
               name=split.map(x=>x).join(" ")
               data.push({
                 "courses_code": i.course.courses_code,
-                "courses_name": name
+                "courses_name": i.course.courses_name
               })
             })
             let code=data[0].courses_code

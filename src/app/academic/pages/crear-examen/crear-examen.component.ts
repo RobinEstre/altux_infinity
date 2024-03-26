@@ -50,10 +50,10 @@ export class CrearExamenComponent implements OnInit {
     })
     this.Service.listar_diplomados().subscribe(data => {
       data['data'].forEach(i=>{
-        const split = i.courses_name.split(' ')
-        split.splice(0, 3);
-        let name=split.map(x=>x).join(" ")
-        i.courses_name= name
+        // const split = i.courses_name.split(' ')
+        // split.splice(0, 3);
+        // let name=split.map(x=>x).join(" ")
+        // i.courses_name= name
       })
       this.diplomado = data['data'];
     });

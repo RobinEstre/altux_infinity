@@ -91,7 +91,7 @@ export class ClasesComponent implements OnInit {
           split.splice(0, 3);
           let name=split.map(x=>x).join(" ")
           dip.push({
-            'course_name': name,
+            'course_name': i.courses_name,
             'course_code': i.courses_code
           })
         })

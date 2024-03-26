@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
+import {DatePipe, registerLocaleData} from "@angular/common";
 import Swal from "sweetalert2";
 declare var $: any;
 
 @Component({
   selector: 'app-estudiante',
   templateUrl: './estudiante.component.html',
-  styleUrls: ['./estudiante.component.scss']
+  styleUrls: ['./estudiante.component.scss'],
+  providers: [ { provide: LOCALE_ID, useValue: 'es' }, DatePipe]
 })
 export class EstudianteComponent implements OnInit {
 
