@@ -258,13 +258,13 @@ export class CobrosComponent implements OnInit {
       lengthMenu: [5, 10, 25],
       processing: true,
       dom: 'Bfrtip',
-      buttons: [
-        { extend: 'copy', className: 'btn btn-primary text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
-        { extend: 'print', className: 'btn btn-danger text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
-        { extend: 'excelHtml5', className: 'btn btn-success text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
-        { extend: 'colvis', className: 'btn btn-warning'},
-        //{ extend: 'columnsToggle', className: 'btn btn-outline-danger'}
-      ],
+      // buttons: [
+      //   { extend: 'copy', className: 'btn btn-primary text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
+      //   { extend: 'print', className: 'btn btn-danger text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
+      //   { extend: 'excelHtml5', className: 'btn btn-success text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
+      //   { extend: 'colvis', className: 'btn btn-warning'},
+      //   //{ extend: 'columnsToggle', className: 'btn btn-outline-danger'}
+      // ],
       language: CobrosComponent.spanish_datatables
     }
     this.Service.listpagoStudent(this.course_code).subscribe(item => {
@@ -1495,4 +1495,3 @@ export class CobrosComponent implements OnInit {
     this.modalRefDescuentos.close()
   }
 }
-

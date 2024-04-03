@@ -18,7 +18,9 @@ export class RegistroComponent implements OnInit {
   private modalRef: NgbModalRef;
   @ViewChild('modal_pago') private modalContentPago: TemplateRef<RegistroComponent>;
   private modalRefPago: NgbModalRef;
-  active = 1;
+  @ViewChild('modal_leads') private modalContentLeads: TemplateRef<RegistroComponent>;
+  private modalRefLeads: NgbModalRef;
+  active = 1;user= localStorage.getItem('USERNAME');
 
   constructor(private service: VentasService, private spinner: NgxSpinnerService,private modalService: NgbModal,private fb: FormBuilder,) { }
 
@@ -119,6 +121,7 @@ export class RegistroComponent implements OnInit {
       'name': 'Al Contado',
     },
   ];
+  files: File[] = []; leads:boolean=true
 
   ngOnInit(): void {
     this.listarTodosLosDiplomados();
@@ -175,6 +178,17 @@ export class RegistroComponent implements OnInit {
 
   closeModalInfo() {
     this.modalRefPago.close();
+  }
+
+  openModalLeads() {
+    this.files=[]
+    this.modalRefLeads = this.modalService.open(this.modalContentLeads, {backdrop : 'static', centered: true, keyboard: false,
+    windowClass: 'animate__animated animate__backInUp', size: 'md' });
+    this.modalRefLeads.result.then();
+  }
+
+  closeModalLeads() {
+    this.modalRefLeads.close();
   }
 
   reset(){
@@ -955,5 +969,70 @@ export class RegistroComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+  }
+
+  onSelect(event: { addedFiles: any; }) {
+    this.files=[]
+    this.files.push(...event.addedFiles);
+  }
+  
+  onRemove(event:any) {
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  uploadLeads(){
+    this.spinner.show()
+    this.leads=false
+    let i=0
+    for(let a=0; a<this.files.length; a++){
+      const formData = new FormData()
+      formData.append('excel_file', this.files[a], this.files[a].name);
+      this.service.registerLeads(formData).subscribe(data => {
+        if(data.success){
+          i++
+          if(i==this.files.length){
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "¡Genial :)!",
+              text: "Leads Subido Correctamente",
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.files=[]
+            this.leads=true
+            this.spinner.hide()
+            this.closeModalLeads()
+          }
+        }
+      },error => {
+        if(error.status==400){
+          Swal.fire({
+            title: 'Advertencia!',
+            text: error.error.message,
+            icon: 'error',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonColor: '#c02c2c',
+            cancelButtonText: 'Cerrar'
+          })
+        }
+        if(error.status==500){
+          Swal.fire({
+            title: 'Advertencia!',
+            text: 'Comuniquese con el Área de Sistemas',
+            icon: 'error',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonColor: '#c02c2c',
+            cancelButtonText: 'Cerrar'
+          })
+        }
+        // this.closeModal()
+        this.spinner.hide()
+        this.leads=true
+        this.files=[]
+      })
+    }
   }
 }

@@ -85,7 +85,7 @@ export class AlumnosComponent implements OnInit {
         split.splice(0, 3);
         let name=split.map(x=>x).join(" ")
         dip.push({
-          'course_name': name,
+          'course_name': i.course_name,
           'course_code': i.course_code,
           'name_student': i.name_student,
           'lastname_student': i.lastname_student,

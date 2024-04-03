@@ -68,6 +68,9 @@ export class VentasService {
   registrarLinkMatricula(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'ventas/generar/url-formulario-llenado/', data)
   }
+  registerLeads(data){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/registrar/excel-leads/', data)
+  }
   reenviarAcceso(data){
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'alumno/reenviar-accesos/estudiante/', data)
   }

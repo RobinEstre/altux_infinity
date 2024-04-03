@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, LOCALE_ID, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subject } from 'rxjs';
 import { VentasService } from 'src/app/ventas/service/ventas.service';
@@ -132,6 +132,7 @@ export class LeadsComponent implements OnInit {
   ];
   dtOptions: any;
   dtTrigger: Subject<any> = new Subject<any>();
+  @Input()estado_leads:any;
 
   leads:any; estado:any; ficha:boolean=false; discount:any; data_detail:any; is_facture:boolean=false; nameruc:any; mostrarDiscount:boolean=false
   mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;

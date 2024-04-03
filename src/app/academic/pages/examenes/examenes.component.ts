@@ -110,10 +110,10 @@ export class ExamenesComponent implements OnInit  {
     this.service.listar_ExamenAcademic().subscribe(data => {
       if(data['success']==true){
         data['data'].forEach(i=>{
-          const split = i.evaluation_form.name.split(' ')
-          split.splice(0, 3);
-          let name=split.map(x=>x).join(" ")
-          i.evaluation_form.name=name
+          // const split = i.evaluation_form.name.split(' ')
+          // split.splice(0, 3);
+          // let name=split.map(x=>x).join(" ")
+          // i.evaluation_form.name=name
         })
         this.examen=data['data']
         this.dtTrigger.next();

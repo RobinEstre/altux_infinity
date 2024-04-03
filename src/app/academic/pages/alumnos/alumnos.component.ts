@@ -339,7 +339,7 @@ export class AlumnosComponent implements OnInit {
               });
               this.nameperson = dni_val.data.resultado.nombre_completo;
               this.formRegistro.controls['nombres'].setValue(dni['nombres']);
-              this.formRegistro.controls['apellidos'].setValue(dni['apellidoMaterno'] + ' ' + dni['apellidoMaterno']);
+              this.formRegistro.controls['apellidos'].setValue(dni['apellidoPaterno'] + ' ' + dni['apellidoMaterno']);
               this.formRegistro.controls['telefono'].enable();
               this.formRegistro.controls['email'].enable();
               this.formRegistro.controls['telefono'].setValue('');
@@ -488,6 +488,16 @@ export class AlumnosComponent implements OnInit {
             timer:2000
           });
         }
+      }
+      if (error.status === 500) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: '¡Error!',
+          text: "Error de servidor comunicarse con sistemas",
+          showConfirmButton: false,
+          timer:2000
+        });
       }
     });
   }
