@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.miVariable$.subscribe(data => {
       if(data==true){
         this.listProfile()
-        console.log(`El valor de la variable cambio a: ${data}`);
+        //console.log(`El valor de la variable cambio a: ${data}`);
       }
     });
     this.docElement = document.documentElement;

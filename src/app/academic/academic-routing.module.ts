@@ -10,6 +10,8 @@ import { ExamenesComponent } from './pages/examenes/examenes.component';
 import { CrearExamenComponent } from './pages/crear-examen/crear-examen.component';
 import { AddDiplomadoComponent } from './pages/add-diplomado/add-diplomado.component';
 import { AlumnosComponent } from './pages/alumnos/alumnos.component';
+import { RegistroComponent } from '../ventas/pages/registro/registro.component';
+import { CobrosComponent } from '../cobranza/pages/cobros/cobros.component';
 
 const routes: Routes = [
   {
@@ -54,6 +56,14 @@ const routes: Routes = [
       {
         path: 'alumnos',
         component: AlumnosComponent
+      },
+      {
+        path: 'ventas',
+        component: RegistroComponent
+      },
+      {
+        path: 'reporte-pagos',
+        component: CobrosComponent
       },
     ]
   }

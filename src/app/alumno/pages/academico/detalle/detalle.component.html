@@ -231,7 +231,8 @@
                                                     <p class="treeview-text">
                                                         <span class="me-2 bi bi-file-earmark-medical text-blue"></span>
                                                         {{evaluacion.evaluation_name}} | 
-                                                        <span class="badge bg-warning">Examen Progreso</span>
+                                                        <span class="badge bg-warning" *ngIf="!evaluacion.nota">Examen Progreso</span>
+                                                        <span class="badge bg-warning" *ngIf="evaluacion.nota">Nota: {{evaluacion.nota}}</span>
                                                     </p>
                                                 </a>
                                             </div>

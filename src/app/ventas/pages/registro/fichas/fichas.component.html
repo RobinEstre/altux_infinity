@@ -1,4 +1,12 @@
 <div class="row">
+    <div class="col text-end mb-3">
+        <p class="text-secondary small">
+            <span class="badge badge-sm bg-yellow">Información</span>
+            <span class="badge badge-sm bg-red mx-2">No Contesta</span>
+            <span class="badge badge-sm bg-blue mx-2">No Interesado</span>
+            <span class="badge badge-sm bg-green mx-2">Próximo Grupo</span>
+        </p>
+    </div>
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="table-responsive invoice-table" id="table">
             <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
@@ -10,15 +18,21 @@
                     <th>Celular</th>
                     <th>Correo</th>
                     <th>Diplomado</th>
-                    <th>Fecha Registro</th>
-                    <th>Fecha Contactar</th>
+                    <th>F. Registro</th>
+                    <th>F. Contactar</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                 <tr *ngFor="let valalumnos of fichas, index as id">
                     <td>{{id+1}}</td>
-                    <td>{{valalumnos.names}}</td>
+                    <td>
+                        <i class="bi bi-info-circle text-warning rounded" *ngIf="valalumnos.seguimiento.informacion.length>0"></i>
+                        <i class="bi bi-person-dash text-info rounded" *ngIf="valalumnos.seguimiento.no_interesado.length>0"></i>
+                        <i class="bi bi-telephone-x text-danger rounded" *ngIf="valalumnos.seguimiento.no_contesta.length>0"></i>
+                        <i class="bi bi-person-workspace text-success rounded" *ngIf="valalumnos.seguimiento.proximo_grupo.length>0"></i>
+                        {{valalumnos.names}}
+                    </td>
                     <td class="text-center">{{valalumnos.num_doc}}</td>
                     <td class="text-center"><a href="https://wa.me/51{{valalumnos.phone}}" target="_blank">{{valalumnos.phone}}</a></td>
                     <td class="text-center">{{valalumnos.mail}}</td>
@@ -296,7 +310,12 @@
                         </div>
                         <div class="col">
                             <h6 class="fw-medium mb-0">Historial Seguimiento</h6>
-                            <p class="text-secondary small"><span class="badge badge-sm bg-yellow">No Contesta</span><span class="badge badge-sm bg-red mx-2">Perdido</span></p>
+                            <p class="text-secondary small">
+                                <span class="badge badge-sm bg-yellow">Información</span>
+                                <span class="badge badge-sm bg-red mx-2">No Contesta</span>
+                                <span class="badge badge-sm bg-blue mx-2">No Interesado</span>
+                                <span class="badge badge-sm bg-green mx-2">Próximo Grupo</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -305,36 +324,62 @@
                         <thead class="d-none">
                             <tr class="text-muted">
                                 <th class="w-200">Historial Seguimiento</th>
-                                <th data-breakpoints="xs sm" class="w-80">No Contesta - Perdido</th>
+                                <th data-breakpoints="xs sm" class="w-80">No Contesta - No Interesado - Información - Próximo Grupo</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.perdido, index as id">
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-x-circle avatar avatar-40 bg-light-red text-red rounded"></i>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_interesado, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-person-dash avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_contesta, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-telephone-x avatar avatar-40 bg-light-red text-red rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_contesta, index as id">
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-telephone-x avatar avatar-40 bg-light-yellow text-yellow rounded"></i>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.informacion, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-info-circle avatar avatar-40 bg-light-yellow text-yellow rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.proximo_grupo, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

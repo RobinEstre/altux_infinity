@@ -1,4 +1,4 @@
-import { Component, Input, LOCALE_ID, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, LOCALE_ID, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subject } from 'rxjs';
 import { VentasService } from 'src/app/ventas/service/ventas.service';
@@ -76,7 +76,31 @@ export class LeadsComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
 
-  constructor(private service: VentasService, private spinner: NgxSpinnerService,private fb: FormBuilder,private modalService: NgbModal) { }
+  @ViewChild('dtActions') dtActions!: TemplateRef<LeadsComponent>;
+  @ViewChild('is_tipo') is_tipo!: TemplateRef<LeadsComponent>;
+  @ViewChild('idTpl', {static: true}) idTpl: TemplateRef<LeadsComponent>;
+
+  constructor(private service: VentasService, private spinner: NgxSpinnerService,private fb: FormBuilder,private modalService: NgbModal,
+    private cd: ChangeDetectorRef,private datePipe: DatePipe,
+  ) {}
+
+  columns: Array<any> = [];
+  dtOptions: DataTables.Settings  = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  dataTableActions: Array<any> = [
+    {
+      cmd: "seguimiento",
+      label: "Seguimiento",
+      classList: "",
+      icon: 'bi bi-binoculars'
+    },
+    {
+      cmd: "add",
+      label: "Matrícula | Ficha",
+      classList: "mx-3",
+      icon: 'bi bi-person-lines-fill'
+    },
+  ];
   formSeguimiento = this.fb.group({
     estado:['',],
     reason: ['',Validators.required],
@@ -90,6 +114,9 @@ export class LeadsComponent implements OnInit {
     cargo:[''],
     area:[''],
     datecall:['']
+  });
+  formSearch = this.fb.group({
+    tipo_lista:['',]
   });
   tipo_matricula: any[] = [
     {
@@ -127,85 +154,30 @@ export class LeadsComponent implements OnInit {
     {'name': 'ESTUDIANTE'}
   ];
   estado_seg:any=[
+    {id: 'informacion', name: 'Información'},
     {id: 'no_contesta', name: 'No Contesta'},
-    {id: 'perdido', name: 'Perdido'}
+    {id: 'no_interesado', name: 'No Interesado'},
+    {id: 'proximo_grupo', name: 'Próximo Grupo'}
   ];
-  dtOptions: any;
-  dtTrigger: Subject<any> = new Subject<any>();
+  tipo_lista:any=[
+    {name: 'LEADS'},
+    {name: 'BASE EXTRA'}
+  ];
   @Input()estado_leads:any;
 
   leads:any; estado:any; ficha:boolean=false; discount:any; data_detail:any; is_facture:boolean=false; nameruc:any; mostrarDiscount:boolean=false
-  mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;
+  mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;filter_params:any
+
+  public paginate:any; public start_paginate:number=0; register_count:number;
 
   ngOnInit(): void {
-    this.listarLeads();
+    //this.formSearch.controls.tipo_lista.setValue('BASE EXTRA')
+    setTimeout(() => {
+      this.listInit();
+    })
   }
 
-  listarLeads(){
-    this.spinner.show()
-    this.dtOptions={
-      pagingType: 'full_numbers',
-      pageLength: 15,
-      lengthMenu: [10, 15, 20, 25],
-      //dom: 'Bfrtip',
-      processing: true,
-      language: LeadsComponent.spanish_datatables
-    }
-    this.service.getLeads().subscribe(data => {
-      if(data.success){
-        let dip:any=[];
-        data['data'].forEach(i=>{
-          const split = i.diplomado.courses_name.split(' ')
-          split.splice(0, 3);
-          let name=split.map(x=>x).join(" ")
-          dip.push({
-            "id": i.id,
-            "diplomado": i.diplomado,
-            'courses_name': name,
-            "estado": i.estado,
-            "nombres": i.nombres,
-            "apellidos": i.apellidos,
-            "dni": i.dni,
-            "email": i.email,
-            "telefono": i.telefono,
-            "seguimiento": i.seguimiento,
-            "numero_colegiatura": i.numero_colegiatura,
-            "procedencia": i.procedencia,
-            'created_at': i.created_at,
-            "updated_at": i.updated_at,
-            "vendedor": i.vendedor
-          })
-        })
-        this.leads= dip;
-        // Calling the DT trigger to manually render the table
-        this.dtTrigger.next();
-        this.spinner.hide()
-      }
-    },error=>{
-      if(error.status==400){
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: 'Advertencia!',
-          text: error.error.message,
-          showConfirmButton: false,
-          timer:2000
-        });
-      }
-      if(error.status==500){
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: 'Advertencia!',
-          text: 'Comuniquese con el Área de Sistemas',
-          showConfirmButton: false,
-          timer:2000
-        });
-      }
-      this.leads=[]
-      this.dtTrigger.next();
-      this.spinner.hide()
-    });
+  listInit(){
     this.service.getEstado().subscribe(resp => {
       if(resp.success){
         this.estado=resp.data
@@ -238,6 +210,142 @@ export class LeadsComponent implements OnInit {
         this.area_trabajo = data['data'];
       }
     });
+    this.formSearch.controls.tipo_lista.setValue('LEADS')
+    this.filter_params = `procedencia=${this.formSearch.controls.tipo_lista.value}&pagina=1&cantidad=10`
+    this.listarLeads();
+  }
+
+  listarLeads(){
+    this.columns.push(
+      {title: 'N°', data:'n' },
+      {title: 'Nombres y Apellidos', data: 'seguimiento', orderable: false, searchable: false, defaultContent: '',
+        ngTemplateRef: {
+          ref: this.is_tipo,
+          context: {
+            captureEvents: this.captureEventsEmitido.bind(self)
+          }
+        }
+      },
+      {title: 'DNI', data: 'dni'},
+      {title: 'Celular', data: 'telefono'},
+      {title: 'Correo', data: 'email'},
+      {title: 'Diplomado', data: 'courses_name'},
+      {title: 'F. Registro', data: 'created_at'},
+      {title: 'F. Modificación', data: 'updated_at'},
+    );
+    if (this.dataTableActions.length > 0) {
+      this.columns.push({
+        title: "Acciones",
+        data: null,
+        orderable: false,
+        searchable: false,
+        defaultContent: "",
+        ngTemplateRef: {
+          ref: this.dtActions,
+          context: {
+            captureEvents: this.onCaptureEvent.bind(this)
+          }
+        }
+      });
+    }
+    this.dtOptions = {
+      ajax: (dataTablesParameters: any, callback) => {
+        // validar si existe variables en el objeto
+        let result = Object.entries(dataTablesParameters).length;
+        if (result > 0){
+          // si hay registros, configurar los nuevos parametros de busqueda
+          let body_params = dataTablesParameters
+
+          this.start_paginate = body_params['start']
+
+          if (this.register_count){
+            if(body_params['length'] > this.register_count){
+              this.paginate = 1
+            }else{
+              let n_paginated = (this.register_count  / body_params['length'])
+
+              n_paginated = Math.round(n_paginated)
+
+              let list_indices = [];
+              for (let i = 0; i < n_paginated; i++) {
+                let i_custom = i + 1
+                let value = i * body_params['length'];
+                list_indices.push({
+                  id: i_custom,
+                  value: value,
+                });
+              }
+              list_indices.forEach((item) => {
+                if (item.value === body_params['start']) {
+                  this.paginate = item.id;
+                }
+              });
+            }
+          }else{
+            this.paginate = 1
+          }
+          //this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&searchs=${body_params['search']['value'] || ''}`
+          //this.filter_params=`procedencia=${this.formSearch.controls.tipo_lista.value}&pagina=${this.paginate}&cantidad=${body_params['length']}`
+        }
+        this.service.getLeads(this.filter_params).subscribe(resp => {
+          let data=[], n=0, cantidad=0
+          if(resp){
+            resp['data'].forEach(i=>{
+              n++
+              let created_at= this.datePipe.transform(i.created_at,"dd/MM/yyyy")
+              let updated_at= this.datePipe.transform(i.updated_at,"dd/MM/yyyy")
+              data.push({
+                "n":n,
+                "id": i.id,
+                "diplomado": i.diplomado,
+                'courses_name': i.diplomado.courses_name,
+                "estado": i.estado,
+                "alumno": i.nombres+" "+i.apellidos,
+                "nombres": i.nombres,
+                "apellidos": i.apellidos,
+                "dni": i.dni,
+                "email": i.email,
+                "telefono": i.telefono,
+                "seguimiento": i.seguimiento,
+                "numero_colegiatura": i.numero_colegiatura,
+                "procedencia": i.procedencia,
+                'created_at': created_at,
+                "updated_at": updated_at,
+                "vendedor": i.vendedor
+              })
+            })
+            this.register_count = resp['cantidad']
+          }else{this.register_count = cantidad}
+          callback({
+            recordsTotal: resp['cantidad'],
+            recordsFiltered: resp['cantidad'],
+            data: data
+          });
+        })
+      },
+      rowCallback: (row: Node, data: any[] | object, dataIndex: number) => {
+        row.childNodes[0].textContent = String((dataIndex + this.start_paginate) + 1);
+      },
+      //dom: '<l>Bfrtip',
+      columnDefs: [
+        {
+          targets: "_all",
+          className: "valign-middle",
+        },
+        {
+          targets: [0],
+          className: "text-right noVis",
+        },
+      ],
+      stateSave: true,
+      serverSide: true,
+      processing: true,
+      searchDelay: 600,
+      language: LeadsComponent.spanish_datatables,
+      columns: this.columns
+    };
+    this.cd.detectChanges();
+    this.dtTrigger.next();
   }
 
   ngAfterViewInit(): void {
@@ -247,6 +355,27 @@ export class LeadsComponent implements OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  onCaptureEvent(event: any): void {
+    if (event['cmd'] === 'seguimiento'){
+      this.openModalSeguimiento(event['data'])
+    }else{
+      this.openModal(event['data'])
+    }
+  }
+
+  captureEventsEmitido(event: any): void {
+  }
+
+  rerender(){
+    this.filter_params = `procedencia=${this.formSearch.controls.tipo_lista.value}&pagina=1&cantidad=10`
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next()
+    });
   }
 
   openModal(data) {
@@ -391,6 +520,8 @@ export class LeadsComponent implements OnInit {
       this.is_facture = false
     }
   }
+  
+  selectListar(event){}
 
   selectSeguimiento(event){}
 
@@ -458,15 +589,6 @@ export class LeadsComponent implements OnInit {
       this.formRegistro.controls['area'].setValidators([]);
       this.formRegistro.controls['area'].updateValueAndValidity();
     }
-  }
-
-  rerender(){
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.listarLeads()
-    });
   }
 
   saveSeguimiento(){
@@ -768,7 +890,7 @@ export class LeadsComponent implements OnInit {
     }
     this.spinner.show();
     this.service.registrarLinkMatricula(body).subscribe(data => {
-      if( data['success']==true){data['data']
+      if( data['success']==true){
         let linkpago='https://app.altux.edu.pe/matricula-pago/'+data['data']
         this.copyText(linkpago)
         this.closeModal()
@@ -793,6 +915,7 @@ export class LeadsComponent implements OnInit {
           timer:2000
         });
       }
+      this.rerender()
     }, error => {
       this.spinner.hide();
       if (error.status === 400) {

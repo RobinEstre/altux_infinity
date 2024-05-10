@@ -15,6 +15,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { TableButtonsComponent } from './pages/registro/leads/table-buttons/table-buttons.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     AlumnosComponent,
     FichasComponent,
     MatriculasComponent,
-    LeadsComponent
+    LeadsComponent,
+    TableButtonsComponent
   ],
   imports: [
     CommonModule,

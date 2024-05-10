@@ -16,8 +16,8 @@ export class VentasService {
   getMatriculas() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/estudiantes-matriculados/');
   }
-  getLeads() {
-    return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/leads-vendedor/?estado_id=1');
+  getLeads(param) {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/leads-vendedor/?estado_id=1&'+param);
   }
   getEstado() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/estados-leads/');

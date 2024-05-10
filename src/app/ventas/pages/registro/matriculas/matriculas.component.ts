@@ -111,10 +111,10 @@ export class MatriculasComponent implements OnInit {
     this.service.getMatriculas().subscribe(data => {
       if(data.success){
         data['data'].forEach(i=>{
-          const split = i.diplomado_name.split(' ')
-          split.splice(0, 3);
-          let name=split.map(x=>x).join(" ")
-          i.diplomado_name=name
+          // const split = i.diplomado_name.split(' ')
+          // split.splice(0, 3);
+          // let name=split.map(x=>x).join(" ")
+          // i.diplomado_name=name
         })
         this.matriculas= data.data;
         this.dtTrigger.next();

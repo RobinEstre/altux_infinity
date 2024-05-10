@@ -24,7 +24,7 @@ export class AcademicoComponent implements OnInit {
       if(resp.success){
         this.academico=resp.courses
         resp.courses.forEach(i=>{
-          let modulos:any=i.course.detail.other_description.descripcion_general.num_modulos
+          let modulos:any=i.course.diplomado_name.information.plan_estudio.length
           let porcentaje:any=(i.modulo_actual*100)/modulos
           i.porcentaje=porcentaje
         })

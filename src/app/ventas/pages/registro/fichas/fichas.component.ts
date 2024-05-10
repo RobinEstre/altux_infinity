@@ -143,8 +143,10 @@ export class FichasComponent implements OnInit {
     },
   ];
   estado_seg:any=[
+    {id: 'informacion', name: 'Información'},
     {id: 'no_contesta', name: 'No Contesta'},
-    {id: 'perdido', name: 'Perdido'}
+    {id: 'no_interesado', name: 'No Interesado'},
+    {id: 'proximo_grupo', name: 'Próximo Grupo'}
   ];
 
   ngOnInit(): void {
@@ -165,9 +167,9 @@ export class FichasComponent implements OnInit {
       if(data.success){
         let dip:any=[];
         data['data'].forEach(i=>{
-          const split = i.diplomado.courses_name.split(' ')
-          split.splice(0, 3);
-          let name=split.map(x=>x).join(" ")
+          // const split = i.diplomado.courses_name.split(' ')
+          // split.splice(0, 3);
+          // let name=split.map(x=>x).join(" ")
           dip.push({
             'created_at':i.created_at,
             'is_referido': i.is_referido,
@@ -180,7 +182,7 @@ export class FichasComponent implements OnInit {
             'names':i.name+' '+i.latname,
             'phone': i.phone,
             'mail': i.email,
-            'courses_name': name,
+            'courses_name': i.diplomado.courses_name,
             'date_call': i.date_call,
             'num_doc': i.num_doc,
             'courses_code': i.diplomado.courses_code,

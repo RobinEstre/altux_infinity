@@ -12,4 +12,8 @@ export class BibliotecaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  innermenuopen() {
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.toggle('innermenu-close');
+  }
 }

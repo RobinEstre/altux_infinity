@@ -1,46 +1,84 @@
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="table-responsive invoice-table" id="table">
-            <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                <thead>
-                <tr>
-                    <th class="text-center">Nº</th>
-                    <th>Nombres y Apellidos</th>
-                    <th class="text-center">DNI</th>
-                    <th class="text-center">Celular</th>
-                    <th class="text-center">Correo</th>
-                    <th class="text-center">Diplomado</th>
-                    <!-- <th class="text-center">Estado</th> -->
-                    <th class="text-center">Fecha Registro</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let valalumnos of leads, index as id">
-                    <td>{{id+1}}</td>
-                    <td>{{valalumnos.nombres}} {{valalumnos.apellidos}}</td>
-                    <td class="text-center">{{valalumnos.dni}}</td>
-                    <td class="text-center"><a href="https://wa.me/51{{valalumnos.telefono}}" target="_blank">{{valalumnos.telefono}}</a></td>
-                    <td class="text-center">{{valalumnos.email}}</td>
-                    <td class="text-center">{{valalumnos.courses_name}}</td>
-                    <!-- <td class="text-center">{{valalumnos.estado.nombre}}</td> -->
-                    <td class="text-center"><b>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</b></td>
-                    <td class="text-center">
-                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Seguimiento"
-                                class="" (click)="openModalSeguimiento(valalumnos)">
-                            <i class="bi bi-binoculars"></i>
-                        </a>
-                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Matrícula | Ficha"
-                                class="mx-3" (click)="openModal(valalumnos)">
-                            <i class="bi bi-person-lines-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<form [formGroup]="formSearch">
+    <div class="row justify-content-center">
+        <div class="col-md-3 col-sm-12 col-lg-3 mb-3">
+            <div class="form-group position-relative mb-2">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-search"></i></span>
+                    <div class="form-floating">
+                        <select (change)="rerender()" class="form-select border-start-0" formControlName="tipo_lista" required>
+                            <option value="" disabled selected>Seleccionar</option>
+                            <option *ngFor="let valSeg of tipo_lista" value="{{valSeg.name}}">
+                                {{valSeg.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <ng-template #idTpl let-rowIndex="rowIndex" let-row="row">
+                {{rowIndex+1}}
+            </ng-template>
+            <ng-template #is_tipo let-data="adtData" let-emitter="captureEvents">
+              <p>
+                    <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
+                    data.seguimiento.no_contesta.length>0||data.seguimiento.no_interesado.length>0||data.seguimiento.proximo_grupo.length>0"></i>
+                    {{data.alumno}}
+              </p>
+            </ng-template>
+            <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
+                <app-table-buttons [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-buttons>
+            </ng-template>
+            <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
+                    [dtTrigger]="dtTrigger" class="table table-bordered w-100"></table>
+        </div>
+        <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="table-responsive invoice-table" id="table">
+                <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Nº</th>
+                        <th>Nombres y Apellidos</th>
+                        <th class="text-center">DNI</th>
+                        <th class="text-center">Celular</th>
+                        <th class="text-center">Correo</th>
+                        <th class="text-center">Diplomado</th>
+                        <th class="text-center">F. Registro</th>
+                        <th class="text-center">F. Modificación</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let valalumnos of leads, index as id">
+                        <td>{{id+1}}</td>
+                        <td>
+                            <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="valalumnos.seguimiento.informacion.length>0||
+                            valalumnos.seguimiento.no_contesta.length>0||valalumnos.seguimiento.no_interesado.length>0||valalumnos.seguimiento.proximo_grupo.length>0"></i>
+                            {{valalumnos.nombres}} {{valalumnos.apellidos}}
+                        </td>
+                        <td class="text-center">{{valalumnos.dni}}</td>
+                        <td class="text-center"><a href="https://wa.me/51{{valalumnos.telefono}}" target="_blank">{{valalumnos.telefono}}</a></td>
+                        <td class="text-center">{{valalumnos.email}}</td>
+                        <td class="text-center">{{valalumnos.courses_name}}</td>
+                        <td class="text-center"><b>{{valalumnos.created_at | date:'dd/MM/yyyy' }}</b></td>
+                        <td class="text-center"><b>{{valalumnos.updated_at | date:'dd/MM/yyyy' }}</b></td>
+                        <td class="text-center">
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Seguimiento"
+                                    class="" (click)="openModalSeguimiento(valalumnos)">
+                                <i class="bi bi-binoculars"></i>
+                            </a>
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Matrícula | Ficha"
+                                    class="mx-3" (click)="openModal(valalumnos)">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> -->
     </div>
-</div>
+</form>
 <!-- Empieza modal registro-->
 <ng-template #register let-modal>
     <form [formGroup]="formRegistro" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
@@ -288,7 +326,12 @@
                         </div>
                         <div class="col">
                             <h6 class="fw-medium mb-0">Historial Seguimiento</h6>
-                            <p class="text-secondary small"><span class="badge badge-sm bg-yellow">No Contesta</span><span class="badge badge-sm bg-red mx-2">Perdido</span></p>
+                            <p class="text-secondary small">
+                                <span class="badge badge-sm bg-yellow">Información</span>
+                                <span class="badge badge-sm bg-red mx-2">No Contesta</span>
+                                <span class="badge badge-sm bg-blue mx-2">No Interesado</span>
+                                <span class="badge badge-sm bg-green mx-2">Próximo Grupo</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -297,15 +340,15 @@
                         <thead class="d-none">
                             <tr class="text-muted">
                                 <th class="w-200">Historial Seguimiento</th>
-                                <th data-breakpoints="xs sm" class="w-80">No Contesta - Perdido</th>
+                                <th data-breakpoints="xs sm" class="w-80">No Contesta - No Interesado - Información - Próximo Grupo</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.perdido, index as id">
+                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_interesado, index as id">
                             <td>
                                 <div class="row">
                                     <div class="col-auto">
-                                        <i class="bi bi-x-circle avatar avatar-40 bg-light-red text-red rounded"></i>
+                                        <i class="bi bi-person-dash avatar avatar-40 bg-light-blue text-blue rounded"></i>
                                     </div>
                                     <div class="col ps-0">
                                         <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
@@ -318,7 +361,33 @@
                             <td>
                                 <div class="row">
                                     <div class="col-auto">
-                                        <i class="bi bi-telephone-x avatar avatar-40 bg-light-yellow text-yellow rounded"></i>
+                                        <i class="bi bi-telephone-x avatar avatar-40 bg-light-red text-red rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.informacion, index as id">
+                            <td>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-info-circle avatar avatar-40 bg-light-yellow text-yellow rounded"></i>
+                                    </div>
+                                    <div class="col ps-0">
+                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.proximo_grupo, index as id">
+                            <td>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded"></i>
                                     </div>
                                     <div class="col ps-0">
                                         <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
