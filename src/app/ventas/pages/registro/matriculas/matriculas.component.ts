@@ -105,6 +105,7 @@ export class MatriculasComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       lengthMenu: [5, 10, 25],
+      lengthChange: false,
       processing: true,
       language: MatriculasComponent.spanish_datatables
     }

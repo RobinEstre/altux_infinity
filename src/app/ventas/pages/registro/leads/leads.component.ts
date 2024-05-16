@@ -285,36 +285,38 @@ export class LeadsComponent implements OnInit {
             this.paginate = 1
           }
           //this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&searchs=${body_params['search']['value'] || ''}`
-          //this.filter_params=`procedencia=${this.formSearch.controls.tipo_lista.value}&pagina=${this.paginate}&cantidad=${body_params['length']}`
+          this.filter_params=`procedencia=${this.formSearch.controls.tipo_lista.value}&pagina=${this.paginate}&cantidad=${body_params['length']}`
         }
         this.service.getLeads(this.filter_params).subscribe(resp => {
           let data=[], n=0, cantidad=0
           if(resp){
-            resp['data'].forEach(i=>{
-              n++
-              let created_at= this.datePipe.transform(i.created_at,"dd/MM/yyyy")
-              let updated_at= this.datePipe.transform(i.updated_at,"dd/MM/yyyy")
-              data.push({
-                "n":n,
-                "id": i.id,
-                "diplomado": i.diplomado,
-                'courses_name': i.diplomado.courses_name,
-                "estado": i.estado,
-                "alumno": i.nombres+" "+i.apellidos,
-                "nombres": i.nombres,
-                "apellidos": i.apellidos,
-                "dni": i.dni,
-                "email": i.email,
-                "telefono": i.telefono,
-                "seguimiento": i.seguimiento,
-                "numero_colegiatura": i.numero_colegiatura,
-                "procedencia": i.procedencia,
-                'created_at': created_at,
-                "updated_at": updated_at,
-                "vendedor": i.vendedor
+            if(resp.data){
+              resp['data'].forEach(i=>{
+                n++
+                let created_at= this.datePipe.transform(i.created_at,"dd/MM/yyyy")
+                let updated_at= this.datePipe.transform(i.updated_at,"dd/MM/yyyy")
+                data.push({
+                  "n":n,
+                  "id": i.id,
+                  "diplomado": i.diplomado,
+                  'courses_name': i.diplomado.courses_name,
+                  "estado": i.estado,
+                  "alumno": i.nombres+" "+i.apellidos,
+                  "nombres": i.nombres,
+                  "apellidos": i.apellidos,
+                  "dni": i.dni,
+                  "email": i.email,
+                  "telefono": i.telefono,
+                  "seguimiento": i.seguimiento,
+                  "numero_colegiatura": i.numero_colegiatura,
+                  "procedencia": i.procedencia,
+                  'created_at': created_at,
+                  "updated_at": updated_at,
+                  "vendedor": i.vendedor
+                })
               })
-            })
-            this.register_count = resp['cantidad']
+              this.register_count = resp['cantidad']
+            }
           }else{this.register_count = cantidad}
           callback({
             recordsTotal: resp['cantidad'],

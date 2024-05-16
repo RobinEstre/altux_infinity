@@ -10,6 +10,15 @@ export class VentasService {
 
   constructor(private httpClient: HttpClient, private envUrl: UrlEnviromentService) { }
 
+  getCantidadDashboard() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/dashboard-vendedor/');
+  }
+  getInformeDiplomados() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/informe_diplomados');
+  }
+  actFechalimite(data) {
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/actualizar-fecha-inicio-diplomado/',data);
+  }
   getFichas() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/pre-venta/listar-cartera-alumnos/');
   }
