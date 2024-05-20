@@ -12,8 +12,8 @@ import { NavbarService } from '../../services/navbar.service';
 export class SidebarComponent implements OnInit {
 
   constructor(private router: Router,private service: PerfilService,public authenticationService: AuthenticationService,
-    private navBarService: NavbarService,) { }
-  userName:any;userImg:any; perfil:any; menuItems: any; rol:any
+    private navBarService: NavbarService,) { this.url=document.location.href.split('/')}
+  userName:any;userImg:any; perfil:any; menuItems: any; rol:any;url:any
   secretrol = 'K56QSxGeKImwBRmiY';
   rus = localStorage.getItem('rus');
 

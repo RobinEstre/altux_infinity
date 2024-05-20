@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { PersonalizationService } from '../../services/personalization.service';
 import { Router } from '@angular/router';
 import { PerfilService } from 'src/app/alumno/services/perfil.service';
+import { NavbarService } from '../../services/navbar.service';
 //import { profile } from 'console';
 declare var $: any;
 
@@ -18,9 +19,10 @@ export class HeaderComponent implements OnInit {
   isFullScreen = false;
   searchText = '';
   showSearchResult = false;
-  perfil:any;
+  rol:any;secretrol = 'K56QSxGeKImwBRmiY'; rus = localStorage.getItem('rus');user_rol:any; validate_user:any
+  perfil:any; url:any
   constructor(private eRef: ElementRef, private router: Router,public authenticationService: AuthenticationService,
-    public personalizationService: PersonalizationService,private service: PerfilService,) { 
+    public personalizationService: PersonalizationService,private service: PerfilService, private navBarService: NavbarService) {     
   }
   userName:any;userImg:any
 
@@ -40,6 +42,80 @@ export class HeaderComponent implements OnInit {
     this.personalizationService.renderUserImage();
     this.personalizationService.renderLogoImage();
     this.listProfile()
+    
+    setTimeout(() => { this.listMenu()}, 2000);
+  }
+
+  listMenu() {
+    this.url=document.location.href.split('/')
+    this.rol = this.navBarService.CryptoJSAesDecrypt(this.secretrol, this.rus);
+    let rol= this.rol
+    switch (rol) {
+      case 'is_student':
+        this.user_rol='alumno'
+        this.validate_user=rol
+        break;
+      case 'is_teacher':
+        this.user_rol='profesor'
+        this.validate_user=rol
+        break;
+      case 'is_academic':
+        this.user_rol='academico'
+        this.validate_user=rol
+        break;
+      case 'is_seller':
+        this.user_rol='ventas'
+        this.validate_user=rol
+        break;
+      case 'is_accounting':
+        this.user_rol=''
+        this.validate_user=rol
+        break;
+      case 'is_cobranza':
+        this.user_rol='cobranza'
+        this.validate_user=rol
+        break;
+      case 'is_finance':
+        this.user_rol=''
+        this.validate_user=rol
+        break;
+      case 'is_gerente':
+        this.user_rol=''
+        this.validate_user=rol
+        break;
+      case 'is_admin':
+        this.user_rol=''
+        this.validate_user=rol
+        break;
+      case 'is_lider_venta':
+        this.user_rol=''
+        this.validate_user=rol
+        break;
+      case 'is_jefe_cobranza':
+        this.user_rol=''
+        this.validate_user=rol
+        break;
+      case 'is_staff':
+        this.user_rol=''
+        this.validate_user=rol
+        break;
+        case 'is_marketing':
+        this.user_rol='marketing'
+        this.validate_user=rol
+        break;
+      default:
+    }
+    if(rol!=this.validate_user){
+      this.signout()
+    }
+    setTimeout(() => {
+      if(this.url.length==5){
+        if(this.user_rol!=this.url[3]){this.signout()}
+      }
+      if(this.url.length>5){
+        if(this.user_rol!=this.url[4]){this.signout()}
+      }
+    }, 2000);
   }
 
   listProfile(){
