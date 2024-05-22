@@ -122,11 +122,16 @@ export class FichasComponent implements OnInit {
   formSeguimiento = this.fb.group({
     estado:['',],
     reason: ['',Validators.required],
+    fecha: [''],
+  });
+  formEditar = this.fb.group({
+    telefono: ['', Validators.required],
+    email: ['', [Validators.email, Validators.required]],
   });
 
   fichas:any;isperu = true; mostrarColegiatura: boolean = false; referido:boolean=false; mostrar_patrocinador: boolean = false; nameperson:any
   namepatrocinador:any; detalle:any; nameruc:any; discount:any; mostrarDate: boolean = false; mostrarSelect: boolean = false; _generate:any
-  nombre_descuento:any; precio_pago:any; mostrarDiscount:boolean=false; linkpago:any; num_ruc:boolean=false; data_detail:any;
+  nombre_descuento:any; precio_pago:any; mostrarDiscount:boolean=false; linkpago:any; num_ruc:boolean=false; data_detail:any;date_seguimiento:boolean=false
   
   tipo_matricula: any[] = [
     {
@@ -143,9 +148,10 @@ export class FichasComponent implements OnInit {
     },
   ];
   estado_seg:any=[
-    {id: 'informacion', name: 'Información'},
+    {id: 'informacion', name: 'Información Enviada'},
     {id: 'no_contesta', name: 'No Contesta'},
     {id: 'no_interesado', name: 'No Interesado'},
+    {id: 'compromiso', name: 'Compromiso Matrícula'},
     {id: 'proximo_grupo', name: 'Próximo Grupo'}
   ];
 
@@ -235,6 +241,12 @@ export class FichasComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  selectSeguimiento(event){
+    this.date_seguimiento=false
+    if(event.target.value=='compromiso'){this.date_seguimiento=true}
+    if(event.target.value=='informacion'){this.date_seguimiento=true}
+  }
+
   selectMatricula(event){
     this.spinner.show();
     this.discount=null;
@@ -307,7 +319,7 @@ export class FichasComponent implements OnInit {
     this.isperu = true;
     this.formReserva.controls['pais'].setValue('Perú');
     this.formReserva.controls['datecall'].setValue(null);
-    this.modalEdit = this.modalService.open(this.modalEditar, { centered: true, size: 'lg', keyboard: false });
+    this.modalEdit = this.modalService.open(this.modalEditar, { centered: true, size: 'md', keyboard: false, backdrop : 'static' });
     this.modalEdit.result.then();
   }
 
@@ -319,7 +331,7 @@ export class FichasComponent implements OnInit {
 
   openModalDel(id) {
     this.formDelete.controls['id'].setValue(id)
-    this.modalDel = this.modalService.open(this.modalDelete, { centered: true, size: 'sm', keyboard: false });
+    this.modalDel = this.modalService.open(this.modalDelete, { centered: true, size: 'sm', keyboard: false, backdrop : 'static' });
     this.modalDel.result.then();
   }
 
@@ -329,7 +341,7 @@ export class FichasComponent implements OnInit {
   
   openModalPay(alumno) {
     this.detalle=alumno
-    this.modalPay = this.modalService.open(this.modalPayment, { centered: true, size: 'md', keyboard: false });
+    this.modalPay = this.modalService.open(this.modalPayment, { centered: true, size: 'md', keyboard: false, backdrop : 'static' });
     this.formGenerate.controls['id'].setValue(alumno.id);
     this.formGenerate.controls.tipo_matricula.setValue('');
     this.formReserva.reset()
@@ -350,7 +362,7 @@ export class FichasComponent implements OnInit {
   }
 
   openModalPago() {
-    this.modalPag = this.modalService.open(this.modalPago, { centered: true, size: 'lg', keyboard: false });
+    this.modalPag = this.modalService.open(this.modalPago, { centered: true, size: 'lg', keyboard: false, backdrop : 'static' });
     this.modalPag.result.then();
   }
 

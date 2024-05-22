@@ -104,6 +104,7 @@ export class LeadsComponent implements OnInit {
   formSeguimiento = this.fb.group({
     estado:['',],
     reason: ['',Validators.required],
+    fecha: [''],
   });
   formRegistro = this.fb.group({
     tipo_matricula:['',],
@@ -154,9 +155,10 @@ export class LeadsComponent implements OnInit {
     {'name': 'ESTUDIANTE'}
   ];
   estado_seg:any=[
-    {id: 'informacion', name: 'Información'},
+    {id: 'informacion', name: 'Información Enviada'},
     {id: 'no_contesta', name: 'No Contesta'},
     {id: 'no_interesado', name: 'No Interesado'},
+    {id: 'compromiso', name: 'Compromiso Matrícula'},
     {id: 'proximo_grupo', name: 'Próximo Grupo'}
   ];
   tipo_lista:any=[
@@ -166,7 +168,7 @@ export class LeadsComponent implements OnInit {
   @Input()estado_leads:any;
 
   leads:any; estado:any; ficha:boolean=false; discount:any; data_detail:any; is_facture:boolean=false; nameruc:any; mostrarDiscount:boolean=false
-  mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;filter_params:any
+  mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;filter_params:any; date_seguimiento:boolean=false
 
   public paginate:any; public start_paginate:number=0; register_count:number;
 
@@ -525,7 +527,11 @@ export class LeadsComponent implements OnInit {
   
   selectListar(event){}
 
-  selectSeguimiento(event){}
+  selectSeguimiento(event){
+    this.date_seguimiento=false
+    if(event.target.value=='compromiso'){this.date_seguimiento=true}
+    if(event.target.value=='informacion'){this.date_seguimiento=true}
+  }
 
   selectMatricula(event){
     this.spinner.show();

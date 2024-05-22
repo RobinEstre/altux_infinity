@@ -45,17 +45,19 @@
                             <i class="bi bi-person-x-fill"></i>
                         </a>
                         <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Generar Código de Pago"
-                                class="mx-3" (click)="openModalPay(valalumnos)">
+                                class="mx-2" (click)="openModalPay(valalumnos)">
                             <i class="bi bi-cash-stack"></i>
                         </a>
                         <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Seguimiento"
                                 class="" (click)="openModalSeguimiento(valalumnos)">
                             <i class="bi bi-binoculars"></i>
                         </a>
-                        <!-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Cliente"
-                            class="" (click)="openModalEdit(valalumnos)">
-                            <i class="bi bi-person-x-fill"></i>
-                        </a> -->
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Cliente"
+                            class="mx-2" (click)="openModalEdit(valalumnos)">
+                            <svg style="margin-top: -5px;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                            </svg>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -65,16 +67,67 @@
 </div>
 <!-- Empieza modal editar reserva-->
 <ng-template #editar let-modal>
-    <div class="modal-header d-flex justify-content-center">
-        <div class="alert alert-primary">
-            <b>EDITAR FICHA CLIENTE</b>
-            <button class="btn-close" style="color: black; margin-left: 10px !important;" aria-label="Close"
-                (click)="closeModalEdit()"></button>
+    <form [formGroup]="formEditar" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">EDITAR INFORMACIÓN</h5>
+            <p class="text-secondary title">Celular = {{detalle.phone}} | Correo = {{detalle.mail}}</p>
         </div>
-    </div>
-    <div class="modal-body">
-        HOlaaaa
-    </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated mb-3">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Editar Correo" formControlName="email" type="email" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Editar Correo</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['email'].invalid && (formEditar.controls['email'].dirty || formEditar.controls['email'].touched)" >
+                            <div *ngIf="formEditar.controls['email'].errors.required">
+                                <small class="text-danger">Por favor ingrese su correo</small>
+                            </div>
+                            <div *ngIf="formEditar.controls['email'].errors.email">
+                                <small class="text-danger">Por favor ingrese un correo válido</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-telephone"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Editar Celular" formControlName="telefono" class="form-control border-start-0" autocomplete="off"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/[^0-9+]/g,'')" required>
+                                <label for="floatingInput">Editar Celular</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['telefono'].invalid && (formEditar.controls['telefono'].dirty || formEditar.controls['telefono'].touched)" >
+                            <div *ngIf="formEditar.controls['telefono'].errors.required">
+                                <small class="text-danger">Por favor ingrese su celular</small>
+                            </div>
+                            <div *ngIf="formEditar.controls['telefono'].errors.maxlength">
+                                <small class="text-danger">El celular debe tener como maximo 15 caracteres</small>
+                            </div>
+                            <div *ngIf="formEditar.controls['telefono'].errors.minlength">
+                                <small class="text-danger">Debe contener como maximo 9 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary text-uppercase text-end">
+                        <span class="badge badge-sm bg-yellow" style="font-size: 13px;"><i class="bi bi-info-circle"></i> No se puede repetir correo ni celular</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="saveSeguimiento()" [disabled]="!formEditar.valid">Registro</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalEdit()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </ng-template>
 <!-- Empieza modal elimina reserva-->
 <ng-template #delete let-modal>
@@ -278,7 +331,7 @@
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
                             <div class="form-floating">
-                                <select class="form-select border-start-0" formControlName="estado" required>
+                                <select (change)="selectSeguimiento($event)" class="form-select border-start-0" formControlName="estado" required>
                                     <option value="" disabled selected>Seleccionar Estado</option>
                                     <option *ngFor="let valSeg of estado_seg" value="{{valSeg.id}}">
                                         {{valSeg.name}}
@@ -287,12 +340,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group mb-2 position-relative" *ngIf="date_seguimiento">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input formControlName="fecha" type="date" class="form-control border-start-0" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <small class="text-muted">Ingresar Fecha</small>
+                    </div>
                     <div class="form-group position-relative">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-chat-right-text"></i></span>
                             <div class="form-floating">
                                 <textarea required class="form-control" placeholder="Motivo Seguimiento" id="floatingTextarea2" formControlName="reason" rows="2"></textarea>
-                                <label for="floatingTextarea2">Motivo Seguimiento</label>
+                                <label for="floatingTextarea2">Comentario</label>
                             </div>
                             <!-- <div class="form-floating">
                                 <textarea required class="form-control border-start-0 h-auto" rows="3" formControlName="reason" id="floatingInput"></textarea>
