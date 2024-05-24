@@ -1,6 +1,4 @@
-// import {Service} from "./service.js";
-
-// const service = new Service();
+import { customerInfo , freeze } from "./config";
 
 function greet(apiUrl, requestOptions) {
     fetch(apiUrl, requestOptions).then(response => response.json()).then(data => {

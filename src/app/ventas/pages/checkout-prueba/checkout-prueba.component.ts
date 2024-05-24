@@ -3,6 +3,7 @@ import { ScriptServiceService } from '../../service/script-service.service';
 
 import { greet } from '../../../../assets/js/service.js';
 import { config_data } from '../../../../assets/js/config.js';
+import { ejecutar } from '../../../../assets/js/checkout.js';
 
 @Component({
   selector: 'app-checkout-prueba',
@@ -54,19 +55,19 @@ export class CheckoutPruebaComponent implements OnInit {
       phone: "945737476",
       email: "review1" + Math.floor(Math.random() * 100) + "@altux.com",
     }
-    greet(this.apiUrl, this.requestOptions);
     config_data(data);
+    greet(this.apiUrl, this.requestOptions);
+    ejecutar();
     // this.scriptService.removeScript(['culqi-checkout-v4', 'culqi-js-v4']);
     // this.scriptService.loadScript({
     //   id: 'culqi-checkout-v4',
     //   url: 'https://checkout.culqi.com/js/v4',
     // });
-    setTimeout(() => { 
-      this.scriptService.loadScript({
-      id: 'culqi-js-v4',
-      url: 'assets/js/checkout.js',});
-    },2000);
-    
+    // setTimeout(() => { 
+    //   this.scriptService.loadScript({
+    //   id: 'culqi-js-v4',
+    //   url: 'assets/js/checkout.js'});
+    // },2000);
   }
 
   generarNumeroAleatorio() {
