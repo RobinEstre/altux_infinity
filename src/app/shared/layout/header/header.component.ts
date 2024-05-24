@@ -109,7 +109,7 @@ export class HeaderComponent implements OnInit {
       this.signout()
     }
     setTimeout(() => {
-      console.log(this.url)
+      //console.log(this.url)
       if(this.url.length==5){
         if(this.user_rol!=this.url[3]){this.signout()}
       }

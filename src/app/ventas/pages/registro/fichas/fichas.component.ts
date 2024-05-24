@@ -242,6 +242,7 @@ export class FichasComponent implements OnInit {
   }
 
   selectSeguimiento(event){
+    this.formSeguimiento.controls.fecha.setValue(null)
     this.date_seguimiento=false
     if(event.target.value=='compromiso'){this.date_seguimiento=true}
     if(event.target.value=='informacion'){this.date_seguimiento=true}
@@ -371,6 +372,7 @@ export class FichasComponent implements OnInit {
   }
 
   openModalSeguimiento(data){
+    this.date_seguimiento=false
     this.formSeguimiento.reset()
     this.data_detail=data
     this.formSeguimiento.controls.estado.setValue('')

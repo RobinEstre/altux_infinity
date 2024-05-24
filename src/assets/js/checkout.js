@@ -1,100 +1,46 @@
-function generarNumeroAleatorio() {
-  // Generar un número decimal aleatorio entre 0 y 1
-  const numeroDecimal = Math.random();
+// const deviceId = await Culqi3DS.generateDevice();
+// if (!deviceId) {
 
-  // Multiplicar por 10^9 y redondear para obtener un número entero
-  const numeroEntero = Math.floor(numeroDecimal * Math.pow(10, 9));
+//   console.log("Ocurrio un error al generar el deviceID");
+// }
+// else{
+//   console.log('DEVICE ID');
+//   console.log(deviceId);
+// }
+import { customerInfo , freeze } from "./config";
 
-  // Asegurarse de que tenga exactamente 9 dígitos
-  let numeroAleatorio = String(numeroEntero).padStart(9, '0');
-
-  return numeroAleatorio;
-}
-numeroAleatorio = generarNumeroAleatorio();
-
-function obtenerEpochDeFechaActual() {
-  // Obtener la fecha actual en segundos desde el 1 de enero de 1970 (epoch)
-  const fechaActualEnSegundos = Math.floor(Date.now() / 1000);
-
-  // Sumar un día en segundos (86400 segundos) al timestamp actual
-  const epochConUnDiaMas = fechaActualEnSegundos + 86400;
-
-  return epochConUnDiaMas;
-}
-
-// Configura los datos para la solicitud a la API de Culqi
-var apiUrl = "https://api.culqi.com/v2/orders";
-var apiKey = "sk_test_74e145db239733c3";
-var requestData = {
-    amount: 600,
-    currency_code: "PEN",
-    description: "Venta de prueba",
-    order_number: numeroAleatorio,
-    client_details: {
-        first_name: "Hans",
-        last_name: "Chullo",
-        email: "prueba@culqi.com",
-        phone_number: "945737476"
-    },
-    expiration_date: obtenerEpochDeFechaActual(),
-    confirm: false
+const generateChargeImpl = async ({
+    email,tokenId,deviceId,parameters3DS = null,}) => {
+    console.log(freeze)
+    console.log(customerInfo)
+    console.log('CUANDO SE USA ESTO');
+    const bodyRequest = {
+        amount: freeze.TOTAL_AMOUNT,
+        currency_code: freeze.CURRENCY,
+        email: email,
+        source_id: tokenId,
+        antifraud_details: {
+            first_name: customerInfo.firstName,
+            last_name: customerInfo.lastName,
+            email: customerInfo.email,
+            phone_number: customerInfo.phone,
+            device_finger_print_id: deviceId,
+        },
+    };
+    console.log(bodyRequest);
+    console.log(parameters3DS);
+    return Service.generateCharge(
+        parameters3DS
+        ? { ...bodyRequest, authentication_3DS: { ...parameters3DS } }
+        : bodyRequest
+    );
 };
-
-// Configura la solicitud a la API
-var requestOptions = {
-    method: "POST",
-    headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(requestData)
-};
-
-// Realiza la solicitud a la API
-fetch(apiUrl, requestOptions)
-    .then(response => response.json())
-    .then(data => {
-        // Imprime la respuesta de la API (puedes hacer más con esta respuesta si es necesario)
-        console.log("Respuesta de la API:", data);
-        console.log("Order Number:", data.id);
-
-        // Luego de obtener la respuesta, configura la ventana de pago de Culqi
-        Culqi.publicKey = "pk_test_1f79139005666a3d";
-        Culqi.settings({
-            currency: "PEN",
-            amount: 600,
-            title: "ALTUX - ifinity ♾️",
-            order: data.id,
-            // xculqirsaid: 'de35e120-e297-4b96-97ef-10a43423ddec',
-            // rsapublickey: `-----BEGIN PUBLIC KEY-----
-            // MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDswQycch0x/7GZ0oFojkWCYv+g
-            // r5CyfBKXc3Izq+btIEMCrkDrIsz4Lnl5E3FSD7/htFn1oE84SaDKl5DgbNoev3pM
-            // C7MDDgdCFrHODOp7aXwjG8NaiCbiymyBglXyEN28hLvgHpvZmAn6KFo0lMGuKnz8
-            // HiuTfpBl6HpD6+02SQIDAQAB
-            // -----END PUBLIC KEY-----`,    
-        });
-        Culqi.options({
-            lang: "auto",
-            paymentMethods: {
-                tarjeta: true,
-                yape: true,
-                billetera: true,
-                bancaMovil: true,
-                agente: true,
-                cuotealo: false,
-            },
-            installments: true,
-            logo: "https://static.culqi.com/v2/v2/static/img/logo.png"
-        });
-        Culqi.open();
-    })
-    .catch(error => {
-        console.error("Error en la solicitud a la API:", error);
-    });
 
 window.culqi = async () => {
-  if (Culqi.token) {
+  if (Culqi.token) {    
     Culqi.close();
+    console.log(Culqi.token);
+    console.log(Culqi.token.email);
     tokenId = Culqi.token.id;
     email = Culqi.token.email;
     //selectors.loadingElement.style.display = "block";
@@ -102,11 +48,7 @@ window.culqi = async () => {
     let statusCode = null;
     let objResponse = null;
     console.log("pagos");
-    const responseCharge = await generateChargeImpl({
-    deviceId,
-    email,
-    tokenId,
-    }); //1ra llamada a cargo
+    const responseCharge = await generateChargeImpl({deviceId,email,tokenId}); //1ra llamada a cargo
     objResponse = responseCharge.data;
     statusCode = responseCharge.statusCode;
     if (statusCode === 200) {
@@ -124,4 +66,21 @@ window.culqi = async () => {
     console.log(Culqi.error);
     alert(Culqi.error.user_message);
   }
+};
+
+const validationInit3DS = ({ statusCode, email, tokenId }) => {
+    console.log(statusCode);
+    console.log(email);
+    console.log(tokenId);
+
+    Culqi3DS.settings = {
+        charge: {
+            totalAmount: config.TOTAL_AMOUNT,
+            returnUrl: config.URL_BASE,
+        },
+        card: {
+            email: email,
+        },
+    };
+    Culqi3DS.initAuthentication(tokenId);
 };

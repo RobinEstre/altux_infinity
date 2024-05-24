@@ -15,6 +15,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 text-end mb-3">
+            <p class="text-secondary small">
+                <span class="badge badge-sm bg-blue">Información</span>
+                <span class="badge badge-sm bg-orange mx-2">No Contesta</span>
+                <span class="badge badge-sm bg-red">No Interesado</span>
+                <span class="badge badge-sm bg-black mx-2">Próximo Grupo</span>
+                <span class="badge badge-sm bg-green">Compromiso Matrícula</span>
+            </p>
+        </div>
         <div class="col-sm-12 col-md-12 col-lg-12">
             <!-- <a href="javascript:void(0);" (click)="openModalSeguimiento('data')">
                 <i class="bi bi-binoculars"></i>
@@ -24,9 +33,14 @@
             </ng-template>
             <ng-template #is_tipo let-data="adtData" let-emitter="captureEvents">
               <p>
-                    <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
-                    data.seguimiento.no_contesta.length>0||data.seguimiento.no_interesado.length>0||data.seguimiento.proximo_grupo.length>0"></i>
-                    {{data.alumno}}
+                <i class="bi bi-info-circle text-info rounded" *ngIf="data.seguimiento.informacion.length>0"></i>
+                <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="data.seguimiento.no_interesado.length>0"></i>
+                <i class="bi bi-telephone-x text-warning rounded" *ngIf="data.seguimiento.no_contesta.length>0"></i>
+                <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="data.seguimiento.proximo_grupo.length>0"></i>
+                <i class="bi bi-cash-coin text-success rounded" *ngIf="data.seguimiento.proximo_grupo.length>0"></i>
+                <!-- <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
+                data.seguimiento.no_contesta.length>0||data.seguimiento.no_interesado.length>0||data.seguimiento.proximo_grupo.length>0"></i> -->
+                {{data.alumno}}
               </p>
             </ng-template>
             <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
@@ -86,19 +100,19 @@
 <ng-template #register let-modal>
     <form [formGroup]="formRegistro" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
-            <h5 class="mb-1">Nuevo Registro Leads</h5>
-            <p class="text-secondary title">M = Matrícula | F = Ficha</p>
+            <h5 class="mb-1 title">Nuevo Registro Leads</h5>
+            <!-- <p class="text-secondary title">M = Matrícula | F = Ficha</p> -->
         </div>
         <div class="card-body modal-body">
             <div class="row was-validated">
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-2 text-center ficha">
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 mb-2 text-center ficha">
                     <div class="btn-container">
                         <label class="switch btn-color-mode-switch">
                             <input type="checkbox" name="color_mode" id="color_mode" value="1" (change)="select($event)">
                             <label for="color_mode" data-on="F" data-off="M" class="btn-color-mode-switch-inner"></label>
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
@@ -174,7 +188,7 @@
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
                             <div class="form-floating">
-                                <input placeholder="Ingrese Apellido" formControlName="fecha" type="date" class="form-control border-start-0" autocomplete="off" required>
+                                <input placeholder="Ingrese Apellido" formControlName="fecha" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
                             </div>
                         </div>
                         <small class="text-muted">Ingresar Fecha 2do Pago</small>
@@ -191,7 +205,7 @@
                         <small class="text-muted">Fecha a contactar</small>
                     </div>
                 </div>
-                <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
+                <!-- <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
@@ -205,7 +219,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
@@ -288,7 +302,8 @@
 <ng-template #seguimiento let-modal>
     <form [formGroup]="formSeguimiento" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
-            <h5 class="mb-1 title">REGISTRO SEGUIMIENTO</h5>
+            <h5 class="mb-1">REGISTRO SEGUIMIENTO</h5>
+            <p class="text-secondary title">{{data_detail.alumno}}</p>
         </div>
         <div class="card-body modal-body">
             <div class="row was-validated mb-3">
@@ -310,7 +325,7 @@
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
                             <div class="form-floating">
-                                <input formControlName="fecha" type="date" class="form-control border-start-0" autocomplete="off" required>
+                                <input formControlName="fecha" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
                             </div>
                         </div>
                         <small class="text-muted">Ingresar Fecha</small>
@@ -339,10 +354,11 @@
                         <div class="col">
                             <h6 class="fw-medium mb-0">Historial Seguimiento</h6>
                             <p class="text-secondary small">
-                                <span class="badge badge-sm bg-yellow">Información</span>
-                                <span class="badge badge-sm bg-red mx-2">No Contesta</span>
-                                <span class="badge badge-sm bg-blue mx-2">No Interesado</span>
-                                <span class="badge badge-sm bg-green mx-2">Próximo Grupo</span>
+                                <span class="badge badge-sm bg-blue">Información</span>
+                                <span class="badge badge-sm bg-orange mx-2">No Contesta</span>
+                                <span class="badge badge-sm bg-red">No Interesado</span>
+                                <span class="badge badge-sm bg-black mx-2">Próximo Grupo</span>
+                                <span class="badge badge-sm bg-green">Compromiso Matrícula</span>
                             </p>
                         </div>
                     </div>
@@ -355,7 +371,7 @@
                                 <th data-breakpoints="xs sm" class="w-80">No Contesta - No Interesado - Información - Próximo Grupo</th>
                             </tr>
                         </thead>
-                        <!-- <tbody>
+                        <tbody>
                         <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_interesado, index as id">
                             <td>
                                 <div class="row">
@@ -408,7 +424,7 @@
                                 </div>
                             </td>
                         </tr>
-                        </tbody> -->
+                        </tbody>
                     </table>
                 </div>
             </div>

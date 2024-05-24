@@ -88,7 +88,7 @@ export class RegistroComponent implements OnInit {
   ];
   grado_instruccion:any=[
     {'name': 'LICENCIADO'},
-    {'name': 'COLEGIADO'},
+    {'name': 'TITULADO'},
     {'name': 'BACHILLER'},
     {'name': 'TÉCNICO'},
     {'name': 'ESTUDIANTE'}
@@ -427,10 +427,6 @@ export class RegistroComponent implements OnInit {
       this.formRegistro.controls['num_colegiatura'].updateValueAndValidity();
       if (this.grado == 'LICENCIADO' ) {
         this.mostrarColegiatura = true
-        this.formRegistro.controls['num_colegiatura'].setValidators([]);
-        this.formRegistro.controls['num_colegiatura'].updateValueAndValidity();
-      }else if ( this.grado == 'COLEGIADO') {
-        this.mostrarColegiatura = true
         this.formRegistro.controls['num_colegiatura'].setValidators([Validators.required]);
         this.formRegistro.controls['num_colegiatura'].updateValueAndValidity();
       }else {
@@ -447,50 +443,50 @@ export class RegistroComponent implements OnInit {
   }
 
   selectCargo(event){
-    try {
-      let cargo = event.target.value;
-      this.centro = true
-      this.formRegistro.controls['centro_laboral'].setValue('')
-      this.formRegistro.controls['area'].setValue('')
-      this.formRegistro.controls['centro_laboral'].setValidators([]);
-      this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
-      this.formRegistro.controls['area'].setValidators([]);
-      this.formRegistro.controls['area'].updateValueAndValidity();
-      if (cargo == 'JEFE DE DEPARTAMENTO' ) {
-        this.area = false
-        // this.formRegistro.controls['centro_laboral'].setValidators([Validators.required]);
-        // this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
-      }else if ( cargo == 'JEFE DE SERVICIO') {
-        this.area = true
-        // this.formRegistro.controls['centro_laboral'].setValidators([Validators.required]);
-        // this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
-        this.formRegistro.controls['area'].setValidators([Validators.required]);
-        this.formRegistro.controls['area'].updateValueAndValidity();
-      }else if ( cargo == 'ASISTENCIAL') {
-        this.area = true
-        // this.formRegistro.controls['centro_laboral'].setValidators([Validators.required]);
-        // this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
-        this.formRegistro.controls['area'].setValidators([Validators.required]);
-        this.formRegistro.controls['area'].updateValueAndValidity();
-      }else {
-        this.area = false
-        this.centro = false
-        this.formRegistro.controls['centro_laboral'].setValidators([]);
-        this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
-        this.formRegistro.controls['area'].setValidators([]);
-        this.formRegistro.controls['area'].updateValueAndValidity();
-      }
-    }
-    catch (e){
-      this.centro = false
-      this.area = false
-      this.formRegistro.controls['centro_laboral'].setValue('')
-      this.formRegistro.controls['area'].setValue('')
-      this.formRegistro.controls['centro_laboral'].setValidators([]);
-      this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
-      this.formRegistro.controls['area'].setValidators([]);
-      this.formRegistro.controls['area'].updateValueAndValidity();
-    }
+    // try {
+    //   let cargo = event.target.value;
+    //   this.centro = true
+    //   this.formRegistro.controls['centro_laboral'].setValue('')
+    //   this.formRegistro.controls['area'].setValue('')
+    //   this.formRegistro.controls['centro_laboral'].setValidators([]);
+    //   this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
+    //   this.formRegistro.controls['area'].setValidators([]);
+    //   this.formRegistro.controls['area'].updateValueAndValidity();
+    //   if (cargo == 'JEFE DE DEPARTAMENTO' ) {
+    //     this.area = false
+    //     // this.formRegistro.controls['centro_laboral'].setValidators([Validators.required]);
+    //     // this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
+    //   }else if ( cargo == 'JEFE DE SERVICIO') {
+    //     this.area = true
+    //     // this.formRegistro.controls['centro_laboral'].setValidators([Validators.required]);
+    //     // this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
+    //     this.formRegistro.controls['area'].setValidators([Validators.required]);
+    //     this.formRegistro.controls['area'].updateValueAndValidity();
+    //   }else if ( cargo == 'ASISTENCIAL') {
+    //     this.area = true
+    //     // this.formRegistro.controls['centro_laboral'].setValidators([Validators.required]);
+    //     // this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
+    //     this.formRegistro.controls['area'].setValidators([Validators.required]);
+    //     this.formRegistro.controls['area'].updateValueAndValidity();
+    //   }else {
+    //     this.area = false
+    //     this.centro = false
+    //     this.formRegistro.controls['centro_laboral'].setValidators([]);
+    //     this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
+    //     this.formRegistro.controls['area'].setValidators([]);
+    //     this.formRegistro.controls['area'].updateValueAndValidity();
+    //   }
+    // }
+    // catch (e){
+    //   this.centro = false
+    //   this.area = false
+    //   this.formRegistro.controls['centro_laboral'].setValue('')
+    //   this.formRegistro.controls['area'].setValue('')
+    //   this.formRegistro.controls['centro_laboral'].setValidators([]);
+    //   this.formRegistro.controls['centro_laboral'].updateValueAndValidity();
+    //   this.formRegistro.controls['area'].setValidators([]);
+    //   this.formRegistro.controls['area'].updateValueAndValidity();
+    // }
   }
 
   selectCentro(event){
