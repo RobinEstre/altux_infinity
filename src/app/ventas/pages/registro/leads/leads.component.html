@@ -372,58 +372,73 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_interesado, index as id">
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-person-dash avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.compromiso_pago, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-trucate small" *ngIf="valSeguimiento.fecha_pago">Fecha Pago: {{valSeguimiento.fecha_pago*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_interesado, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-person-dash avatar avatar-40 bg-light-red text-red rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_contesta, index as id">
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-telephone-x avatar avatar-40 bg-light-red text-red rounded"></i>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_contesta, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-telephone-x avatar avatar-40 bg-light-orange text-orange rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.informacion, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-info-circle avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-trucate small" *ngIf="valSeguimiento.fecha_contactar">Fecha Contactar: {{valSeguimiento.fecha_contactar*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.informacion, index as id">
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-info-circle avatar avatar-40 bg-light-yellow text-yellow rounded"></i>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.proximo_grupo, index as id">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <i class="bi bi-person-workspace avatar avatar-40 bg-light-black text-black rounded"></i>
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        </div>
                                     </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngFor="let valSeguimiento of data_detail.seguimiento.proximo_grupo, index as id">
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded"></i>
-                                    </div>
-                                    <div class="col ps-0">
-                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

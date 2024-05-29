@@ -73,7 +73,7 @@ export class PanelComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   user= localStorage.getItem('USERNAME');
 
-  cantidades:any; informe_diplomados:any;
+  cantidades:any; informe_diplomados:any; compromisos_leads:any; informes_leads:any; compromisos_ficha:any; informes_ficha:any;
   
   ngOnInit(): void {
     this.listInit();
@@ -81,27 +81,27 @@ export class PanelComponent implements OnInit {
 
   ngAfterViewInit(): void {
     /* footable */
-    $('.footable').footable({
-      "paging": {
-        "enabled": true,
-        "container": '#footable-pagination',
-        "countFormat": "{CP} of {TP}",
-        "limit": 3,
-        "position": "right",
-        "size": 5
-      },
-      "sorting": {
-        "enabled": true
-      },
-    }, function (ft: any) {
-      $('#footablestot').html($('.footable-pagination-wrapper .label').html())
+    // $('.footable').footable({
+    //   "paging": {
+    //     "enabled": true,
+    //     "container": '#footable-pagination',
+    //     "countFormat": "{CP} of {TP}",
+    //     "limit": 3,
+    //     "position": "right",
+    //     "size": 5
+    //   },
+    //   "sorting": {
+    //     "enabled": true
+    //   },
+    // }, function (ft: any) {
+    //   $('#footablestot').html($('.footable-pagination-wrapper .label').html())
 
-      $('.footable-pagination-wrapper ul.pagination li').on('click', function () {
-        setTimeout(function () {
-          $('#footablestot').html($('.footable-pagination-wrapper .label').html());
-        }, 200);
-      });
-    });
+    //   $('.footable-pagination-wrapper ul.pagination li').on('click', function () {
+    //     setTimeout(function () {
+    //       $('#footablestot').html($('.footable-pagination-wrapper .label').html());
+    //     }, 200);
+    //   });
+    // });
   }
 
   ngOnDestroy(): void {
@@ -180,6 +180,203 @@ export class PanelComponent implements OnInit {
         // }, 10);
         this.dtTrigger.next();
         this.spinner.hide()
+      }
+    },error=>{
+      if(error.status==400){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      if(error.status==500){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      this.spinner.hide()
+    });
+    this.service.getCompromisosMatriculaLeads().subscribe(data => {
+      if(data.success){
+        this.compromisos_leads= data.data;
+        setTimeout(() => {
+          $('.footable').footable({
+            "paging": {
+              "enabled": true,
+              "container": '#footable-pagination',
+              "countFormat": "{CP} de {TP}",
+              "limit": 3,
+              "position": "right",
+              "size": 5
+            },
+            "sorting": {  
+              "enabled": true
+            },
+          }, function (ft: any) {
+            $('#footablestot').html($('.footable-pagination-wrapper .label').html());
+            $('.footable-pagination-wrapper ul.pagination li').on('click', function () {
+              setTimeout(function () {
+                $('#footablestot').html($('.footable-pagination-wrapper .label').html());
+              }, 200);
+            });
+          });
+        }, 10);
+      }
+    },error=>{
+      if(error.status==400){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      if(error.status==500){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      this.spinner.hide()
+    });
+    this.service.getInformesPersonasLeads().subscribe(data => {
+      if(data.success){
+        this.informes_leads= data.data;
+        setTimeout(() => {
+          $('.footable2').footable({
+            "paging": {
+              "enabled": true,
+              "container": '#footable-pagination2',
+              "countFormat": "{CP} de {TP}",
+              "limit": 3,
+              "position": "right",
+              "size": 5
+            },
+            "sorting": {  
+              "enabled": true
+            },
+          }, function (ft: any) {
+            $('#footablestot2').html($('.footable-pagination-wrapper .label').html());
+            $('.footable-pagination-wrapper ul.pagination li').on('click', function () {
+              setTimeout(function () {
+                $('#footablestot2').html($('.footable-pagination-wrapper .label').html());
+              }, 200);
+            });
+          });
+        }, 10);
+      }
+    },error=>{
+      if(error.status==400){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      if(error.status==500){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      this.spinner.hide()
+    });
+    this.service.getCompromisosMatriculaFicha ().subscribe(data => {
+      if(data.success){
+        this.compromisos_ficha= data.data;
+        setTimeout(() => {
+          $('.footable3').footable({
+            "paging": {
+              "enabled": true,
+              "container": '#footable-pagination3',
+              "countFormat": "{CP} de {TP}",
+              "limit": 3,
+              "position": "right",
+              "size": 5
+            },
+            "sorting": {  
+              "enabled": true
+            },
+          }, function (ft: any) {
+            $('#footablestot3').html($('.footable-pagination-wrapper .label').html());
+            $('.footable-pagination-wrapper ul.pagination li').on('click', function () {
+              setTimeout(function () {
+                $('#footablestot3').html($('.footable-pagination-wrapper .label').html());
+              }, 200);
+            });
+          });
+        }, 10);
+      }
+    },error=>{
+      if(error.status==400){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      if(error.status==500){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      this.spinner.hide()
+    });
+    this.service.getInformesPersonasFicha().subscribe(data => {
+      if(data.success){
+        //let dato= [1,2,3,1]
+        this.informes_ficha= data.data;
+        setTimeout(() => {
+          $('.footable4').footable({
+            "paging": {
+              "enabled": true,
+              "container": '#footable-pagination4',
+              "countFormat": "{CP} de {TP}",
+              "limit": 3,
+              "position": "right",
+              "size": 5
+            },
+            "sorting": {  
+              "enabled": true
+            },
+          }, function (ft: any) {
+            $('#footablestot4').html($('.footable-pagination-wrapper .label').html());
+            $('.footable-pagination-wrapper ul.pagination li').on('click', function () {
+              setTimeout(function () {
+                $('#footablestot4').html($('.footable-pagination-wrapper .label').html());
+              }, 200);
+            });
+          });
+        }, 10);
       }
     },error=>{
       if(error.status==400){

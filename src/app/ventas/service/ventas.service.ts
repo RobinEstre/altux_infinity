@@ -16,6 +16,18 @@ export class VentasService {
   getInformeDiplomados() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/informe_diplomados');
   }
+  getCompromisosMatriculaLeads() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/compromisos-matricula/');
+  }
+  getInformesPersonasLeads() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/informacion-matricula/');
+  }
+  getCompromisosMatriculaFicha() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/compromiso-matricula-ficha/');
+  }
+  getInformesPersonasFicha() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/informacion-matricula-ficha/');
+  }
   actFechalimite(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/actualizar-fecha-inicio-diplomado/',data);
   }

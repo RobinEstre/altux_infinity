@@ -603,7 +603,16 @@ export class LeadsComponent implements OnInit {
 
   saveSeguimiento(){
     this.spinner.show()
+    let fecha_pago=null; let fecha_contactar=null
+    if(this.formSeguimiento.controls.estado.value=='compromiso'){
+      fecha_pago= ((new Date(this.formSeguimiento.controls.fecha.value)).getTime())/1000      
+    }
+    if(this.formSeguimiento.controls.estado.value=='informacion'){
+      fecha_contactar= ((new Date(this.formSeguimiento.controls.fecha.value)).getTime())/1000      
+    }
     let body={
+      "fecha_pago": fecha_pago,
+      "fecha_contactar": fecha_contactar,
       "tipo_seguimiento": this.formSeguimiento.controls.estado.value,
       "detalle": this.formSeguimiento.controls.reason.value
     }

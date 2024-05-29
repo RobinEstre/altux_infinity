@@ -1,5 +1,5 @@
 <!-- page title bar -->
-<!-- <div class="container-fluid">
+<div class="container-fluid">
     <div class="row align-items-center page-title">
         <div class="col-12 col-md mb-2 mb-sm-0">
             <h5 class="mb-0">Dashboard Ventas</h5>
@@ -10,9 +10,9 @@
         <div class="col-auto ps-0 position-relative">
         </div>
     </div>
-</div> -->
+</div>
 <div class="container mt-4">
-    <!-- <div class="row" *ngIf="cantidades">
+    <div class="row" *ngIf="cantidades">
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
                 <div class="card-body">
@@ -81,26 +81,20 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
-    <!-- tasks and schedules -->
-    <!-- <div class="row">
+    <!-- Tablas Fichas Leads -->
+    <div class="row">
         <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mb-4">
-            <div class="card border-0 mb-4">
+            <div class="card border-0">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-auto">
-                            <i class="bi bi-clock h5 avatar avatar-40 bg-light-theme rounded"></i>
+                            <i class="bi bi-cash-coin h5 avatar avatar-40 bg-light-red rounded text-danger"></i>
                         </div>
                         <div class="col-auto align-self-center">
-                            <h6 class="fw-medium mb-0">Timesheet Submitted</h6>
-                            <p class="text-secondary small">Logged time by user</p>
-                        </div>
-                        <div class="col-auto ms-auto">
-                            <div class="input-group border">
-                                <span class="input-group-text text-theme"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Buscar...">
-                            </div>
+                            <h6 class="fw-medium mb-0">Compromisos Pago Matrícula Leads</h6>
+                            <p class="text-secondary small">Listado de los pagos próximos a hacer</p>
                         </div>
                     </div>
                 </div>
@@ -108,42 +102,25 @@
                     <table class="table table-borderless footable" data-show-toggle="true">
                         <thead>
                             <tr class="text-muted">
-                                <th class="">Project</th>
-                                <th data-breakpoints="xs md">Date/Time</th>
-                                <th class="w-auto">Action</th>
+                                <th class="">Datos</th>
+                                <th data-breakpoints="xs md">Celular</th>
+                                <th class="w-auto">Fecha Contactar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let valinforme of compromisos_leads, index as id">
                                 <td>
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <figure class="avatar avatar-50 border mb-0 coverimg rounded">
-                                                <img src="assets/img/news-4.jpg" alt="" class="w-100" />
-                                            </figure>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="mb-0">Divine soul apps</p>
-                                            <p class="text-secondary small mb-1">Requirement Understanding</p>
-                                            <p class="text-secondary small">By <a>Avnit Preet</a></p>
-                                        </div>
-                                    </div>
+                                    <p class="mb-0">{{valinforme.name}} {{valinforme.latname}}</p>
+                                    <p class="text-secondary small mb-1">{{valinforme.diplomado.courses_name}}</p>
                                 </td>
                                 <td>
-                                    <p class="mb-0">20-1-2022</p>
-                                    <p class="text-secondary small">9:00 am</p>
+                                    <a href="https://wa.me/51{{valinforme.phone}}" target="_blank" class="">
+                                        <p class="mb-0">{{valinforme.phone}}</p>
+                                    </a>
                                 </td>
                                 <td>
-                                    <div class="dropdown d-inline-block">
-                                        <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                            <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                                        </ul>
-                                    </div>
+                                    <p class="mb-0">{{(+valinforme.seguimiento.compromiso_pago[0].fecha_pago)*1000 | date:'dd/MM/yyyy'}}</p>
+                                    <p class="text-secondary small">{{(+valinforme.seguimiento.compromiso_pago[0].fecha_pago)*1000 | date:'h:mm a'}}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -151,7 +128,7 @@
                     <div class="row align-items-center mx-0 mb-3">
                         <div class="col-6 ">
                             <span class="hide-if-no-paging">
-                                Showing <span id="footablestot">1st</span> page
+                                Viendo <span id="footablestot">1</span> página
                             </span>
                         </div>
                         <div class="col-6" id="footable-pagination"></div>
@@ -160,64 +137,41 @@
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mb-4">
-            <div class="card border-0 mb-4">
+            <div class="card border-0">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-auto">
-                            <i class="bi bi-clock h5 avatar avatar-40 bg-light-theme rounded"></i>
+                            <i class="bi bi-file-earmark-person h5 avatar avatar-40 bg-light-red rounded text-danger"></i>
                         </div>
                         <div class="col-auto align-self-center">
-                            <h6 class="fw-medium mb-0">Timesheet Submitted</h6>
-                            <p class="text-secondary small">Logged time by user</p>
-                        </div>
-                        <div class="col-auto ms-auto">
-                            <div class="input-group border">
-                                <span class="input-group-text text-theme"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Buscar...">
-                            </div>
+                            <h6 class="fw-medium mb-0">Información Personas Leads</h6>
+                            <p class="text-secondary small">Listado de las personas que pidieron información</p>
                         </div>
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-borderless footable" data-show-toggle="true">
+                    <table class="table table-borderless footable2" data-show-toggle="true">
                         <thead>
                             <tr class="text-muted">
-                                <th class="">Project</th>
-                                <th data-breakpoints="xs md">Date/Time</th>
-                                <th class="w-auto">Action</th>
+                                <th class="">Datos</th>
+                                <th data-breakpoints="xs md">Celular</th>
+                                <th class="w-auto">Fecha Contactar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let valinforme of informes_leads, index as id">
                                 <td>
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <figure class="avatar avatar-50 border mb-0 coverimg rounded">
-                                                <img src="assets/img/news-4.jpg" alt="" class="w-100" />
-                                            </figure>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="mb-0">Divine soul apps</p>
-                                            <p class="text-secondary small mb-1">Requirement Understanding</p>
-                                            <p class="text-secondary small">By <a>Avnit Preet</a></p>
-                                        </div>
-                                    </div>
+                                    <p class="mb-0">{{valinforme.name}} {{valinforme.latname}}</p>
+                                    <p class="text-secondary small mb-1">{{valinforme.diplomado.courses_name}}</p>
                                 </td>
                                 <td>
-                                    <p class="mb-0">20-1-2022</p>
-                                    <p class="text-secondary small">9:00 am</p>
+                                    <a href="https://wa.me/51{{valinforme.phone}}" target="_blank" class="">
+                                        <p class="mb-0">{{valinforme.phone}}</p>
+                                    </a>
                                 </td>
                                 <td>
-                                    <div class="dropdown d-inline-block">
-                                        <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" role="button">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Edit</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                            <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                                        </ul>
-                                    </div>
+                                    <p class="mb-0">{{(+valinforme.seguimiento.informacion[0].fecha_contactar)*1000 | date:'dd/MM/yyyy'}}</p>
+                                    <p class="text-secondary small">{{(+valinforme.seguimiento.informacion[0].fecha_contactar)*1000 | date:'h:mm a'}}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -225,17 +179,119 @@
                     <div class="row align-items-center mx-0 mb-3">
                         <div class="col-6 ">
                             <span class="hide-if-no-paging">
-                                Showing <span id="footablestot">1st</span> page
+                                Viendo <span id="footablestot2">1</span> página
                             </span>
                         </div>
-                        <div class="col-6" id="footable-pagination"></div>
+                        <div class="col-6" id="footable-pagination2"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> -->
+        <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mb-4">
+            <div class="card border-0">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-auto">
+                            <i class="bi bi-cash-coin h5 avatar avatar-40 bg-light-green rounded text-success"></i>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <h6 class="fw-medium mb-0">Compromisos Pago Matrícula Fichas</h6>
+                            <p class="text-secondary small">Listado de los pagos próximos a hacer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-borderless footable3" data-show-toggle="true">
+                        <thead>
+                            <tr class="text-muted">
+                                <th class="">Datos</th>
+                                <th data-breakpoints="xs md">Celular</th>
+                                <th class="w-auto">Fecha Contactar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let valinforme of compromisos_ficha, index as id">
+                                <td>
+                                    <p class="mb-0">{{valinforme.name}} {{valinforme.latname}}</p>
+                                    <p class="text-secondary small mb-1">{{valinforme.diplomado.courses_name}}</p>
+                                </td>
+                                <td>
+                                    <a href="https://wa.me/51{{valinforme.phone}}" target="_blank" class="">
+                                        <p class="mb-0">{{valinforme.phone}}</p>
+                                    </a>
+                                </td>
+                                <td>
+                                    <p class="mb-0">{{(+valinforme.seguimiento.compromiso_pago[0].fecha_pago)*1000 | date:'dd/MM/yyyy'}}</p>
+                                    <p class="text-secondary small">{{(+valinforme.seguimiento.compromiso_pago[0].fecha_pago)*1000 | date:'h:mm a'}}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row align-items-center mx-0 mb-3">
+                        <div class="col-6 ">
+                            <span class="hide-if-no-paging">
+                                Viendo <span id="footablestot3">1</span> página
+                            </span>
+                        </div>
+                        <div class="col-6" id="footable-pagination3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mb-4">
+            <div class="card border-0">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-auto">
+                            <i class="bi bi-file-earmark-person h5 avatar avatar-40 bg-light-green rounded text-success"></i>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <h6 class="fw-medium mb-0">Información Personas Fichas</h6>
+                            <p class="text-secondary small">Listado de las personas que pidieron información</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-borderless footable4" data-show-toggle="true">
+                        <thead>
+                            <tr class="text-muted">
+                                <th class="">Datos</th>
+                                <th data-breakpoints="xs md">Celular</th>
+                                <th class="w-auto">Fecha Contactar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let valinforme of informes_ficha, index as id">
+                                <td>
+                                    <p class="mb-0">{{valinforme.name}} {{valinforme.latname}}</p>
+                                    <p class="text-secondary small mb-1">{{valinforme.diplomado.courses_name}}</p>
+                                </td>
+                                <td>
+                                    <a href="https://wa.me/51{{valinforme.phone}}" target="_blank" class="">
+                                        <p class="mb-0">{{valinforme.phone}}</p>
+                                    </a>
+                                </td>
+                                <td>
+                                    <p class="mb-0">{{(+valinforme.seguimiento.informacion[0].fecha_contactar)*1000 | date:'dd/MM/yyyy'}}</p>
+                                    <p class="text-secondary small">{{(+valinforme.seguimiento.informacion[0].fecha_contactar)*1000 | date:'h:mm a'}}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row align-items-center mx-0 mb-3">
+                        <div class="col-6 ">
+                            <span class="hide-if-no-paging">
+                                Viendo <span id="footablestot4">1</span> página
+                            </span>
+                        </div>
+                        <div class="col-6" id="footable-pagination4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-12 col-md-12 position-relative">
             <div class="card border-0 mb-4">
                 <div class="card-header">
@@ -308,7 +364,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- <div class="row">
         <div class="col-12 col-md-12 position-relative">
