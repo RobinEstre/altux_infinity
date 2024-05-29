@@ -151,7 +151,7 @@ export class FichasComponent implements OnInit {
     {id: 'informacion', name: 'Información Enviada'},
     {id: 'no_contesta', name: 'No Contesta'},
     {id: 'no_interesado', name: 'No Interesado'},
-    {id: 'compromiso', name: 'Compromiso Matrícula'},
+    {id: 'compromiso_pago', name: 'Compromiso Matrícula'},
     {id: 'proximo_grupo', name: 'Próximo Grupo'}
   ];
 
@@ -244,7 +244,7 @@ export class FichasComponent implements OnInit {
   selectSeguimiento(event){
     this.formSeguimiento.controls.fecha.setValue(null)
     this.date_seguimiento=false
-    if(event.target.value=='compromiso'){this.date_seguimiento=true}
+    if(event.target.value=='compromiso_pago'){this.date_seguimiento=true}
     if(event.target.value=='informacion'){this.date_seguimiento=true}
   }
 
@@ -715,7 +715,7 @@ export class FichasComponent implements OnInit {
   saveSeguimiento(){
     this.spinner.show()
     let fecha_pago=null; let fecha_contactar=null
-    if(this.formSeguimiento.controls.estado.value=='compromiso'){
+    if(this.formSeguimiento.controls.estado.value=='compromiso_pago'){
       fecha_pago= ((new Date(this.formSeguimiento.controls.fecha.value)).getTime())/1000      
     }
     if(this.formSeguimiento.controls.estado.value=='informacion'){

@@ -78,6 +78,7 @@ export class LeadsComponent implements OnInit {
 
   @ViewChild('dtActions') dtActions!: TemplateRef<LeadsComponent>;
   @ViewChild('is_tipo') is_tipo!: TemplateRef<LeadsComponent>;
+  @ViewChild('is_celular') is_celular!: TemplateRef<LeadsComponent>;
   @ViewChild('idTpl', {static: true}) idTpl: TemplateRef<LeadsComponent>;
 
   constructor(private service: VentasService, private spinner: NgxSpinnerService,private fb: FormBuilder,private modalService: NgbModal,
@@ -97,8 +98,8 @@ export class LeadsComponent implements OnInit {
     {
       cmd: "add",
       label: "Matrícula | Ficha",
-      classList: "mx-3",
-      icon: 'bi bi-person-lines-fill'
+      classList: "mx-2",
+      icon: 'bi bi-cash-stack'
     },
   ];
   formSeguimiento = this.fb.group({
@@ -158,7 +159,7 @@ export class LeadsComponent implements OnInit {
     {id: 'informacion', name: 'Información Enviada'},
     {id: 'no_contesta', name: 'No Contesta'},
     {id: 'no_interesado', name: 'No Interesado'},
-    {id: 'compromiso', name: 'Compromiso Matrícula'},
+    {id: 'compromiso_pago', name: 'Compromiso Matrícula'},
     {id: 'proximo_grupo', name: 'Próximo Grupo'}
   ];
   tipo_lista:any=[
@@ -229,7 +230,14 @@ export class LeadsComponent implements OnInit {
         }
       },
       {title: 'DNI', data: 'dni'},
-      {title: 'Celular', data: 'telefono'},
+      {title: 'Celular', data: 'telefono', orderable: false, searchable: false, defaultContent: '',
+        ngTemplateRef: {
+          ref: this.is_celular,
+          context: {
+            captureEvents: this.captureEventsEmitido.bind(self)
+          }
+        }
+      },
       {title: 'Correo', data: 'email'},
       {title: 'Diplomado', data: 'courses_name'},
       {title: 'F. Registro', data: 'created_at'},
@@ -531,7 +539,7 @@ export class LeadsComponent implements OnInit {
   selectSeguimiento(event){
     this.formSeguimiento.controls.fecha.setValue(null)
     this.date_seguimiento=false
-    if(event.target.value=='compromiso'){this.date_seguimiento=true}
+    if(event.target.value=='compromiso_pago'){this.date_seguimiento=true}
     if(event.target.value=='informacion'){this.date_seguimiento=true}
   }
 
@@ -604,7 +612,7 @@ export class LeadsComponent implements OnInit {
   saveSeguimiento(){
     this.spinner.show()
     let fecha_pago=null; let fecha_contactar=null
-    if(this.formSeguimiento.controls.estado.value=='compromiso'){
+    if(this.formSeguimiento.controls.estado.value=='compromiso_pago'){
       fecha_pago= ((new Date(this.formSeguimiento.controls.fecha.value)).getTime())/1000      
     }
     if(this.formSeguimiento.controls.estado.value=='informacion'){

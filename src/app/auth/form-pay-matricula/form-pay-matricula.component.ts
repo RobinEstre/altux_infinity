@@ -8,6 +8,10 @@ import {NgxSpinnerService} from "ngx-spinner";
 import localeEs from '@angular/common/locales/es';
 import {DatePipe, registerLocaleData} from "@angular/common";
 registerLocaleData(localeEs, 'es');
+//Import Culqi
+import { greet } from '../../../assets/js/service.js';
+import { config_data } from '../../../assets/js/config.js';
+import { ejecutar } from '../../../assets/js/checkout.js';
 
 // import Swiper core and required modules
 import SwiperCore, { Swiper, Autoplay, Pagination, Navigation } from "swiper";
@@ -62,16 +66,32 @@ export class FormPayMatriculaComponent implements OnInit {
   }
   themeColor = 'theme-blue';
   userName = '';
-  domain = 'finance';
+  domain = 'finance'; validar_expirado:boolean=false
 
   ngOnInit(): void {
+    window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
     this.listInit()
     this.loadMonth()
     this.loadyear()
   }
+  
+  ngOnDestroy() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload.bind(this));
+  }
+
+  handleBeforeUnload(event: BeforeUnloadEvent) {
+    console.log(this.validar_expirado)
+    if (this.validar_expirado) {
+      console.log("La página está a punto de cerrarse o recargarse.");
+      return Swal.fire("La página está a punto de cerrarse o recargarse.");
+    }else{
+      //return Swal.fire('Aqui no pasa nada')
+    }
+  }
 
   slideChange(event) {
     if(event[0].activeIndex==1){
+      //console.log('data 1')
       var x = document.getElementsByClassName("btn-next");
       for (let i = 0; i < x.length; i++) {
         (<HTMLElement>x[i]).setAttribute("disabled", "disabled");
@@ -84,8 +104,8 @@ export class FormPayMatriculaComponent implements OnInit {
       }
       return
     }    
-    document.getElementsByClassName('btn-next')[0].classList.remove('d-none');
-    document.getElementsByClassName('btn-summary')[0].classList.add('d-none')
+    // document.getElementsByClassName('btn-next')[0].classList.remove('d-none');
+    // document.getElementsByClassName('btn-summary')[0].classList.add('d-none')
   }
 
   reachEnd() {
@@ -242,17 +262,20 @@ export class FormPayMatriculaComponent implements OnInit {
     this.formExcPay.controls['cvv'].updateValueAndValidity();
   }
 
+  // CULQI NUEVO
+
   exectPayment(){
-    if (this.domain == 'finance') {
-      this.payWithCard();
-    }else {
-      this.payWithEfective();
-    }
+    this.payWithEfective();
+    // if (this.domain == 'finance') {
+    //   this.payWithCard();
+    // }else {
+    //   this.payWithEfective();
+    // }
   }
 
   payWithEfective(){
     this.body();
-    this.realizarMatricula(this.jsonbody);
+    this.generateCheckout(this.jsonbody);
   }
 
   payWithCard() {
@@ -275,7 +298,7 @@ export class FormPayMatriculaComponent implements OnInit {
     if( this.data.date_nex_payment){date= this.data.date_nex_payment}else{date= null}    
     this.jsonbody = {
       "diplomado_code": this.data.diplomado_code,
-      "type_pay": tipo_pago,
+      "type_pay": 'efective',
       "pais": this.data.pais,
       "tipoDoc": this.data.tipoDoc,
       "num_documento": this.data.num_documento,
@@ -305,6 +328,112 @@ export class FormPayMatriculaComponent implements OnInit {
         "exp_year": this.formExcPay.controls['year_expirate'].value,
       }
     };
+  }
+
+  generateCheckout (jsonbody){
+    this.spinner.show();
+    this.service.registrarMatricula(jsonbody).subscribe(async data => {
+      if(data['data']['object']=='error'){
+        this.formExcPay.controls['month_expirate'].setValue('');
+        this.formExcPay.controls['year_expirate'].setValue('');
+        this.formExcPay.reset();
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: '¡Error!',
+          text: '¡No se pudo generar el checkout, inténtelo nuevamente!',
+          showConfirmButton: false,
+          timer:2000
+        });
+        return
+      }
+      else if (data['success']==true){
+        let datos={
+          amount: data['data'].amount,
+          currency_code: data['data'].currency_code,
+          description: data['data'].description,
+          order_number: data['data'].id,
+          client_details: {
+            first_name: jsonbody.nombres,
+            last_name: jsonbody.apellidos,
+            email: jsonbody.email,
+            phone_number: jsonbody.telefono
+          },
+          expiration_date: data['data'].expiration_date,
+          confirm: false
+        };
+        let datos_config={
+          TOTAL_AMOUNT: data['data'].amount,
+          firstName: jsonbody.nombres,
+          lastName: jsonbody.apellidos,
+          address: "",
+          address_c: "",
+          phone: jsonbody.telefono,
+          email: jsonbody.email,
+        }
+        config_data(datos_config);
+        let validar=greet(datos)
+        if(validar){
+          this.validar_expirado = true;
+          let pago= await ejecutar()
+          console.log(pago)
+          if(pago=="REVIEW"){
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: '¡Error!',
+              text: '¡Pago No Procesado!',
+              showConfirmButton: false,
+              timer:2000
+            });
+          }
+          else if(pago=="Exitoso"){
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: '¡Genial ☺!',
+              text: '¡Pago Realizado!',
+              showConfirmButton: false,
+              timer:2000
+            });
+          }
+          else if(pago=="Fallido"){
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: '¡Error!',
+              text: '¡Pago No Procesado!',
+              showConfirmButton: false,
+              timer:2000
+            });
+          }
+        }        
+        //this.swiper.swiperRef.slideNext();
+        //let event=[{activeIndex: 2}]
+        //this.slideChange(event) 
+        //this.formExcPay.reset();
+        //this.codigoExpirado()
+        //console.log(greet(data['data']));
+        //this._generate = data['data'];
+      }
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+        if (error.error['message']) {
+          if (error.error['message']) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: '¡Oops!',
+              text: error.error['message'],
+              showConfirmButton: false,
+              timer:1500
+            });
+          }
+        }
+      }
+    });
   }
 
   realizarMatricula(jsonbody){

@@ -161,7 +161,7 @@
                                 </ng-template>
                                 <ng-template swiperSlide>
                                     <div class="row">
-                                        <div class="col-12 col-md-6 text-center align-self-center" style="border-right: 1px solid silver;">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 text-center align-self-center" style="border-right: 1px solid silver;">
                                             <br><br><br>
                                             <div class="alert alert-primary nuevo text-center" role="alert">
                                                 <b>DETALLE MATRÍCULA</b>
@@ -213,27 +213,20 @@
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 text-center" *ngIf="discount" style="margin-top: 8px;">
+                                            <button [disabled]="!formExcPay.valid" class="btn btn-primary btn-block" (click)="exectPayment()">
+                                                Pagar S/ {{+discount.price_diplomado.toFixed(2)}}
+                                            </button>
+                                        </div>
                                         <div class="col-12 col-md-6 text-center align-self-center">
-                                            <br><br>
+                                            <!-- <br><br>
                                             <p class="h4 fw-light mb-3">Escoge el Método de Pago</p>
                                             <div class="row d-flex justify-content-center gx-3" id="domain-select">
                                                 <div class="col-auto">
                                                     <button class="btn btn-dark" [ngClass]="{'active': domain === 'finance'}" data-title="finance" (click)="selectDomain('finance')">Tarjeta Crédito/Débito</button>
-                                                    <!-- <div class="select-box text-center mb-3" [ngClass]="{'active': domain === 'finance'}" data-title="finance" (click)="selectDomain('finance')">
-                                                        <div class="avatar avatar-60">
-                                                            <i class="bi bi-coin"></i>
-                                                        </div>
-                                                        <p class="small">Tarjeta Crédito/Débito</p>
-                                                    </div> -->
                                                 </div>
                                                 <div class="col-auto">
                                                     <button class="btn btn-warning" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">Pago Efectivo</button>
-                                                    <!-- <div class="select-box text-center mb-3" [ngClass]="{'active': domain === 'network'}" data-title="network" (click)="selectDomain('network')">
-                                                        <div class="avatar avatar-60">
-                                                            <i class="bi bi-wifi"></i>
-                                                        </div>
-                                                        <p class="small">Pago Efectivo</p>
-                                                    </div> -->
                                                 </div>
                                             </div>
                                             <form [formGroup]="formExcPay" class="row">
@@ -324,7 +317,7 @@
                                                         Pagar S/ {{+discount.price_diplomado.toFixed(2)}}
                                                     </button>
                                                 </div>
-                                            </form>
+                                            </form> -->
                                         </div>
                                     </div>
                                 </ng-template>
@@ -403,7 +396,6 @@
                             </div>
                         </div>
                     </div>
-            
                 </div>
             </div>
         </div>

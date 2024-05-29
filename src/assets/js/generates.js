@@ -1,7 +1,7 @@
 import { freeze } from "./config";
 
 class Service {
-  #BASE_URL = freeze.URL_BASE+"/culqi";
+  #BASE_URL = freeze.URL_BASE+"pagos";
 
   #http = async ({ endPoint, method = "POST", body = {}, headers = {} }) => {
     try {
@@ -18,10 +18,11 @@ class Service {
   };
   
   #http2 = async ({ endPoint, method = "POST", body = {}, headers = {} }) => {
-	let statusCode = 502; 
-	try {
+	  let statusCode = 502; 
+    console.log(this.#BASE_URL+"/"+endPoint);
+	  try {
 	    const response = await $.ajax({
-	      type: 'POST',
+	      type: method,
 	      url: `${this.#BASE_URL}/${endPoint}`,
 	      headers: { "Content-Type": "application/json", ...headers },
 	      data: JSON.stringify(body),
@@ -42,7 +43,7 @@ class Service {
   }
   
   generateCharge = async (bodyCharges) => {
-    return this.#http2({ endPoint: "generateCharge", body: bodyCharges });
+    return this.#http2({ endPoint: "culqi/charge/", body: bodyCharges });
   };
 
   createCustomer = async (bodyCustomers) => {

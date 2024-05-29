@@ -1,5 +1,6 @@
 import { customerInfo , freeze } from "./config";
 import "./culqi3ds.js";
+import Swal from "sweetalert2";
 import Service from "./generates";
 
 const service = new Service();
@@ -8,7 +9,7 @@ let tokenId, email
 
 const generateChargeImpl = async ({
     email,tokenId,deviceId,parameters3DS = null,}) => {
-    console.log('CUANDO SE USA ESTO');
+    //console.log('CUANDO SE USA ESTO');
     const bodyRequest = {
         amount: freeze.TOTAL_AMOUNT,
         currency_code: freeze.CURRENCY,
@@ -23,7 +24,7 @@ const generateChargeImpl = async ({
         },
     };
     console.log(bodyRequest);
-    console.log(parameters3DS);
+    //console.log(parameters3DS);
     return service.generateCharge(
         parameters3DS
         ? { ...bodyRequest, authentication_3DS: { ...parameters3DS } }
@@ -37,8 +38,8 @@ const validationInit3DS = ({ statusCode, email, tokenId }) => {
 
     Culqi3DS.settings = {
         charge: {
-            totalAmount: config.TOTAL_AMOUNT,
-            returnUrl: config.URL_BASE,
+            totalAmount: freeze.TOTAL_AMOUNT,
+            returnUrl: "http://localhost:4200/ventas/panel",
         },
         card: {
             email: email,
@@ -56,7 +57,7 @@ const validationInit3DS = ({ statusCode, email, tokenId }) => {
 //   console.log(deviceId);
 // }
 
-function ejecutar() {
+async function ejecutar () {
     window.culqi = async () => {
         const deviceId = await Culqi3DS.generateDevice();
         if (!deviceId) {
@@ -66,34 +67,67 @@ function ejecutar() {
             console.log('DEVICE ID: '+deviceId);
         }
         if (Culqi.token) {
-        Culqi.close();
-        console.log(Culqi.token);
-        tokenId = Culqi.token.id;
-        email = Culqi.token.email;
+            Culqi.close();
+            console.log(Culqi.token);
+            tokenId = Culqi.token.id;
+            email = Culqi.token.email;
 
-        let statusCode = null;
-        let objResponse = null;
-        console.log("pagos");
-        const responseCharge = await generateChargeImpl({deviceId,email,tokenId}); //1ra llamada a cargo
-        objResponse = responseCharge.data;
-        statusCode = responseCharge.statusCode;
-        if (statusCode === 200) {
-            if(objResponse.action_code === "REVIEW"){
-                validationInit3DS({ email, statusCode, tokenId });
+            let statusCode = null;
+            let objResponse = null;
+            const responseCharge = await generateChargeImpl({deviceId,email,tokenId}); //1ra llamada a cargo
+            console.log(responseCharge)
+            objResponse = responseCharge.data;
+            statusCode = responseCharge.statusCode;
+            if (statusCode === 200) {
+                console.log("REVIEW")
+                Culqi3DS.reset();
+                window.location.reload()
+                // Swal.fire({
+                //   position: "center",
+                //   icon: "warning",
+                //   title: '¡Error!',
+                //   text: '¡Pago No Procesado!',
+                //   showConfirmButton: false,
+                //   timer:5000
+                // });
+                // return "REVIEW";
+                // if(objResponse.result.action_code === "REVIEW"){
+                //     validationInit3DS({ email, statusCode, tokenId });
+                // }
+            } else if (statusCode === 201) {
+                console.log("OPERACIÓN EXITOSA - SIN 3DS");
+                //$("#response_card").text("OPERACIÓN EXITOSA - SIN 3DS");
+                Culqi3DS.reset();
+                window.location.reload()
+                // Swal.fire({
+                //   position: "center",
+                //   icon: "success",
+                //   title: '¡Genial ☺!',
+                //   text: '¡Pago Realizado!',
+                //   showConfirmButton: false,
+                //   timer:5000
+                // });
+                //return "Exitoso";
+            } else {
+                console.log("OPERACIÓN FALLIDA - SIN 3DS");
+                //$("#response_card").text("OPERACIÓN FALLIDA - SIN 3DS");
+                Culqi3DS.reset();
+                window.location.reload()
+                // Swal.fire({
+                //   position: "center",
+                //   icon: "warning",
+                //   title: '¡Error!',
+                //   text: '¡Pago No Procesado!',
+                //   showConfirmButton: false,
+                //   timer:5000
+                // });
+                //return "Fallido";
             }
-        } else if (statusCode === 201) {
-            console.log("OPERACIÓN EXITOSA - SIN 3DS");
-            $("#response_card").text("OPERACIÓN EXITOSA - SIN 3DS");
-            Culqi3DS.reset();
-        } else {
-            console.log("OPERACIÓN FALLIDA - SIN 3DS");
-            $("#response_card").text("OPERACIÓN FALLIDA - SIN 3DS");
-            Culqi3DS.reset();
-        }
-        } else {
-        console.log(Culqi.error);
-        alert(Culqi.error.user_message);
-        }
+        } 
+        //else {
+        //     console.log(Culqi.error);
+        //     alert(Culqi.error.user_message);
+        // }
     };
 };
 

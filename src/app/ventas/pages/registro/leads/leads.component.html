@@ -17,7 +17,7 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 text-end mb-3">
             <p class="text-secondary small">
-                <span class="badge badge-sm bg-blue">Información</span>
+                <span class="badge badge-sm bg-blue">Información Enviada</span>
                 <span class="badge badge-sm bg-orange mx-2">No Contesta</span>
                 <span class="badge badge-sm bg-red">No Interesado</span>
                 <span class="badge badge-sm bg-black mx-2">Próximo Grupo</span>
@@ -37,11 +37,16 @@
                 <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="data.seguimiento.no_interesado.length>0"></i>
                 <i class="bi bi-telephone-x text-warning rounded" *ngIf="data.seguimiento.no_contesta.length>0"></i>
                 <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="data.seguimiento.proximo_grupo.length>0"></i>
-                <i class="bi bi-cash-coin text-success rounded" *ngIf="data.seguimiento.proximo_grupo.length>0"></i>
+                <i class="bi bi-cash-coin text-success rounded" *ngIf="data.seguimiento.compromiso_pago.length>0"></i>
                 <!-- <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
                 data.seguimiento.no_contesta.length>0||data.seguimiento.no_interesado.length>0||data.seguimiento.proximo_grupo.length>0"></i> -->
                 {{data.alumno}}
               </p>
+            </ng-template>
+            <ng-template #is_celular let-data="adtData" let-emitter="captureEvents">
+                <a href="https://wa.me/51{{data.telefono}}" target="_blank" class="">
+                    <p class="mb-0">{{data.telefono}}</p>
+                </a>
             </ng-template>
             <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
                 <app-table-buttons [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-buttons>
@@ -100,7 +105,7 @@
 <ng-template #register let-modal>
     <form [formGroup]="formRegistro" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
-            <h5 class="mb-1 title">Nuevo Registro Leads</h5>
+            <h5 class="mb-1 title">GENERAR CÓDIGO DE PAGO</h5>
             <!-- <p class="text-secondary title">M = Matrícula | F = Ficha</p> -->
         </div>
         <div class="card-body modal-body">
@@ -354,7 +359,7 @@
                         <div class="col">
                             <h6 class="fw-medium mb-0">Historial Seguimiento</h6>
                             <p class="text-secondary small">
-                                <span class="badge badge-sm bg-blue">Información</span>
+                                <span class="badge badge-sm bg-blue">Información Enviada</span>
                                 <span class="badge badge-sm bg-orange mx-2">No Contesta</span>
                                 <span class="badge badge-sm bg-red">No Interesado</span>
                                 <span class="badge badge-sm bg-black mx-2">Próximo Grupo</span>
@@ -368,7 +373,7 @@
                         <thead class="d-none">
                             <tr class="text-muted">
                                 <th class="w-200">Historial Seguimiento</th>
-                                <th data-breakpoints="xs sm" class="w-80">No Contesta - No Interesado - Información - Próximo Grupo</th>
+                                <th data-breakpoints="xs sm" class="w-80">No Contesta - No Interesado - Información Enviada - Próximo Grupo</th>
                             </tr>
                         </thead>
                         <tbody>

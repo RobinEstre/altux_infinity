@@ -15,7 +15,7 @@
     <div class="row" *ngIf="cantidades">
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
-                <div class="card-body">
+                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <div class="avatar avatar-40 rounded bg-blue shadow-sm text-white">
@@ -27,12 +27,12 @@
                             <h6 class="fw-medium mb-0">{{cantidades.cantidad_leads}}</h6>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
-                <div class="card-body">
+                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <div class="avatar avatar-40 rounded bg-green shadow-sm text-white">
@@ -44,12 +44,12 @@
                             <h6 class="fw-medium mb-0">{{cantidades.cantidad_fichas}}</h6>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
-                <div class="card-body">
+                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <div class="avatar avatar-40 rounded bg-purple shadow-sm text-white">
@@ -61,7 +61,7 @@
                             <h6 class="fw-medium mb-0">{{cantidades.cantidad_solo_matricula}}</h6>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
@@ -93,7 +93,7 @@
                             <i class="bi bi-cash-coin h5 avatar avatar-40 bg-light-red rounded text-danger"></i>
                         </div>
                         <div class="col-auto align-self-center">
-                            <h6 class="fw-medium mb-0">Compromisos Pago Matrícula Leads</h6>
+                            <h6 class="fw-medium mb-0">Compromisos Pago Matrícula LEADS</h6>
                             <p class="text-secondary small">Listado de los pagos próximos a hacer</p>
                         </div>
                     </div>
@@ -110,12 +110,12 @@
                         <tbody>
                             <tr *ngFor="let valinforme of compromisos_leads, index as id">
                                 <td>
-                                    <p class="mb-0">{{valinforme.name}} {{valinforme.latname}}</p>
+                                    <p class="mb-0">{{valinforme.nombres}} {{valinforme.apellidos}}</p>
                                     <p class="text-secondary small mb-1">{{valinforme.diplomado.courses_name}}</p>
                                 </td>
                                 <td>
-                                    <a href="https://wa.me/51{{valinforme.phone}}" target="_blank" class="">
-                                        <p class="mb-0">{{valinforme.phone}}</p>
+                                    <a href="https://wa.me/51{{valinforme.telefono}}" target="_blank" class="">
+                                        <p class="mb-0">{{valinforme.telefono}}</p>
                                     </a>
                                 </td>
                                 <td>
@@ -144,7 +144,7 @@
                             <i class="bi bi-file-earmark-person h5 avatar avatar-40 bg-light-red rounded text-danger"></i>
                         </div>
                         <div class="col-auto align-self-center">
-                            <h6 class="fw-medium mb-0">Información Personas Leads</h6>
+                            <h6 class="fw-medium mb-0">Información Enviada LEADS</h6>
                             <p class="text-secondary small">Listado de las personas que pidieron información</p>
                         </div>
                     </div>
@@ -161,12 +161,12 @@
                         <tbody>
                             <tr *ngFor="let valinforme of informes_leads, index as id">
                                 <td>
-                                    <p class="mb-0">{{valinforme.name}} {{valinforme.latname}}</p>
+                                    <p class="mb-0">{{valinforme.nombres}} {{valinforme.apellidos}}</p>
                                     <p class="text-secondary small mb-1">{{valinforme.diplomado.courses_name}}</p>
                                 </td>
                                 <td>
-                                    <a href="https://wa.me/51{{valinforme.phone}}" target="_blank" class="">
-                                        <p class="mb-0">{{valinforme.phone}}</p>
+                                    <a href="https://wa.me/51{{valinforme.telefono}}" target="_blank" class="">
+                                        <p class="mb-0">{{valinforme.telefono}}</p>
                                     </a>
                                 </td>
                                 <td>
@@ -195,7 +195,7 @@
                             <i class="bi bi-cash-coin h5 avatar avatar-40 bg-light-green rounded text-success"></i>
                         </div>
                         <div class="col-auto align-self-center">
-                            <h6 class="fw-medium mb-0">Compromisos Pago Matrícula Fichas</h6>
+                            <h6 class="fw-medium mb-0">Compromisos Pago Matrícula FICHAS</h6>
                             <p class="text-secondary small">Listado de los pagos próximos a hacer</p>
                         </div>
                     </div>
@@ -246,7 +246,7 @@
                             <i class="bi bi-file-earmark-person h5 avatar avatar-40 bg-light-green rounded text-success"></i>
                         </div>
                         <div class="col-auto align-self-center">
-                            <h6 class="fw-medium mb-0">Información Personas Fichas</h6>
+                            <h6 class="fw-medium mb-0">Información Enviada FICHAS</h6>
                             <p class="text-secondary small">Listado de las personas que pidieron información</p>
                         </div>
                     </div>

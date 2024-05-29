@@ -56,7 +56,7 @@ export class CheckoutPruebaComponent implements OnInit {
       email: "review1" + Math.floor(Math.random() * 100) + "@altux.com",
     }
     config_data(data);
-    greet(this.apiUrl, this.requestOptions);
+    console.log(greet(this.requestData));
     ejecutar();
     // this.scriptService.removeScript(['culqi-checkout-v4', 'culqi-js-v4']);
     // this.scriptService.loadScript({

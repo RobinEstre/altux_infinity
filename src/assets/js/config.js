@@ -12,7 +12,7 @@ const freeze ={
     // 'C7MDDgdCFrHODOp7aXwjG8NaiCbiymyBglXyEN28hLvgHpvZmAn6KFo0lMGuKnz8'+
     // 'HiuTfpBl6HpD6+02SQIDAQAB'+
     // '-----END PUBLIC KEY-----',
-    URL_BASE: "http://localhost:4200/ventas/panel",
+    URL_BASE: "http://127.0.0.1:8000/api/",
 };
 
 const customerInfo = {
