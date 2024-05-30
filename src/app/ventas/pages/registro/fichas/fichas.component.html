@@ -28,11 +28,11 @@
                 <tr *ngFor="let valalumnos of fichas, index as id">
                     <td>{{id+1}}</td>
                     <td>
-                        <i class="bi bi-info-circle text-info rounded" *ngIf="valalumnos.seguimiento.informacion.length>0"></i>
-                        <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="valalumnos.seguimiento.no_interesado.length>0"></i>
-                        <i class="bi bi-telephone-x text-warning rounded" *ngIf="valalumnos.seguimiento.no_contesta.length>0"></i>
-                        <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="valalumnos.seguimiento.proximo_grupo.length>0"></i>
-                        <i class="bi bi-cash-coin text-success rounded" *ngIf="valalumnos.seguimiento.compromiso_pago.length>0"></i>
+                        <i class="bi bi-info-circle text-info rounded" *ngIf="valalumnos.historial_seguimiento.data.length>0&&valalumnos.historial_seguimiento.data[0].tipo_seguimiento=='informacion'"></i>
+                        <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="valalumnos.historial_seguimiento.data.length>0&&valalumnos.historial_seguimiento.data[0].tipo_seguimiento=='no_interesado'"></i>
+                        <i class="bi bi-telephone-x text-warning rounded" *ngIf="valalumnos.historial_seguimiento.data.length>0&&valalumnos.historial_seguimiento.data[0].tipo_seguimiento=='no_contesta'"></i>
+                        <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="valalumnos.historial_seguimiento.data.length>0&&valalumnos.historial_seguimiento.data[0].tipo_seguimiento=='proximo_grupo'"></i>
+                        <i class="bi bi-cash-coin text-success rounded" *ngIf="valalumnos.historial_seguimiento.data.length>0&&valalumnos.historial_seguimiento.data[0].tipo_seguimiento=='compromiso_pago'"></i>
                         {{valalumnos.names}}
                     </td>
                     <td class="text-center">{{valalumnos.num_doc}}</td>
@@ -72,7 +72,7 @@
     <form [formGroup]="formEditar" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
             <h5 class="mb-1">EDITAR INFORMACIÓN</h5>
-            <p class="text-secondary title">Celular = {{detalle.phone}} | Correo = {{detalle.mail}}</p>
+            <p class="text-secondary title">{{detalle.names}}</p>
         </div>
         <div class="card-body modal-body">
             <div class="row was-validated mb-3">
@@ -116,7 +116,9 @@
                         </div>
                     </div>
                     <p class="text-secondary text-uppercase text-end">
-                        <span class="badge badge-sm bg-yellow" style="font-size: 13px;"><i class="bi bi-info-circle"></i> No se puede repetir correo ni celular</span>
+                        <span class="badge badge-sm bg-yellow" style="font-size: 13px;">
+                            <i class="bi bi-info-circle"></i> No se puede repetir correo ni celular de otro alumno
+                        </span>
                     </p>
                 </div>
             </div>
@@ -124,7 +126,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-auto">
-                    <button class="btn btn-sm btn-theme" (click)="saveSeguimiento()" [disabled]="!formEditar.valid">Registro</button>
+                    <button class="btn btn-sm btn-theme" (click)="editCliente()" [disabled]="!formEditar.valid">Registro</button>
                     <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalEdit()">Cerrar</button>
                 </div>
             </div>

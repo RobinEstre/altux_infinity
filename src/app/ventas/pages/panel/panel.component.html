@@ -3,7 +3,7 @@
     <div class="row align-items-center page-title">
         <div class="col-12 col-md mb-2 mb-sm-0">
             <h5 class="mb-0">Dashboard Ventas</h5>
-            <p class="text-secondary">Versión Beta <i class="bi bi-git"></i></p>
+            <p class="text-secondary">Versión Beta 😀 <i class="bi bi-git"></i></p>
         </div>
         <div class="col col-sm-auto">
         </div>
@@ -77,6 +77,81 @@
                             <p class="small text-secondary mb-1">Ventas Completas del Mes</p>
                             <h6 class="fw-medium mb-0">{{cantidades.cantidad_ventas}}</h6>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-12 position-relative">
+            <div class="card border-0 mb-4">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-auto">
+                            <i class="bi bi-info-circle h5 avatar avatar-40 bg-light-theme rounded"></i>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <h6 class="fw-medium mb-0">Informe Diplomados</h6>
+                            <p class="text-secondary small">Listar de diplomados para ver información</p>
+                        </div>
+                        <div class="col-auto ms-auto">
+                            <div class="input-group border">
+                                <span class="input-group-text text-theme"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" placeholder="Buscar...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive invoice-table" id="table">
+                        <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                            <thead>
+                                <tr class="text-muted">
+                                    <th class="">Diplomado</th>
+                                    <th class="text-center">Estudiantes Matrículados</th>
+                                    <th class="text-center">Vacantes Disponibles</th>
+                                    <th>Última Fecha Venta</th>
+                                    <th>Fecha Inicio Clases</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let valinforme of informe_diplomados, index as id">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <i class="bi bi-book avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                            </div>
+                                            <div class="col ps-0">
+                                                <p class="mb-1 text-trucate w-100">{{valinforme.diplomado}}</p>
+                                                <p class="text-secondary small">{{valinforme.diplomado_code}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        {{valinforme.estudiantes_matriculados}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{valinforme.vacantes_disponibles}}
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Actualizar Fecha"
+                                            class="" *ngIf="user=='SANDRA MARIA'" (click)="actFecha(valinforme.diplomado_code)">
+                                            <p class="mb-0">{{(+valinforme.ultima_fecha_venta)*1000 | date:'dd/MM/yyyy'}}</p>
+                                            <p class="text-secondary small">{{(+valinforme.ultima_fecha_venta)*1000 | date:'h:mm a'}}</p>
+                                        </a>
+                                        <div *ngIf="user!='SANDRA MARIA'">
+                                            <p class="mb-0">{{(+valinforme.ultima_fecha_venta)*1000 | date:'dd/MM/yyyy'}}</p>
+                                            <p class="text-secondary small">{{(+valinforme.ultima_fecha_venta)*1000 | date:'h:mm a'}}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0">{{valinforme.fecha_inicio_clases*1000 | date:'dd/MM/yyyy'}}</p>
+                                        <p class="text-secondary small">{{valinforme.fecha_inicio_clases*1000 | date:'h:mm a'}}</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -285,81 +360,6 @@
                             </span>
                         </div>
                         <div class="col-6" id="footable-pagination4"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12 col-md-12 position-relative">
-            <div class="card border-0 mb-4">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-auto">
-                            <i class="bi bi-info-circle h5 avatar avatar-40 bg-light-theme rounded"></i>
-                        </div>
-                        <div class="col-auto align-self-center">
-                            <h6 class="fw-medium mb-0">Informe Diplomados</h6>
-                            <p class="text-secondary small">Listar de diplomados para ver información</p>
-                        </div>
-                        <div class="col-auto ms-auto">
-                            <div class="input-group border">
-                                <span class="input-group-text text-theme"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Buscar...">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive invoice-table" id="table">
-                        <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                            <thead>
-                                <tr class="text-muted">
-                                    <th class="">Diplomado</th>
-                                    <th class="text-center">Estudiantes Matrículados</th>
-                                    <th class="text-center">Vacantes Disponibles</th>
-                                    <th>Última Fecha Venta</th>
-                                    <th>Fecha Inicio Clases</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let valinforme of informe_diplomados, index as id">
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                <i class="bi bi-book avatar avatar-40 bg-light-blue text-blue rounded"></i>
-                                            </div>
-                                            <div class="col ps-0">
-                                                <p class="mb-1 text-trucate w-100">{{valinforme.diplomado}}</p>
-                                                <p class="text-secondary small">{{valinforme.diplomado_code}}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        {{valinforme.estudiantes_matriculados}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{valinforme.vacantes_disponibles}}
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Actualizar Fecha"
-                                            class="" *ngIf="user=='SANDRA MARIA'" (click)="actFecha(valinforme.diplomado_code)">
-                                            <p class="mb-0">{{(+valinforme.ultima_fecha_venta)*1000 | date:'dd/MM/yyyy'}}</p>
-                                            <p class="text-secondary small">{{(+valinforme.ultima_fecha_venta)*1000 | date:'h:mm a'}}</p>
-                                        </a>
-                                        <div *ngIf="user!='SANDRA MARIA'">
-                                            <p class="mb-0">{{(+valinforme.ultima_fecha_venta)*1000 | date:'dd/MM/yyyy'}}</p>
-                                            <p class="text-secondary small">{{(+valinforme.ultima_fecha_venta)*1000 | date:'h:mm a'}}</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0">{{valinforme.fecha_inicio_clases*1000 | date:'dd/MM/yyyy'}}</p>
-                                        <p class="text-secondary small">{{valinforme.fecha_inicio_clases*1000 | date:'h:mm a'}}</p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>

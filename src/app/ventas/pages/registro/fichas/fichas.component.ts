@@ -197,6 +197,7 @@ export class FichasComponent implements OnInit {
             'grado_instruccion': i.grado_instruccion,
             'details': i.details,
             'procedencia_venta': i.procedencia_venta,
+            'historial_seguimiento': i.historial_seguimiento,
             'seguimiento': i.seguimiento
           })
         })
@@ -314,20 +315,23 @@ export class FichasComponent implements OnInit {
 
   openModalEdit(alumnos) {
     this.detalle=alumnos
-    this.mostrar_patrocinador=false;
-    this.formReserva.reset();
-    this.nameperson=null;
-    this.isperu = true;
-    this.formReserva.controls['pais'].setValue('Perú');
-    this.formReserva.controls['datecall'].setValue(null);
+    this.formEditar.reset()
+    this.formEditar.controls.email.setValue(alumnos.mail)
+    this.formEditar.controls.telefono.setValue(alumnos.phone)
+    // this.mostrar_patrocinador=false;
+    // this.formReserva.reset();
+    // this.nameperson=null;
+    // this.isperu = true;
+    // this.formReserva.controls['pais'].setValue('Perú');
+    // this.formReserva.controls['datecall'].setValue(null);
     this.modalEdit = this.modalService.open(this.modalEditar, { centered: true, size: 'md', keyboard: false, backdrop : 'static' });
     this.modalEdit.result.then();
   }
 
   closeModalEdit() {
     this.modalEdit.close();
-    this.mostrarColegiatura=false;
-    this.namepatrocinador=null
+    // this.mostrarColegiatura=false;
+    // this.namepatrocinador=null
   }
 
   openModalDel(id) {
@@ -740,6 +744,77 @@ export class FichasComponent implements OnInit {
           timer:2000
         });
         this.rerender()
+      }
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+       if (error.error['message']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error['message'], '¡Error!');
+        }else if (error.error.errors['non_field_errors']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error.errors['non_field_errors'][0],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error.errors['non_field_errors'][0], '¡Error!');
+        }
+      }
+    });
+  }
+
+  editCliente(){
+    this.spinner.show()
+    let jsonbody = {
+      "is_referido": this.detalle.is_referido,
+      "dni_patrocinador":  null,
+      "name_patrocinador": null,
+      "id_preventa": this.detalle.id,
+      "name":this.detalle.name,
+      "lastname":this.detalle.lastname,
+      "num_document":this.detalle.num_doc,
+      "num_documento_sunat": null, //docunento para emitir
+      "course_code":this.detalle.courses_code,
+      "pais":this.detalle.pais,
+      "phone":this.formEditar.controls.telefono.value,
+      "email":this.formEditar.controls.email.value,
+      "type_doc":this.detalle.type_doc,
+      "procedencia_venta": this.detalle.procedencia_venta,
+      "grado_instruccion": this.detalle.grado_instruccion,
+      "num_colegiatura": this.detalle.num_colegiatura,
+      "date_call": this.detalle.date_call,
+      "centro_laboral": null,
+      "cargo": null,
+      "area": null,
+      "estado_civil": null,
+      "fecha_nacimiento": null,
+      "genero": null,
+      "ubigeo": null,
+      "direccion": null
+    };
+    this.service.actualizarPreVenta(jsonbody).subscribe(data => {
+      if (data['success'] === true) {
+        this.closeModalEdit();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial ☺!',
+          text: '¡Se Actualizó los datos!',
+          showConfirmButton: false,
+          timer:2000
+        });
+        this.spinner.hide();
+        this.rerender();
       }
     }, error => {
       this.spinner.hide();

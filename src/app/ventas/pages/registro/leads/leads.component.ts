@@ -78,6 +78,7 @@ export class LeadsComponent implements OnInit {
 
   @ViewChild('dtActions') dtActions!: TemplateRef<LeadsComponent>;
   @ViewChild('is_tipo') is_tipo!: TemplateRef<LeadsComponent>;
+  @ViewChild('is_fechaModificacion') is_fechaModificacion!: TemplateRef<LeadsComponent>;
   @ViewChild('is_celular') is_celular!: TemplateRef<LeadsComponent>;
   @ViewChild('idTpl', {static: true}) idTpl: TemplateRef<LeadsComponent>;
 
@@ -241,7 +242,14 @@ export class LeadsComponent implements OnInit {
       {title: 'Correo', data: 'email'},
       {title: 'Diplomado', data: 'courses_name'},
       {title: 'F. Registro', data: 'created_at'},
-      {title: 'F. Modificación', data: 'updated_at'},
+      {title: 'F. Modificación', data: 'updated_at', orderable: false, searchable: false, defaultContent: '',
+        ngTemplateRef: {
+          ref: this.is_fechaModificacion,
+          context: {
+            captureEvents: this.captureEventsEmitido.bind(self)
+          }
+        }
+      },
     );
     if (this.dataTableActions.length > 0) {
       this.columns.push({
@@ -320,6 +328,7 @@ export class LeadsComponent implements OnInit {
                   "seguimiento": i.seguimiento,
                   "numero_colegiatura": i.numero_colegiatura,
                   "procedencia": i.procedencia,
+                  "historial_seguimiento": i.historial_seguimiento,
                   'created_at': created_at,
                   "updated_at": updated_at,
                   "vendedor": i.vendedor

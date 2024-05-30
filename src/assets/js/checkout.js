@@ -81,7 +81,6 @@ async function ejecutar () {
             if (statusCode === 200) {
                 console.log("REVIEW")
                 Culqi3DS.reset();
-                window.location.reload()
                 // Swal.fire({
                 //   position: "center",
                 //   icon: "warning",
@@ -98,7 +97,6 @@ async function ejecutar () {
                 console.log("OPERACIÓN EXITOSA - SIN 3DS");
                 //$("#response_card").text("OPERACIÓN EXITOSA - SIN 3DS");
                 Culqi3DS.reset();
-                window.location.reload()
                 // Swal.fire({
                 //   position: "center",
                 //   icon: "success",
@@ -112,7 +110,7 @@ async function ejecutar () {
                 console.log("OPERACIÓN FALLIDA - SIN 3DS");
                 //$("#response_card").text("OPERACIÓN FALLIDA - SIN 3DS");
                 Culqi3DS.reset();
-                window.location.reload()
+                //window.location.reload()
                 // Swal.fire({
                 //   position: "center",
                 //   icon: "warning",

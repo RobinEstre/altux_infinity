@@ -10,6 +10,9 @@ export class VentasService {
 
   constructor(private httpClient: HttpClient, private envUrl: UrlEnviromentService) { }
 
+  actualizarPreVenta(data) {
+    return this.httpClient.put(this.envUrl.urlAddress + 'ventas/preventa/actualizar-datos-cliente/', data)
+  }
   getCantidadDashboard() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/dashboard-vendedor/');
   }

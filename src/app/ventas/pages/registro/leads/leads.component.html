@@ -33,11 +33,11 @@
             </ng-template>
             <ng-template #is_tipo let-data="adtData" let-emitter="captureEvents">
               <p>
-                <i class="bi bi-info-circle text-info rounded" *ngIf="data.seguimiento.informacion.length>0"></i>
-                <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="data.seguimiento.no_interesado.length>0"></i>
-                <i class="bi bi-telephone-x text-warning rounded" *ngIf="data.seguimiento.no_contesta.length>0"></i>
-                <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="data.seguimiento.proximo_grupo.length>0"></i>
-                <i class="bi bi-cash-coin text-success rounded" *ngIf="data.seguimiento.compromiso_pago.length>0"></i>
+                <i class="bi bi-info-circle text-info rounded" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='informacion'"></i>
+                <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='no_interesado'"></i>
+                <i class="bi bi-telephone-x text-warning rounded" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='no_contesta'"></i>
+                <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='proximo_grupo'"></i>
+                <i class="bi bi-cash-coin text-success rounded" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='compromiso_pago'"></i>
                 <!-- <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
                 data.seguimiento.no_contesta.length>0||data.seguimiento.no_interesado.length>0||data.seguimiento.proximo_grupo.length>0"></i> -->
                 {{data.alumno}}
@@ -47,6 +47,18 @@
                 <a href="https://wa.me/51{{data.telefono}}" target="_blank" class="">
                     <p class="mb-0">{{data.telefono}}</p>
                 </a>
+            </ng-template>
+            <ng-template #is_fechaModificacion let-data="adtData" let-emitter="captureEvents">
+                <p>
+                  <i class="bi bi-info-circle text-info rounded" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='informacion'"></i>
+                  <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='no_interesado'"></i>
+                  <i class="bi bi-telephone-x text-warning rounded" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='no_contesta'"></i>
+                  <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='proximo_grupo'"></i>
+                  <i class="bi bi-cash-coin text-success rounded" *ngIf="data.historial_seguimiento.data.length>0&&data.historial_seguimiento.data[0].tipo_seguimiento=='compromiso_pago'"></i>
+                  <!-- <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
+                  data.seguimiento.no_contesta.length>0||data.seguimiento.no_interesado.length>0||data.seguimiento.proximo_grupo.length>0"></i> -->
+                  {{data.updated_at}}
+                </p>
             </ng-template>
             <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
                 <app-table-buttons [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-buttons>
