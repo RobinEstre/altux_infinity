@@ -19,7 +19,7 @@ class Service {
   
   #http2 = async ({ endPoint, method = "POST", body = {}, headers = {} }) => {
 	  let statusCode = 502; 
-    console.log(this.#BASE_URL+"/"+endPoint);
+    //console.log(this.#BASE_URL+"/"+endPoint);
 	  try {
 	    const response = await $.ajax({
 	      type: method,
@@ -31,7 +31,7 @@ class Service {
 	        //response = data;
 	      }
 	    });
-	    const responseJSON = await response;console.log('statusCode',statusCode);
+	    const responseJSON = await response;
 	    return { statusCode: statusCode, data: responseJSON }
     } catch (err) {
       return { statusCode: statusCode, data: null }

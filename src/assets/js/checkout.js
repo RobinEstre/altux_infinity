@@ -22,8 +22,11 @@ const generateChargeImpl = async ({
             phone_number: customerInfo.phone,
             device_finger_print_id: deviceId,
         },
+        metadata:{
+            order_number:freeze.ORDER_NUMBER
+        }
     };
-    console.log(bodyRequest);
+    //console.log(bodyRequest);
     //console.log(parameters3DS);
     return service.generateCharge(
         parameters3DS
@@ -57,25 +60,23 @@ const validationInit3DS = ({ statusCode, email, tokenId }) => {
 //   console.log(deviceId);
 // }
 
-async function ejecutar () {
+function ejecutar (code) {
     window.culqi = async () => {
         const deviceId = await Culqi3DS.generateDevice();
         if (!deviceId) {
             console.log("Ocurrio un error al generar el deviceID");
         }
         else{
-            console.log('DEVICE ID: '+deviceId);
+            //console.log('DEVICE ID: '+deviceId);
         }
         if (Culqi.token) {
             Culqi.close();
-            console.log(Culqi.token);
             tokenId = Culqi.token.id;
             email = Culqi.token.email;
 
             let statusCode = null;
             let objResponse = null;
             const responseCharge = await generateChargeImpl({deviceId,email,tokenId}); //1ra llamada a cargo
-            console.log(responseCharge)
             objResponse = responseCharge.data;
             statusCode = responseCharge.statusCode;
             if (statusCode === 200) {
@@ -97,6 +98,50 @@ async function ejecutar () {
                 console.log("OPERACIÓN EXITOSA - SIN 3DS");
                 //$("#response_card").text("OPERACIÓN EXITOSA - SIN 3DS");
                 Culqi3DS.reset();
+                if(code!=null){
+                    try {
+                        const jsonbody={
+                            "url_matricula" : code,
+                            "estado" : "consumed"
+                        }
+                        let headers = {}
+                        const response = await $.ajax({
+                            type: 'PATCH',
+                            url: freeze.URL_BASE+`ventas/actualizar/estado/formulario-llenado/`,
+                            headers: { "Content-Type": "application/json", ...headers },
+                            data: JSON.stringify(jsonbody),
+                            success: function (data, status, xhr) {
+                                statusCode = xhr.status;
+                                console.log(status)
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: '¡Genial ☺!',
+                                    text: '¡Pago Realizado!',
+                                    showConfirmButton: false,
+                                    timer:7000
+                                });
+                                setTimeout(window.location.replace("http://localhost:4200/auth/login"), 7000)                                
+                                //response = data;
+                            }
+                        });
+                        const responseJSON = await response;
+                        return { statusCode: statusCode, data: responseJSON }
+                    } catch (err) {
+                        return { statusCode: statusCode, data: null }
+                    }
+                }else{
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: '¡Genial ☺!',
+                        text: '¡Pago Realizado Exitosamente!',
+                        showConfirmButton: false,
+                        timer:5000
+                    });
+                    setTimeout(window.location.reload(), 5000)   
+                    //window.location.reload()
+                }
                 // Swal.fire({
                 //   position: "center",
                 //   icon: "success",

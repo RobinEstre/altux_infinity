@@ -10,6 +10,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { PagosService } from '../../services/pagos.service';
 registerLocaleData(localeEs, 'es');
 declare var $: any;
+//Import Culqi
+import { greet } from '../../../../assets/js/service.js';
+import { config_data } from '../../../../assets/js/config.js';
+import { ejecutar } from '../../../../assets/js/checkout.js';
 
 enum disabledType {
   enabled,
@@ -85,6 +89,8 @@ export class PagosComponent implements OnInit {
   dtOptions: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
+  data_user:any = JSON.parse(localStorage.getItem('detail_user'));
+
   constructor(private service: PagosService, private spinner: NgxSpinnerService, config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder,) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -106,6 +112,7 @@ export class PagosComponent implements OnInit {
     this.getCourses()
     this.loadMonth()
     this.loadyear()
+    console.log(this.data_user)
     //this.listarCarteraAlumnos();
   }
   
@@ -455,11 +462,19 @@ export class PagosComponent implements OnInit {
   }
 
   exectPayment(){
-    if (this.domain == 'finance') {
-      this.realizarPagoCard();
-    }else {
-      this.realizarpagoEfectivo();
+    var cantidad = this.pagos.length;
+    for (let i = 0; i < cantidad; i++) {
+      if(this.checkbox[i].is_checked===1){
+        this.arrayCheck.push(i-1);
+      }
     }
+    this.generateCheckbox()
+    this.generateCheckout();
+    // if (this.domain == 'finance') {
+    //   this.realizarPagoCard();
+    // }else {
+    //   this.realizarpagoEfectivo();
+    // }
   }
 
   realizarPagoCard(){
@@ -502,6 +517,66 @@ export class PagosComponent implements OnInit {
         this.formExcPay.reset()
         this.spinner.hide();
         this.rerender()
+      }
+    });
+  }
+
+  generateCheckout (){
+    this.spinner.show()
+    const jsonbody = {
+      "indice": this.arrayCheck,
+      "is_facture": this.num_ruc,
+      "ruc": this.formExcPay.controls['ruc'].value,
+      "razon_social" : this.nameruc,
+      "codigo_diplomado" : this.courses[this.id_code].course.courses_code
+    };
+    this.service.postPagoEfectivo(jsonbody).subscribe(async data => {
+      if (data['success']==true){
+        let datos={
+          amount: data['data'].amount,
+          currency_code: data['data'].currency_code,
+          description: data['data'].description,
+          order_number: data['data'].id,
+          client_details: {
+            first_name: this.data_user.nombres,
+            last_name: this.data_user.apellidos,
+            email: this.data_user.email,
+            phone_number: this.data_user.telefono
+          },
+          expiration_date: data['data'].expiration_date,
+          confirm: false
+        };
+        let datos_config={
+          TOTAL_AMOUNT: data['data'].amount,
+          ORDER_NUMBER: data['data'].id,
+          firstName: this.data_user.nombres,
+          lastName: this.data_user.apellidos,
+          address: "",
+          address_c: "",
+          phone: this.data_user.telefono,
+          email: this.data_user.email,
+        }
+        config_data(datos_config);
+        greet(datos)
+        ejecutar(null)
+        this.monto_final=0
+      }
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+        if (error.error['message']) {
+          if (error.error['message']) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: '¡Oops!',
+              text: error.error['message'],
+              showConfirmButton: false,
+              timer:1500
+            });
+          }
+        }
       }
     });
   }

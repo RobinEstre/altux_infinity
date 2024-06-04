@@ -2,8 +2,11 @@ const freeze ={
     TOTAL_AMOUNT: 0, //variable
     // DEFECTO
     CURRENCY: "PEN",
+    //pk_live_fd474cb65b5a677d produccion
+    //pk_test_1f79139005666a3d preprod
     PUBLIC_KEY: "pk_test_1f79139005666a3d",
     COUNTRY_CODE: "PE",
+    ORDER_NUMBER: "PE",
     // DEFECTO PRODUCCION
     // RSA_ID: "de35e120-e297-4b96-97ef-10a43423ddec",
     // RSA_PUBLIC_KEY: '-----BEGIN PUBLIC KEY-----'+
@@ -26,6 +29,7 @@ const customerInfo = {
 
 function config_data(data) {
     freeze.TOTAL_AMOUNT=data.TOTAL_AMOUNT
+    freeze.ORDER_NUMBER=data.ORDER_NUMBER
 
     customerInfo.firstName=data.firstName
     customerInfo.lastName=data.lastName

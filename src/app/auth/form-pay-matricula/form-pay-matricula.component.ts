@@ -69,7 +69,7 @@ export class FormPayMatriculaComponent implements OnInit {
   domain = 'finance'; validar_expirado:boolean=false
 
   ngOnInit(): void {
-    window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
+    //window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
     this.listInit()
     this.loadMonth()
     this.loadyear()
@@ -345,6 +345,7 @@ export class FormPayMatriculaComponent implements OnInit {
           showConfirmButton: false,
           timer:2000
         });
+        this.spinner.hide();
         return
       }
       else if (data['success']==true){
@@ -364,6 +365,7 @@ export class FormPayMatriculaComponent implements OnInit {
         };
         let datos_config={
           TOTAL_AMOUNT: data['data'].amount,
+          ORDER_NUMBER: data['data'].id,
           firstName: jsonbody.nombres,
           lastName: jsonbody.apellidos,
           address: "",
@@ -372,42 +374,8 @@ export class FormPayMatriculaComponent implements OnInit {
           email: jsonbody.email,
         }
         config_data(datos_config);
-        let validar=greet(datos)
-        if(validar){
-          this.validar_expirado = true;
-          let pago= await ejecutar()
-          console.log(pago)
-          if(pago=="REVIEW"){
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: '¡Error!',
-              text: '¡Pago No Procesado!',
-              showConfirmButton: false,
-              timer:2000
-            });
-          }
-          else if(pago=="Exitoso"){
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: '¡Genial ☺!',
-              text: '¡Pago Realizado!',
-              showConfirmButton: false,
-              timer:2000
-            });
-          }
-          else if(pago=="Fallido"){
-            Swal.fire({
-              position: "center",
-              icon: "warning",
-              title: '¡Error!',
-              text: '¡Pago No Procesado!',
-              showConfirmButton: false,
-              timer:2000
-            });
-          }
-        }        
+        greet(datos)
+        ejecutar(this.code)
         //this.swiper.swiperRef.slideNext();
         //let event=[{activeIndex: 2}]
         //this.slideChange(event) 

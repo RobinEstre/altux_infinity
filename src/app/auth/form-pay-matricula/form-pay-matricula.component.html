@@ -215,7 +215,7 @@
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 text-center" *ngIf="discount" style="margin-top: 8px;">
                                             <button [disabled]="!formExcPay.valid" class="btn btn-primary btn-block" (click)="exectPayment()">
-                                                Pagar S/ {{+discount.price_diplomado.toFixed(2)}}
+                                                Pagar S/ {{+discount.total_payment.toFixed(2)}}
                                             </button>
                                         </div>
                                         <div class="col-12 col-md-6 text-center align-self-center">

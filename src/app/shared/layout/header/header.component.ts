@@ -127,6 +127,7 @@ export class HeaderComponent implements OnInit {
         resp.user_profile.detail_user.img_perfil.forEach(i=>{
           if(i.is_active){img_perfil=i.url}
         })
+        localStorage.setItem('detail_user', JSON.stringify(resp.user_profile.detail_user));
         // const userName = this.authenticationService.getUserName();
         // if (userName) {
         //   this.userName = userName;
