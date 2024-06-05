@@ -72,13 +72,11 @@ export class RegistroComponent implements OnInit {
   countries:any=[
     {
       'id': '1',
-      'name': 'Perú',
-      'img' : 'https://s.latamairlines.com/images/flags/pe.svg'
+      'name': 'Perú'
     },
     {
       'id': '2',
-      'name': 'Extranjero',
-      'img': 'https://s.latamairlines.com/images/flags/ve.svg'
+      'name': 'Extranjero'
     },
   ];
   procedencia_venta:any=[
@@ -647,7 +645,7 @@ export class RegistroComponent implements OnInit {
       "phone":this.formRegistro.controls['telefono'].value.trim(),
       "email":this.formRegistro.controls['email'].value.trim(),
       "type_doc":type_doc,
-      "procedencia_venta": this.procedencia,
+      "procedencia_venta": '',
       "grado_instruccion": this.grado,
       "num_colegiatura": this.formRegistro.controls['num_colegiatura'].value,
       "date_call":unixtimestamp.toString(),

@@ -19,14 +19,7 @@ function greet(requestData) {
     });
     Culqi.options({
         lang: "auto",
-        paymentMethods: {
-            tarjeta: true,
-            yape: true,
-            billetera: true,
-            bancaMovil: true,
-            agente: true,
-            cuotealo: false,
-        },
+        paymentMethods: requestData.paymentMethods,
         installments: true,
         logo: "https://static.culqi.com/v2/v2/static/img/logo.png"
     });

@@ -9,6 +9,10 @@ import {DatePipe, registerLocaleData} from "@angular/common";
 import {NgbModal, NgbModalConfig, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, Validators } from '@angular/forms';
 registerLocaleData(localeEs, 'es');
+//Import Culqi
+import { greet } from '../../../../../assets/js/service.js';
+import { config_data } from '../../../../../assets/js/config.js';
+import { ejecutar } from '../../../../../assets/js/checkout.js';
 
 @Component({
   selector: 'app-matriculas',
@@ -291,7 +295,6 @@ export class MatriculasComponent implements OnInit {
     this.service.generarSegundoPago(jsonbody).subscribe(data => {
       if (data['success'] === true) {
         if(data['data']['object'] === 'error'){
-          this.spinner.hide();
           Swal.fire({
             position: "center",
             icon: "warning",
@@ -305,20 +308,58 @@ export class MatriculasComponent implements OnInit {
           return
         }
         else{
-          this.closeModalPay()
-          this.openModalPago()
-          this.mostrarSelect=false;
-          this.formGenerate.reset();
           this.spinner.hide();
-          this._generate = data['data'];
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: '¡Genial ☺!',
-            text: '¡Se generó código de Pago!',
-            showConfirmButton: false,
-            timer:2000
-          });
+          this.mostrarSelect=false;
+          this.closeModalPay();
+          let datos={
+            amount: data['data'].amount,
+            currency_code: data['data'].currency_code,
+            description: data['data'].description,
+            order_number: data['data'].id,
+            client_details: {
+              first_name: this.data_detalle.nombres,
+              last_name: this.data_detalle.apellidos,
+              email: this.data_detalle.correo,
+              phone_number: this.data_detalle.celular
+            },
+            expiration_date: data['data'].expiration_date,
+            confirm: false,
+            paymentMethods: {
+              tarjeta: false,
+              yape: false,
+              billetera: false,
+              bancaMovil: true,
+              agente: true,
+              cuotealo: false,
+            }
+          };
+          let datos_config={
+            TOTAL_AMOUNT: data['data'].amount,
+            ORDER_NUMBER: data['data'].id,
+            firstName: this.data_detalle.nombres,
+            lastName: this.data_detalle.apellidos,
+            address: "",
+            address_c: "",
+            phone: this.data_detalle.celular,
+            email: this.data_detalle.correo,
+          }
+          config_data(datos_config);
+          greet(datos)
+          ejecutar(null)
+          // this.closeModalPay()
+          // this.openModalPago()
+          // this.mostrarSelect=false;
+          // this.formGenerate.reset();
+          // this.spinner.hide();
+          // this._generate = data['data'];
+          // Swal.fire({
+          //   position: "center",
+          //   icon: "success",
+          //   title: '¡Genial ☺!',
+          //   text: '¡Se generó código de Pago!',
+          //   showConfirmButton: false,
+          //   timer:2000
+          // });
         }
       }
     }, error => {

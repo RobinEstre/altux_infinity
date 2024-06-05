@@ -462,6 +462,7 @@ export class PagosComponent implements OnInit {
   }
 
   exectPayment(){
+    this.arrayCheck=[]
     var cantidad = this.pagos.length;
     for (let i = 0; i < cantidad; i++) {
       if(this.checkbox[i].is_checked===1){
@@ -544,7 +545,15 @@ export class PagosComponent implements OnInit {
             phone_number: this.data_user.telefono
           },
           expiration_date: data['data'].expiration_date,
-          confirm: false
+          confirm: false,
+          paymentMethods: {
+            tarjeta: true,
+            yape: true,
+            billetera: true,
+            bancaMovil: true,
+            agente: true,
+            cuotealo: false,
+          }
         };
         let datos_config={
           TOTAL_AMOUNT: data['data'].amount,
