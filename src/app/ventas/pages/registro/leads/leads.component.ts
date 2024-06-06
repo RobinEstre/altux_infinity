@@ -9,6 +9,10 @@ import {DatePipe, registerLocaleData} from "@angular/common";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, Validators } from '@angular/forms';
 registerLocaleData(localeEs, 'es');
+//Import Culqi
+import { greet } from '../../../../../assets/js/service.js';
+import { config_data } from '../../../../../assets/js/config.js';
+import { ejecutar } from '../../../../../assets/js/checkout.js';
 
 @Component({
   selector: 'app-leads',
@@ -807,7 +811,8 @@ export class LeadsComponent implements OnInit {
       "date_nex_payment": unixtimestamp,
       "type_matricula": this.formRegistro.controls['tipo_matricula'].value,
       "procedencia_venta": this.data_detail.procedencia,
-      "grado_instruccion": this.formRegistro.controls['grado_instruccion'].value,
+      //"grado_instruccion": this.formRegistro.controls['grado_instruccion'].value,
+      "grado_instruccion": 'ninguno',
       "num_colegiatura": this.data_detail.numero_colegiatura,
       "cargo": this.formRegistro.controls['cargo'].value,
       "area": this.formRegistro.controls['area'].value,
@@ -838,18 +843,55 @@ export class LeadsComponent implements OnInit {
           });
         }
         else{
-          this._generate = data['data'];
           this.closeModal();
           this.spinner.hide();
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: '¡Genial ☺!',
-            text: '¡Se generó código de Pago!',
-            showConfirmButton: false,
-            timer:2000
-          });
-          this.openModalInfo();
+          let datos={
+            amount: data['data'].amount,
+            currency_code: data['data'].currency_code,
+            description: data['data'].description,
+            order_number: data['data'].id,
+            client_details: {
+              first_name: body.nombres,
+              last_name: body.apellidos,
+              email: body.email,
+              phone_number: body.telefono
+            },
+            expiration_date: data['data'].expiration_date,
+            confirm: false,
+            paymentMethods: {
+              tarjeta: false,
+              yape: false,
+              billetera: true,
+              bancaMovil: true,
+              agente: true,
+              cuotealo: false,
+            }
+          };
+          let datos_config={
+            TOTAL_AMOUNT: data['data'].amount,
+            ORDER_NUMBER: data['data'].id,
+            firstName: body.nombres,
+            lastName: body.apellidos,
+            address: "",
+            address_c: "",
+            phone: body.telefono,
+            email: body.email,
+          }
+          config_data(datos_config);
+          greet(datos)
+          ejecutar(null)
+          // this._generate = data['data'];
+          // this.closeModal();
+          // this.spinner.hide();
+          // Swal.fire({
+          //   position: "center",
+          //   icon: "success",
+          //   title: '¡Genial ☺!',
+          //   text: '¡Se generó código de Pago!',
+          //   showConfirmButton: false,
+          //   timer:2000
+          // });
+          // this.openModalInfo();
         }
         this.rerender()
       }

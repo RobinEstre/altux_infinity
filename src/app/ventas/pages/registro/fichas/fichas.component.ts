@@ -542,7 +542,7 @@ export class FichasComponent implements OnInit {
             paymentMethods: {
               tarjeta: false,
               yape: false,
-              billetera: false,
+              billetera: true,
               bancaMovil: true,
               agente: true,
               cuotealo: false,
