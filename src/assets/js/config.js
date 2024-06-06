@@ -4,7 +4,7 @@ const freeze ={
     CURRENCY: "PEN",
     //pk_live_fd474cb65b5a677d produccion
     //pk_test_1f79139005666a3d preprod
-    PUBLIC_KEY: "pk_test_1f79139005666a3d",
+    PUBLIC_KEY: "pk_live_fd474cb65b5a677d",
     COUNTRY_CODE: "PE",
     ORDER_NUMBER: "PE",
     // DEFECTO PRODUCCION
@@ -15,7 +15,9 @@ const freeze ={
     // 'C7MDDgdCFrHODOp7aXwjG8NaiCbiymyBglXyEN28hLvgHpvZmAn6KFo0lMGuKnz8'+
     // 'HiuTfpBl6HpD6+02SQIDAQAB'+
     // '-----END PUBLIC KEY-----',
-    URL_BASE: "http://127.0.0.1:8000/api/",
+    URL_BASE: "https://api.altux.edu.pe/api/",
+    //https://api.altux.edu.pe/api/
+    //http://127.0.0.1:8000/api/
 };
 
 const customerInfo = {
