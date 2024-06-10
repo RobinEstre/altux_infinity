@@ -48,8 +48,8 @@
                                                     <div class="row">
                                                         <div class="col-12 col-md-6 col-lg-6 col-xl-5 text-center">
                                                             <div class="h-200 overflow-hidden rounded mb-3 position-relative z-index-0">
-                                                                <figure class="h-100 w-100 coverimg zoomout" style="background-image: url('https://oea-files.s3.amazonaws.com/imagenes-usuario/logo%2Baltux%2Bblanco-99c0154f-d10a-4810-b171-2690177a0972.jpeg');">
-                                                                    <img src="https://oea-files.s3.amazonaws.com/imagenes-usuario/logo%2Baltux%2Bblanco-99c0154f-d10a-4810-b171-2690177a0972.jpeg" alt="" class="d-none" />
+                                                                <figure class="h-100 w-100 coverimg zoomout" style="background-image: url('{{imagen_vendedor}}');">
+                                                                    <img src="{{imagen_vendedor}}" alt="" class="d-none" />
                                                                 </figure>
                                                             </div>
                                                             <h6 class="text-truncate mb-1">{{vendedor.detail_user.nombres}} <br> {{vendedor.detail_user.apellidos}}</h6>
@@ -100,7 +100,7 @@
                                                                 <li class="list-group-item text-secondary">
                                                                     <div class="row">
                                                                         <div class="col-auto">
-                                                                            <i class="bi bi-person-vcard-fill text-muted"></i>
+                                                                            <i class="bi bi-person-badge text-muted"></i>
                                                                         </div>
                                                                         <div class="col-auto ps-0">
                                                                             Dni: {{data.num_documento}}
@@ -143,6 +143,9 @@
                                                                         <div class="col-auto ps-0" *ngIf="data.tipo_matricula=='prematricula'||data.type_matricula=='prematricula'">
                                                                             Matrícula
                                                                         </div>
+                                                                        <div class="col-auto ps-0" *ngIf="data.tipo_matricula=='pagomensualidad'||data.type_matricula=='pagomensualidad'">
+                                                                            Pago Cuota 1
+                                                                        </div>
                                                                         <div class="col-auto ps-0" *ngIf="data.tipo_matricula=='matriculacuota'||data.type_matricula=='matriculacuota'">
                                                                             Matrícula + 1era Cuota
                                                                         </div>
@@ -160,13 +163,13 @@
                                     </div>
                                 </ng-template>
                                 <ng-template swiperSlide>
-                                    <div class="row">
+                                    <div class="row" *ngIf="data">
                                         <div class="col-lg-12 col-md-12 col-sm-12 text-center align-self-center" style="border-right: 1px solid silver;">
                                             <br><br><br>
                                             <div class="alert alert-primary nuevo text-center" role="alert">
                                                 <b>DETALLE MATRÍCULA</b>
                                             </div>
-                                            <div class="order-table table-responsive">
+                                            <div class="order-table table-responsive" *ngIf="data.tipo_matricula!='pagomensualidad'">
                                                 <table class="table table-bordered" *ngIf="discount">
                                                     <tbody>
                                                     <tr>
@@ -212,10 +215,49 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div class="order-table table-responsive" *ngIf="data.tipo_matricula=='pagomensualidad'">
+                                                <table class="table table-bordered">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="text-dark">
+                                                            <small>Cuota N° 1</small>
+                                                        </td>
+                                                        <td>
+                                                            <small>S/ {{(+data.pago_matricula).toFixed(2)}}</small>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-dark">
+                                                            <small>Descuento:</small>
+                                                        </td>
+                                                        <td>
+                                                            <small>S/ 0.00</small>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-dark">
+                                                            <small><b>Total a Pagar:</b></small>
+                                                        </td>
+                                                        <td>
+                                                            <b>
+                                                                <small>S/ {{(+data.pago_matricula).toFixed(2)}}</small>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 text-center" *ngIf="discount" style="margin-top: 8px;">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 text-center" *ngIf="discount&&data.tipo_matricula!='pagomensualidad'"
+                                            style="margin-top: 8px;">
                                             <button [disabled]="!formExcPay.valid" class="btn btn-primary btn-block" (click)="exectPayment()">
                                                 Pagar S/ {{+discount.total_payment.toFixed(2)}}
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 text-center" *ngIf="discount&&data.tipo_matricula=='pagomensualidad'" 
+                                            style="margin-top: 8px;">
+                                            <button [disabled]="!formExcPay.valid" class="btn btn-primary btn-block" (click)="exectPayment()">
+                                                Pagar S/ {{(+data.pago_matricula).toFixed(2)}}
                                             </button>
                                         </div>
                                         <div class="col-12 col-md-6 text-center align-self-center">

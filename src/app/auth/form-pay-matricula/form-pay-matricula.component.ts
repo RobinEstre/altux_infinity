@@ -66,7 +66,7 @@ export class FormPayMatriculaComponent implements OnInit {
   }
   themeColor = 'theme-blue';
   userName = '';
-  domain = 'finance'; validar_expirado:boolean=false
+  domain = 'finance'; validar_expirado:boolean=false; imagen_vendedor:any
 
   ngOnInit(): void {
     //window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
@@ -146,10 +146,15 @@ export class FormPayMatriculaComponent implements OnInit {
     this.service.listFomularioLink(this.code).subscribe(data => {
       if(data["success"]==true){
         this.data=data['data']['data_matricula']
-        const split = this.data.discount.diplomado_name.split(' ')
-        split.splice(0, 3);
-        let name=split.map(x=>x).join(" ")
-        this.data.discount.diplomado_name=name
+        let img_perfil
+        data['data'].user.detail_user.img_perfil.forEach(i=>{
+          if(i.is_active){img_perfil=i.url}
+        })
+        this.imagen_vendedor=img_perfil
+        //const split = this.data.discount.diplomado_name.split(' ')
+        // split.splice(0, 3);
+        // let name=split.map(x=>x).join(" ")
+        // this.data.discount.diplomado_name=name
         this.vendedor=data['data']['user']
         this.discount=data['data']['data_matricula']['discount']
         if (this.discount['first_payment'] === 0) {

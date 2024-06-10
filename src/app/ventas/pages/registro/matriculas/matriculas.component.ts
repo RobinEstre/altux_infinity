@@ -82,7 +82,8 @@ export class MatriculasComponent implements OnInit {
   dtOptions: any;
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private service: VentasService, private spinner: NgxSpinnerService, config: NgbModalConfig, private modalService: NgbModal,private fb: FormBuilder,) {
+  constructor(private service: VentasService, private spinner: NgxSpinnerService, config: NgbModalConfig, private modalService: NgbModal,
+    private fb: FormBuilder,private datePipe: DatePipe,) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -192,7 +193,11 @@ export class MatriculasComponent implements OnInit {
   }
 
   openModalDate(data) {
+    this.formDate.reset()
     this.data_detalle=data
+    let fecha:any=this.datePipe.transform(data.recordatorio*1000,"yyyy-MM-dd")
+    console.log(fecha)
+    this.formDate.controls.fecha.setValue(fecha)
     //this.id_date=data.id
     this.modalFecha = this.modalService.open(this.modalDate, { centered: true, size: 'md' });
     this.modalFecha.result.then();
@@ -276,6 +281,32 @@ export class MatriculasComponent implements OnInit {
   }
 
   generatePay(){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-warning',
+        cancelButton: 'btn btn-dark mx-3'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: 'MÉTODO DE PAGO',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '💰 PagoEfectivo',
+      cancelButtonText: '💳 Tarjetas'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.generarCodigoPago()
+      }
+      else if (result.isDismissed) {
+        this.generarLinkPago()
+      }
+    })
+  }
+
+  generarCodigoPago(){
     let number_doc, raz_social
     if(this.num_ruc == false){
       number_doc=this.data_detalle.dni;
@@ -388,6 +419,104 @@ export class MatriculasComponent implements OnInit {
       this.closeModalPay()
       this.spinner.hide();
     });
+  }
+
+  generarLinkPago(){
+    let number_doc, raz_social
+    if(this.num_ruc == false){
+      number_doc=this.data_detalle.dni;
+      raz_social=this.data_detalle.nombres+' '+this.data_detalle.apellidos;
+    }
+    else {
+      number_doc=this.formGenerate.controls['ruc'].value;
+      raz_social=this.nombre_razsocial;
+    }
+    this.spinner.show();
+    let body={
+      "id_preventa": this.data_detalle.id_preventa,
+      "diplomado_code": this.data_detalle.diplomado_code,
+      "pais": "Perú",
+      "tipoDoc": 1,
+      "num_documento": this.data_detalle.dni,
+      "num_documento_sunat": number_doc,
+      "email": this.data_detalle.correo,
+      "telefono": this.data_detalle.celular,
+      "nombres": this.data_detalle.nombres,
+      "apellidos": this.data_detalle.apellidos,
+      "is_facture": this.formGenerate.controls['is_factura'].value,
+      "rzon_social": raz_social,
+      "pago_matricula": this.data_detalle.pago_matricula,
+      "tipo_matricula": 'pagomensualidad',
+      "discount": {
+        diplomado_name:this.data_detalle.diplomado_name,
+
+      }
+    }
+    this.spinner.show();
+    this.service.registrarLinkMatricula(body).subscribe(data => {
+      if( data['success']==true){
+        let linkpago='https://app.altux.edu.pe/matricula-pago/'+data['data']
+        this.copyText(linkpago)
+        this.closeModalPay()
+        this.spinner.hide()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial ☺!',
+          text: '¡Link Copiado!',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      else {
+        this.spinner.hide()
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: '¡Error!',
+          text: data['message'],
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+       if (error.error['message']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer: 3500
+          })
+        }else if (error.error.errors['non_field_errors']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error.errors['non_field_errors'][0],
+            showConfirmButton: false,
+            timer: 3500
+          })
+        }
+      }
+    });
+  }
+  
+  copyText(name){
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = name;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 
   actDatePago(): void {

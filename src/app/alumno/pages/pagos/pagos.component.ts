@@ -112,7 +112,7 @@ export class PagosComponent implements OnInit {
     this.getCourses()
     this.loadMonth()
     this.loadyear()
-    console.log(this.data_user)
+    //console.log(this.data_user)
     //this.listarCarteraAlumnos();
   }
   
@@ -369,7 +369,7 @@ export class PagosComponent implements OnInit {
         else if (data['data']['estado']=='ACTIVO'){
           //this.rucexist = data;
           this.nameruc = data['data']['razonSocial'];
-          console.log(this.nameruc)
+          //console.log(this.nameruc)
           Swal.fire({
             position: "center",
             icon: "success",
@@ -428,7 +428,7 @@ export class PagosComponent implements OnInit {
 
   updateCheckbox(id, event){
    // console.log(this.id_temporal)
-   console.log(event)
+   //console.log(event)
     var indice = id;
     if (event.target.checked == true) {
       this.is_pay=true;
