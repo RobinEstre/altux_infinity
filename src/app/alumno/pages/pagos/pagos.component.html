@@ -115,7 +115,10 @@
                                                 <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
                                             </td>
                                             <td class="text-center"> 
-                                                <div *ngIf="valPagos.estado_pago" class="text-capitalize">{{valPagos.metodo_pago}}</div>
+                                                <div *ngIf="valPagos.estado_pago" class="text-capitalize">
+                                                    <p *ngIf="valPagos.metodo_pago">{{valPagos.metodo_pago}}</p>
+                                                    <p *ngIf="!valPagos.metodo_pago">Manual</p>
+                                                </div>
                                                 <div *ngIf="!valPagos.estado_pago" class="text-muted">-</div>
                                             </td>
                                             <td class="text-center"> 

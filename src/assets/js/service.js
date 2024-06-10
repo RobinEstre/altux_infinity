@@ -7,7 +7,7 @@ function greet(requestData) {
     Culqi.settings({
         currency: requestData.currency_code,
         amount: requestData.amount,
-        title: "ALTUX - ifinity ♾️",
+        title: "ALTUX | Infinity ♾️",
         order: requestData.order_number,
         xculqirsaid: 'd3fd4e3d-7252-4502-998d-2a58be9c9a88',
         rsapublickey: '-----BEGIN PUBLIC KEY-----'+
@@ -18,10 +18,20 @@ function greet(requestData) {
         '-----END PUBLIC KEY-----',
     });
     Culqi.options({
+        style: {
+            logo: 'https://web-altux-files.s3.amazonaws.com/img/logo_altux.jpg',
+            bannerColor: '', // hexadecimal
+            buttonBackground: '', // hexadecimal
+            menuColor: '', // hexadecimal
+            linksColor: '', // hexadecimal
+            buttonText: '', // texto que tomará el botón
+            buttonTextColor: '', // hexadecimal
+            priceColor: '' // hexadecimal
+        },
         lang: "auto",
         paymentMethods: requestData.paymentMethods,
         installments: true,
-        logo: "https://static.culqi.com/v2/v2/static/img/logo.png"
+        logo: "https://web-altux-files.s3.amazonaws.com/img/logo_altux.jpg"
     });
     Culqi.open();
     return true;
