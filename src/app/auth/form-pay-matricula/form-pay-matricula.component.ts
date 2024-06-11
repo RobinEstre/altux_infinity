@@ -146,6 +146,7 @@ export class FormPayMatriculaComponent implements OnInit {
     this.service.listFomularioLink(this.code).subscribe(data => {
       if(data["success"]==true){
         this.data=data['data']['data_matricula']
+        console.log(this.data)
         let img_perfil
         data['data'].user.detail_user.img_perfil.forEach(i=>{
           if(i.is_active){img_perfil=i.url}
@@ -270,7 +271,7 @@ export class FormPayMatriculaComponent implements OnInit {
   // CULQI NUEVO
 
   exectPayment(){
-    this.payWithEfective();
+    if(this.data.data_cuota1){this.payWithCuota();}else{this.payWithVentas();}
     // if (this.domain == 'finance') {
     //   this.payWithCard();
     // }else {
@@ -278,9 +279,14 @@ export class FormPayMatriculaComponent implements OnInit {
     // }
   }
 
-  payWithEfective(){
+  payWithVentas(){
     this.body();
     this.generateCheckout(this.jsonbody);
+  }
+
+  payWithCuota(){
+    this.body();
+    this.generateCheckoutCuota(this.jsonbody);
   }
 
   payWithCard() {
@@ -414,6 +420,86 @@ export class FormPayMatriculaComponent implements OnInit {
           }
         }
       }
+    });
+  }
+
+  generateCheckoutCuota (jsonbody){
+    this.service.generarSegundoPago(this.data.data_cuota1).subscribe(data => {
+      if (data['success'] === true) {
+        if(data['data']['object'] === 'error'){
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: '¡Error!',
+            text: '¡No se pudo generar el codigo, inténtelo nuevamente!',
+            showConfirmButton: false,
+            timer:2000
+          });
+          this.spinner.hide();
+          return
+        }
+        else{
+          let datos={
+            amount: data['data'].amount,
+            currency_code: data['data'].currency_code,
+            description: data['data'].description,
+            order_number: data['data'].id,
+            client_details: {
+              first_name: jsonbody.nombres,
+              last_name: jsonbody.apellidos,
+              email: jsonbody.email,
+              phone_number: jsonbody.telefono
+            },
+            expiration_date: data['data'].expiration_date,
+            confirm: false,
+            paymentMethods: {
+              tarjeta: true,
+              yape: true,
+              billetera: true,
+              bancaMovil: true,
+              agente: true,
+              cuotealo: false,
+            }
+          };
+          let datos_config={
+            TOTAL_AMOUNT: data['data'].amount,
+            ORDER_NUMBER: data['data'].id,
+            firstName: jsonbody.nombres,
+            lastName: jsonbody.apellidos,
+            address: "",
+            address_c: "",
+            phone: jsonbody.telefono,
+            email: jsonbody.email,
+          }
+          config_data(datos_config);
+          greet(datos)
+          ejecutar(this.code)
+        }
+      }
+    }, error => {
+      if (error.status === 400) {
+        Swal.fire({
+          title: 'Error!',
+          text: error.error['message'],
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#d37c0c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      if (error.status === 500) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Comuniquese con el Area de Sistemas',
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#d37c0c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      this.spinner.hide();
     });
   }
 

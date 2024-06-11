@@ -12,6 +12,9 @@ export class MatriculaService {
   registrarMatricula(data) {
     return this.httpClient.post(this.envUrl.urlAddress + 'ventas/vendedor/matricula-link/', data)
   }
+  generarSegundoPago(data) {
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'ventas/pre-venta/generar-codigo-segundo-pago/', data);
+  }
 
   expirarCodigo(data) {
     //const headers = new HttpHeaders().set('Authorization', 'Token ' + token);

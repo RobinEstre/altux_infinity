@@ -445,11 +445,17 @@ export class MatriculasComponent implements OnInit {
       "apellidos": this.data_detalle.apellidos,
       "is_facture": this.formGenerate.controls['is_factura'].value,
       "rzon_social": raz_social,
-      "pago_matricula": this.data_detalle.pago_matricula,
+      "pago_matricula": this.data_detalle.cuota_1,
       "tipo_matricula": 'pagomensualidad',
       "discount": {
         diplomado_name:this.data_detalle.diplomado_name,
-
+        descuento:this.data_detalle.descuento
+      },
+      "data_cuota1": {
+        "id_preventa": this.data_detalle.id_preventa,
+        "is_facture": this.formGenerate.controls['is_factura'].value,
+        "num_doc": number_doc,
+        "razon_zocial": raz_social,
       }
     }
     this.spinner.show();

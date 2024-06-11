@@ -231,7 +231,7 @@
                                                             <small>Descuento:</small>
                                                         </td>
                                                         <td>
-                                                            <small>S/ 0.00</small>
+                                                            <small>S/ {{(+data.discount.descuento).toFixed(2)}}</small>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -240,7 +240,7 @@
                                                         </td>
                                                         <td>
                                                             <b>
-                                                                <small>S/ {{(+data.pago_matricula).toFixed(2)}}</small>
+                                                                <small>S/ {{((+data.pago_matricula)-(+data.discount.descuento)).toFixed(2)}}</small>
                                                             </b>
                                                         </td>
                                                     </tr>
