@@ -112,7 +112,7 @@ function ejecutar (code) {
                             data: JSON.stringify(jsonbody),
                             success: function (data, status, xhr) {
                                 statusCode = xhr.status;
-                                console.log(status)
+                                //console.log(status)
                                 Swal.fire({
                                     position: "center",
                                     icon: "success",
@@ -121,7 +121,7 @@ function ejecutar (code) {
                                     showConfirmButton: false,
                                     timer:7000
                                 });
-                                setTimeout(window.location.replace("http://localhost:4200/auth/login"), 7000)                                
+                                setTimeout(window.location.replace("https://app.altux.edu.pe/auth/login"), 7000)                                
                                 //response = data;
                             }
                         });

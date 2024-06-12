@@ -27,4 +27,7 @@ export class AlumnosService {
   addEstudiante(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'finanzas/registrar-estudiante/', data);
   }
+  reenviarAcceso(data){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'alumno/reenviar-accesos/estudiante/', data)
+  }
 }

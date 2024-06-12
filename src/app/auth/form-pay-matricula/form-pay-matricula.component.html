@@ -47,18 +47,25 @@
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-12 col-md-6 col-lg-6 col-xl-5 text-center">
-                                                            <div class="h-200 overflow-hidden rounded mb-3 position-relative z-index-0">
+                                                            <div class="h-250 overflow-hidden rounded mb-2 position-relative z-index-0">
                                                                 <figure class="h-100 w-100 coverimg zoomout" style="background-image: url('{{imagen_vendedor}}');">
                                                                     <img src="{{imagen_vendedor}}" alt="" class="d-none" />
                                                                 </figure>
+                                                                <!-- <figure class="h-100 w-100 coverimg zoomout" style="background-image: url('https://cdn.discordapp.com/attachments/1171901132080164895/1250506573944717464/6a6fc84e-63ec-4938-b7ee-c997662f349f.png?ex=666b3080&is=6669df00&hm=11eabc0f1b8ba86471045895f258630071e3ff617856a98bfda0f46a048dcc2b&');">
+                                                                    <img src="https://cdn.discordapp.com/attachments/1171901132080164895/1250506573944717464/6a6fc84e-63ec-4938-b7ee-c997662f349f.png?ex=666b3080&is=6669df00&hm=11eabc0f1b8ba86471045895f258630071e3ff617856a98bfda0f46a048dcc2b&" alt="" class="d-none" />
+                                                                </figure> -->
                                                             </div>
+                                                            <!-- <div class="alert alert-primary" role="alert">
+                                                                Vendedor
+                                                            </div> -->
                                                             <h6 class="text-truncate mb-1">{{vendedor.detail_user.nombres}} <br> {{vendedor.detail_user.apellidos}}</h6>
-                                                            <p class="text-secondary mb-3">
+                                                            <p class="text-secondary mb-1">
                                                                 <!-- <i class="bi bi-postcard"></i> {{vendedor.detail_user.dni}} <br> -->
                                                                 <i class="bi bi-phone"></i> {{vendedor.detail_user.telefono}} <br>
-                                                                <i class="bi bi-envelope"></i> {{vendedor.detail_user.email}}
+                                                                <!-- <i class="bi bi-envelope"></i> {{vendedor.detail_user.email}} -->
                                                             </p>
-                                                            <span class="tag bg-primary">Vendedor</span>
+                                                            <p class="text-primary">VENDEDOR@</p>
+                                                            <!-- <span class="tag bg-primary">Vendedor</span> -->
                                                         </div>
                                                         <div class="col-12 col-md-6 col-lg-6 col-xl-7 border-left-dashed" *ngIf="data">
                                                             <div class="row align-items-center mb-2">

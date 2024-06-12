@@ -469,25 +469,35 @@ export class AlumnosComponent implements OnInit {
     },error => {
       this.spinner.hide();
       if (error.status === 400) {
-        if (error.error.message['non_field_errors']) {
+        if (error.error.errors) {
           Swal.fire({
             position: "center",
             icon: "error",
             title: '¡Error!',
-            text: error.error.message['non_field_errors'][0],
-            showConfirmButton: false,
-            timer:2000
-          });
-        }else if (error.error['message']) {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: '¡Error!',
-            text: error.error['message'],
+            text: error.error.errors,
             showConfirmButton: false,
             timer:2000
           });
         }
+        //else if (error.error['message']) {
+        //   Swal.fire({
+        //     position: "center",
+        //     icon: "error",
+        //     title: '¡Error!',
+        //     text: error.error['message'],
+        //     showConfirmButton: false,
+        //     timer:2000
+        //   });
+        // }else{
+        //   Swal.fire({
+        //     position: "center",
+        //     icon: "error",
+        //     title: '¡Error!',
+        //     text: error.error.errors,
+        //     showConfirmButton: false,
+        //     timer:2000
+        //   });
+        // }
       }
       if (error.status === 500) {
         Swal.fire({
@@ -499,6 +509,86 @@ export class AlumnosComponent implements OnInit {
           timer:2000
         });
       }
+    });
+  }
+
+  generateCode(id, nombre){
+    let name=nombre.student.detail_user.nombres+' '+nombre.student.detail_user.apellidos
+    //console.log(this.formgrupos.controls.diplomado.value)
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success mx-2',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: 'Reenviar Acceso',
+      text: "Está Seguro de Reenviar Los Acccesos de: \n" + name,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Reenviar!',
+      cancelButtonText: 'No, Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.reenviarAcceso(id, this.formgrupos.controls.diplomado.value)
+      }
+    })
+  }
+
+  reenviarAcceso(id, code){
+    this.spinner.show();
+    const  jsonbody={
+      "codigo_diplomado" : code,
+      "estudiante_id" : id
+    }
+    this.service.reenviarAcceso(jsonbody).subscribe(res => {
+      if (res["success"] === true) {
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial!',
+          text: '¡Acceso Reenviado!',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      else {
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: 'Ooops!',
+          text: res['message'],
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      if(error.status==500){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      this.spinner.hide()
     });
   }
 }

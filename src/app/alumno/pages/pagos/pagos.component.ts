@@ -569,6 +569,11 @@ export class PagosComponent implements OnInit {
         greet(datos)
         ejecutar(null)
         this.monto_final=0
+        for (let i = 0; i < this.pagos.length; i++) {
+          this.checkbox[i].is_disabled = disabledType.disabled;
+          this.checkbox[i].is_checked = checkedType.unchecked;
+        }
+        //this.rerender()
       }
       this.spinner.hide();
     }, error => {

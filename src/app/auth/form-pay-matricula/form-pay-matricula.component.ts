@@ -146,7 +146,7 @@ export class FormPayMatriculaComponent implements OnInit {
     this.service.listFomularioLink(this.code).subscribe(data => {
       if(data["success"]==true){
         this.data=data['data']['data_matricula']
-        console.log(this.data)
+        //console.log(this.data)
         let img_perfil
         data['data'].user.detail_user.img_perfil.forEach(i=>{
           if(i.is_active){img_perfil=i.url}
@@ -423,8 +423,15 @@ export class FormPayMatriculaComponent implements OnInit {
     });
   }
 
-  generateCheckoutCuota (jsonbody){
-    this.service.generarSegundoPago(this.data.data_cuota1).subscribe(data => {
+  generateCheckoutCuota (jsonbody){    
+    const body = {
+      "id_preventa": this.data.data_cuota1.id_preventa,
+      "is_facture": this.data.data_cuota1.is_facture,
+      "num_doc": this.data.data_cuota1.num_doc,
+      "razon_zocial": this.data.data_cuota1.razon_zocial,
+      "vendedor_id": this.vendedor.id,
+    };
+    this.service.generarSegundoPago(body).subscribe(data => {
       if (data['success'] === true) {
         if(data['data']['object'] === 'error'){
           Swal.fire({

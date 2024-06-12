@@ -119,7 +119,7 @@ export class RegistroComponent implements OnInit {
       'name': 'Al Contado',
     },
   ];
-  files: File[] = []; leads:boolean=true
+  files: File[] = []; leads:boolean=true; fecha:any=new Date()
 
   ngOnInit(): void {
     this.listarTodosLosDiplomados();
@@ -131,13 +131,15 @@ export class RegistroComponent implements OnInit {
       if (data['success'] === 'true'){
         let dip:any=[];
         data['courses'].forEach(i=>{
-          const split = i.diplomado_name.split(' ')
-          split.splice(0, 3);
-          let name=split.map(x=>x).join(" ")
-          dip.push({
-            'course_name': i.diplomado_name,
-            'course_code': i.diplomado_code
-          })
+          // const split = i.diplomado_name.split(' ')
+          // split.splice(0, 3);
+          // let name=split.map(x=>x).join(" ")
+          if(i.fecha_limite>=(this.fecha.getTime()/1000)){
+            dip.push({
+              'course_name': i.diplomado_name,
+              'course_code': i.diplomado_code
+            })
+          }
         })
         this.new_diplomados=dip;
       }
@@ -276,7 +278,7 @@ export class RegistroComponent implements OnInit {
               this.nameperson = dni_val.data.resultado.nombre_completo;
               this.formRegistro.controls['nombrescompletos'].setValue(this.nameperson);
               this.formRegistro.controls['name1'].setValue(dni['nombres']);
-              this.formRegistro.controls['name2'].setValue(dni['apellidoMaterno'] + ' ' + dni['apellidoMaterno']);
+              this.formRegistro.controls['name2'].setValue(dni['apellidoPaterno'] + ' ' + dni['apellidoMaterno']);
               this.formRegistro.controls['telefono'].enable();
               this.formRegistro.controls['email'].enable();
               this.formRegistro.controls['telefono'].setValue('');
