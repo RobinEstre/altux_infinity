@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-journal-bookmark-fill h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Fechas</h6>
+                        <p class="text-secondary small">Modificar las fechas de evaluaciones y clases</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center mb-4">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <form [formGroup]="formgrupos">
+                            <div class="form-group">
+                                <ng-select formControlName="diplomado"
+                                            [items]="diplomado"
+                                            bindLabel="courses_name"
+                                            bindValue="courses_code"
+                                            placeholder="SELECCIONAR DIPLOMADO"
+                                            (change)="listGroup($event)">
+                                </ng-select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row justify-content-center" *ngIf="modulo">
+                    <div class="col-sm-12 col-md-6 col-lg-6" *ngFor="let data of modulo, let i = index">
+                        <div class="card border-0 mb-4 theme-blue bg-gradient-theme-light">
+                            <div class="card-header bg-light-theme">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-dribbble h5 avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                    </div>
+                                    <div class="col-auto ps-0">
+                                        <div class="row gx-0">
+                                            <div class="col">
+                                                <p class="small text-secondary">{{data.module_title}}</p>
+                                            </div>
+                                        </div>
+                                        <p><small>{{data.module_name}}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+                                        <div class="col-auto mt-2" style="background-color: rgb(0 195 58 / 7%) !important;">
+                                            <div class="card border-0">
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col-4" *ngFor="let clase of data.clases, let i = index">
+                                                            <p class="small mb-1">Clase {{clase.clase}}</p>
+                                                            <p class="small">
+                                                                <a href="javascript:void(0)" (click)="changeClase(data,false,i)" *ngIf="clase.estado"><i class="bi bi-check-circle" style="color: #95c50a !important;"></i> </a>
+                                                                <a href="javascript:void(0)" (click)="changeClase(data,true,i)" *ngIf="!clase.estado"><i class="bi bi-x-circle" style="color: #f31f1f !important;"></i> </a>
+                                                                <a href="javascript:void(0)" (click)="changeClase(data,'fecha',i)" class="text-secondary" *ngIf="clase.fecha_clase"> {{clase.fecha_clase*1000 |  date:'dd/MM/yyyy h:mm a'}}</a>
+                                                                <a href="javascript:void(0)" (click)="changeClase(data,'fecha',i)" class="text-secondary" *ngIf="!clase.fecha_clase"> Sin fecha</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <div class="card border-0">
+                                            <!-- <div class="card-body bg-light-orange">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <div class="circle-small theme-orange">
+                                                            <div class="avatar h5 bg-light-orange text-orange rounded-circle">
+                                                                <i class="bi bi-people"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p class="text-secondary small mb-1">Evaluaciones</p>
+                                                        <h5 class="fw-medium">{{data.evaluaciones.length}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="card-footer" style="background-color: rgb(95 160 255 / 7%) !important">
+                                                <div class="row">
+                                                    <div class="col-4 mb-2" *ngFor="let evaluacion of data.evaluaciones, let i = index">
+                                                        <p class="small mb-1">
+                                                            {{evaluacion.name_evaluacion}}
+                                                            <a href="javascript:void(0)" (click)="changeEval(data,false,i)" *ngIf="evaluacion.estado"><i class="bi bi-check-circle" style="color: #95c50a !important;"></i> </a>
+                                                            <a href="javascript:void(0)" (click)="changeEval(data,true,i)" *ngIf="!evaluacion.estado"><i class="bi bi-x-circle" style="color: #f31f1f !important;"></i> </a>
+                                                        </p>
+                                                        <div class="card border-0">
+                                                            <div class="card-footer">
+                                                                <div class="row">
+                                                                    <div class="col-6 text-center">
+                                                                        <p class="text-secondary small mb-1 border-bottom">Fecha Inicio</p>
+                                                                        <a href="javascript:void(0)" (click)="changeEval(data,'fecha_inicio',i)" class="text-secondary small" *ngIf="evaluacion.fecha_inicio"> {{evaluacion.fecha_inicio*1000 |  date:'dd/MM/yyyy'}} <br> {{evaluacion.fecha_inicio*1000 |  date:'h:mm a'}} </a>
+                                                                        <a href="javascript:void(0)" (click)="changeEval(data,'fecha_inicio',i)" class="text-secondary small" *ngIf="!evaluacion.fecha_inicio"> Sin fecha</a>
+                                                                    </div>
+                                                                    <div class="col-6 border-left-dashed text-center">
+                                                                        <p class="text-secondary small mb-1 border-bottom">Fecha Fin</p>
+                                                                        <a href="javascript:void(0)" (click)="changeEval(data,'fecha_fin',i)" class="text-secondary small" *ngIf="evaluacion.fecha_fin"> {{evaluacion.fecha_fin*1000 |  date:'dd/MM/yyyy'}} <br> {{evaluacion.fecha_fin*1000 |  date:'h:mm a'}}</a>
+                                                                        <a href="javascript:void(0)" (click)="changeEval(data,'fecha_fin',i)" class="text-secondary small" *ngIf="!evaluacion.fecha_fin"> Sin fecha</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

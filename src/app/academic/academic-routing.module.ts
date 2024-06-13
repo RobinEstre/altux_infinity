@@ -12,6 +12,7 @@ import { AddDiplomadoComponent } from './pages/add-diplomado/add-diplomado.compo
 import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { RegistroComponent } from '../ventas/pages/registro/registro.component';
 import { CobrosComponent } from '../cobranza/pages/cobros/cobros.component';
+import { FechasComponent } from './pages/fechas/fechas.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,10 @@ const routes: Routes = [
       {
         path: 'reporte-pagos',
         component: CobrosComponent
+      },
+      {
+        path: 'fechas',
+        component: FechasComponent
       },
     ]
   }

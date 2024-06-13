@@ -196,7 +196,6 @@ export class MatriculasComponent implements OnInit {
     this.formDate.reset()
     this.data_detalle=data
     let fecha:any=this.datePipe.transform(data.recordatorio*1000,"yyyy-MM-dd")
-    console.log(fecha)
     this.formDate.controls.fecha.setValue(fecha)
     //this.id_date=data.id
     this.modalFecha = this.modalService.open(this.modalDate, { centered: true, size: 'md' });
