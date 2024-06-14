@@ -352,7 +352,6 @@ export class DetalleComponent implements OnInit {
           n++
           if(n==data.length){
             this.evaluations = body;
-            console.log(this.evaluations)
             this.spinner.hide()
           }
         }
