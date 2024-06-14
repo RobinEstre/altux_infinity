@@ -304,44 +304,44 @@ export class DetalleComponent implements OnInit {
         if(res.success){
           let datos:any=[]
           res.data.forEach(i=>{
-            // datos.push({
-            //   evaluation_name:  i.evaluation_name,
-            //   evaluation_student_id: i.evaluation_student_id,
-            //   fecha_evaluacion: i.fecha_evaluacion,
-            //   fecha_evaluacion_fin: i.fecha_evaluacion_fin,
-            //   nota: i.nota
-            // })
-            if(res.data.length==2){
-              if(i.evaluation_name!="Examen Sustitutorio"){
-                datos.push({
-                  evaluation_name:  i.evaluation_name,
-                  evaluation_student_id: i.evaluation_student_id,
-                  fecha_evaluacion: i.fecha_evaluacion,
-                  fecha_evaluacion_fin: i.fecha_evaluacion_fin,
-                  nota: i.nota
-                })
-              }
-            }
-            if(res.data.length==4){
-              if(i.evaluation_name!="Examen Sustitutorio"){
-                datos.push({
-                  evaluation_name:  i.evaluation_name,
-                  evaluation_student_id: i.evaluation_student_id,
-                  fecha_evaluacion: i.fecha_evaluacion,
-                  fecha_evaluacion_fin: i.fecha_evaluacion_fin,
-                  nota: i.nota
-                })
-              }
-            }
-            if(i.evaluation_name!="Examen Sustitutorio"&&res.data.length==3){
-              datos.push({
-                evaluation_name:  i.evaluation_name,
-                evaluation_student_id: i.evaluation_student_id,
-                fecha_evaluacion: i.fecha_evaluacion,
-                fecha_evaluacion_fin: i.fecha_evaluacion_fin,
-                nota: i.nota
-              })
-            }
+            datos.push({
+              evaluation_name:  i.evaluation_name,
+              evaluation_student_id: i.evaluation_student_id,
+              fecha_evaluacion: i.fecha_evaluacion,
+              fecha_evaluacion_fin: i.fecha_evaluacion_fin,
+              nota: i.nota
+            })
+            // if(res.data.length==2){
+            //   if(i.evaluation_name!="Examen Sustitutorio"){
+            //     datos.push({
+            //       evaluation_name:  i.evaluation_name,
+            //       evaluation_student_id: i.evaluation_student_id,
+            //       fecha_evaluacion: i.fecha_evaluacion,
+            //       fecha_evaluacion_fin: i.fecha_evaluacion_fin,
+            //       nota: i.nota
+            //     })
+            //   }
+            // }
+            // if(res.data.length==4){
+            //   if(i.evaluation_name!="Examen Sustitutorio"){
+            //     datos.push({
+            //       evaluation_name:  i.evaluation_name,
+            //       evaluation_student_id: i.evaluation_student_id,
+            //       fecha_evaluacion: i.fecha_evaluacion,
+            //       fecha_evaluacion_fin: i.fecha_evaluacion_fin,
+            //       nota: i.nota
+            //     })
+            //   }
+            // }
+            // if(i.evaluation_name!="Examen Sustitutorio"&&res.data.length==3){
+            //   datos.push({
+            //     evaluation_name:  i.evaluation_name,
+            //     evaluation_student_id: i.evaluation_student_id,
+            //     fecha_evaluacion: i.fecha_evaluacion,
+            //     fecha_evaluacion_fin: i.fecha_evaluacion_fin,
+            //     nota: i.nota
+            //   })
+            // }
           })
           body.forEach(a=>{
             if(a.bloque==i+1){
@@ -352,6 +352,7 @@ export class DetalleComponent implements OnInit {
           n++
           if(n==data.length){
             this.evaluations = body;
+            console.log(this.evaluations)
             this.spinner.hide()
           }
         }
