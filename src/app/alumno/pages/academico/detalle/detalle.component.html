@@ -39,11 +39,13 @@
             <div class="card-body" *ngIf="class_module">
                 <div class="row">
                     <div class="col-auto">
-                        <div class="rounded text-white p-3 parpadea" *ngIf="class_module.en_vivo">
-                            <img src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt="">
+                        <div class="rounded text-danger p-3 parpadea" *ngIf="class_module.en_vivo">
+                            <i class="bi bi-camera-reels-fill" style="font-size: 30px;"></i>
+                            <!-- <img src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt=""> -->
                         </div>
-                        <div class="rounded text-white p-3" *ngIf="!class_module.en_vivo">
-                            <img style="filter: grayscale(100%);" src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt="">
+                        <div class="rounded text-secondary p-3" *ngIf="!class_module.en_vivo">
+                            <i class="bi bi-camera-video-off" style="font-size: 30px;"></i>
+                            <!-- <img style="filter: grayscale(100%);" src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt=""> -->
                         </div>
                     </div>
                     <div class="col ps-0 align-self-center">
