@@ -7,6 +7,10 @@ import {DatePipe, registerLocaleData} from "@angular/common";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, Validators } from '@angular/forms';
 registerLocaleData(localeEs, 'es');
+//Import Culqi
+import { greet } from '../../../../assets/js/service.js';
+import { config_data } from '../../../../assets/js/config.js';
+import { ejecutar } from '../../../../assets/js/checkout.js';
 
 @Component({
   selector: 'app-registro',
@@ -789,18 +793,55 @@ export class RegistroComponent implements OnInit {
           });
         }
         else{
-          this._generate = data['data'];
           this.closeModal();
+          let datos={
+            amount: data['data'].amount,
+            currency_code: data['data'].currency_code,
+            description: data['data'].description,
+            order_number: data['data'].id,
+            client_details: {
+              first_name: jsonbody.nombres,
+              last_name: jsonbody.apellidos,
+              email: jsonbody.email,
+              phone_number: jsonbody.telefono
+            },
+            expiration_date: data['data'].expiration_date,
+            confirm: false,
+            paymentMethods: {
+              tarjeta: false,
+              yape: false,
+              billetera: true,
+              bancaMovil: true,
+              agente: true,
+              cuotealo: false,
+            }
+          };
+          let datos_config={
+            TOTAL_AMOUNT: data['data'].amount,
+            ORDER_NUMBER: data['data'].id,
+            firstName: jsonbody.nombres,
+            lastName: jsonbody.apellidos,
+            address: "",
+            address_c: "",
+            phone: jsonbody.telefono,
+            email: jsonbody.email,
+          }
+          config_data(datos_config);
+          greet(datos)
+          ejecutar(null)
           this.spinner.hide();
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: '¡Genial ☺!',
-            text: '¡Se generó código de Pago!',
-            showConfirmButton: false,
-            timer:2000
-          });
-          this.openModalInfo();
+          // this._generate = data['data'];
+          // this.closeModal();
+          // this.spinner.hide();
+          // Swal.fire({
+          //   position: "center",
+          //   icon: "success",
+          //   title: '¡Genial ☺!',
+          //   text: '¡Se generó código de Pago!',
+          //   showConfirmButton: false,
+          //   timer:2000
+          // });
+          // this.openModalInfo();
         }
       }
     },error => {
