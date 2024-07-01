@@ -46,6 +46,9 @@ export class VentasService {
   getEstado() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/estados-leads/');
   }
+  listControlLeads(params) {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/control-leads/?', params);
+  }
   listDiscount(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'ventas/vendedor/listar-descuento/', data);
   }

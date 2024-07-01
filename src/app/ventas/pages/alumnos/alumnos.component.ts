@@ -81,11 +81,12 @@ export class AlumnosComponent implements OnInit {
     this.service.listregistro(jsonbody).subscribe(data => {
       let dip=[];
       data['data'].forEach(i=>{
-        const split = i.course_name.split(' ')
-        split.splice(0, 3);
-        let name=split.map(x=>x).join(" ")
+        // const split = i.course_name.split(' ')
+        // split.splice(0, 3);
+        // let name=split.map(x=>x).join(" ")
         dip.push({
           'course_name': i.course_name,
+          'dni_student': i.dni_student,
           'course_code': i.course_code,
           'name_student': i.name_student,
           'lastname_student': i.lastname_student,

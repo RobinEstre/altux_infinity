@@ -481,6 +481,7 @@ export class FichasComponent implements OnInit {
       "num_documento": number_doc, // documento de identidad
       "num_documento_sunat": num_documento_sunat,   // docunento para emitir
       "rzn_social": raz_social,
+      "procedencia_venta": "FICHA",
       "discount": this.discount
     };
 
@@ -617,10 +618,11 @@ export class FichasComponent implements OnInit {
       "id_preventa": this.formGenerate.controls['id'].value,
       "type_matricula": this.formGenerate.controls['tipo_matricula'].value,
       "tipo_matricula": tipo_name,
+      "procedencia_venta": 'FICHA',
       "discount": this.discount
     };
     this.service.registrarLinkPreMatricula(jsonbody).subscribe(data => {
-      if( data['success']==true){data['data']
+      if( data['success']==true){
         this.linkpago='https://app.altux.edu.pe/matricula-pago/'+data['data']
         this.copyText(this.linkpago)
         this.formGenerate.reset();

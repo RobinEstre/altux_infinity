@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Listado y Registro Alumnos</h6>
+                        <p class="text-secondary small">Alumnos Matriculados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row">
+                    <!-- <div class="col-sm-12 col-md-12 col-lg-12 text-end mb-3">
+                        <p class="text-secondary small">
+                            <span class="badge badge-sm bg-blue">Información Enviada</span>
+                            <span class="badge badge-sm bg-orange mx-2">No Contesta</span>
+                            <span class="badge badge-sm bg-red">No Interesado</span>
+                            <span class="badge badge-sm bg-black mx-2">Próximo Grupo</span>
+                            <span class="badge badge-sm bg-green">Compromiso Matrícula</span>
+                        </p>
+                    </div> -->
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <ng-template #idTpl let-rowIndex="rowIndex" let-row="row">
+                            {{rowIndex+1}}
+                        </ng-template>
+                        <ng-template #is_celular let-data="adtData" let-emitter="captureEvents">
+                            <a href="https://wa.me/51{{data.telefono}}" target="_blank" class="">
+                                <p class="mb-0">{{data.telefono}}</p>
+                            </a>
+                        </ng-template>
+                        <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
+                            <app-table-buttons [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-buttons>
+                        </ng-template>
+                        <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
+                                [dtTrigger]="dtTrigger" class="table table-bordered w-100"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

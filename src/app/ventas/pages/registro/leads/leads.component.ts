@@ -245,6 +245,7 @@ export class LeadsComponent implements OnInit {
       },
       {title: 'Correo', data: 'email'},
       {title: 'Diplomado', data: 'courses_name'},
+      {title: 'Procedencia', data: 'procedencia'},
       {title: 'F. Registro', data: 'created_at'},
       {title: 'F. Modificación', data: 'updated_at', orderable: false, searchable: false, defaultContent: '',
         ngTemplateRef: {

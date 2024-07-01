@@ -13,6 +13,7 @@ import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { RegistroComponent } from '../ventas/pages/registro/registro.component';
 import { CobrosComponent } from '../cobranza/pages/cobros/cobros.component';
 import { FechasComponent } from './pages/fechas/fechas.component';
+import { StudentsComponent } from './pages/students/students.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
       {
         path: 'fechas',
         component: FechasComponent
+      },
+      {
+        path: 'estudiantes',
+        component: StudentsComponent
       },
     ]
   }

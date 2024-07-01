@@ -15,6 +15,9 @@ export class AlumnosService {
   listar_estudiantes(code){
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'cobranza/listar/todo-cobranza-ventas/'+code);
   }
+  listStudents(params){
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/listar/estudiantes-matriculados/?'+params);
+  }
   listar_vendedores(){
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'gerencia/listar-todos-vendedores/');
   }

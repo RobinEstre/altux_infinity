@@ -295,7 +295,8 @@ export class FormPayMatriculaComponent implements OnInit {
   }
 
   body(){
-    let num_documento_sunat, razon, tipo_pago, tipo_matricula, date
+    let num_documento_sunat, razon, tipo_pago, tipo_matricula, date, procedencia='FICHA'
+    if(this.data.procedencia_venta!=''){procedencia=this.data.procedencia_venta}
     if(this.data.is_facture==true){
       num_documento_sunat = this.data.num_documento_sunat
     }else {
@@ -327,7 +328,7 @@ export class FormPayMatriculaComponent implements OnInit {
       "is_referido": this.data.is_referido,
       "dni_patrocinador": this.data.dni_patrocinador,
       "name_patrocinador": this.data.name_patrocinador,
-      "procedencia_venta": this.data.procedencia_venta,
+      "procedencia_venta": procedencia,
       "grado_instruccion": this.data.grado_instruccion,
       "num_colegiatura": this.data.num_colegiatura,
       "id_vendedor": this.vendedor.id,
@@ -423,7 +424,7 @@ export class FormPayMatriculaComponent implements OnInit {
     });
   }
 
-  generateCheckoutCuota (jsonbody){    
+  generateCheckoutCuota (jsonbody){
     const body = {
       "id_preventa": this.data.data_cuota1.id_preventa,
       "is_facture": this.data.data_cuota1.is_facture,
