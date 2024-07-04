@@ -51,11 +51,18 @@
                                 <p class="mb-0">{{data.telefono}}</p>
                             </a>
                         </ng-template>
+                        <ng-template #is_check let-data="adtData" let-emitter="captureEvents">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="{{data.id}}" 
+                                    [checked]="data.is_reporte_facebook" (change)="actualizarEstado(data, $event)">
+                                <label class="form-check-label" for="{{data.id}}">Activo</label>
+                            </div>
+                        </ng-template>
                         <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
                             <app-table-buttons [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-buttons>
                         </ng-template>
                         <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
-                                [dtTrigger]="dtTrigger" class="table table-bordered w-100"></table>
+                            [dtTrigger]="dtTrigger" class="table table-striped w-100"></table>
                     </div>
                 </div>
             </div>

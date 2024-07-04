@@ -71,6 +71,7 @@ export class ControlLeadsComponent implements OnInit {
   @ViewChild('is_celular') is_celular!: TemplateRef<ControlLeadsComponent>;
   @ViewChild('idTpl', {static: true}) idTpl: TemplateRef<ControlLeadsComponent>;
   @ViewChild('is_tipo') is_tipo!: TemplateRef<ControlLeadsComponent>;
+  @ViewChild('is_check') is_check!: TemplateRef<ControlLeadsComponent>;
   @ViewChild('is_categoria') is_categoria!: TemplateRef<ControlLeadsComponent>;
 
   constructor(private service: VentasService, private spinner: NgxSpinnerService, private cd: ChangeDetectorRef,private datePipe: DatePipe,) { 
@@ -135,6 +136,14 @@ export class ControlLeadsComponent implements OnInit {
         }
       },
       {title: 'F. Registro', data: 'updated_at'},
+      {title: 'ACC', data: 'is_reporte_facebook', orderable: false, searchable: false, defaultContent: '',
+        ngTemplateRef: {
+          ref: this.is_check,
+          context: {
+            captureEvents: this.captureEventsEmitido.bind(self)
+          }
+        }
+      },
     );
     // if (this.dataTableActions.length > 0) {
     //   this.columns.push({
@@ -166,9 +175,7 @@ export class ControlLeadsComponent implements OnInit {
               this.paginate = 1
             }else{
               let n_paginated = (this.register_count  / body_params['length'])
-
               n_paginated = Math.round(n_paginated)
-
               let list_indices = [];
               for (let i = 0; i < n_paginated; i++) {
                 let i_custom = i + 1
@@ -191,6 +198,7 @@ export class ControlLeadsComponent implements OnInit {
           this.filter_params=`pagina=${this.paginate}&cantidad=${body_params['length']}`
         }
         this.service.listControlLeads(this.filter_params).subscribe(resp => {
+          console.log(this.filter_params)
           let data=[], n=0, cantidad=0
           if(resp['success']){
             if(resp['data']){
@@ -212,7 +220,8 @@ export class ControlLeadsComponent implements OnInit {
                   "dni": i.dni,
                   "telefono": i.telefono,
                   "email": i.email,
-                  "diplomado": i.diplomado.courses_name
+                  "diplomado": i.diplomado.courses_name,
+                  "is_reporte_facebook": i.is_reporte_facebook,
                 })
               })
               this.register_count = resp['cantidad']
@@ -259,6 +268,15 @@ export class ControlLeadsComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  rerender(){
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next()
+    });
+  }
+
   onCaptureEvent(event: any): void {
     if (event['cmd'] === 'seguimiento'){
     }else{
@@ -266,5 +284,25 @@ export class ControlLeadsComponent implements OnInit {
   }
 
   captureEventsEmitido(event: any): void {
+  }
+
+  actualizarEstado(data, event){
+    this.spinner.show()
+    // console.log(data)
+    // console.log(event.target.checked)
+    let body={is_reporte:event.target.checked}
+    this.service.actEstadoReporteFacebook(data.id, body).subscribe(resp=>{
+      if(resp.success){
+        this.spinner.hide()
+        this.rerender()
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "success",
+        //   title: "¡RUC encontrado!",
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // });
+      }
+    })
   }
 }

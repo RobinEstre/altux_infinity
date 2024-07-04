@@ -47,7 +47,7 @@ export class VentasService {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/estados-leads/');
   }
   listControlLeads(params) {
-    return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/control-leads/?', params);
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar/control-leads/?'+ params);
   }
   listDiscount(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'ventas/vendedor/listar-descuento/', data);
@@ -79,6 +79,9 @@ export class VentasService {
   }
   actFechaPago(data) {
     return this.httpClient.patch<any>(this.envUrl.urlAddress + 'ventas/reprogramar-fecha-pago/', data);
+  }
+  actEstadoReporteFacebook(id, data) {
+    return this.httpClient.put<any>(this.envUrl.urlAddress + 'marketing/actualizar/reporte-facebook-leads/'+id, data);
   }
   registrarPreVenta(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'ventas/pre-venta/guardar-cliente/', data)
