@@ -150,7 +150,7 @@ export class StudentsComponent implements OnInit {
             }else{
               let n_paginated = (this.register_count  / body_params['length'])
 
-              n_paginated = Math.round(n_paginated)
+              n_paginated = Math.ceil(n_paginated)
 
               let list_indices = [];
               for (let i = 0; i < n_paginated; i++) {

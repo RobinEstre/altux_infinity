@@ -832,7 +832,7 @@ export class FichasComponent implements OnInit {
       "phone":this.formEditar.controls.telefono.value,
       "email":this.formEditar.controls.email.value,
       "type_doc":this.detalle.type_doc,
-      "procedencia_venta": this.detalle.procedencia_venta,
+      "procedencia_venta": "FICHA",
       "grado_instruccion": this.detalle.grado_instruccion,
       "num_colegiatura": this.detalle.num_colegiatura,
       "date_call": this.detalle.date_call,

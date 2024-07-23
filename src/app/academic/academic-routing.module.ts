@@ -14,6 +14,7 @@ import { RegistroComponent } from '../ventas/pages/registro/registro.component';
 import { CobrosComponent } from '../cobranza/pages/cobros/cobros.component';
 import { FechasComponent } from './pages/fechas/fechas.component';
 import { StudentsComponent } from './pages/students/students.component';
+import { FechaPagoComponent } from './pages/fecha-pago/fecha-pago.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,10 @@ const routes: Routes = [
       {
         path: 'estudiantes',
         component: StudentsComponent
+      },
+      {
+        path: 'fecha-pago',
+        component: FechaPagoComponent
       },
     ]
   }

@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-journal-bookmark-fill h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Fechas de Pagos</h6>
+                        <p class="text-secondary small">Modificar las fechas de pago de los diplomados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center mb-4">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <form [formGroup]="formgrupos">
+                            <div class="form-group">
+                                <ng-select formControlName="diplomado"
+                                            [items]="diplomado"
+                                            bindLabel="courses_name"
+                                            bindValue="courses_code"
+                                            placeholder="SELECCIONAR DIPLOMADO"
+                                            (change)="listGroup($event)">
+                                </ng-select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row justify-content-center" *ngIf="modulo">
+                    <div class="col-sm-12 col-md-3 col-lg-3" *ngFor="let data of modulo, let i = index">
+                        <div class="card border-0 mb-4 theme-blue bg-gradient-theme-light">
+                            <div class="card-header bg-light-theme">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-cash-coin h5 avatar avatar-40 bg-light-blue text-blue rounded"></i>
+                                    </div>
+                                    <div class="col-auto ps-0" style="display: flex; align-items: center;">
+                                        <!-- <div class="row gx-0">
+                                            <div class="col">
+                                                <p class="small text-secondary">{{data.num_cuota}}</p>
+                                            </div>
+                                        </div> -->
+                                        <h5>{{data.num_cuota}}</h5>
+                                    </div>
+                                    <!-- <div class="col-auto" style="display: flex; align-items: center;">
+                                        <p>
+                                            <a href="javascript:void(0)" class="text-dark" (click)="changeClase(data,false,i)">
+                                                {{data.fecha_vencimiento*1000 |  date:'dd/MM/yyyy'}}
+                                            </a>
+                                        </p>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 my-2 text-center">
+                                        <p>
+                                            <a href="javascript:void(0)" class="text-dark" (click)="changeFecha(data,i)">
+                                                <i class="bi bi-calendar"></i> {{data.fecha_vencimiento*1000 |  date:'dd/MM/yyyy h:mm a'}}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

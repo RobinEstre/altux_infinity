@@ -29,6 +29,7 @@ import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { FechasComponent } from './pages/fechas/fechas.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { TableButtonsComponent } from './pages/students/table-buttons/table-buttons.component';
+import { FechaPagoComponent } from './pages/fecha-pago/fecha-pago.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { TableButtonsComponent } from './pages/students/table-buttons/table-butt
     AlumnosComponent,
     FechasComponent,
     StudentsComponent,
-    TableButtonsComponent
+    TableButtonsComponent,
+    FechaPagoComponent
   ],
   imports: [
     CommonModule,

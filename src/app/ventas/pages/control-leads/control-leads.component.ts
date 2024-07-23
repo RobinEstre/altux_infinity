@@ -163,6 +163,7 @@ export class ControlLeadsComponent implements OnInit {
     this.dtOptions = {
       ajax: (dataTablesParameters: any, callback) => {
         // validar si existe variables en el objeto
+        console.log(dataTablesParameters)
         let result = Object.entries(dataTablesParameters).length;
         if (result > 0){
           // si hay registros, configurar los nuevos parametros de busqueda
@@ -175,10 +176,10 @@ export class ControlLeadsComponent implements OnInit {
               this.paginate = 1
             }else{
               let n_paginated = (this.register_count  / body_params['length'])
-              n_paginated = Math.round(n_paginated)
+              n_paginated = Math.ceil(n_paginated)
               let list_indices = [];
               for (let i = 0; i < n_paginated; i++) {
-                let i_custom = i + 1
+                let i_custom = i+1
                 let value = i * body_params['length'];
                 list_indices.push({
                   id: i_custom,

@@ -18,4 +18,10 @@ export class FechasService {
   actFechas(id, data){
     return this.httpClient.put<any>(this.envUrl.urlAddress + 'academico/actualizar/fechas_evaluacion/'+id, data);
   }
+  listPagos(code){
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/pago/consultar-fechas-diplomado/'+code);
+  } 
+  actFechaPago(data){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'ventas/fecha/actualizar-fechas-pagos-estudiantes/', data);
+  }
 }
