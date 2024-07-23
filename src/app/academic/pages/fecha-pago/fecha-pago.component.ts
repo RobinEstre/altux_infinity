@@ -92,9 +92,7 @@ export class FechaPagoComponent implements OnInit {
         let cuotas:any=[]
         this.modulo.forEach(i=>{
           if(i.indice==index){
-            let nuevo= fecha.getFullYear()+'-'+fecha.getMonth()+'-'+fecha.getDay()
-            //console.log(nuevo)
-            let fecha_nuevo= new Date(nuevo+" 23:59:59")
+            let fecha_nuevo= new Date(dat+" 23:59:59")
             //console.log(fecha_nuevo)
             i.fecha_vencimiento=fecha_nuevo.getTime()/1000
             //console.log(fecha_nuevo.getTime()/1000)
