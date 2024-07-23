@@ -79,7 +79,7 @@ export class FechaPagoComponent implements OnInit {
     swalWithBootstrapButtons.fire({
       title: '¿Seguro de Cambiar la fecha de '+data.num_cuota+'?\n'+fecha,
       icon: 'question',
-      html:'<input id="datepicker" type="datetime-local" class="form-control text-dark" autofocus>',
+      html:'<input id="datepicker" type="date" class="form-control text-dark" autofocus>',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -92,7 +92,12 @@ export class FechaPagoComponent implements OnInit {
         let cuotas:any=[]
         this.modulo.forEach(i=>{
           if(i.indice==index){
-            i.fecha_vencimiento=fecha.getTime()/1000
+            let nuevo= fecha.getFullYear()+'-'+fecha.getMonth()+'-'+fecha.getDay()
+            //console.log(nuevo)
+            let fecha_nuevo= new Date(nuevo+" 23:59:59")
+            //console.log(fecha_nuevo)
+            i.fecha_vencimiento=fecha_nuevo.getTime()/1000
+            //console.log(fecha_nuevo.getTime()/1000)
           }
           cuotas.push({
             indice: i.indice,
