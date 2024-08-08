@@ -603,12 +603,26 @@
         <div class="ms-auto">
             <div class="row">
                 <div class="col-auto align-self-center px-0 d-none d-xxxl-block">
+                    <form [formGroup]="formGroup">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <ng-select class="text-uppercase"
+                                   formControlName="grupos"
+                                   [items]="grupo"
+                                   bindLabel="name"
+                                   bindValue="id"
+                                   placeholder="SELECCIONAR GRUPO"
+                                   (change)="changeGrupo($event)">
+                        </ng-select>
+                      </div>
+                    </form>
+                </div>
+                <div class="col-auto align-self-center px-0 d-none d-xxxl-block">
                     <i class="bi bi-three-dots-vertical opacity-3 text-light"></i>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-square btn-link search-btn d-inline-block d-xl-none " id="searchtoggle">
+                    <!-- <button class="btn btn-square btn-link search-btn d-inline-block d-xl-none " id="searchtoggle">
                         <i class="bi bi-search"></i>
-                    </button>   
+                    </button>    -->
                     <button type="button" class="btn text-light btn-square btn-link text-center d-none d-lg-inline-block" 
                     id="gofullscreen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fullscreen" (click)="toggleFullScreen()">
                     <i *ngIf="!isFullScreen" class="bi bi-fullscreen"></i><i *ngIf="isFullScreen" class="bi bi-fullscreen-exit"></i></button>

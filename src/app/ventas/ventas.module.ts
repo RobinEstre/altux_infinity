@@ -32,7 +32,8 @@ import { TableLeadsComponent } from './pages/control-leads/table-leads/table-lea
     TableButtonsComponent,
     CheckoutPruebaComponent,
     ControlLeadsComponent,
-    TableLeadsComponent
+    TableLeadsComponent,
+    PanelComponent
   ],
   imports: [
     CommonModule,

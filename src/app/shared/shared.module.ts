@@ -14,6 +14,7 @@ import { PerfilSharedComponent } from './components/perfil/perfil.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { FormPayComponent } from './components/form-pay/form-pay.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
   imports: [
     CommonModule,
     NgxSpinnerModule,
+    NgSelectModule,
     NgxDropzoneModule,
     RouterModule,
     ReactiveFormsModule,

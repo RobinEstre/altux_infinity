@@ -13,6 +13,7 @@ export class AuthenticationService {
     public _imgUser = new BehaviorSubject<string>('');
     public _nameUser = new BehaviorSubject<string>('');
     public miVariable$ = new BehaviorSubject<boolean>(false);
+    public _navUser = new BehaviorSubject<any>(null);
 
     setUserName(userName: string) {
         this.userName = userName;

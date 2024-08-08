@@ -15,6 +15,7 @@ export class ContentComponent implements OnInit {
   @ViewChild('FooterEl', { read: ElementRef, static: false }) footerView!: ElementRef;
 
   constructor(private renderer: Renderer2) { }
+  //show:boolean = false
 
   ngOnInit() {
   }

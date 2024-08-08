@@ -1,9 +1,11 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { PersonalizationService } from '../../services/personalization.service';
 import { Router } from '@angular/router';
 import { PerfilService } from 'src/app/alumno/services/perfil.service';
 import { NavbarService } from '../../services/navbar.service';
+import { FormBuilder } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 //import { profile } from 'console';
 declare var $: any;
 
@@ -15,16 +17,16 @@ declare var $: any;
 
 export class HeaderComponent implements OnInit {
   docElement: any = HTMLElement;
-
-  isFullScreen = false;
-  searchText = '';
-  showSearchResult = false;
-  rol:any;secretrol = 'K56QSxGeKImwBRmiY'; rus = localStorage.getItem('rus');user_rol:any; validate_user:any
-  perfil:any; url:any
-  constructor(private eRef: ElementRef, private router: Router,public authenticationService: AuthenticationService,
-    public personalizationService: PersonalizationService,private service: PerfilService, private navBarService: NavbarService) {     
+  isFullScreen = false; searchText = ''; showSearchResult = false; rol:any;secretrol = 'K56QSxGeKImwBRmiY'; 
+  rus = localStorage.getItem('rus');user_rol:any; validate_user:any; perfil:any; url:any
+  constructor(private eRef: ElementRef, private router: Router,public authenticationService: AuthenticationService,private fb: FormBuilder,
+    public personalizationService: PersonalizationService,private service: PerfilService, private navBarService: NavbarService,private spinner: NgxSpinnerService,) {     
   }
-  userName:any;userImg:any
+  formGroup = this.fb.group({
+    grupos: [null],
+  });
+  userName:any; userImg:any; grupo:any; menu:any
+  @Input() show:any
 
   ngOnInit(): void {
     this.authenticationService.miVariable$.subscribe(data => {
@@ -43,13 +45,152 @@ export class HeaderComponent implements OnInit {
     this.personalizationService.renderLogoImage();
     this.listProfile()
     
-    setTimeout(() => { this.listMenu()}, 2000);
+    let validate=localStorage.getItem('role_user');
+    if (validate) {
+      this.service.getMenu().subscribe(resp=>{
+        if(resp.success){
+          let rol=validate, user_rol
+          let data=[], name
+          resp.menu.forEach(i=>{
+            if(i.nav_var.nav_is_roles=='is_student'){name='alumno'}
+            if(i.nav_var.nav_is_roles=='is_teacher'){name='profesor'}
+            if(i.nav_var.nav_is_roles=='is_academic'){name='academico'}
+            if(i.nav_var.nav_is_roles=='is_seller'){name='ventas'}
+            if(i.nav_var.nav_is_roles=='is_accounting'){name='contabilidad'}
+            if(i.nav_var.nav_is_roles=='is_cobranza'){name='cobranza'}
+            if(i.nav_var.nav_is_roles=='is_finance'){name='finanzas'}
+            if(i.nav_var.nav_is_roles=='is_gerente'){name='gerencia'}
+            if(i.nav_var.nav_is_roles=='is_admin'){name='administrador'}
+            if(i.nav_var.nav_is_roles=='is_lider_venta'){name='jefe ventas'}
+            if(i.nav_var.nav_is_roles=='is_jefe_cobranza'){name='jefe cobranza'}
+            if(i.nav_var.nav_is_roles=='is_staff'){name='secretaría'}
+            if(i.nav_var.nav_is_roles=='is_marketing'){name='marketing'}
+            data.push({
+              id: i.nav_var.nav_is_roles,
+              name: name
+            })
+          })
+          this.menu=resp.menu
+          this.grupo=data
+          this.formGroup.controls.grupos.setValue(rol)
+          this.listMenu(rol)
+          localStorage.setItem('role_user', rol)
+          this.menu.forEach(i=>{
+            if(i.nav_var.nav_is_roles==rol){
+              this.authenticationService._navUser.next(i.nav_var.nav_data);
+            }
+          })
+          switch (rol) {
+            case 'is_student':
+              user_rol='alumno'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_teacher':
+              user_rol='profesor'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_academic':
+              user_rol='academico'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_seller':
+              user_rol='ventas'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_accounting':
+              user_rol='contabilidad'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_cobranza':
+              user_rol='cobranza'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_finance':
+              user_rol='finanza'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_gerente':
+              user_rol='gerencia'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_admin':
+              user_rol='administrador'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_lider_venta':
+              user_rol='jefe-ventas'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_jefe_cobranza':
+              user_rol='jefe-cobranza'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_staff':
+              user_rol='secretaria'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            case 'is_marketing':
+              user_rol='marketing'
+              this.spinner.hide()
+              this.router.navigate(['/'+user_rol+'/panel']);
+              break;
+            default:
+          }
+        }
+      })
+    }else{
+      this.service.getMenu().subscribe(resp=>{
+        if(resp.success){
+          let rol=resp.menu[0].nav_var.nav_is_roles
+          let data=[], name
+          resp.menu.forEach(i=>{
+            if(i.nav_var.nav_is_roles=='is_student'){name='alumno'}
+            if(i.nav_var.nav_is_roles=='is_teacher'){name='profesor'}
+            if(i.nav_var.nav_is_roles=='is_academic'){name='academico'}
+            if(i.nav_var.nav_is_roles=='is_seller'){name='ventas'}
+            if(i.nav_var.nav_is_roles=='is_accounting'){name='contabilidad'}
+            if(i.nav_var.nav_is_roles=='is_cobranza'){name='cobranza'}
+            if(i.nav_var.nav_is_roles=='is_finance'){name='finanzas'}
+            if(i.nav_var.nav_is_roles=='is_gerente'){name='gerencia'}
+            if(i.nav_var.nav_is_roles=='is_admin'){name='administrador'}
+            if(i.nav_var.nav_is_roles=='is_lider_venta'){name='jefe ventas'}
+            if(i.nav_var.nav_is_roles=='is_jefe_cobranza'){name='jefe cobranza'}
+            if(i.nav_var.nav_is_roles=='is_staff'){name='secretaría'}
+            if(i.nav_var.nav_is_roles=='is_marketing'){name='marketing'}
+            data.push({
+              id: i.nav_var.nav_is_roles,
+              name: name
+            })
+          })
+          this.menu=resp.menu
+          this.grupo=data
+          this.formGroup.controls.grupos.setValue(rol)
+          this.listMenu(rol)
+          localStorage.setItem('role_user', resp.menu[0].nav_var.nav_is_roles)
+          this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
+          this.router.navigate(['/'+name+'/panel']);
+        }
+      })
+    }
+    // setTimeout(() => { this.listMenu()}, 2000);
   }
 
-  listMenu() {
+  listMenu(rol) {
     this.url=document.location.href.split('/')
-    this.rol = this.navBarService.CryptoJSAesDecrypt(this.secretrol, this.rus);
-    let rol= this.rol
+    // this.rol = this.navBarService.CryptoJSAesDecrypt(this.secretrol, this.rus);
+    // let rol= this.rol
     switch (rol) {
       case 'is_student':
         this.user_rol='alumno'
@@ -144,6 +285,161 @@ export class HeaderComponent implements OnInit {
         this.userImg = localStorage.getItem('IMG_USER');
       }
     })
+  }
+
+  changeGrupo(event){
+    this.spinner.show()
+    try{
+      localStorage.setItem('role_user', event.id)
+      let rol=event.id, user_rol
+      switch (rol) {
+        case 'is_student':
+          user_rol='alumno'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_teacher':
+          user_rol='profesor'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_academic':
+          user_rol='academico'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_seller':
+          user_rol='ventas'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_accounting':
+          user_rol='contabilidad'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_cobranza':
+          user_rol='cobranza'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_finance':
+          user_rol='finanza'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_gerente':
+          user_rol='gerencia'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_admin':
+          user_rol='administrador'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_lider_venta':
+          user_rol='jefe-ventas'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_jefe_cobranza':
+          user_rol='jefe-cobranza'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_staff':
+          user_rol='secretaria'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_marketing':
+          user_rol='marketing'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        default:
+      }
+      this.menu.forEach(i=>{
+        if(i.nav_var.nav_is_roles==rol){
+          this.authenticationService._navUser.next(i.nav_var.nav_data);
+        }
+      })
+    }catch (e) {
+      let rol=this.menu[0].nav_var.nav_is_roles, user_rol
+      switch (rol) {
+        case 'is_student':
+          user_rol='alumno'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_teacher':
+          user_rol='profesor'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_academic':
+          user_rol='academico'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_seller':
+          user_rol='ventas'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_accounting':
+          user_rol='contabilidad'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_cobranza':
+          user_rol='cobranza'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_finance':
+          user_rol='finanza'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_gerente':
+          user_rol='gerencia'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_admin':
+          user_rol='administrador'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_lider_venta':
+          user_rol='jefe-ventas'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_jefe_cobranza':
+          user_rol='jefe-cobranza'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_staff':
+          user_rol='secretaria'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        case 'is_marketing':
+          user_rol='marketing'
+          this.spinner.hide()
+          this.router.navigate(['/'+user_rol+'/panel']);
+          break;
+        default:
+      }
+      // this.navServices.sendLista([])
+      // this.spinner.hide()
+      this.authenticationService._navUser.next(this.menu[0].nav_var.nav_data);
+      // return this.router.navigate(['/'+this.menu[0].nav_var.nav_is_roles+'/panel']);
+    }
   }
 
   ngAfterViewInit() {

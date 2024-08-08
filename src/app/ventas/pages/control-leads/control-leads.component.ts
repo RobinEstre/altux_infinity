@@ -163,7 +163,7 @@ export class ControlLeadsComponent implements OnInit {
     this.dtOptions = {
       ajax: (dataTablesParameters: any, callback) => {
         // validar si existe variables en el objeto
-        console.log(dataTablesParameters)
+        // console.log(dataTablesParameters)
         let result = Object.entries(dataTablesParameters).length;
         if (result > 0){
           // si hay registros, configurar los nuevos parametros de busqueda
@@ -195,11 +195,11 @@ export class ControlLeadsComponent implements OnInit {
           }else{
             this.paginate = 1
           }
-          //this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&searchs=${body_params['search']['value'] || ''}`
-          this.filter_params=`pagina=${this.paginate}&cantidad=${body_params['length']}`
+          this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&search=${body_params['search']['value'] || ''}`
+          //this.filter_params=`pagina=${this.paginate}&cantidad=${body_params['length']}`
         }
         this.service.listControlLeads(this.filter_params).subscribe(resp => {
-          console.log(this.filter_params)
+          // console.log(this.filter_params)
           let data=[], n=0, cantidad=0
           if(resp['success']){
             if(resp['data']){

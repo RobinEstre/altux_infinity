@@ -18,21 +18,31 @@ export class SidebarComponent implements OnInit {
   rus = localStorage.getItem('rus');user_rol:any;
 
   ngOnInit(): void {
-    this.listMenu();
-    this.userName = localStorage.getItem('USERNAME');
-    this.userImg = localStorage.getItem('IMG_USER');
+    //this.listMenu();
+    setTimeout(() => {
+      this.userName = localStorage.getItem('USERNAME');
+      this.userImg = localStorage.getItem('IMG_USER');
+    }, 1500);
+    // this.userName = localStorage.getItem('USERNAME');
+    // this.userImg = localStorage.getItem('IMG_USER');
     this.authenticationService.miVariable$.subscribe(data => {
       if(data==true){
         this.listProfile()
       }
     });
+    this.authenticationService._navUser.subscribe(data => {
+      this.menuItems = data;
+      // console.log(data);
+    });
   }
 
   listProfile(){
-    setTimeout(() => {
-      this.userName = localStorage.getItem('USERNAME');
-      this.userImg = localStorage.getItem('IMG_USER');
-    }, 1500);
+    this.userName = localStorage.getItem('USERNAME');
+    this.userImg = localStorage.getItem('IMG_USER');
+    // setTimeout(() => {
+    //   this.userName = localStorage.getItem('USERNAME');
+    //   this.userImg = localStorage.getItem('IMG_USER');
+    // }, 1500);
   }
 
   listMenu() {

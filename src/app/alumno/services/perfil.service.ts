@@ -24,4 +24,8 @@ export class PerfilService {
   updatePassword(data){
     return this.httpClient.put<any>(this.envUrl.urlAddress + 'users/actualizar-password/', data)
   }
+
+  getMenu(){
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'theme/listar/roles-menu/');
+  }
 }
