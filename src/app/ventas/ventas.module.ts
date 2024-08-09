@@ -17,8 +17,6 @@ import { SharedModule } from '../shared/shared.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { TableButtonsComponent } from './pages/registro/leads/table-buttons/table-buttons.component';
 import { CheckoutPruebaComponent } from './pages/checkout-prueba/checkout-prueba.component';
-import { ControlLeadsComponent } from './pages/control-leads/control-leads.component';
-import { TableLeadsComponent } from './pages/control-leads/table-leads/table-leads.component';
 
 
 @NgModule({
@@ -31,8 +29,6 @@ import { TableLeadsComponent } from './pages/control-leads/table-leads/table-lea
     LeadsComponent,
     TableButtonsComponent,
     CheckoutPruebaComponent,
-    ControlLeadsComponent,
-    TableLeadsComponent,
     PanelComponent
   ],
   imports: [

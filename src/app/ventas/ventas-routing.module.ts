@@ -5,7 +5,7 @@ import { PerfilSharedComponent } from '../shared/components/perfil/perfil.compon
 import { RegistroComponent } from './pages/registro/registro.component';
 import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { CheckoutPruebaComponent } from './pages/checkout-prueba/checkout-prueba.component';
-import { ControlLeadsComponent } from './pages/control-leads/control-leads.component';
+import { ControlLeadsComponent } from '../marketing/pages/control-leads/control-leads.component';
 
 const routes: Routes = [
   {

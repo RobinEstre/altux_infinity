@@ -19,12 +19,12 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     //this.listMenu();
-    setTimeout(() => {
-      this.userName = localStorage.getItem('USERNAME');
-      this.userImg = localStorage.getItem('IMG_USER');
-    }, 1500);
-    // this.userName = localStorage.getItem('USERNAME');
-    // this.userImg = localStorage.getItem('IMG_USER');
+    // setTimeout(() => {
+    //   this.userName = localStorage.getItem('USERNAME');
+    //   this.userImg = localStorage.getItem('IMG_USER');
+    // }, 1500);
+    this.userName = localStorage.getItem('USERNAME');
+    this.userImg = localStorage.getItem('IMG_USER');
     this.authenticationService.miVariable$.subscribe(data => {
       if(data==true){
         this.listProfile()

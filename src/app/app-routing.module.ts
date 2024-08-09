@@ -8,6 +8,7 @@ import { routeVentas } from './shared/routes/route-ventas';
 import { routeAcademico } from './shared/routes/route-academico';
 import { FormPayMatriculaComponent } from './auth/form-pay-matricula/form-pay-matricula.component';
 import { routeCobranza } from './shared/routes/route-cobranza';
+import { routeMarketing } from './shared/routes/route-marketing';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -46,6 +47,12 @@ const routes: Routes = [
     component: ContentComponent,
     canActivate: [AuthGuard],
     children: routeCobranza
+  },
+  {
+    path: 'marketing',
+    component: ContentComponent,
+    canActivate: [AuthGuard],
+    children: routeMarketing
   },
 ]
 

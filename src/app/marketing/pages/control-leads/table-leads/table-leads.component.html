@@ -1,0 +1,11 @@
+<ng-container *ngIf="actions.length > 0">
+    <div class="d-inline-block">
+        <!-- estado.nombre -->
+        <ng-container *ngFor="let action of actions">
+            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="{{action.label}}"
+                [class]="action.classList" (click)="onActionClick(action.cmd)">
+                <i class="{{action.icon}}"></i>
+            </a>
+        </ng-container>
+    </div>
+</ng-container>

@@ -6,7 +6,7 @@ import localeEs from '@angular/common/locales/es';
 import {DatePipe, registerLocaleData} from "@angular/common";
 registerLocaleData(localeEs, 'es');
 import Swal from "sweetalert2";
-import { VentasService } from '../../service/ventas.service';
+import { VentasService } from '../../../ventas/service/ventas.service';
 
 @Component({
   selector: 'app-control-leads',
@@ -211,6 +211,7 @@ export class ControlLeadsComponent implements OnInit {
                   "n":n,
                   "id": i.id,
                   "seguimiento": i.seguimiento,
+                  historial_seguimiento: i.historial_seguimiento,
                   "estado": i.estado,
                   "vendedor": i.vendedor,
                   'created_at': created_at,

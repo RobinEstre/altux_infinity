@@ -33,15 +33,17 @@
                           </p>
                         </ng-template>
                         <ng-template #is_categoria let-data="adtData" let-emitter="captureEvents">
-                            <p *ngIf="data.seguimiento">
-                                <i class="bi bi-info-circle text-info rounded" *ngIf="data.seguimiento.informacion.length>0"></i>
-                                <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="data.seguimiento.no_interesado.length>0"></i>
-                                <i class="bi bi-telephone-x text-warning rounded" *ngIf="data.seguimiento.no_contesta.length>0"></i>
-                                <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="data.seguimiento.proximo_grupo.length>0"></i>
-                                <i class="bi bi-cash-coin text-success rounded" *ngIf="data.seguimiento.compromiso_pago.length>0"></i>
-                                <b *ngIf="data.seguimiento.informacion.length==0&&data.seguimiento.no_interesado.length==0&&
-                                    data.seguimiento.no_contesta.length==0&&data.seguimiento.proximo_grupo.length==0
-                                    &&data.seguimiento.compromiso_pago.length==0">
+                            <p class="d-flex" *ngIf="data.historial_seguimiento.data.length>0">
+                                <b *ngFor="let valData of data.historial_seguimiento.data" class="mx-1">
+                                    <i class="bi bi-info-circle text-info rounded" *ngIf="valData.tipo_seguimiento=='informacion'"></i>
+                                    <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="valData.tipo_seguimiento=='no_interesado'"></i>
+                                    <i class="bi bi-telephone-x text-warning rounded" *ngIf="valData.tipo_seguimiento=='no_contesta'"></i>
+                                    <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="valData.tipo_seguimiento=='proximo_grupo'"></i>
+                                    <i class="bi bi-cash-coin text-success rounded" *ngIf="valData.tipo_seguimiento=='compromiso_pago'"></i>
+                                </b>
+                            </p>
+                            <p *ngIf="data.historial_seguimiento.data.length==0">
+                                <b>
                                     Sin Registro
                                 </b>
                             </p>
@@ -59,7 +61,7 @@
                             </div>
                         </ng-template>
                         <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
-                            <app-table-buttons [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-buttons>
+                            <app-table-leads [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-leads>
                         </ng-template>
                         <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
                             [dtTrigger]="dtTrigger" class="table table-striped w-100"></table>
