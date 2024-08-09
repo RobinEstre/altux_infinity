@@ -44,10 +44,149 @@ export class HeaderComponent implements OnInit {
     this.personalizationService.renderUserImage();
     this.personalizationService.renderLogoImage();
     this.listProfile()
-    
     let validate=localStorage.getItem('role_user');
-    console.log(validate)
-    if (validate) {
+    
+    if(!this.show){
+      //console.log(validate)
+      if (validate) {
+        this.service.getMenu().subscribe(resp=>{
+          if(resp.success){
+            let rol=validate, user_rol
+            let data=[], name
+            resp.menu.forEach(i=>{
+              if(i.nav_var.nav_is_roles=='is_student'){name='alumno'}
+              if(i.nav_var.nav_is_roles=='is_teacher'){name='profesor'}
+              if(i.nav_var.nav_is_roles=='is_academic'){name='academico'}
+              if(i.nav_var.nav_is_roles=='is_seller'){name='ventas'}
+              if(i.nav_var.nav_is_roles=='is_accounting'){name='contabilidad'}
+              if(i.nav_var.nav_is_roles=='is_cobranza'){name='cobranza'}
+              if(i.nav_var.nav_is_roles=='is_finance'){name='finanzas'}
+              if(i.nav_var.nav_is_roles=='is_gerente'){name='gerencia'}
+              if(i.nav_var.nav_is_roles=='is_admin'){name='administrador'}
+              if(i.nav_var.nav_is_roles=='is_lider_venta'){name='jefe ventas'}
+              if(i.nav_var.nav_is_roles=='is_jefe_cobranza'){name='jefe cobranza'}
+              if(i.nav_var.nav_is_roles=='is_staff'){name='secretaría'}
+              if(i.nav_var.nav_is_roles=='is_marketing'){name='marketing'}
+              data.push({
+                id: i.nav_var.nav_is_roles,
+                name: name
+              })
+            })
+            this.menu=resp.menu
+            this.grupo=data
+            this.formGroup.controls.grupos.setValue(rol)
+            this.listMenu(rol)
+            localStorage.setItem('role_user', rol)
+            this.menu.forEach(i=>{
+              if(i.nav_var.nav_is_roles==rol){
+                this.authenticationService._navUser.next(i.nav_var.nav_data);
+              }
+            })
+            switch (rol) {
+              case 'is_student':
+                user_rol='alumno'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_teacher':
+                user_rol='profesor'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_academic':
+                user_rol='academico'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_seller':
+                user_rol='ventas'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_accounting':
+                user_rol='contabilidad'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_cobranza':
+                user_rol='cobranza'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_finance':
+                user_rol='finanza'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_gerente':
+                user_rol='gerencia'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_admin':
+                user_rol='administrador'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_lider_venta':
+                user_rol='jefe-ventas'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_jefe_cobranza':
+                user_rol='jefe-cobranza'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_staff':
+                user_rol='secretaria'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              case 'is_marketing':
+                user_rol='marketing'
+                this.spinner.hide()
+                this.router.navigate(['/'+user_rol+'/panel']);
+                break;
+              default:
+            }
+          }
+        })
+      }else{
+        this.service.getMenu().subscribe(resp=>{
+          if(resp.success){
+            let rol=resp.menu[0].nav_var.nav_is_roles
+            let data=[], name
+            resp.menu.forEach(i=>{
+              if(i.nav_var.nav_is_roles=='is_student'){name='alumno'}
+              if(i.nav_var.nav_is_roles=='is_teacher'){name='profesor'}
+              if(i.nav_var.nav_is_roles=='is_academic'){name='academico'}
+              if(i.nav_var.nav_is_roles=='is_seller'){name='ventas'}
+              if(i.nav_var.nav_is_roles=='is_accounting'){name='contabilidad'}
+              if(i.nav_var.nav_is_roles=='is_cobranza'){name='cobranza'}
+              if(i.nav_var.nav_is_roles=='is_finance'){name='finanzas'}
+              if(i.nav_var.nav_is_roles=='is_gerente'){name='gerencia'}
+              if(i.nav_var.nav_is_roles=='is_admin'){name='administrador'}
+              if(i.nav_var.nav_is_roles=='is_lider_venta'){name='jefe ventas'}
+              if(i.nav_var.nav_is_roles=='is_jefe_cobranza'){name='jefe cobranza'}
+              if(i.nav_var.nav_is_roles=='is_staff'){name='secretaría'}
+              if(i.nav_var.nav_is_roles=='is_marketing'){name='marketing'}
+              data.push({
+                id: i.nav_var.nav_is_roles,
+                name: name
+              })
+            })
+            this.menu=resp.menu
+            this.grupo=data
+            this.formGroup.controls.grupos.setValue(rol)
+            this.listMenu(rol)
+            localStorage.setItem('role_user', resp.menu[0].nav_var.nav_is_roles)
+            this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
+            this.router.navigate(['/'+name+'/panel']);
+          }
+        })
+      }
+    }else{
       this.service.getMenu().subscribe(resp=>{
         if(resp.success){
           let rol=validate, user_rol
@@ -81,107 +220,6 @@ export class HeaderComponent implements OnInit {
               this.authenticationService._navUser.next(i.nav_var.nav_data);
             }
           })
-          switch (rol) {
-            case 'is_student':
-              user_rol='alumno'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_teacher':
-              user_rol='profesor'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_academic':
-              user_rol='academico'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_seller':
-              user_rol='ventas'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_accounting':
-              user_rol='contabilidad'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_cobranza':
-              user_rol='cobranza'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_finance':
-              user_rol='finanza'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_gerente':
-              user_rol='gerencia'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_admin':
-              user_rol='administrador'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_lider_venta':
-              user_rol='jefe-ventas'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_jefe_cobranza':
-              user_rol='jefe-cobranza'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_staff':
-              user_rol='secretaria'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            case 'is_marketing':
-              user_rol='marketing'
-              this.spinner.hide()
-              this.router.navigate(['/'+user_rol+'/panel']);
-              break;
-            default:
-          }
-        }
-      })
-    }else{
-      this.service.getMenu().subscribe(resp=>{
-        if(resp.success){
-          let rol=resp.menu[0].nav_var.nav_is_roles
-          let data=[], name
-          resp.menu.forEach(i=>{
-            if(i.nav_var.nav_is_roles=='is_student'){name='alumno'}
-            if(i.nav_var.nav_is_roles=='is_teacher'){name='profesor'}
-            if(i.nav_var.nav_is_roles=='is_academic'){name='academico'}
-            if(i.nav_var.nav_is_roles=='is_seller'){name='ventas'}
-            if(i.nav_var.nav_is_roles=='is_accounting'){name='contabilidad'}
-            if(i.nav_var.nav_is_roles=='is_cobranza'){name='cobranza'}
-            if(i.nav_var.nav_is_roles=='is_finance'){name='finanzas'}
-            if(i.nav_var.nav_is_roles=='is_gerente'){name='gerencia'}
-            if(i.nav_var.nav_is_roles=='is_admin'){name='administrador'}
-            if(i.nav_var.nav_is_roles=='is_lider_venta'){name='jefe ventas'}
-            if(i.nav_var.nav_is_roles=='is_jefe_cobranza'){name='jefe cobranza'}
-            if(i.nav_var.nav_is_roles=='is_staff'){name='secretaría'}
-            if(i.nav_var.nav_is_roles=='is_marketing'){name='marketing'}
-            data.push({
-              id: i.nav_var.nav_is_roles,
-              name: name
-            })
-          })
-          this.menu=resp.menu
-          this.grupo=data
-          this.formGroup.controls.grupos.setValue(rol)
-          this.listMenu(rol)
-          localStorage.setItem('role_user', resp.menu[0].nav_var.nav_is_roles)
-          this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
-          this.router.navigate(['/'+name+'/panel']);
         }
       })
     }

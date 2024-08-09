@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild, TemplateRef, Input, Renderer2, ElementRef, HostListener} from '@angular/core';
-
-
+import { DOCUMENT } from '@angular/common';
+import {Component, OnInit, ViewChild, TemplateRef, Input, Renderer2, ElementRef, HostListener, Inject} from '@angular/core';
+import { Router, NavigationCancel, NavigationEnd, NavigationStart } from '@angular/router';
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
@@ -14,10 +15,35 @@ export class ContentComponent implements OnInit {
   @ViewChild('mainContainer', { read: ElementRef, static: false }) mainContainerView!: ElementRef;
   @ViewChild('FooterEl', { read: ElementRef, static: false }) footerView!: ElementRef;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2,private router: Router,@Inject(DOCUMENT) document: any) { 
+  }
   //show:boolean = false
+    routerSubscription: any;location: any; url:boolean=false
 
-  ngOnInit() {
+  ngOnInit() {    
+    //console.log(document.location.href);
+    if(document.location.href.startsWith('https://app.altux.edu.pe/alumno/examen')){
+      this.url=true
+    }
+    //this.recallJsFuntions()
+  }
+
+  recallJsFuntions() {
+    this.routerSubscription = this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel))
+    .subscribe(event => {
+      this.location = this.router.url;
+      console.log(this.location)
+      this.url=false
+      if(this.location.startsWith('/alumno/examen')){
+        console.log(this.location)
+        this.url=true
+      }
+      if (!(event instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
   }
 
   ngAfterViewInit() {
