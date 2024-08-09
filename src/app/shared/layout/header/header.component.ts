@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit {
     this.listProfile()
     
     let validate=localStorage.getItem('role_user');
+    console.log(validate)
     if (validate) {
       this.service.getMenu().subscribe(resp=>{
         if(resp.success){
