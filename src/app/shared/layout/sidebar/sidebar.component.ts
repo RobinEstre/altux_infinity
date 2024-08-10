@@ -23,8 +23,7 @@ export class SidebarComponent implements OnInit {
     //   this.userName = localStorage.getItem('USERNAME');
     //   this.userImg = localStorage.getItem('IMG_USER');
     // }, 1500);
-    this.userName = localStorage.getItem('USERNAME');
-    this.userImg = localStorage.getItem('IMG_USER');
+    this.listProfile()
     this.authenticationService.miVariable$.subscribe(data => {
       if(data==true){
         this.listProfile()
@@ -37,12 +36,18 @@ export class SidebarComponent implements OnInit {
   }
 
   listProfile(){
-    this.userName = localStorage.getItem('USERNAME');
-    this.userImg = localStorage.getItem('IMG_USER');
-    // setTimeout(() => {
-    //   this.userName = localStorage.getItem('USERNAME');
-    //   this.userImg = localStorage.getItem('IMG_USER');
-    // }, 1500);
+    this.service.getInfoUser().subscribe(resp=>{
+      if(resp.success){
+        let img_perfil
+        resp.user_profile.detail_user.img_perfil.forEach(i=>{
+          if(i.is_active){img_perfil=i.url}
+        })
+        this.authenticationService.setUserImg(img_perfil)
+        this.authenticationService.setUserName(this.perfil.nombres)
+        this.userName = localStorage.getItem('USERNAME');
+        this.userImg = localStorage.getItem('IMG_USER');
+      }
+    })
   }
 
   listMenu() {

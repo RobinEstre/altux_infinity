@@ -48,7 +48,8 @@ export class HeaderComponent implements OnInit {
     
     if(!this.show){
       //console.log(validate)
-      if (validate) {
+      if (validate!=null) {
+        //console.log('paso aqui')
         this.service.getMenu().subscribe(resp=>{
           if(resp.success){
             let rol=validate, user_rol
@@ -85,74 +86,53 @@ export class HeaderComponent implements OnInit {
             switch (rol) {
               case 'is_student':
                 user_rol='alumno'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_teacher':
                 user_rol='profesor'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_academic':
                 user_rol='academico'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_seller':
                 user_rol='ventas'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
+                let data= '/'+user_rol+'/panel'
+                console.log(data)
                 break;
               case 'is_accounting':
                 user_rol='contabilidad'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_cobranza':
                 user_rol='cobranza'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_finance':
                 user_rol='finanza'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_gerente':
                 user_rol='gerencia'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_admin':
                 user_rol='administrador'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_lider_venta':
                 user_rol='jefe-ventas'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_jefe_cobranza':
                 user_rol='jefe-cobranza'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_staff':
                 user_rol='secretaria'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               case 'is_marketing':
                 user_rol='marketing'
-                this.spinner.hide()
-                this.router.navigate(['/'+user_rol+'/panel']);
                 break;
               default:
-            }
+            }            
+            this.spinner.hide()
+            this.router.navigate(['/'+user_rol+'/panel']);
           }
         })
       }else{
+        //console.log('ya valido')
         this.service.getMenu().subscribe(resp=>{
           if(resp.success){
             let rol=resp.menu[0].nav_var.nav_is_roles
@@ -182,7 +162,7 @@ export class HeaderComponent implements OnInit {
             this.listMenu(rol)
             localStorage.setItem('role_user', resp.menu[0].nav_var.nav_is_roles)
             this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
-            this.router.navigate(['/'+name+'/panel']);
+            //this.router.navigate(['/'+name+'/panel']);
           }
         })
       }
