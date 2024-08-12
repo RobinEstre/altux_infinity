@@ -33,7 +33,7 @@
                           </p>
                         </ng-template>
                         <ng-template #is_categoria let-data="adtData" let-emitter="captureEvents">
-                            <p class="d-flex" *ngIf="data.historial_seguimiento.data.length>0">
+                            <p class="d-flex">
                                 <b *ngFor="let valData of data.historial_seguimiento.data" class="mx-1">
                                     <i class="bi bi-info-circle text-info rounded" *ngIf="valData.tipo_seguimiento=='informacion'"></i>
                                     <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="valData.tipo_seguimiento=='no_interesado'"></i>
@@ -41,9 +41,7 @@
                                     <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="valData.tipo_seguimiento=='proximo_grupo'"></i>
                                     <i class="bi bi-cash-coin text-success rounded" *ngIf="valData.tipo_seguimiento=='compromiso_pago'"></i>
                                 </b>
-                            </p>
-                            <p *ngIf="data.historial_seguimiento.data.length==0">
-                                <b>
+                                <b *ngIf="data.historial_seguimiento.data.length==0">
                                     Sin Registro
                                 </b>
                             </p>
