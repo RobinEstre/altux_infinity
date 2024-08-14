@@ -12,13 +12,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ControlLeadsComponent } from './pages/control-leads/control-leads.component';
 import { TableLeadsComponent } from './pages/control-leads/table-leads/table-leads.component';
+import { ReciclajeComponent } from './pages/reciclaje/reciclaje.component';
+import { BaseExtraComponent } from './pages/reciclaje/base-extra/base-extra.component';
+import { LeadsComponent } from './pages/reciclaje/leads/leads.component';
+import { ButtonsLeadsComponent } from './pages/reciclaje/leads/buttons-leads/buttons-leads.component';
+import { ButtonsBaseComponent } from './pages/reciclaje/base-extra/buttons-base/buttons-base.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     TableLeadsComponent,
-    ControlLeadsComponent
+    ControlLeadsComponent,
+    ReciclajeComponent,
+    BaseExtraComponent,
+    LeadsComponent,
+    ButtonsLeadsComponent,
+    ButtonsBaseComponent
   ],
   imports: [
     CommonModule,

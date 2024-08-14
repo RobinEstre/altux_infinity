@@ -1,0 +1,57 @@
+<div class="card-body py-3">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 text-end mb-3">
+            <p class="text-secondary small">
+                <span class="badge badge-sm bg-info">Información Enviada</span>
+                <span class="badge badge-sm bg-warning mx-2">No Contesta</span>
+                <span class="badge badge-sm bg-red">No Interesado</span>
+                <span class="badge badge-sm bg-black mx-2">Próximo Grupo</span>
+                <span class="badge badge-sm bg-green">Compromiso Matrícula</span>
+            </p>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: auto;">
+            <ng-template #idTpl let-rowIndex="rowIndex" let-row="row">
+                {{rowIndex+1}}
+            </ng-template>
+            <ng-template #is_tipo let-data="adtData" let-emitter="captureEvents">
+              <p>
+                {{data.estado.nombre}}
+              </p>
+            </ng-template>
+            <ng-template #is_categoria let-data="adtData" let-emitter="captureEvents">
+                <p class="d-flex">
+                    <b *ngFor="let valData of data.historial_seguimiento.data" class="mx-1">
+                        <i class="bi bi-info-circle text-info rounded" *ngIf="valData.tipo_seguimiento=='informacion'"></i>
+                        <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="valData.tipo_seguimiento=='no_interesado'"></i>
+                        <i class="bi bi-telephone-x text-warning rounded" *ngIf="valData.tipo_seguimiento=='no_contesta'"></i>
+                        <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="valData.tipo_seguimiento=='proximo_grupo'"></i>
+                        <i class="bi bi-cash-coin text-success rounded" *ngIf="valData.tipo_seguimiento=='compromiso_pago'"></i>
+                    </b>
+                    <b *ngIf="data.historial_seguimiento.data.length==0">
+                        Sin Registro
+                    </b>
+                </p>
+            </ng-template>
+            <ng-template #is_celular let-data="adtData" let-emitter="captureEvents">
+                <a href="https://wa.me/51{{data.telefono}}" target="_blank" class="">
+                    <p class="mb-0">{{data.telefono}}</p>
+                </a>
+            </ng-template>
+            <ng-template #is_alumno let-data="adtData" let-emitter="captureEvents">
+                <p>{{data.nombres}} {{data.apellidos}}</p>
+            </ng-template>
+            <ng-template #is_vendedor let-data="adtData" let-emitter="captureEvents">
+                <p>{{data.vendedor.detail_user.nombres}} {{data.vendedor.detail_user.apellidos}}</p>
+            </ng-template>
+            <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
+                <app-buttons-leads [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-buttons-leads>
+            </ng-template>
+            <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger" class="table table-striped" style="width: 100%;"></table>
+        </div>
+    </div>
+</div>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner>

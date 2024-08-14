@@ -24,7 +24,7 @@
                 <span class="badge badge-sm bg-green">Compromiso Matrícula</span>
             </p>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: auto;">
             <!-- <a href="javascript:void(0);" (click)="openModalSeguimiento('data')">
                 <i class="bi bi-binoculars"></i>
             </a> -->
@@ -391,6 +391,36 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- <td>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded" 
+                                        *ngIf="valSeguimiento.tipo_seguimiento=='compromiso_pago'"></i>
+                                        <i class="bi bi-person-dash avatar avatar-40 bg-light-red text-red rounded"
+                                        *ngIf="valSeguimiento.tipo_seguimiento=='no_interesado'"></i>
+                                        <i class="bi bi-telephone-x avatar avatar-40 bg-light-orange text-orange rounded"
+                                        *ngIf="valSeguimiento.tipo_seguimiento=='no_contesta'"></i>
+                                        <i class="bi bi-info-circle avatar avatar-40 bg-light-blue text-blue rounded"
+                                        *ngIf="valSeguimiento.tipo_seguimiento=='informacion'"></i>
+                                        <i class="bi bi-person-workspace avatar avatar-40 bg-light-black text-black rounded"
+                                        *ngIf="valSeguimiento.valSeguimiento=='proximo_grupo'"></i>
+                                    </div>
+                                    <div class="col ps-0" *ngIf="valSeguimiento.tipo_seguimiento=='compromiso_pago'">
+                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                        <p class="text-trucate small" *ngIf="valSeguimiento.fecha_pago">Fecha Pago: {{valSeguimiento.fecha_pago*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                    </div>
+                                    <div class="col ps-0" *ngIf="valSeguimiento.tipo_seguimiento=='informacion'">
+                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                        <p class="text-trucate small" *ngIf="valSeguimiento.fecha_contactar">Fecha Contactar: {{valSeguimiento.fecha_contactar*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                    </div>
+                                    <div class="col ps-0" *ngIf="valSeguimiento.tipo_seguimiento!='compromiso_pago'&&valSeguimiento.tipo_seguimiento!='informacion'">
+                                        <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+                                        <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+                                    </div>
+                                </div>
+                            </td> -->
                             <tr *ngFor="let valSeguimiento of data_detail.seguimiento.compromiso_pago, index as id">
                                 <td>
                                     <div class="row">

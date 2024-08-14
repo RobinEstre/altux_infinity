@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ControlLeadsComponent } from './pages/control-leads/control-leads.component';
 import { PanelComponent } from '../ventas/pages/panel/panel.component';
 import { PerfilSharedComponent } from '../shared/components/perfil/perfil.component';
+import { ReciclajeComponent } from './pages/reciclaje/reciclaje.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'control-leads',
         component: ControlLeadsComponent
+      },
+      {
+        path: 'reciclaje-leads',
+        component: ReciclajeComponent
       },
       {
         path: 'perfil',
