@@ -228,7 +228,7 @@ export class HeaderComponent implements OnInit {
         this.validate_user=rol
         break;
       case 'is_accounting':
-        this.user_rol=''
+        this.user_rol='contabilidad'
         this.validate_user=rol
         break;
       case 'is_cobranza':

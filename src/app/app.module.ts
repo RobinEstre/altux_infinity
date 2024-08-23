@@ -42,6 +42,7 @@ const ngWizardConfig: NgWizardConfig = {
 @NgModule({
   declarations: [
     AppComponent,
+    SafePipe,
   ],
   imports: [
     SharedModule,

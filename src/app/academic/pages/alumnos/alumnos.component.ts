@@ -81,16 +81,19 @@ export class AlumnosComponent implements OnInit {
     email: ['', [Validators.email, Validators.required]],
     num_doc: ['',],
     num_colegiatura: ['',],
+    ruc: ['',],
     // SELECTS
     pais: [''],
     diplomado: [''],
     tip_doc: [''],
     procedencia_venta:[''],
+    is_factura: [false,],
     vendedor:[''],
     grado_instruccion:['']
   });
 
-  diplomado: any; estudiantes:any; isperu = true; nameperson: any; dni_consulta:any; mostrarColegiatura: boolean = false; grado:any; vendedores:any
+  diplomado: any; estudiantes:any; isperu = true; nameperson: any; dni_consulta:any; mostrarColegiatura: boolean = false; grado:any; 
+  vendedores:any; nameruc:any;is_facture: boolean = false; is_comprobante: boolean = false
   documento:any = [
     {
       'id': '4',
@@ -371,6 +374,64 @@ export class AlumnosComponent implements OnInit {
     }
   }
 
+  getInfoByRuc(event){
+    const inputValue = event.target.value;
+    this.nameruc = null;
+    if (inputValue.length === 11) {
+      let ruc_consulta = {
+        "tipo": "ruc",
+        "documento": event.target.value
+      };
+      this.spinner.show();
+      this.formRegistro.controls['ruc'].enable();
+      this.service.getInfoDNI(ruc_consulta.tipo, ruc_consulta.documento).subscribe(data => {
+        if (data['success'] === false) {
+          this.nameruc = null;
+          this.formRegistro.controls['ruc'].setValue('');
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "¡RUC no encontrado!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+        else if (data['data'].resultado['estado']=='ACTIVO'){
+          //this.rucexist = data;
+          this.nameruc = data['data'].resultado['razon_social'];
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "¡RUC encontrado!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+        else if (data['data'].resultado['estado'] !='ACTIVO') {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "¡RUC Inactivo. Favor de Ingresar un RUC Activo!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+        this.spinner.hide();
+      }, error => {
+        this.nameruc = null;
+        this.formRegistro.controls['ruc'].setValue('');
+        //this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "¡Ocurrió un error, inténtelo en un momento!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+    }
+  }
+
   selectGrado(event){
     try {
       this.grado = event.target.value;
@@ -397,19 +458,54 @@ export class AlumnosComponent implements OnInit {
     }
   }
 
+  optionFacture(event){
+    let ischecked = event.target.checked;
+    if (ischecked === true){
+      this.is_facture = true
+      this.formRegistro.controls['ruc'].setValidators([Validators.required,Validators.minLength(11), Validators.maxLength(11)]);
+      this.formRegistro.controls['ruc'].updateValueAndValidity();
+    }else{
+      this.formRegistro.controls['ruc'].setValidators([]);
+      this.formRegistro.controls['ruc'].updateValueAndValidity();
+      this.formRegistro.controls['ruc'].setValue('');
+      this.nameruc=null;
+      this.is_facture = false
+    }
+  }
+
+  optionComprobante(event){
+    let ischecked = event.target.checked;
+    if (ischecked === true){
+      this.is_comprobante = true
+    }else{
+      this.is_comprobante = false
+    }
+  }
+
   addStudent(){
-    let pais =  this.formRegistro.controls['pais'].value;
+    let pais =  this.formRegistro.controls['pais'].value, rzon_social
     this.spinner.show();
     if (pais === 'Perú'){
       var nombres = this.formRegistro.controls['nombres'].value;
-      var apellidos= this.formRegistro.controls['apellidos'].value;
+      var apellidos = this.formRegistro.controls['apellidos'].value;
       var num_doc= this.formRegistro.controls['dni'].value.trim();
-      var type_doc: any= '1';
+      if(this.is_facture == false){
+        rzon_social = this.formRegistro.controls['nombres'].value+' '+this.formRegistro.controls['apellidos'].value;
+        var num_documento_sunat = this.formRegistro.controls['dni'].value.trim();
+        var type_doc: any = '1';
+      }
+      else {
+        rzon_social = this.nameruc;
+        var num_documento_sunat = this.formRegistro.controls['ruc'].value;
+        var type_doc: any = '6';
+      }
     }
     else {
+      rzon_social = this.formRegistro.controls['nombres'].value+' '+this.formRegistro.controls['apellidos'].value;
       var nombres = this.formRegistro.controls['nombres'].value;
       var apellidos= this.formRegistro.controls['apellidos'].value;
       var num_doc= this.formRegistro.controls['num_doc'].value.trim();
+      var num_documento_sunat = this.formRegistro.controls['num_doc'].value;
       var type_doc: any= this.formRegistro.controls.tip_doc.value;
     }
     let body={
@@ -417,13 +513,14 @@ export class AlumnosComponent implements OnInit {
       "pais": pais,
       "tipoDoc": type_doc,
       "num_documento": num_doc,
-      "num_documento_sunat": num_doc,
+      "num_documento_sunat": num_documento_sunat,
       "email": this.formRegistro.controls.email.value,
       "telefono": this.formRegistro.controls.telefono.value,
       "nombres": nombres,
       "apellidos": apellidos,
-      "is_facture": false,
-      "solicita_comprobante": false,
+      "is_facture": this.is_facture,
+      //"solicita_comprobante": this.is_comprobante,
+      "solicita_comprobante": true,
       "rzon_social": nombres+' '+apellidos,
       "type_matricula": "matriculacuota",
       "procedencia_venta": this.formRegistro.controls.procedencia_venta.value,

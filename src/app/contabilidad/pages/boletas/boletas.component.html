@@ -1,0 +1,49 @@
+
+<form [formGroup]="formFechas" class="row">
+    <div class="col-md-4 col-sm-12 col-lg-4 mb-2">
+        <div class="form-group mb-2 position-relative">
+            <div class="input-group input-group-lg">
+                <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                <div class="form-floating">
+                    <input placeholder="Ingrese Apellido" formControlName="fecha_inicio" type="date" class="form-control border-start-0" autocomplete="off" required>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 col-lg-4 mb-2">
+        <div class="form-group mb-2 position-relative">
+            <div class="input-group input-group-lg">
+                <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                <div class="form-floating">
+                    <input placeholder="Ingrese Apellido" formControlName="fecha_fin" type="date" class="form-control border-start-0" autocomplete="off" required>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: auto;">
+        <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
+            <app-buttons-boleta [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-buttons-boleta>
+        </ng-template>
+        <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger" class="table table-striped w-100"></table>
+    </div>
+</form>
+<!-- Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 20%">
+        <button type="button" class="btn-close pull-right" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body row">
+        <div class="col-sm-12 col-lg-12 col-md-12 text-center">
+            <h4><b>{{detalle.request_body.NOM_RZN_SOC_RECP}}</b></h4>
+            <h4><b>{{detalle.request_body.items[0].TXT_DESC_ITEM}}</b></h4>
+            <hr>
+        </div>
+        <iframe [src]="safeUrl" style="width:100%; height:700px;" frameborder="0" ></iframe>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner type="timer"></ngx-spinner>

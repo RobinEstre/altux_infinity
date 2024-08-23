@@ -326,6 +326,45 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+                    <br>
+                    <div class="form-group form-check form-switch" *ngIf="isperu">
+                        <input class="form-check-input" (change)="optionComprobante($event)" type="checkbox" formControlName="is_comprobante">
+                        <label style="display: flex;">Solicitar Comprobante</label>
+                    </div>
+                </div> -->
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+                    <br>
+                    <div class="form-group form-check form-switch" *ngIf="isperu">
+                        <input class="form-check-input" (change)="optionFacture($event)" type="checkbox" formControlName="is_factura">
+                        <label style="display: flex;">Solicitar Factura</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-md-12 text-center mb-2" *ngIf="is_facture">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="ruc" class="form-control" autocomplete="off" maxlength="11"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="getInfoByRuc($event)" required>
+                                <label for="floatingInput">Ingrese Nº RUC</label>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="tag mb-2 me-2" *ngIf="nameruc">
+                            <i class="bi bi-person vm ms-2 mx-2"></i> {{nameruc}}
+                        </a>
+                        <div *ngIf="formRegistro.controls['ruc'].invalid && (formRegistro.controls['ruc'].dirty || formRegistro.controls['ruc'].touched)" >
+                            <div *ngIf="formRegistro.controls['ruc'].errors.required">
+                                <small class="text-danger">Por favor ingrese su número de RUC</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['ruc'].errors.maxlength">
+                                <small class="text-danger">Excediste el número máximo de caracteres</small>
+                            </div>
+                            <div *ngIf="formRegistro.controls['ruc'].errors.minlength">
+                                <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card-footer">

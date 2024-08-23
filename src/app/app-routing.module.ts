@@ -9,6 +9,7 @@ import { routeAcademico } from './shared/routes/route-academico';
 import { FormPayMatriculaComponent } from './auth/form-pay-matricula/form-pay-matricula.component';
 import { routeCobranza } from './shared/routes/route-cobranza';
 import { routeMarketing } from './shared/routes/route-marketing';
+import { routeContabilidad } from './shared/routes/route-contabilidad';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -53,6 +54,12 @@ const routes: Routes = [
     component: ContentComponent,
     canActivate: [AuthGuard],
     children: routeMarketing
+  },
+  {
+    path: 'contabilidad',
+    component: ContentComponent,
+    canActivate: [AuthGuard],
+    children: routeContabilidad
   },
 ]
 
