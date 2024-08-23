@@ -4,7 +4,8 @@
             <div class="input-group input-group-lg">
                 <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
                 <div class="form-floating">
-                    <input placeholder="Ingrese Apellido" formControlName="fecha_inicio" type="date" class="form-control border-start-0" autocomplete="off" required>
+                    <input formControlName="fecha_inicio" type="date" class="form-control border-start-0"
+                        (change)="rerender()" autocomplete="off" required>
                 </div>
             </div>
         </div>
@@ -14,7 +15,8 @@
             <div class="input-group input-group-lg">
                 <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
                 <div class="form-floating">
-                    <input placeholder="Ingrese Apellido" formControlName="fecha_fin" type="date" class="form-control border-start-0" autocomplete="off" required>
+                    <input formControlName="fecha_fin" type="date" class="form-control border-start-0"
+                        (change)="rerender()" autocomplete="off" required>
                 </div>
             </div>
         </div>

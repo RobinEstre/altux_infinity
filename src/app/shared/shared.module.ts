@@ -42,6 +42,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ContentComponent,
     FormPayComponent,
     HeaderComponent,
+    SidebarComponent,
     PerfilSharedComponent,
     ModalFinalizadoComponent,
     ModalExpiredComponent,

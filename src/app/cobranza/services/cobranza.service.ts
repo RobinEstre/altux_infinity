@@ -34,7 +34,7 @@ export class CobranzaService {
   }
 
   compromiso_Student(data){
-    return this.httpClient.post(this.envUrl.urlAddress + 'alumno/compromiso-pago/registrar/', data)
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'alumno/compromiso-pago/registrar/', data)
   }
 
   control_Student(data){
@@ -107,5 +107,9 @@ export class CobranzaService {
 
   postPagoEfectivo(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'cobranza/crear/alumno/pagoefectivo-mensualidad/', data);
+  }
+
+  deshabilitarStudent(id, data) {
+    return this.httpClient.put<any>(this.envUrl.urlAddress + 'academico/update/status-aula-student/'+id, data);
   }
 }

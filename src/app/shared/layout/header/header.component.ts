@@ -78,11 +78,6 @@ export class HeaderComponent implements OnInit {
             this.formGroup.controls.grupos.setValue(rol)
             this.listMenu(rol)
             localStorage.setItem('role_user', rol)
-            this.menu.forEach(i=>{
-              if(i.nav_var.nav_is_roles==rol){
-                this.authenticationService._navUser.next(i.nav_var.nav_data);
-              }
-            })
             switch (rol) {
               case 'is_student':
                 user_rol='alumno'
@@ -95,8 +90,6 @@ export class HeaderComponent implements OnInit {
                 break;
               case 'is_seller':
                 user_rol='ventas'
-                let data= '/'+user_rol+'/panel'
-                console.log(data)
                 break;
               case 'is_accounting':
                 user_rol='contabilidad'
@@ -126,9 +119,36 @@ export class HeaderComponent implements OnInit {
                 user_rol='marketing'
                 break;
               default:
-            }            
+            }
+            this.menu.forEach(i=>{
+              if(i.nav_var.nav_is_roles==rol){
+                if(i.state){
+                  this.authenticationService._navUser.next(i.nav_var.nav_data);
+                  this.router.navigate(['/'+user_rol+'/panel']);
+                }
+                else{
+                  let nav_data=[
+                    {
+                      "icon": "cash-coin",
+                      "path": "/alumno/pagos",
+                      "type": "link",
+                      "title": "Mis Pagos",
+                      "active": false
+                    },
+                    {
+                      "icon": "person-circle",
+                      "path": "/alumno/perfil",
+                      "type": "link",
+                      "title": "Perfil",
+                      "active": false
+                    }
+                  ]
+                  this.authenticationService._navUser.next(nav_data);
+                  this.router.navigate(['/'+user_rol+'/pagos']);
+                }
+              }
+            })
             this.spinner.hide()
-            this.router.navigate(['/'+user_rol+'/panel']);
           }
         })
       }else{
@@ -161,7 +181,29 @@ export class HeaderComponent implements OnInit {
             this.formGroup.controls.grupos.setValue(rol)
             this.listMenu(rol)
             localStorage.setItem('role_user', resp.menu[0].nav_var.nav_is_roles)
-            this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
+            if(resp.menu[0].state){
+              this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
+            }
+            else{
+              let nav_data=[
+                {
+                  "icon": "cash-coin",
+                  "path": "/alumno/pagos",
+                  "type": "link",
+                  "title": "Mis Pagos",
+                  "active": false
+                },
+                {
+                  "icon": "person-circle",
+                  "path": "/alumno/perfil",
+                  "type": "link",
+                  "title": "Perfil",
+                  "active": false
+                }
+              ]
+              this.authenticationService._navUser.next(nav_data);
+              this.router.navigate(['/alumno/pagos']);
+            }
             //this.router.navigate(['/'+name+'/panel']);
           }
         })
@@ -198,6 +240,26 @@ export class HeaderComponent implements OnInit {
           this.menu.forEach(i=>{
             if(i.nav_var.nav_is_roles==rol){
               this.authenticationService._navUser.next(i.nav_var.nav_data);
+            }
+            else{
+              let nav_data=[
+                {
+                  "icon": "cash-coin",
+                  "path": "/alumno/pagos",
+                  "type": "link",
+                  "title": "Mis Pagos",
+                  "active": false
+                },
+                {
+                  "icon": "person-circle",
+                  "path": "/alumno/perfil",
+                  "type": "link",
+                  "title": "Perfil",
+                  "active": false
+                }
+              ]
+              this.authenticationService._navUser.next(nav_data);
+              this.router.navigate(['/'+user_rol+'/pagos']);
             }
           })
         }

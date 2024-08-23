@@ -310,7 +310,7 @@
                                         <p class="text-dark"><b>{{valstudents.saldo}}</b></p>
                                     </td>
                                     <td class="text-center">
-                                        <a class="" href="javascript:void(0);" (click)="openModalDetail(valstudents.cuotas,valstudents.id)" 
+                                        <a class="" href="javascript:void(0);" (click)="openModalDetail(valstudents.cuotas,valstudents.id,valstudents)" 
                                             data-bs-toggle="tooltip" data-bs-placement="right" title="Detalle Pagos">
                                             <i class="bi bi-currency-dollar"></i>
                                         </a>
@@ -318,22 +318,26 @@
                                             title="Pronto Pago" (click)="prontoPago(valstudents.sales_id, valstudents)">
                                             <i class="bi bi-bag-check-fill"></i>
                                         </a> -->
-                                        <a class="mx-1" href="javascript:void(0);" (click)="openModalCompromiso(valstudents)"
-                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Compromiso de Pago">
-                                            <i class="bi bi-calendar-week"></i>
-                                        </a>
                                         <!-- <a class="text-dark mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Modificar Estudiante" 
                                             (click)="openModal(valstudents.id, valstudents.nombres, valstudents.cuotas)">
                                             <i class="bi bi-pencil-square"></i>
                                         </a> -->
-                                        <a class="" href="javascript:void(0);" (click)="reportStudent(valstudents.id, valstudents.nombres)" 
-                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Información Alumno">
-                                            <i class="bi bi-person-square"></i>
-                                        </a>
                                         <!-- <a class="text-dark mx-2" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" 
                                             title="Historial Estudiante" (click)="openModalControl(valstudents.id, valstudents.nombres)">
                                             <i class="bi bi-three-dots-vertical"></i>
                                         </a> -->
+                                        <a class="mx-1" href="javascript:void(0);" (click)="openModalCompromiso(valstudents)"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Compromiso de Pago">
+                                            <i class="bi bi-calendar-week"></i>
+                                        </a>
+                                        <a class="" href="javascript:void(0);" (click)="reportStudent(valstudents.id, valstudents.nombres)" 
+                                        data-bs-toggle="tooltip" data-bs-placement="right" title="Información Alumno">
+                                            <i class="bi bi-person-square"></i>
+                                        </a>
+                                        <a class="mx-1" href="javascript:void(0);" (click)="deshabilitarAlumno(valstudents)" 
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Información Alumno">
+                                            <i class="bi bi-power"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -367,10 +371,10 @@
 <ng-template #detail let-modal>
     <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
-            <h5 class="mb-1 title">Detalle Pagos</h5>
+            <h5 class="mb-1 title">Detalle Pago: {{student.nombres}} {{student.apellidos}}</h5>
         </div>
         <div class="card-body modal-body">
-            <app-cuotas [detail]="_detail" [diplomado]="_diplomado"></app-cuotas>
+            <app-cuotas [detail]="_detail" [student]="student" [diplomado]="_diplomado"></app-cuotas>
         </div>
         <div class="card-footer">
             <div class="row">

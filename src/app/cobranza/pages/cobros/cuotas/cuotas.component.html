@@ -94,9 +94,11 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
                     <div class="alert alert-primary nuevo text-center">
                         <div *ngFor="let c of checkbox" class="my-2">
-                            <h6 *ngIf="c.is_checked==1" class="text-dark"><b> Mensualidad</b> Nº {{c.id+1}} <br></h6>
+                            <h6 *ngIf="c.is_checked==1" class="text-dark"><b> Cuota</b> Nº {{c.id+1}} <br></h6>
                         </div>
-                        <h6 class="mx-1 text-dark" >TOTAL A PAGAR: <b>S/ {{monto_final}}.00</b></h6>
+                    </div>
+                    <div class="alert alert-primary nuevo text-center">
+                        <h6 class="mx-1 text-dark" ><b>TOTAL A PAGAR: S/ {{monto_final}}.00</b></h6>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12 col-lg-12 mb-3">

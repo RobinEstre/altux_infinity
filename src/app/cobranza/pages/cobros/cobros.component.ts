@@ -10,6 +10,10 @@ import localeEs from "@angular/common/locales/es";
 import { CobranzaService } from '../../services/cobranza.service';
 registerLocaleData(localeEs, 'es');
 declare var $: any;
+//Import Culqi
+import { greet } from '../../../../assets/js/service.js';
+import { config_data } from '../../../../assets/js/config.js';
+import { ejecutar } from '../../../../assets/js/checkout.js';
 
 enum disabledType {
   enabled,
@@ -99,7 +103,7 @@ export class CobrosComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   dtOptions: any;
-  dtTrigger: Subject<any> = new Subject<any>();
+  dtTrigger: Subject<any> = new Subject<any>(); student:any
 
   constructor(private fb: FormBuilder, private Service: CobranzaService, private datePipe: DatePipe, private spinner: NgxSpinnerService,
     private modalService: NgbModal) {
@@ -258,13 +262,13 @@ export class CobrosComponent implements OnInit {
       lengthMenu: [5, 10, 25],
       processing: true,
       dom: 'Bfrtip',
-      // buttons: [
-      //   { extend: 'copy', className: 'btn btn-primary text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
-      //   { extend: 'print', className: 'btn btn-danger text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
-      //   { extend: 'excelHtml5', className: 'btn btn-success text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
-      //   { extend: 'colvis', className: 'btn btn-warning'},
-      //   //{ extend: 'columnsToggle', className: 'btn btn-outline-danger'}
-      // ],
+      buttons: [
+        { extend: 'copy', className: 'btn btn-primary text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
+        { extend: 'print', className: 'btn btn-danger text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
+        { extend: 'excelHtml5', className: 'btn btn-success text-white', title:'Reporte Pagos '+this.name_diplomado+' '+this.fecha_title },
+        { extend: 'colvis', className: 'btn btn-warning'},
+        //{ extend: 'columnsToggle', className: 'btn btn-outline-danger'}
+      ],
       language: CobrosComponent.spanish_datatables
     }
     this.Service.listpagoStudent(this.course_code).subscribe(item => {
@@ -439,10 +443,18 @@ export class CobrosComponent implements OnInit {
     })
   }
 
-  openModalDetail(detail, id) {
+  openModalDetail(detail, id, student) {
+    this.student=student
     this._detail=detail
+    let diplomado
+    this.diplomado.forEach(i=>{
+      if(i.courses_code){
+        diplomado=i.courses_name
+      }
+    })
     this._diplomado={
       'code_course': this.course_code,
+      'diplomado_name': diplomado,
       'id': id
     }
     this.modalRefDetail = this.modalService.open(this.modalContentDetail, {backdrop : 'static', centered: true, keyboard: false,
@@ -1468,6 +1480,17 @@ export class CobrosComponent implements OnInit {
           timer: 1500
         });
       }
+      else{
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "¡Error :C!",
+          text: res.message,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.spinner.hide();
+      }
     },error => {
       if(error.status===400){
         Swal.fire({
@@ -1493,5 +1516,40 @@ export class CobrosComponent implements OnInit {
 
   closeModalCom() {
     this.modalRefDescuentos.close()
+  }
+
+  // Deshabilitar Alumno
+
+  deshabilitarAlumno(data){
+    Swal.fire({
+      title: "Segur@ de deshabilitar Estudiante?",
+      // text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, deshabilitar!",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.spinner.show()
+        let body={
+          "state": false
+        }
+        this.Service.deshabilitarStudent(data.id, body).subscribe(resp=>{
+          if(resp.success){
+            this.spinner.hide()
+            this.rerender()
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: resp.message,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+        })
+      }
+    });
   }
 }

@@ -5,6 +5,10 @@ import {NgxSpinnerService} from "ngx-spinner";
 import Swal from "sweetalert2";
 declare var $: any;
 import { CobranzaService } from 'src/app/cobranza/services/cobranza.service';
+//Import Culqi
+import { greet } from '../../../../../assets/js/service.js';
+import { config_data } from '../../../../../assets/js/config.js';
+import { ejecutar } from '../../../../../assets/js/checkout.js';
 
 enum disabledType {
   enabled,
@@ -31,7 +35,7 @@ export class CuotasComponent implements OnInit {
     private Service: CobranzaService,) { 
   }
 
-  @Input()detail:any; @Input()diplomado:any;
+  @Input()detail:any; @Input()diplomado:any; @Input()student:any;
 
   formExcPay = this.fb.group({
     number_card: ['',],
@@ -132,6 +136,7 @@ export class CuotasComponent implements OnInit {
         this.arrayCheck.push(i);
       }
     }
+    console.log(this.checkbox)
   }
 
   closeModal() {
@@ -161,30 +166,31 @@ export class CuotasComponent implements OnInit {
   }
 
   payWithEfective(){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-warning'
-      },
-      buttonsStyling: false
-    })
+    this.realizarpagoEfectivo()
+    // const swalWithBootstrapButtons = Swal.mixin({
+    //   customClass: {
+    //     confirmButton: 'btn btn-success',
+    //     cancelButton: 'btn btn-warning'
+    //   },
+    //   buttonsStyling: false
+    // })
 
-    swalWithBootstrapButtons.fire({
-      title: 'Elegir El Método De Pago',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '💰 PagoEfectivo',
-      cancelButtonText: '💳 Tarjetas'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.realizarpagoEfectivo()
-      }
-      else if ( result.isDismissed) {
-        this.generarLinkPago()
-      }
-    })
+    // swalWithBootstrapButtons.fire({
+    //   title: 'Elegir El Método De Pago',
+    //   icon: 'question',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: '💰 PagoEfectivo',
+    //   cancelButtonText: '💳 Tarjetas'
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     this.realizarpagoEfectivo()
+    //   }
+    //   else if ( result.isDismissed) {
+    //     this.generarLinkPago()
+    //   }
+    // })
   }
 
   generarLinkPago(){
@@ -192,10 +198,14 @@ export class CuotasComponent implements OnInit {
     const jsonbody = {
       "student_id": this.diplomado.id,
       "indice": this.arrayCheck,
-      "codigo_diplomado": this.diplomado.code_course
+      "codigo_diplomado": this.diplomado.code_course,
+      // "discount": {
+      //   diplomado_name:this.diplomado.diplomado_name,
+      //   //descuento:this.data_detalle.descuento
+      // },
     };
     this.Service.linkPago(jsonbody).subscribe(data => {
-      if( data['success']==true){data['data']
+      if( data['success']==true){
         this.linkpago='https://app.altux.edu.pe/matricula-pago/'+data['url_generado']
         this.copyText(this.linkpago)
         Swal.fire({
@@ -236,9 +246,9 @@ export class CuotasComponent implements OnInit {
     let ruc = this.formExcPay.controls['ruc'].value
     if (this.formExcPay.controls['is_factura'].value && ruc.length != 11) {
       Swal.fire(
-          'No se puede generar el código de pago!',
-          '¡El RUC debe contener 11 caracteres!',
-          'error'
+        'No se puede generar el código de pago!',
+        '¡El RUC debe contener 11 caracteres!',
+        'error'
       )
     }
     const jsonbody = {
@@ -253,13 +263,48 @@ export class CuotasComponent implements OnInit {
       this.closeModal()
       if (data['success'] === true) {
         this.is_pay=false
-        this._generate = data['data'];
+        //this._generate = data['data'];
         for (let i = 0; i < this.detail.length; i++) {
           this.checkbox[i].is_disabled = disabledType.disabled;
           this.checkbox[i].is_checked = checkedType.unchecked;
         }
         this.generateCheckbox()
-        this.openModalPago()
+        //this.openModalPago()
+        let datos={
+          amount: data['data'].amount,
+          currency_code: data['data'].currency_code,
+          description: data['data'].description,
+          order_number: data['data'].id,
+          client_details: {
+            first_name: this.student.nombres,
+            last_name: this.student.apellidos,
+            email: this.student.email,
+            phone_number: this.student.celular
+          },
+          expiration_date: data['data'].expiration_date,
+          confirm: false,
+          paymentMethods: {
+            tarjeta: false,
+            yape: false,
+            billetera: true,
+            bancaMovil: true,
+            agente: true,
+            cuotealo: false,
+          }
+        };
+        let datos_config={
+          TOTAL_AMOUNT: data['data'].amount,
+          ORDER_NUMBER: data['data'].id,
+          firstName: this.student.nombres,
+          lastName: this.student.apellidos,
+          address: "",
+          address_c: "",
+          phone: this.student.celular,
+          email: this.student.email,
+        }
+        config_data(datos_config);
+        greet(datos)
+        ejecutar(null)
         this.spinner.hide()
       }
     });
