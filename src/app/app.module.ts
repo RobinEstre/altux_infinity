@@ -27,7 +27,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { SafePipe } from './alumno/safe.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -41,8 +40,7 @@ const ngWizardConfig: NgWizardConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SafePipe,
+    AppComponent
   ],
   imports: [
     SharedModule,
