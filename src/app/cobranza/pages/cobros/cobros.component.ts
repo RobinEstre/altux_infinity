@@ -293,6 +293,7 @@ export class CobrosComponent implements OnInit {
             'mv':mv,
             'id': i.id,
             'is_suscrib': i['is suscrib'],
+            'estado_aula': i.estado_aula,
             'sales_id': i.sales_id,
             'nombres': i.nombre,
             'apellidos': i.apellido,
@@ -1521,14 +1522,18 @@ export class CobrosComponent implements OnInit {
   // Deshabilitar Alumno
 
   deshabilitarAlumno(data){
+    let text="Segur@ de Deshabilitar Estudiante?"
+    if(!data.estado_aula){
+      text="Segur@ de Habilitar Estudiante?"
+    }
     Swal.fire({
-      title: "Segur@ de deshabilitar Estudiante?",
+      title: text,
       // text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si, deshabilitar!",
+      confirmButtonText: "Si, segur@!",
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
@@ -1538,12 +1543,16 @@ export class CobrosComponent implements OnInit {
         }
         this.Service.deshabilitarStudent(data.id, body).subscribe(resp=>{
           if(resp.success){
+            let message="Estudiante Deshabilitado"
+            if(!data.estado_aula){
+              message="Estudiante Habilitado"
+            }
             this.spinner.hide()
             this.rerender()
             Swal.fire({
               position: "center",
               icon: "success",
-              title: resp.message,
+              title: message,
               showConfirmButton: false,
               timer: 2000
             });
