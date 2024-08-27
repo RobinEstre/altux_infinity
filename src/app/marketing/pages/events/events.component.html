@@ -1,0 +1,231 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Eventos</h6>
+                        <p class="text-secondary small">Gestión de todos los eventos creados</p>
+                    </div>
+                    <div class="col-auto" style="font-size: 20px;">
+                        <span class="badge rounded-pill bg-primary text-capitalize">Gestión</span>
+                        <span class="badge rounded-pill bg-secondary text-capitalize mx-2">Asistencial</span>
+                        <button class="btn btn-theme" (click)="openModal()"><i class="bi bi-plus"></i> Registrar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="overflow: auto;">
+                        <ng-template #is_tipo let-data="adtData" let-emitter="captureEvents">
+                            <div>
+                                <span class="badge rounded-pill bg-primary" *ngIf="data.is_gestion">Gestión</span>
+                                <span class="badge rounded-pill bg-secondary" *ngIf="data.is_asistencial">Asistencial</span>
+                            </div>
+                        </ng-template>
+                        <ng-template #is_estado let-data="adtData" let-emitter="captureEvents">
+                            <div>
+                                <span class="badge rounded-pill bg-success" *ngIf="data.event_description=='culminado'">Culminado</span>
+                                <span class="badge rounded-pill bg-danger parpadea" *ngIf="data.event_description=='vivo'">En Vivo</span>
+                            </div>                       
+                        </ng-template>
+                        <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
+                            <app-buttons-leads [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-buttons-leads>
+                        </ng-template>
+                        <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
+                            [dtTrigger]="dtTrigger" class="table table-striped" style="width: 100%;"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Registro Evento -->
+<ng-template #modal_create let-modal>
+    <form [formGroup]="formEvent" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">Nuevo Evento</h5>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated">
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="name_event" class="form-control border-start-0" required>
+                                <label for="floatingInput">Nombre Evento</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEvent.controls['name_event'].invalid && (formEvent.controls['name_event'].dirty || formEvent.controls['name_event'].touched)" >
+                            <div *ngIf="formEvent.controls['name_event'].errors.required">
+                                <small class="text-danger">Por favor ingrese el nombre evento</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-square"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="ponente" class="form-control border-start-0" required>
+                                <label for="floatingInput">Ponente</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEvent.controls['ponente'].invalid && (formEvent.controls['ponente'].dirty || formEvent.controls['ponente'].touched)" >
+                            <div *ngIf="formEvent.controls['ponente'].errors.required">
+                                <small class="text-danger">Por favor ingrese el nombre del ponente</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-square"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="profesion" class="form-control border-start-0" required>
+                                <label for="floatingInput">Profesion</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEvent.controls['profesion'].invalid && (formEvent.controls['profesion'].dirty || formEvent.controls['profesion'].touched)" >
+                            <div *ngIf="formEvent.controls['profesion'].errors.required">
+                                <small class="text-danger">Por favor ingrese la profesion</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-filetype-key"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="dowload_key" class="form-control border-start-0" required>
+                                <label for="floatingInput">Contraseña Evento</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEvent.controls['dowload_key'].invalid && (formEvent.controls['dowload_key'].dirty || formEvent.controls['dowload_key'].touched)" >
+                            <div *ngIf="formEvent.controls['dowload_key'].errors.required">
+                                <small class="text-danger">Por favor ingrese la contraseña</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="fecha_evento" type="datetime-local" class="form-control border-start-0" required>
+                                <label for="floatingInput">Fecha Evento</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEvent.controls['fecha_evento'].invalid && (formEvent.controls['fecha_evento'].dirty || formEvent.controls['fecha_evento'].touched)" >
+                            <div *ngIf="formEvent.controls['fecha_evento'].errors.required">
+                                <small class="text-danger">Por favor ingrese la fecha del evento</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-2 d-flex justify-content-center">
+                    <div class="form-check form-switch mx-2">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="is_gestion"
+                        (change)="changeGestion($event)">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Gestión</label>
+                    </div>
+                    <div class="form-check form-switch mx-2">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1" formControlName="is_asistencial"
+                        (change)="changeAsistencial($event)">
+                        <label class="form-check-label" for="flexSwitchCheckDefault1">Asistencial</label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <hr>
+                    <b>Imagen Principal 1920x500</b>
+                    <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect1920x500($event)">
+                      <ngx-dropzone-label class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
+                        <br>
+                        <label>Seleccione archivo para subir</label>
+                      </ngx-dropzone-label>
+                      <ngx-dropzone-image-preview *ngFor="let f of url_img_1920x500" [file]="f" style="width: 100%;"
+                        [removable]="true" (removed)="onRemove1920x500(f)" class="text-center">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      </ngx-dropzone-image-preview>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                    <b>Imagen Web 750x500</b>
+                    <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect750x500($event)">
+                      <ngx-dropzone-label class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
+                        <br>
+                        <label>Seleccione archivo para subir</label>
+                      </ngx-dropzone-label>
+                      <ngx-dropzone-image-preview *ngFor="let f of url_img_750x500" [file]="f" style="width: 100%;"
+                        [removable]="true" (removed)="onRemove750x500(f)" class="text-center">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      </ngx-dropzone-image-preview>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 mb-2">
+                    <b>Imagen Constancia</b>
+                    <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelectconstancia($event)">
+                      <ngx-dropzone-label class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
+                        <br>
+                        <label>Seleccione archivo para subir</label>
+                      </ngx-dropzone-label>
+                      <ngx-dropzone-image-preview *ngFor="let f of url_img_constancia" [file]="f" style="width: 100%;"
+                        [removable]="true" (removed)="onRemoveconstancia(f)" class="text-center">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      </ngx-dropzone-image-preview>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <b>Material</b>
+                    <input class="form-control" type="file" accept="image/*, application/pdf" (change)="onSelectmaterial($event)" multiple>
+                    <ol class="list-group list-group-numbered" *ngIf="url_img_material.length>0">
+                        <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let item of url_img_material,let i= index">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{item.name}}</div>
+                        </div>
+                        <a class="text-danger" href="javascript:void(0);" (click)="onRemovematerial(i)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
+                        </a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="subirArchivoWeb()" [disabled]="!formEvent.valid">Registrar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!--SPINNER-->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>

@@ -17,6 +17,8 @@ import { BaseExtraComponent } from './pages/reciclaje/base-extra/base-extra.comp
 import { LeadsComponent } from './pages/reciclaje/leads/leads.component';
 import { ButtonsLeadsComponent } from './pages/reciclaje/leads/buttons-leads/buttons-leads.component';
 import { ButtonsBaseComponent } from './pages/reciclaje/base-extra/buttons-base/buttons-base.component';
+import { EventsComponent } from './pages/events/events.component';
+import { ButtonsEventsComponent } from './pages/events/buttons-events/buttons-events.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { ButtonsBaseComponent } from './pages/reciclaje/base-extra/buttons-base/
     BaseExtraComponent,
     LeadsComponent,
     ButtonsLeadsComponent,
-    ButtonsBaseComponent
+    ButtonsBaseComponent,
+    EventsComponent,
+    ButtonsEventsComponent
   ],
   imports: [
     CommonModule,
