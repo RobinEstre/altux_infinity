@@ -1522,9 +1522,9 @@ export class CobrosComponent implements OnInit {
   // Deshabilitar Alumno
 
   deshabilitarAlumno(data){
-    let text="Segur@ de Deshabilitar Estudiante?"
+    let text="Segur@ de Deshabilitar Estudiante?", state=false
     if(!data.estado_aula){
-      text="Segur@ de Habilitar Estudiante?"
+      text="Segur@ de Habilitar Estudiante?", state=true
     }
     Swal.fire({
       title: text,
@@ -1539,7 +1539,7 @@ export class CobrosComponent implements OnInit {
       if (result.isConfirmed) {
         this.spinner.show()
         let body={
-          "state": false
+          "state": state
         }
         this.Service.deshabilitarStudent(data.id, body).subscribe(resp=>{
           if(resp.success){

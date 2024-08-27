@@ -93,17 +93,17 @@ export class EventsComponent implements OnInit {
   dtOptions: DataTables.Settings  = {};
   dtTrigger: Subject<any> = new Subject<any>();
   dataTableActions: Array<any> = [
-    // {
-    //   cmd: "seguimiento",
-    //   label: "Seguimiento",
-    //   classList: "",
-    //   icon: 'bi bi-binoculars'
-    // },
     {
-      cmd: "add",
-      label: "Asignar Nuevo Vendedor",
+      cmd: "update",
+      label: "Editar Evento",
       classList: "mx-2",
-      icon: 'bi bi-send'
+      icon: 'bi bi-pencil-square'
+    },
+    {
+      cmd: "eliminar",
+      label: "Eliminar Evento",
+      classList: "text-danger",
+      icon: 'bi bi-trash'
     },
   ];
 
@@ -259,9 +259,11 @@ export class EventsComponent implements OnInit {
   }
 
   onCaptureEvent(event: any): void {
-    if (event['cmd'] === 'add'){
+    if (event.cmd === 'update'){
       this.detalle=event.data;
+      this.updateState(this.detalle)
     }else{
+      this.deleteEvent(event.data)
     }
   }
 
@@ -272,6 +274,10 @@ export class EventsComponent implements OnInit {
     this.formEvent.reset()
     this.formEvent.controls.is_gestion.setValue(true)
     this.formEvent.controls.is_asistencial.setValue(false)
+    this.url_img_1920x500=[]
+    this.url_img_750x500=[]
+    this.url_img_constancia=[]
+    this.url_img_material=[]
     this.modalRef = this.modalService.open(this.modalContent, {backdrop : 'static', centered: true, keyboard: false,
       windowClass: 'animate__animated animate__backInUp', size: 'lg' });
     this.modalRef.result.then();
@@ -290,6 +296,7 @@ export class EventsComponent implements OnInit {
   }
   
   subirArchivoWeb(){
+    this.spinner.show()
     let data={}
     let name_file=[
       {
@@ -309,8 +316,9 @@ export class EventsComponent implements OnInit {
         data: this.url_img_material
       },
     ]
+    //console.log(name_file)
     let folder= 'Eventos/'+this.formEvent.controls.name_event.value+'/'
-    for(let a=0; a<5; a++){
+    for(let a=0; a<4; a++){
       const formData = new FormData()
       formData.append("bucket", 'web-altux-files');
       formData.append("nombre", name_file[a].data[0].name);
@@ -320,9 +328,9 @@ export class EventsComponent implements OnInit {
         if(resp.success==true){
           let url= resp.data[0].url
           data[name_file[a].nombre] = url;
-          if(Object.keys(data).length==5){
+          if(Object.keys(data).length==4){
             this.saveEvent(data)
-            console.log(data)
+            //console.log(data)
           }
         }
       },error => {
@@ -355,9 +363,146 @@ export class EventsComponent implements OnInit {
   }
 
   saveEvent(img){
+    var fecha_evento= ((new Date(this.formEvent.controls.fecha_evento.value)).getTime())/1000
+    let body={
+      "name_event": this.formEvent.controls.name_event.value,
+      "ponente": this.formEvent.controls.ponente.value,
+      "profesion": this.formEvent.controls.profesion.value,
+      "dowload_key": this.formEvent.controls.dowload_key.value,
+      "url_material": img.url_img_material,
+      "url_constancia": img.url_img_constancia,
+      "url_img_principal": img.url_img_1920x500,
+      "url_correo_cabecera": img.url_img_1920x500,
+      "url_img_web": img.url_img_750x500,
+      "fecha_evento": fecha_evento,
+      "is_gestion": this.formEvent.controls.is_gestion.value,
+      "is_asistencial": this.formEvent.controls.is_asistencial.value
+    }
+    this.service.createEvent(body).subscribe(resp=>{
+      if(resp.success==true){
+        this.closeModal()
+        this.spinner.hide()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Genial Evento Creado",
+          showConfirmButton: false,
+          timer: 2500
+        });
+        this.rerender()
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: error.error.message,
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      if(error.status==500){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      // this.closeModal()
+      this.spinner.hide()
+    })
   }
 
-  updateState(valEvents){}
+  async updateState(valEvents){
+    const { value: url } = await Swal.fire({
+      input: "url",
+      inputLabel: "URL FACEBOOK",
+      inputPlaceholder: "Ingrese la URL del vídeo grabado"
+    });
+    if (url) {
+      this.spinner.show()
+      //Swal.fire(`Entered URL: ${url}`);
+      let body ={
+        "url_video": url,
+        "event_description": "culminado"
+      }
+      this.service.updateEvent(valEvents.id, body).subscribe(resp=>{
+        if(resp.success==true){
+          this.spinner.hide()
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "URL Evento Asignado",
+            showConfirmButton: false,
+            timer: 2500
+          });
+          this.rerender()
+        }
+      },error => {
+        if(error.status==400){
+          Swal.fire({
+            title: 'Advertencia!',
+            text: error.error.message,
+            icon: 'error',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonColor: '#c02c2c',
+            cancelButtonText: 'Cerrar'
+          })
+        }
+        if(error.status==500){
+          Swal.fire({
+            title: 'Advertencia!',
+            text: 'Comuniquese con el Área de Sistemas',
+            icon: 'error',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonColor: '#c02c2c',
+            cancelButtonText: 'Cerrar'
+          })
+        }
+        // this.closeModal()
+        this.spinner.hide()
+      })
+    }
+    console.log(valEvents)
+  }
+
+  deleteEvent(detalle){
+    Swal.fire({
+      title: "Seguro de eliminar evento?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#95c50a",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar!",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.spinner.show()
+        this.service.deleteEvent(detalle.id).subscribe(resp=>{
+          if(resp.success){
+            this.spinner.hide()
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: resp.message,
+              showConfirmButton: false,
+              timer: 2500
+            });
+            this.rerender()
+          }
+        })
+      }
+    });
+  }
 
   //FILES
 
