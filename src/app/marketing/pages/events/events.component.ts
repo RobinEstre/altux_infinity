@@ -68,6 +68,8 @@ export class EventsComponent implements OnInit {
   }
   @ViewChild('modal_create') private modalContent: TemplateRef<EventsComponent>;
   private modalRef: NgbModalRef;
+  @ViewChild('modal_edit') private modalContentEdit: TemplateRef<EventsComponent>;
+  private modalRefEdit: NgbModalRef;
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   @ViewChild('dtActions') dtActions!: TemplateRef<EventsComponent>;
@@ -80,6 +82,15 @@ export class EventsComponent implements OnInit {
   }
 
   formEvent = this.fb.group({
+    name_event:['',Validators.required],
+    ponente:['',Validators.required],
+    profesion:['',Validators.required],
+    dowload_key:['',Validators.required],
+    is_gestion:[true,Validators.required],
+    is_asistencial:[true,Validators.required],
+    fecha_evento:[null,Validators.required],
+  });
+  formEdit = this.fb.group({
     name_event:['',Validators.required],
     ponente:['',Validators.required],
     profesion:['',Validators.required],
@@ -138,7 +149,7 @@ export class EventsComponent implements OnInit {
           }
         }
       },
-      {title: 'F. Registro', data: 'updated_at'},
+      {title: 'F. Evento', data: 'fecha_evento'},
     );
     if (this.dataTableActions.length > 0) {
       this.columns.push({
@@ -204,6 +215,7 @@ export class EventsComponent implements OnInit {
               //i.created_at= this.datePipe.transform(i.created_at,"dd/MM/yyyy HH:mm"),
               i.tipo= tipo
               i.updated_at= this.datePipe.transform(i.updated_at,"dd/MM/yyyy HH:mm")
+              i.fecha_evento= this.datePipe.transform(i.event_start_date*1000,"dd/MM/yyyy HH:mm")
             })
             //console.log(resp.data)
             this.register_count = resp['cantidad']
@@ -261,7 +273,8 @@ export class EventsComponent implements OnInit {
   onCaptureEvent(event: any): void {
     if (event.cmd === 'update'){
       this.detalle=event.data;
-      this.updateState(this.detalle)
+      //console.log(this.detalle)
+      this.openModalEdit(this.detalle)
     }else{
       this.deleteEvent(event.data)
     }
@@ -285,6 +298,26 @@ export class EventsComponent implements OnInit {
 
   closeModal(){
     this.modalRef.close()
+  }
+
+  openModalEdit(data){
+    // let fecha:any=this.datePipe.transform(data.recordatorio*1000,"yyyy-MM-dd")
+    // this.formDate.controls.fecha.setValue(fecha,"yyyy-MM-dd HH:mm")
+    let fecha_evento:any= this.datePipe.transform((+data.event_start_date)*1000, "yyyy-MM-dd HH:mm")
+    this.formEdit.controls.name_event.setValue(data.event_name)
+    this.formEdit.controls.ponente.setValue(data.event_data.ponente)
+    this.formEdit.controls.profesion.setValue(data.event_data.profesion)
+    this.formEdit.controls.dowload_key.setValue(data.dowload_key)
+    this.formEdit.controls.is_gestion.setValue(data.is_gestion)
+    this.formEdit.controls.is_asistencial.setValue(data.is_asistencial)
+    this.formEdit.controls.fecha_evento.setValue(fecha_evento)
+    this.modalRefEdit = this.modalService.open(this.modalContentEdit, {backdrop : 'static', centered: true, keyboard: false,
+      windowClass: 'animate__animated animate__backInUp', size: 'lg' });
+    this.modalRefEdit.result.then();
+  }
+
+  closeModalEdit(){
+    this.modalRefEdit.close()
   }
 
   changeGestion(event){
@@ -502,6 +535,59 @@ export class EventsComponent implements OnInit {
         })
       }
     });
+  }
+
+  updateEvent(){
+    this.spinner.show()
+    var fecha_evento= ((new Date(this.formEdit.controls.fecha_evento.value)).getTime())/1000
+    let body={
+      "name_event": this.formEdit.controls.name_event.value,
+      "ponente": this.formEdit.controls.ponente.value,
+      "profesion": this.formEdit.controls.profesion.value,
+      "dowload_key": this.formEdit.controls.dowload_key.value,
+      "fecha_evento": fecha_evento,
+      "is_gestion": this.formEdit.controls.is_gestion.value,
+      "is_asistencial": this.formEdit.controls.is_asistencial.value
+    }
+    this.service.updateEvent(this.detalle.id, body).subscribe(resp=>{
+      if(resp.success==true){
+        this.closeModalEdit()
+        this.spinner.hide()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Genial Evento Actualizado",
+          showConfirmButton: false,
+          timer: 2500
+        });
+        this.rerender()
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: error.error.message,
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      if(error.status==500){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      // this.closeModal()
+      this.spinner.hide()
+    })
   }
 
   //FILES
