@@ -88,8 +88,13 @@ export class AlumnosComponent implements OnInit {
     tip_doc: [''],
     procedencia_venta:[''],
     is_factura: [false,],
+    is_comprobante: [false,],
     vendedor:[''],
-    grado_instruccion:['']
+    grado_instruccion:[''],
+    //REGISTRO SIN COMPROBANTE
+    fecha_pago:[''],
+    medio_pago:[''],
+    voucher:[''],
   });
 
   diplomado: any; estudiantes:any; isperu = true; nameperson: any; dni_consulta:any; mostrarColegiatura: boolean = false; grado:any; 
@@ -243,8 +248,20 @@ export class AlumnosComponent implements OnInit {
     this.formRegistro.controls['procedencia_venta'].setValue('')
     this.formRegistro.controls['grado_instruccion'].setValue('')
     this.formRegistro.controls['vendedor'].setValue('')
+    this.formRegistro.controls.is_comprobante.setValue(false)
+    this.formRegistro.controls.voucher.setValidators([Validators.required]);
+    this.formRegistro.controls.voucher.updateValueAndValidity();
+    this.formRegistro.controls.voucher.setValue('');
+    this.formRegistro.controls.fecha_pago.setValidators([Validators.required]);
+    this.formRegistro.controls.fecha_pago.updateValueAndValidity();
+    this.formRegistro.controls.fecha_pago.setValue('');
+    this.formRegistro.controls.medio_pago.setValidators([Validators.required]);
+    this.formRegistro.controls.medio_pago.updateValueAndValidity();
+    this.formRegistro.controls.medio_pago.setValue('');
     this.isperu=true
     this.mostrarColegiatura=false
+    this.is_comprobante=false
+    this.is_facture=false
     this.nameperson=null
   }
 
@@ -477,7 +494,25 @@ export class AlumnosComponent implements OnInit {
     let ischecked = event.target.checked;
     if (ischecked === true){
       this.is_comprobante = true
+      this.formRegistro.controls.voucher.setValidators([]);
+      this.formRegistro.controls.voucher.updateValueAndValidity();
+      this.formRegistro.controls.voucher.setValue('');
+      this.formRegistro.controls.fecha_pago.setValidators([]);
+      this.formRegistro.controls.fecha_pago.updateValueAndValidity();
+      this.formRegistro.controls.fecha_pago.setValue('');
+      this.formRegistro.controls.medio_pago.setValidators([]);
+      this.formRegistro.controls.medio_pago.updateValueAndValidity();
+      this.formRegistro.controls.medio_pago.setValue('');
     }else{
+      this.formRegistro.controls.voucher.setValidators([Validators.required]);
+      this.formRegistro.controls.voucher.updateValueAndValidity();
+      this.formRegistro.controls.voucher.setValue('');
+      this.formRegistro.controls.fecha_pago.setValidators([Validators.required]);
+      this.formRegistro.controls.fecha_pago.updateValueAndValidity();
+      this.formRegistro.controls.fecha_pago.setValue('');
+      this.formRegistro.controls.medio_pago.setValidators([Validators.required]);
+      this.formRegistro.controls.medio_pago.updateValueAndValidity();
+      this.formRegistro.controls.medio_pago.setValue('');
       this.is_comprobante = false
     }
   }
@@ -519,14 +554,17 @@ export class AlumnosComponent implements OnInit {
       "nombres": nombres,
       "apellidos": apellidos,
       "is_facture": this.is_facture,
-      //"solicita_comprobante": this.is_comprobante,
-      "solicita_comprobante": true,
+      "solicita_comprobante": this.is_comprobante,
+      //"solicita_comprobante": true,
       "rzon_social": nombres+' '+apellidos,
       "type_matricula": "matriculacuota",
       "procedencia_venta": this.formRegistro.controls.procedencia_venta.value,
       "grado_instruccion": this.formRegistro.controls.grado_instruccion.value,
       "num_colegiatura": this.formRegistro.controls.num_colegiatura.value,
-      "vendedor_id": +this.formRegistro.controls.vendedor.value
+      "vendedor_id": +this.formRegistro.controls.vendedor.value,
+      "fecha_pago": this.formRegistro.controls.fecha_pago.value,
+      "medio_pago": this.formRegistro.controls.medio_pago.value,
+      "voucher": this.formRegistro.controls.voucher.value
     }
     //console.log(body)
     this.service.addEstudiante(body).subscribe(data => {

@@ -326,16 +326,66 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
                     <br>
-                    <div class="form-group form-check form-switch" *ngIf="isperu">
+                    <div class="form-group form-check form-switch">
                         <input class="form-check-input" (change)="optionComprobante($event)" type="checkbox" formControlName="is_comprobante">
                         <label style="display: flex;">Solicitar Comprobante</label>
                     </div>
-                </div> -->
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2"></div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!is_comprobante">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+                            <div class="form-floating">
+                                <input formControlName="fecha_pago" type="date" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Fecha Pago</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['fecha_pago'].invalid && (formRegistro.controls['fecha_pago'].dirty || formRegistro.controls['fecha_pago'].touched)" >
+                            <div *ngIf="formRegistro.controls['fecha_pago'].errors.required">
+                                <small class="text-danger">Por favor ingrese la fecha de pago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!is_comprobante">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-credit-card"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Medio de Pago" formControlName="medio_pago" type="text" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Medio de Pago</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['medio_pago'].invalid && (formRegistro.controls['medio_pago'].dirty || formRegistro.controls['medio_pago'].touched)" >
+                            <div *ngIf="formRegistro.controls['medio_pago'].errors.required">
+                                <small class="text-danger">Por favor ingrese el medio de pago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!is_comprobante">
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-file-earmark-text"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Ingrese Voucher" formControlName="voucher" type="text" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Voucher</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formRegistro.controls['voucher'].invalid && (formRegistro.controls['voucher'].dirty || formRegistro.controls['voucher'].touched)" >
+                            <div *ngIf="formRegistro.controls['voucher'].errors.required">
+                                <small class="text-danger">Por favor ingrese el voucher</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mb-2" *ngIf="!is_comprobante"></div>
                 <div class="col-md-6 col-sm-12 col-lg-6 mb-2">
                     <br>
-                    <div class="form-group form-check form-switch" *ngIf="isperu">
+                    <div class="form-group form-check form-switch">
                         <input class="form-check-input" (change)="optionFacture($event)" type="checkbox" formControlName="is_factura">
                         <label style="display: flex;">Solicitar Factura</label>
                     </div>
