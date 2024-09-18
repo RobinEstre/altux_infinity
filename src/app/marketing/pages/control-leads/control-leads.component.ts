@@ -195,7 +195,7 @@ export class ControlLeadsComponent implements OnInit {
           }else{
             this.paginate = 1
           }
-          this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&search=${body_params['search']['value'] || ''}`
+          this.filter_params = `cantidad=${body_params['length']}&pagina=${this.paginate}&search=${body_params['search']['value'] || ''}`
           //this.filter_params=`pagina=${this.paginate}&cantidad=${body_params['length']}`
         }
         this.service.listControlLeads(this.filter_params).subscribe(resp => {

@@ -653,7 +653,199 @@
 </ng-template>
 <!-- Empieza modal gestion-->
 <ng-template #infomigra let-modal>
-    <div>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 text-uppercase">Gestión Pagos</h5>
+            <p class="text-secondary title">Estudiante: <b>{{name_student}}</b></p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row mb-2">
+                <div class="col-sm-12 col-lg-12 col-md-12">
+                    <p class="text-center">
+                        <b class="text-success" *ngIf="status_pay"> Mensualidad Pagada</b>  
+                        <b class="text-danger" *ngIf="!status_pay">Mensualidad no Pagada</b>
+                    </p>
+                    <p class="text-center text-uppercase">
+                        <b >{{name_mensualidad}}</b>  | <b>{{monto_mensualidad}}</b>
+                    </p>
+                </div>
+            </div>
+            <form [formGroup]="formMat" (submit)="gestionMigracionPago()">
+                <div class="row mb-2">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="option_select">Selecciona una opción*</label>
+                            <div class="form-group my-2">
+                                <ng-select formControlName="option_select"
+                                            [items]="optionsMigration"
+                                            bindLabel='value'
+                                            bindValue='id'
+                                            placeholder="SELECCIONAR OPCIÓN"
+                                            id="option_select"
+                                            (change)="onChangeMigracion($event)">
+                                </ng-select>
+                                <div *ngIf="formMat.controls['option_select'].invalid && (formMat.controls['option_select'].dirty ||
+                                                                        formMat.controls['option_select'].touched)" >
+                                    <div *ngIf="formMat.controls['option_select'].errors.required">
+                                        <small class="text-danger">Por favor seleccione una opción</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="show_registro">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="banco">Seleccionar medio de pago *</label>
+                                <div class="form-group my-2">
+                                    <ng-select formControlName="banco"
+                                                [items]="bancosPagos"
+                                                bindLabel='value'
+                                                bindValue='id'
+                                                placeholder="SELECCIONAR OPCIÓN"
+                                                id="banco"
+                                                (change)="OnchangeBancoMigracion($event)">
+                                    </ng-select>
+                                    <div *ngIf="formMat.controls['banco'].invalid && (formMat.controls['banco'].dirty ||
+                                                                        formMat.controls['banco'].touched)" >
+                                        <div *ngIf="formMat.controls['banco'].errors.required">
+                                            <small class="text-danger">Por favor seleccione una opción</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="n_opreacion">Nº Operación *</label>
+                                <input class="form-control text-dark" formControlName="n_opreacion" id="n_opreacion" type="text"
+                                        placeholder="Nº operación">
+                                <div *ngIf="formMat.controls['n_opreacion'].invalid && (formMat.controls['n_opreacion'].dirty ||
+                                                                        formMat.controls['n_opreacion'].touched)" >
+                                    <div *ngIf="formMat.controls['n_opreacion'].errors.required">
+                                        <small class="text-danger">Por favor ingresar el N° de operación</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="fecha_pago">Nº Fecha de pago *</label>
+                                <input class="form-control text-dark" formControlName="fecha_pago" id="fecha_pago" type="date">
+                                <div *ngIf="formMat.controls['fecha_pago'].invalid && (formMat.controls['fecha_pago'].dirty ||
+                                                                        formMat.controls['fecha_pago'].touched)" >
+                                    <div *ngIf="formMat.controls['fecha_pago'].errors.required">
+                                        <small class="text-danger">Por favor ingresar la fecha de pago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row mb-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="importe">Importe *</label>
+                                <input class="form-control text-dark" formControlName="importe" id="importe" type="number"
+                                        placeholder="importe">
+                                <div *ngIf="formMat.controls['importe'].invalid && (formMat.controls['importe'].dirty ||
+                                                                        formMat.controls['importe'].touched)" >
+                                    <div *ngIf="formMat.controls['importe'].errors.required">
+                                        <small class="text-danger">Por favor ingresar el importe</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div *ngIf="show_corregir">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="monto_correccion">Monto Pago a corregir</label>
+                                <input class="form-control text-dark" formControlName="monto_correccion"  id="monto_correccion" type="number"
+                                        placeholder="Monto a corregir">
+                                <div *ngIf="formMat.controls['monto_correccion'].invalid && (formMat.controls['monto_correccion'].dirty ||
+                                                                        formMat.controls['monto_correccion'].touched)" >
+                                    <div *ngIf="formMat.controls['monto_correccion'].errors.required">
+                                        <small class="text-danger">Por favor ingresar el monto a corregir</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <input class="form-check-input" (change)="optionRealizoPago($event)"
+                                        type="checkbox" formControlName="status_pay">
+                                <label>
+                                    Realizó pago ?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="state_info_consulta">
+                    <div *ngIf="data_info_indice.length>0">
+                        <div class="col-sm-12 col-md-12 col-lg-12" *ngFor="let data of data_info_indice">
+                            <div *ngIf="data.metodo_pago=='pagoefectivo' || data.metodo_pago=='tarjeta'">
+                                <br>
+                                <p *ngIf="data['codigo_pago']">Código de pago generado: <b class="text-uppercase">{{data['codigo_pago']}}</b></p>
+                                <p>Fecha Pago: <b class="text-uppercase">{{data['fecha'] | date:'d MMMM, y, H:mm:ss '}}</b></p>
+                                <p class="text-center text-uppercase"><b>{{data['metodo_pago']}}</b></p>
+                            </div>
+                            <div *ngIf="data.metodo_pago=='manual'">
+                                <br>
+                                <p>Método de Pago: <b class="text-uppercase">{{data['metodo_pago']}}</b></p>
+                                <hr>
+                                <div *ngIf="data.detalle.is_paid==false">
+                                    <div *ngFor="let det of data.detalle.pago_manual">
+                                        <p>Banco: <b class="text-uppercase">{{det['banco']}}</b></p>
+                                        <p>Fecha Pago: <b class="text-uppercase">{{det['fecha_pago'] | date:'d MMMM, y'}}</b></p>
+                                        <p>Importe: <b class="text-uppercase">S/ {{det['importe_pago']}}.00</b></p>
+                                        <p>N° Operacion: <b class="text-uppercase">{{det['num_operacion']}}</b></p>
+                                        <hr>
+                                    </div>
+                                    <p>Deuda: <b class="text-uppercase text-danger"> S/ {{data.detalle['monto_pagar']}}.00</b></p>
+                                    <p>Fecha Vencimiento: <b class="text-uppercase text-danger">{{data.detalle['fecha_vencimiento']*1000 | date:'d MMMM, y, H:mm:ss'}}</b></p>
+                                </div>
+                                <div *ngIf="data.detalle.is_paid==true">
+                                    <div *ngFor="let det of data.detalle.pago_manual">
+                                        <p>Banco: <b class="text-uppercase">{{det['banco']}}</b></p>
+                                        <p>Fecha Pago: <b class="text-uppercase">{{det['fecha_pago'] | date:'d MMMM, y'}}</b></p>
+                                        <p>Importe: <b class="text-uppercase">{{det['importe_pago']}}</b></p>
+                                        <p>N° Operacion: <b class="text-uppercase">{{det['num_operacion']}}</b></p>
+                                        <hr>
+                                    </div>
+                                    <p class="text-center text-success"><b class="text-uppercase">PAGADO</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="data_info_indice.length==0">
+                        <p>NO SE ENCONTRO PAGO</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-success text-white" [disabled]="!formMat.valid"  type="submit" *ngIf="btn_show"
+                        (click)="gestionMigracionPago()">Guardar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalMigracion()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div>
         <button type="button" class="btn-close pull-right mx-3 my-2" style="color: black" aria-label="Close" (click)="closeModalMigracion()"></button>
     </div>
     <div class="row">
@@ -666,7 +858,9 @@
     <div class="row">
         <div class="row">
             <div class="col-sm-12 col-lg-12 col-md-12">
-                <p *ngIf="name_student" class="text-center text-uppercase">Estudiante: <span class="badge badge-pill badge-dark" style="font-size: 0.6vw;"><b>{{name_student}}</b></span>
+                <p *ngIf="name_student" class="text-center text-uppercase">
+                    Estudiante: <span class="badge rounded-pill bg-dark text-capitalize"><b>{{name_student}}</b></span>
+                </p>
                 <p class="text-center"> <b class="text-success" *ngIf="status_pay"> Mensualidad Pagada</b>  <b class="text-danger" *ngIf="!status_pay">Mensualidad no Pagada</b> </p>
                 <p class="text-center text-uppercase">
                     <b >{{name_mensualidad}}</b>  | <b>{{monto_mensualidad}}</b>
@@ -754,7 +948,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mb-2">
+                            <!-- <div class="row mb-2">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="importe">Importe *</label>
@@ -768,7 +962,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                         <div *ngIf="show_corregir">
                             <div class="row mb-2">
@@ -848,7 +1042,7 @@
                 </form>
            </div>
         </div>
-    </div>
+    </div> -->
 </ng-template>
 <!-- Empieza modal pago Efectivo-->
 <ng-template #pago let-modal>

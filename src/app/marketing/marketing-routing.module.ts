@@ -6,6 +6,7 @@ import { PanelComponent } from '../ventas/pages/panel/panel.component';
 import { PerfilSharedComponent } from '../shared/components/perfil/perfil.component';
 import { ReciclajeComponent } from './pages/reciclaje/reciclaje.component';
 import { EventsComponent } from './pages/events/events.component';
+import { ActivosComponent } from './pages/activos/activos.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'control-leads',
         component: ControlLeadsComponent
+      },
+      {
+        path: 'activos',
+        component: ActivosComponent
       },
       {
         path: 'reciclaje-leads',

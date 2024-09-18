@@ -73,8 +73,12 @@ export class CobranzaService {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'cobranza/actualizar-pagos-estudiantes/', data);
   }
 
+  // registrarPagoManual(data) {
+  //   return this.httpClient.put<any>(this.envUrl.urlAddress + 'cobranza/registrar-pago-mensualidad-manual/', data);
+  // }
+
   registrarPagoManual(data) {
-    return this.httpClient.put<any>(this.envUrl.urlAddress + 'cobranza/registrar-pago-mensualidad-manual/', data);
+    return this.httpClient.put<any>(this.envUrl.urlAddress + 'admin/registrar/pagos-mensualidad/manual/', data);
   }
 
   corregirPago(data) {

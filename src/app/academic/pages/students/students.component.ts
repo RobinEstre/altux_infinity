@@ -171,7 +171,7 @@ export class StudentsComponent implements OnInit {
             this.paginate = 1
           }
           //this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&searchs=${body_params['search']['value'] || ''}`
-          this.filter_params=`pagina=${this.paginate}&cantidad=${body_params['length']}`
+          this.filter_params=`pagina=${this.paginate}&cantidad=${body_params['length']}&search=${body_params['search']['value'] || ''}`
         }
         this.service.listStudents(this.filter_params).subscribe(resp => {
           let data=[], n=0, cantidad=0

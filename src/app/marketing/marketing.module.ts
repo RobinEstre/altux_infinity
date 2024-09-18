@@ -19,6 +19,7 @@ import { ButtonsLeadsComponent } from './pages/reciclaje/leads/buttons-leads/but
 import { ButtonsBaseComponent } from './pages/reciclaje/base-extra/buttons-base/buttons-base.component';
 import { EventsComponent } from './pages/events/events.component';
 import { ButtonsEventsComponent } from './pages/events/buttons-events/buttons-events.component';
+import { ActivosComponent } from './pages/activos/activos.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ButtonsEventsComponent } from './pages/events/buttons-events/buttons-ev
     ButtonsLeadsComponent,
     ButtonsBaseComponent,
     EventsComponent,
-    ButtonsEventsComponent
+    ButtonsEventsComponent,
+    ActivosComponent
   ],
   imports: [
     CommonModule,

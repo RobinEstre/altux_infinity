@@ -9,6 +9,12 @@ export class MarketingService {
 
   constructor(private httpClient: HttpClient, private envUrl: UrlEnviromentService) { }
 
+  getInformeDiplomados() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/listar/diplomados/activos-todos')
+  }
+  actFechalimite(data) {
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/actualizar-fecha-inicio-diplomado/',data);
+  }
   listLeads(params) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/lead-recycling/?filter[procedencia]=LEADS&'+ params)
   }

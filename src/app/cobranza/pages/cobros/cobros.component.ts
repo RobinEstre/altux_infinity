@@ -148,6 +148,14 @@ export class CobrosComponent implements OnInit {
   ]
   bancosPagos = [
     {
+      "id": "YAPE",
+      "value": "YAPE"
+    },
+    {
+      "id": "PLIN",
+      "value": "PLIN"
+    },
+    {
       "id": "BCP",
       "value": "BCP"
     },
@@ -167,27 +175,19 @@ export class CobrosComponent implements OnInit {
       "id": "BANCO_DE_LA_NACION",
       "value": "BANCO DE LA NACIÓN"
     },
-    {
-      "id": "POS",
-      "value": "POS"
-    },
-    {
-      "id": "YAPE",
-      "value": "YAPE"
-    },
-    {
-      "id": "PLIN",
-      "value": "PLIN"
-    },
-    {
-      "id": "VISA LIMK",
-      "value": "VISA LIMK"
-    }
+    // {
+    //   "id": "POS",
+    //   "value": "POS"
+    // },
+    // {
+    //   "id": "VISA LIMK",
+    //   "value": "VISA LIMK"
+    // }
   ]
 
   show_registro = false; show_corregir = false; btn_show = false; sale_id = false; indice_num:any; monto_mensualidad = null; status_pay = null;
   name_mensualidad = null; name_student = null; id_studen:any; monto = null; data_info_indice  = null; state_info_consulta  = false; status_option  =  null;
-  students:any[]= []; report_student:any = null; show_cbx:boolean = false; nombres_apellidos:any = null; _detail; _diplomado;
+  students:any[]= []; report_student:any = null; show_cbx:boolean = false; nombres_apellidos:any = null; _detail; _diplomado; monto_cuota:any=0
 
   public months = [
     {
@@ -985,43 +985,46 @@ export class CobrosComponent implements OnInit {
   }
 
   modificarPago(id, indice, nombre, estado, student_id, monto, coutas) {
-    // this.sale_id = id
-    // this.indice_num = indice
-    // let pago_man = coutas[indice]['pago_manual']
-    // if (pago_man){
-    //   let monto_pag = 0.0
-    //   pago_man.forEach(item => {
-    //     monto_pag =  monto_pag +  parseFloat(item['importe_pago'])
-    //   })
-    //   if (estado){
-    //     this.monto_mensualidad = 'MONTO: ' + 'S/ 0.00'
-    //   }else {
-    //     this.monto_mensualidad = 'SALDO: S/' + monto + '.00'
-    //   }
-    // } else {
-    //   if (estado){
-    //     this.monto_mensualidad = 'MONTO: ' + 'S/ 0.00'
-    //   }else{
-    //     this.monto_mensualidad = 'SALDO: S/' + monto + '.00'
-    //   }
+    this.sale_id = id
+    this.indice_num = indice
+    let pago_man = coutas[indice]['pago_manual']
+    if (pago_man){
+      let monto_pag = 0.0
+      pago_man.forEach(item => {
+        monto_pag =  monto_pag +  parseFloat(item['importe_pago'])
+      })
+      if (estado){
+        this.monto_mensualidad = 'MONTO: ' + 'S/ 0.00'
+      }else {
+        this.monto_mensualidad = 'SALDO: S/' + monto + '.00'
+      }
+    } else {
+      if (estado){
+        this.monto_mensualidad = 'MONTO: ' + 'S/ 0.00'
+      }else{
+        this.monto_mensualidad = 'SALDO: S/' + monto + '.00'
+      }
 
-    // }
+    }
 
-    // if (indice === 0){
-    //   this.name_mensualidad = 'Matrícula'
-    // }else if (indice === 7){
-    //   this.name_mensualidad = 'Certificado'
-    // }else {
-    //   let mes =  parseInt(indice) + 1
-    //   this.name_mensualidad = 'Mensualidad Nº ' + mes
-    // }
-    // this.name_student = nombre
-    // this.id_student = student_id
-    // this.status_pay = estado
-    // this.formMat.controls['status_pay'].setValue(estado)
-    // this.formMat.controls['monto_correccion'].setValue(monto)
-    // this.modalRefInfomigra = this.modalService.open(this.modalcontentmigracion, { centered: true, size: 'md' });
-    // this.modalRefInfomigra.result.then();
+    this.monto_cuota=monto
+
+    if (indice === 0){
+      this.name_mensualidad = 'Matrícula'
+    }else if (indice === 7){
+      this.name_mensualidad = 'Certificado'
+    }else {
+      let mes =  parseInt(indice) + 1
+      this.name_mensualidad = 'Cuota Nº ' + mes
+    }
+    this.name_student = nombre
+    this.id_student = student_id
+    this.status_pay = estado
+    this.formMat.controls['status_pay'].setValue(estado)
+    this.formMat.controls['monto_correccion'].setValue(monto)
+    this.modalRefInfomigra = this.modalService.open(this.modalcontentmigracion, {backdrop : 'static', centered: true, keyboard: false,
+      windowClass: 'animate__animated animate__backInUp', size: 'md' });
+    this.modalRefInfomigra.result.then();
   }
 
   rerenderPago(id, indice, estado){
@@ -1110,13 +1113,18 @@ export class CobrosComponent implements OnInit {
       });
     }
     else {
+      let course_id
+      this.diplomado.forEach(i=>{
+        if(this.course_code==i.course_code){course_id=i.id}
+      })
       let body2 = {
-        "sale_id": this.sale_id,
-        "indice": this.indice_num,
-        "num_operacion": n_opera,
-        "importe": importe,
-        "banco":banco,
-        "fecha_pago":fecha_pago
+        "estudiante_id": this.id_student,
+        "course_id": course_id,
+        "importe": this.monto_cuota,
+        "mensualidad_indice": this.indice_num,
+        "banco": banco,
+        "voucher": n_opera,
+        "fecha_pago": fecha_pago
       }
       this.Service.registrarPagoManual(body2).subscribe(item => {
         if(item['success']==true){

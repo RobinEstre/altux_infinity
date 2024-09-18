@@ -308,7 +308,7 @@ export class LeadsComponent implements OnInit {
             this.paginate = 1
           }
           //this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&searchs=${body_params['search']['value'] || ''}`
-          this.filter_params=`procedencia=${this.formSearch.controls.tipo_lista.value}&pagina=${this.paginate}&cantidad=${body_params['length']}&search=${body_params['search']['value'] || ''}`
+          this.filter_params=`procedencia=${this.formSearch.controls.tipo_lista.value}&procedencia=LEADS-A&pagina=${this.paginate}&cantidad=${body_params['length']}&search=${body_params['search']['value'] || ''}`
         }
         this.service.getLeads(this.filter_params).subscribe(resp => {
           let data=[], n=0, cantidad=0
