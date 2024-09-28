@@ -221,7 +221,7 @@ export class CobrosComponent implements OnInit {
   total_pagar:any; meses_pagar:any; porcentaje:any; total_descuento:any; fecha:any; course_code:any; detail_student:any; cuotas:any; id_student:any
   nombre:any; index:any=0; _generate:any; fecha_title:any; name_diplomado:any; detalle_cobranza:any=[]; number:any; fecha_ahora:any=new Date()
   detail:any; total:any; detalle_cuota:any; checkbox: any[] = []; is_pay:boolean = false; id_temporal:any=null; detalle:any=[]; student_compromiso:any=[]
-  detalle_comisiones:any; diplomado:any;
+  detalle_comisiones:any; diplomado:any;files:any
 
   ngOnInit(): void {
     this.list()
@@ -1095,7 +1095,7 @@ export class CobrosComponent implements OnInit {
     }
   }
 
-  regPagoManual(){
+  regPagoManual(url){
     this.spinner.show()
     let n_opera = this.formMat.controls['n_opreacion'].value
     let importe = this.formMat.controls['importe'].value
@@ -1115,7 +1115,7 @@ export class CobrosComponent implements OnInit {
     else {
       let course_id
       this.diplomado.forEach(i=>{
-        if(this.course_code==i.course_code){course_id=i.id}
+        if(this.course_code==i.courses_code){course_id=i.id}
       })
       let body2 = {
         "estudiante_id": this.id_student,
@@ -1124,7 +1124,8 @@ export class CobrosComponent implements OnInit {
         "mensualidad_indice": this.indice_num,
         "banco": banco,
         "voucher": n_opera,
-        "fecha_pago": fecha_pago
+        "fecha_pago": fecha_pago,
+        "link_comprobante": url
       }
       this.Service.registrarPagoManual(body2).subscribe(item => {
         if(item['success']==true){
@@ -1147,6 +1148,46 @@ export class CobrosComponent implements OnInit {
       })
     }
 
+  }
+
+  subirIMG(){
+    this.spinner.show()
+    const formData = new FormData()
+    formData.append('bucket', 'web-altux-files');
+    formData.append('nombre', this.files[0].name);
+    formData.append('folder', 'Cobros');
+    formData.append('files', this.files[0], this.files[0].name);
+    this.Service.subirS3(formData).subscribe(data => {
+      if(data['success']==true){
+        let url = data.data[0].url
+        this.regPagoManual(url)
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: error.error.message,
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      if(error.status==500){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      // this.closeModal()
+      this.spinner.hide()
+    })
   }
 
   corregirPago(){
@@ -1181,7 +1222,7 @@ export class CobrosComponent implements OnInit {
 
   migrationEdnpo(){
     if(this.status_option === 'registro'){
-      this.regPagoManual()
+      this.subirIMG()
 
     }else if(this.status_option === 'corregir') {
       this.corregirPago()
@@ -1195,6 +1236,15 @@ export class CobrosComponent implements OnInit {
         timer: 1500
       });
     }
+  }
+
+  onSelect(event: { addedFiles: any; }) {
+    this.files=[]
+    this.files.push(...event.addedFiles);
+  }
+  
+  onRemove(event: File) {
+    this.files.splice(this.files.indexOf(event), 1);
   }
 
   gestionMigracionPago(){
@@ -1220,7 +1270,7 @@ export class CobrosComponent implements OnInit {
         this.formMat.controls['banco'].setValidators([Validators.required]);
         this.formMat.controls['n_opreacion'].setValidators([Validators.required]);
         this.formMat.controls['fecha_pago'].setValidators([Validators.required]);
-        this.formMat.controls['importe'].setValidators([Validators.required]);
+        // this.formMat.controls['importe'].setValidators([Validators.required]);
 
         this.formMat.controls['monto_correccion'].setValidators([]);
         this.formMat.controls['status_pay'].setValidators([]);

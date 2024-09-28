@@ -33,6 +33,9 @@ export class MarketingService {
   subirFileS3(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/archivo-s3/upload/', data)
   }
+  subirFileS3Event(data, type) {
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/archivo-s3/upload/?type='+type, data)
+  }
   createEvent(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/create-new-event/', data)
   }

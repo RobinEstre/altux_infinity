@@ -352,12 +352,14 @@ export class EventsComponent implements OnInit {
     //console.log(name_file)
     let folder= 'Eventos/'+this.formEvent.controls.name_event.value+'/'
     for(let a=0; a<4; a++){
+      let name:any = name_file[a].data[0].name
+      let tipo = name.substr(-3)
       const formData = new FormData()
       formData.append("bucket", 'web-altux-files');
       formData.append("nombre", name_file[a].data[0].name);
       formData.append("folder", folder);
       formData.append('files', name_file[a].data[0], name_file[a].data[0].name);
-      this.service.subirFileS3(formData).subscribe(resp=>{
+      this.service.subirFileS3Event(formData, tipo).subscribe(resp=>{
         if(resp.success==true){
           let url= resp.data[0].url
           data[name_file[a].nombre] = url;

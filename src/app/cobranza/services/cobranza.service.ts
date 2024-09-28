@@ -78,7 +78,11 @@ export class CobranzaService {
   // }
 
   registrarPagoManual(data) {
-    return this.httpClient.put<any>(this.envUrl.urlAddress + 'admin/registrar/pagos-mensualidad/manual/', data);
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'admin/registrar/pagos-mensualidad/manual/', data);
+  }
+
+  subirS3(data) {
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/archivo-s3/upload/', data);
   }
 
   corregirPago(data) {
