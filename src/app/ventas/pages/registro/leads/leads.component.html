@@ -327,19 +327,6 @@
         <div class="card-body modal-body">
             <div class="row was-validated mb-3">
                 <div class="col-md-12 col-sm-12 col-lg-12">
-                    <div class="form-group position-relative mb-2">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
-                            <div class="form-floating">
-                                <select (change)="selectSeguimiento($event)" class="form-select border-start-0" formControlName="estado" required>
-                                    <option value="" disabled selected>Seleccionar Estado</option>
-                                    <option *ngFor="let valSeg of estado_seg" class="text-uppercase" value="{{valSeg.id}}">
-                                        {{valSeg.name}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group mb-2 position-relative" *ngIf="date_seguimiento">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
@@ -510,6 +497,136 @@
         <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModalInfo()"></button>
     </div>
     <app-form-pay [generate]="_generate"></app-form-pay>
+</ng-template>
+<!-- Empieza modal editar reserva-->
+<ng-template #modal_editar let-modal>
+    <form [formGroup]="formEditar" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">EDITAR INFORMACIÓN</h5>
+            <p class="text-secondary title">{{detalle_edit.names}}</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row was-validated mb-3">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <div class="form-group position-relative mb-2">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-search"></i></span>
+                            <div class="form-floating">
+                                <select (change)="selectTipoDoc($event)" class="form-select border-start-0" formControlName="tipo_doc" required>
+                                    <option value="" disabled selected>Editar Tipo Documento</option>
+                                    <option *ngFor="let valSeg of tipo_doc" value="{{valSeg.id}}">
+                                        {{valSeg.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group position-relative mb-2" *ngIf="formEditar.get('tipo_doc')?.value === 'dni'">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="num_doc" class="form-control border-start-0" (keyup)="getInfoByDni($event)"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="8" required>
+                                <label for="floatingInput">Ingrese DNI</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['num_doc'].invalid && (formEditar.controls['num_doc'].dirty || formEditar.controls['num_doc'].touched)" >
+                            <div *ngIf="formEditar.controls['num_doc'].errors.required">
+                                <small class="text-danger">Por favor ingrese n° documento</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group position-relative mb-2" *ngIf="formEditar.get('tipo_doc')?.value != 'dni'">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="" formControlName="num_doc" class="form-control border-start-0"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="11" required>
+                                <label for="floatingInput">Editar N° Docuemnto</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['num_doc'].invalid && (formEditar.controls['num_doc'].dirty || formEditar.controls['num_doc'].touched)" >
+                            <div *ngIf="formEditar.controls['num_doc'].errors.required">
+                                <small class="text-danger">Por favor ingrese n° documento</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Editar Nombres" formControlName="nombres" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Editar Nombres</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['nombres'].invalid && (formEditar.controls['nombres'].dirty || formEditar.controls['nombres'].touched)" >
+                            <div *ngIf="formEditar.controls['nombres'].errors.required">
+                                <small class="text-danger">Por favor ingrese su nombre</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Editar Apellido Paterno" formControlName="apellido_p" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Editar Apellido Paterno</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['apellido_p'].invalid && (formEditar.controls['apellido_p'].dirty || formEditar.controls['apellido_p'].touched)" >
+                            <div *ngIf="formEditar.controls['apellido_p'].errors.required">
+                                <small class="text-danger">Por favor ingrese su apellido</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Editar Apellido Materno" formControlName="apellido_m" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Editar Apellido Materno</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['apellido_m'].invalid && (formEditar.controls['apellido_m'].dirty || formEditar.controls['apellido_m'].touched)" >
+                            <div *ngIf="formEditar.controls['apellido_m'].errors.required">
+                                <small class="text-danger">Por favor ingrese su apellido</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-2 position-relative">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+                            <div class="form-floating">
+                                <input placeholder="Editar Correo" formControlName="email" type="email" class="form-control border-start-0" autocomplete="off" required>
+                                <label for="floatingInput">Editar Correo</label>
+                            </div>
+                        </div>
+                        <div *ngIf="formEditar.controls['email'].invalid && (formEditar.controls['email'].dirty || formEditar.controls['email'].touched)" >
+                            <div *ngIf="formEditar.controls['email'].errors.required">
+                                <small class="text-danger">Por favor ingrese su correo</small>
+                            </div>
+                            <div *ngIf="formEditar.controls['email'].errors.email">
+                                <small class="text-danger">Por favor ingrese un correo válido</small>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary text-uppercase text-end">
+                        <span class="badge badge-sm bg-yellow" style="font-size: 13px;">
+                            <i class="bi bi-info-circle"></i> No se puede repetir correo de otro alumno
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme" (click)="editCliente()" [disabled]="!formEditar.valid">Modificar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalEdit()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </ng-template>
 <!-- SPINNER -->
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">

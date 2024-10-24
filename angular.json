@@ -47,8 +47,9 @@
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css"
             ],
-            "scripts": [              
+            "scripts": [
               "src/assets/js/popper.min.js",
+              "./node_modules/@fullcalendar/core/main.js",
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/footable-v3/compiled/footable.min.js",
               "./node_modules/footable-v3/compiled/footable.min.js",

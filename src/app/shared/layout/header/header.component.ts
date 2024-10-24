@@ -37,10 +37,10 @@ export class HeaderComponent implements OnInit {
     });
     this.docElement = document.documentElement;
 
-    var tooltiptriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltiptriggerList.map(function (e) {
-      return new bootstrap.Tooltip(e)
-    });
+    // var tooltiptriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    // tooltiptriggerList.map(function (e) {
+    //   return new bootstrap.Tooltip(e)
+    // });
     this.personalizationService.renderUserImage();
     this.personalizationService.renderLogoImage();
     this.listProfile()

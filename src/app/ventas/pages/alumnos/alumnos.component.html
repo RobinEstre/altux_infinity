@@ -2,7 +2,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
             <div class="card-header bg-light-theme">
-                <div class="row align-items-center">
+                <form [formGroup]="grupos" class="row align-items-center">
                     <div class="col-auto">
                         <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
                     </div>
@@ -10,7 +10,19 @@
                         <h6 class="fw-medium mb-0 text-uppercase">Estudiantes Registrados</h6>
                         <p class="text-secondary small">Listar de todos los estudiantes registrados</p>
                     </div>
-                    <form [formGroup]="grupos" class="col-auto">
+                    <div class="col-auto">
+                        <div class="form-group">
+                            <label class="form-label"><b>Fecha Inicio</b> </label>
+                            <input type="date" class="form-control" formControlName="fecha_inicio" (change)="rerender()">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-group">
+                            <label class="form-label"><b>Fecha Fin</b> </label>
+                            <input type="date" class="form-control" formControlName="fecha_fin" (change)="rerender()">
+                        </div>
+                    </div>
+                    <div class="col-auto">
                         <div class="form-group">
                             <label class="form-label"><b>Filtrar</b> </label>
                             <ng-select formControlName="grupo"
@@ -18,11 +30,11 @@
                                         bindLabel="name_doc"
                                         bindValue="id"
                                         placeholder="Seleccionar Tipo Matricula"
-                                        (change)="rerender($event)">
+                                        (change)="rerender()">
                             </ng-select>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
             <div class="card-body py-3">
                 <div class="row">

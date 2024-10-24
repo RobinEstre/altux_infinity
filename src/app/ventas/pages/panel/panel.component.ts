@@ -403,6 +403,10 @@ export class PanelComponent implements OnInit {
     });
   }
 
+  detalleVenta(tipo){
+    localStorage.setItem('tipo_registro', tipo)
+  }
+
   actFecha(code){
     // const { value: date } = await Swal.fire({
     //   title: "select departure date",

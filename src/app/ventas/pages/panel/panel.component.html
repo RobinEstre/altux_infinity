@@ -15,7 +15,7 @@
     <div class="row" *ngIf="cantidades">
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
-                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body">
+                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body" (click)="detalleVenta('leads')">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <div class="avatar avatar-40 rounded bg-blue shadow-sm text-white">
@@ -32,7 +32,7 @@
         </div>
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
-                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body">
+                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body" (click)="detalleVenta('ficha')">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <div class="avatar avatar-40 rounded bg-green shadow-sm text-white">
@@ -49,7 +49,7 @@
         </div>
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
-                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body">
+                <a href="javascript:void(0);" routerLink="/ventas/registro" class="card-body" (click)="detalleVenta('matricula')">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <div class="avatar avatar-40 rounded bg-purple shadow-sm text-white">
@@ -66,7 +66,7 @@
         </div>
         <div class="col-12 col-md-12 col-lg-6 col-xl-3 column-set mb-4">
             <div class="card border-0">
-                <div class="card-body">
+                <a href="javascript:void(0);" routerLink="/ventas/alumnos" class="card-body">
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <div class="avatar avatar-40 rounded bg-yellow shadow-sm text-white">
@@ -78,7 +78,7 @@
                             <h6 class="fw-medium mb-0">{{cantidades.cantidad_ventas}}</h6>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>

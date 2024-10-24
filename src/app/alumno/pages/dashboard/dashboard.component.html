@@ -51,8 +51,7 @@
                     </swiper>
                 </div>
 
-                <!-- rank and progress -->
-                <div class="col-auto ml-auto py-3 py-md-5 align-self-center">
+                <!-- <div class="col-auto ml-auto py-3 py-md-5 align-self-center">
                     <div class="row mb-4">
                         <div class="col col-md col-lg-auto mnw-100 text-center">
                             <i class="bi bi-telephone h5 avatar avatar-50 bg-light-red text-red rounded-circle mb-2"></i>
@@ -61,13 +60,11 @@
                         </div>
                         <div class="col col-md col-lg-auto mnw-100 text-center">
                             <i class="bi bi-envelope h5 avatar avatar-50 bg-light-green text-green rounded-circle mb-2"></i>
-                            <!-- <h3 class="increamentcount mb-0">✔️</h3> -->
                             <br>
                             <span class="badge bg-green rounded vm fw-normal fs-12"><i class="bi bi-check-circle me-1"></i> Verificado</span>
                         </div>
                         <div class="col col-md col-lg-auto mnw-100 text-center">
                             <i class="bi bi-geo-alt h5 avatar avatar-50 bg-light-red text-red rounded-circle mb-2"></i>
-                            <!-- <h3 class="increamentcount mb-0">❌</h3> -->
                             <br>
                             <span class="badge bg-red rounded vm fw-normal fs-12"><i class="bi bi-x-circle me-1"></i> Sin Verificar</span>
                         </div>
@@ -89,7 +86,6 @@
                     </div>
                 </div>
 
-                <!-- Tips swiper message -->
                 <div class="col-auto d-none d-xxl-block h-100 py-4">
                     <div class="card border-0 h-100 bg-gradient-yellow-light">
                         <div class="card-header">
@@ -99,115 +95,22 @@
                                         <i class="bi bi-lightbulb text-warning me-1"></i>
                                         Recomendaciones
                                     </h6>
-                                </div>
-                                <!-- <div class="col-auto">
-                                    <button class="btn btn-sm btn-outline-warning px-2 py-0" id="starttour" data-bs-toggle="tooltip" data-bs-placement="top" title="Start Tour"><i class="bi bi-play"></i> Tour</button>
-                                    <div class="dropdown d-inline-block ms-2">
-                                        <a class="text-secondary dd-arrow-none" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" data-bs-display="static" role="button">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li class="dropstart open-left ">
-                                                <a class="dropdown-item dd-arrow-none dropdown-toggle" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" data-bs-display="static">
-                                                    Customize Tips
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-start w-300">
-                                                    <div class="dropdown-item">
-                                                        <h6 class="mb-0">Tips:</h6>
-                                                        <p class="text-secondary">1656 visited this week</p>
-                                                    </div>
-                                                    <div class="dropdown-item">
-                                                        <div class="input-group input-group-md border rounded">
-                                                            <span class="input-group-text text-theme"><i class="bi bi-lightbulb"></i></span>
-                                                            <select class="form-control simplechosen" multiple>
-                                                                <option value="San Francisco">San Francisco</option>
-                                                                <option value="New York">New York</option>
-                                                                <option value="London">London</option>
-                                                                <option value="Chicago">Chicago</option>
-                                                                <option value="India" selected>India</option>
-                                                                <option value="Sydney">Sydney</option>
-                                                                <option value="Seattle">Seattle</option>
-                                                                <option value="Los Angeles">Los Angeles</option>
-                                                                <option value="Indonesia">Indonesia</option>
-                                                                <option value="Los Angeles">Los Angeles</option>
-                                                                <option value="Chicago">Chicago</option>
-                                                                <option value="India">India</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="invalid-feedback">You have already selected maximum option allowed. (This is Configurable)</div>
-                                                    </div>
-                                                    <ul class="list-group list-group-flush bg-none mb-2">
-                                                        <li class="list-group-item">
-                                                            <div class="row">
-                                                                <div class="col">Includes System</div>
-                                                                <div class="col-auto">
-                                                                    <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="tipswitch1">
-                                                                        <label class="form-check-label" for="tipswitch1"></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="row">
-                                                                <div class="col">Apps Shortcuts</div>
-                                                                <div class="col-auto">
-                                                                    <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="tipswitch2" checked="">
-                                                                        <label class="form-check-label" for="tipswitch2"></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="dropdown-item">
-                                                        <div class="row">
-                                                            <div class="col"><button class="btn btn-outline-secondary border ddclose">cancel</button></div>
-                                                            <div class="col-auto">
-                                                                <button class="btn btn-theme">Save</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Move</a></li>
-                                            <li><a class="dropdown-item text-danger" href="javascript:void(0)">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div> -->
-                            </div>
+                                </div></div>
                         </div>
                         <div class="card-body ">
-                            <!-- image swiper -->
                             <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="image-swiper w-200 h-100 text-center">
                                 <ng-template swiperSlide>
                                     <i class="bi bi-chat-right-dots h4 text-success mb-3 d-block"></i>
                                     <p>RECUERDA ESTAR ATENTO A TU CRONOGRAMA DE ACTIVIDADES</p>
-                                    <!-- <p class="small text-secondary">From the top right corner you can have access to chat panel and click on any user chat window 
-                                        interface will be open.</p> -->
                                 </ng-template>
                                 <ng-template swiperSlide>
                                     <i class="bi bi-person h4 text-theme mb-3 d-block"></i>
                                     <p>INGRESA A TU CLASE 10 MINUTOS ANTES</p>
-                                    <!-- <p class="small text-secondary">User on-boarding comes in the sign up flow. Complete sign up process you will see the on-boarding 
-                                        pages at best UI UX.</p> -->
                                 </ng-template>
-                                <!-- <ng-template swiperSlide>
-                                    <i class="bi bi-search h4 text-danger mb-3 d-block"></i>
-                                    <h6>Search Result</h6>
-                                    <p class="small text-secondary">Try to type something in search box at header and big search result box will be appeared right away.</p>
-                                </ng-template>
-                                <ng-template swiperSlide>
-                                    <i class="bi bi-heart h4 text-danger mb-3 d-block"></i>
-                                    <h6 class="text-gradient">Spread love</h6>
-                                    <p class="small text-secondary">If you like our template <b class="text-gradient">please share</b> to the beautiful world. World is
-                                            waiting to get more good things. <i class="text-danger bi bi-heart-fill"></i></p>
-                                </ng-template> -->
                             </swiper>
-                            <!-- image swiper ends -->
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

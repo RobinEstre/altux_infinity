@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     let user:any = this.formLogin.controls.user.value
     this.service.validateUser(user).subscribe(resp=>{
       if(resp.success){
-        this.isShowAlert = 'success';        
+        this.isShowAlert = 'success';
         localStorage.removeItem('token');
         localStorage.removeItem('role_user');
         setTimeout(() => {

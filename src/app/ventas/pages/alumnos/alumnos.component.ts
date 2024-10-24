@@ -58,6 +58,8 @@ export class AlumnosComponent implements OnInit {
   verGrupo: string = '';
   grupos = this.fb.group({
     grupo: ['',],
+    fecha_inicio: ['',],
+    fecha_fin: ['',],
   });
 
   ngOnInit(): void {
@@ -67,6 +69,20 @@ export class AlumnosComponent implements OnInit {
   listOrdenes() {
     this.spinner.show();
     this.grupos.controls['grupo'].setValue('matriculacuota');
+
+    // Obtener la fecha de inicio y fin del mes actual
+    const now = new Date();
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1); // Fecha de inicio del mes actual en timestamp
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0); // Fecha de fin del mes actual en timestamp
+
+    // Convertir a formato compatible con input date (YYYY-MM-DD)
+    const firstDayFormatted = firstDay.toISOString().split('T')[0];
+    const lastDayFormatted = lastDay.toISOString().split('T')[0];
+
+    // Asignar las fechas a los campos de input date
+    this.grupos.controls['fecha_inicio'].setValue(firstDayFormatted);
+    this.grupos.controls['fecha_fin'].setValue(lastDayFormatted);
+
     this.dtOptions={
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -77,6 +93,8 @@ export class AlumnosComponent implements OnInit {
     }
     const jsonbody = {
       "type_matricula" : 'matriculacuota',
+      "fecha_inicio": firstDay.getTime() / 1000,
+      "fecha_fin": lastDay.getTime() / 1000
     };
     this.service.listregistro(jsonbody).subscribe(data => {
       let dip=[];
@@ -139,7 +157,7 @@ export class AlumnosComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  rerender(event): void {
+  rerender(): void {
     try{
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first
@@ -160,8 +178,18 @@ export class AlumnosComponent implements OnInit {
 
   obtenerEstudiantes(){
     this.verGrupo=this.grupos.controls['grupo'].value;
+    // Obtener los valores de fecha_inicio y fecha_fin del formulario
+    const fechaInicio = this.grupos.controls['fecha_inicio'].value;
+    const fechaFin = this.grupos.controls['fecha_fin'].value;
+
+    // Convertir a timestamp Unix (dividido por 1000 para que esté en segundos)
+    const fechaInicioTimestamp = Math.floor(new Date(fechaInicio).getTime() / 1000);
+    const fechaFinTimestamp = Math.floor(new Date(fechaFin).getTime() / 1000);
+
     const jsonbody = {
       "type_matricula" : this.verGrupo,
+      "fecha_inicio": fechaInicioTimestamp,
+      "fecha_fin": fechaFinTimestamp
     };
     this.spinner.show();
     this.service.listregistro(jsonbody).subscribe(data => {

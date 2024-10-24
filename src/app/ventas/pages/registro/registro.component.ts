@@ -24,7 +24,7 @@ export class RegistroComponent implements OnInit {
   private modalRefPago: NgbModalRef;
   @ViewChild('modal_leads') private modalContentLeads: TemplateRef<RegistroComponent>;
   private modalRefLeads: NgbModalRef;
-  active = 1;user= localStorage.getItem('USERNAME');
+  active:any = 1;user= localStorage.getItem('USERNAME');
 
   constructor(private service: VentasService, private spinner: NgxSpinnerService,private modalService: NgbModal,private fb: FormBuilder,) { }
 
@@ -126,6 +126,16 @@ export class RegistroComponent implements OnInit {
   files: File[] = []; leads:boolean=true; fecha:any=new Date()
 
   ngOnInit(): void {
+    let data=localStorage.getItem('tipo_registro')
+    if(data){
+      // console.log(data)
+      if(data=='leads'){this.active=1}
+      if(data=='ficha'){this.active=2}
+      if(data=='matricula'){this.active=3}
+    }
+    else{
+      this.active=1
+    }
     this.listarTodosLosDiplomados();
   }
 

@@ -76,6 +76,8 @@ export class LeadsComponent implements OnInit {
   private modalRef: NgbModalRef;
   @ViewChild('modal_pago') private modalContentPago: TemplateRef<LeadsComponent>;
   private modalRefPago: NgbModalRef;
+  @ViewChild('modal_editar') private modalEditar: TemplateRef<LeadsComponent>;
+  private modalEdit: NgbModalRef;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -106,6 +108,12 @@ export class LeadsComponent implements OnInit {
       classList: "mx-2",
       icon: 'bi bi-cash-stack'
     },
+    {
+      cmd: "edit",
+      label: "Editar",
+      classList: "",
+      icon: 'bi bi-pencil-square'
+    },
   ];
   formSeguimiento = this.fb.group({
     estado:['',],
@@ -125,6 +133,28 @@ export class LeadsComponent implements OnInit {
   formSearch = this.fb.group({
     tipo_lista:['',]
   });
+  formEditar = this.fb.group({
+    tipo_doc: ['', Validators.required],
+    num_doc: ['', Validators.required],
+    nombres: ['', Validators.required],
+    apellido_p: ['', Validators.required],
+    apellido_m: ['', Validators.required],
+    email: ['', [Validators.email, Validators.required]],
+  });
+  tipo_doc: any[] = [
+    {
+      'id': 'dni',
+      'name': 'DNI',
+    },
+    {
+      'id': 'cee',
+      'name': 'Carnet Extranjeria',
+    },
+    {
+      'id': 'pass',
+      'name': 'Pasaporte',
+    },
+  ];
   tipo_matricula: any[] = [
     {
       'id': 'prematricula',
@@ -172,7 +202,7 @@ export class LeadsComponent implements OnInit {
     {name: 'BASE EXTRA'}
   ];
   @Input()estado_leads:any;
-
+  detalle_edit:any
   leads:any; estado:any; ficha:boolean=false; discount:any; data_detail:any; is_facture:boolean=false; nameruc:any; mostrarDiscount:boolean=false
   mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;filter_params:any; date_seguimiento:boolean=false
 
@@ -386,6 +416,8 @@ export class LeadsComponent implements OnInit {
   onCaptureEvent(event: any): void {
     if (event['cmd'] === 'seguimiento'){
       this.openModalSeguimiento(event['data'])
+    }if (event['cmd'] === 'edit'){
+      this.openModalEdit(event['data'])
     }else{
       this.openModal(event['data'])
     }
@@ -428,6 +460,31 @@ export class LeadsComponent implements OnInit {
     this.is_facture=false
     this.discount=null
     this.nameruc=null
+  }
+
+  openModalEdit(alumnos) {
+    // console.log(alumnos)
+    this.detalle_edit=alumnos
+    this.formEditar.reset()
+    
+    let tipo='dni'
+    if(alumnos.dni.length!=8){tipo=''}
+    // Asigna los valores a los controles del formulario
+    this.formEditar.controls['tipo_doc'].setValue(tipo); // Si tienes el tipo de documento
+    this.formEditar.controls['num_doc'].setValue(alumnos.dni);       // DNI del alumno
+    this.formEditar.controls['nombres'].setValue(alumnos.nombres);   // Nombres del alumno
+    this.formEditar.controls['apellido_p'].setValue(alumnos.apellidos.split(' ')[0]); // Primer apellido
+    this.formEditar.controls['apellido_m'].setValue(alumnos.apellidos.split(' ')[1]); // Segundo apellido
+    this.formEditar.controls['email'].setValue(alumnos.email);     
+
+    this.modalEdit = this.modalService.open(this.modalEditar, { centered: true, size: 'md', keyboard: false, backdrop : 'static' });
+    this.modalEdit.result.then();
+  }
+
+  closeModalEdit() {
+    this.modalEdit.close();
+    // this.mostrarColegiatura=false;
+    // this.namepatrocinador=null
   }
 
   openModalSeguimiento(data){
@@ -620,6 +677,134 @@ export class LeadsComponent implements OnInit {
       this.area = false
       this.formRegistro.controls['area'].setValidators([]);
       this.formRegistro.controls['area'].updateValueAndValidity();
+    }
+  }
+  
+  selectTipoDoc(event){
+    this.formEditar.controls.num_doc.setValue('')
+    this.formEditar.controls.nombres.setValue('')
+    this.formEditar.controls.apellido_p.setValue('')
+    this.formEditar.controls.apellido_m.setValue('')
+    this.formEditar.controls.nombres.enable();
+    this.formEditar.controls.apellido_p.enable();
+    this.formEditar.controls.apellido_m.enable();
+  }
+
+  editCliente(){
+    this.spinner.show()
+    let jsonbody = {
+      "new_dni": this.formEditar.controls.num_doc.value,
+      "new_nombres": this.formEditar.controls.nombres.value,
+      "new_apellidos": this.formEditar.controls.apellido_p.value+' '+this.formEditar.controls.apellido_m.value,
+      "new_email": this.formEditar.controls.email.value
+    }
+    this.service.actualizarLeads(this.detalle_edit.id, jsonbody).subscribe(data => {
+      if (data['success'] === true) {
+        this.closeModalEdit();
+        this.spinner.hide();
+        this.rerender();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial ☺!',
+          text: '¡Se Actualizó los datos!',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+    }, error => {
+      this.spinner.hide();
+      if (error.status === 400) {
+       if (error.error['message']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error['message'],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error['message'], '¡Error!');
+        }else if (error.error.errors['non_field_errors']) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Advertencia',
+            text: error.error.errors['non_field_errors'][0],
+            showConfirmButton: false,
+            timer: 3500
+          })
+          //this.toastr.error(error.error.errors['non_field_errors'][0], '¡Error!');
+        }
+      }
+    });
+  }
+
+  getInfoByDni(event){
+    let dni_consulta = {
+      "tipo": "dni",
+      "documento": event.target.value
+    };
+    if (event.target.value.length === 8) {
+      this.spinner.show();
+      this.formEditar.controls.num_doc.disable();
+      
+      this.service.getInfoDNI(dni_consulta.tipo, dni_consulta.documento).subscribe(dni_val => {
+        this.spinner.hide();
+        this.formEditar.controls.num_doc.enable();
+        if (dni_val.data.estado === false) {
+          this.formEditar.controls.num_doc.setValue('');
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "¡DNI no válido!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          let dni = {
+            "nombres": dni_val.data.resultado['nombres'],
+            "apellidoPaterno": dni_val.data.resultado['apellido_paterno'],
+            "apellidoMaterno":  dni_val.data.resultado['apellido_materno'],
+          }
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "¡Consulta exitosa!",
+            showConfirmButton: false,
+            timer: 1000
+          });
+          this.formEditar.controls.nombres.setValue(dni['nombres']);
+          this.formEditar.controls.apellido_p.setValue(dni['apellidoPaterno']);
+          this.formEditar.controls.apellido_m.setValue(dni['apellidoMaterno']);
+          this.formEditar.controls.nombres.disable();
+          this.formEditar.controls.apellido_p.disable();
+          this.formEditar.controls.apellido_m.disable();
+        }
+      }, error => {
+        this.formEditar.controls.num_doc.setValue('');
+        this.formEditar.controls.num_doc.enable();
+        this.formEditar.controls.nombres.enable();
+        this.formEditar.controls.apellido_p.enable();
+        this.formEditar.controls.apellido_m.enable();
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "¡Inténtelo en un momento!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+    }
+    else{
+      this.formEditar.controls.num_doc.enable();
+      this.formEditar.controls.nombres.setValue('');
+      this.formEditar.controls.apellido_p.setValue('');
+      this.formEditar.controls.apellido_m.setValue('');
+      this.formEditar.controls.nombres.enable();
+      this.formEditar.controls.apellido_p.enable();
+      this.formEditar.controls.apellido_m.enable();
     }
   }
 

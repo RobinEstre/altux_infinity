@@ -13,6 +13,9 @@ export class VentasService {
   actualizarPreVenta(data) {
     return this.httpClient.put(this.envUrl.urlAddress + 'ventas/preventa/actualizar-datos-cliente/', data)
   }
+  actualizarLeads(id, data) {
+    return this.httpClient.put(this.envUrl.urlAddress + 'marketing/actualizar/datos-leads/'+id, data)
+  }
   getCantidadDashboard() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'ventas/listar/dashboard-vendedor/');
   }
