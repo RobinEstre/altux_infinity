@@ -20,23 +20,59 @@ export class DashboardComponent implements OnInit {
 
   formMatricula = this.fb.group({
     diplomado: [null],
+    diplomado_clase: [null],
+    diplomado_crono: [null],
   })
   userName:any;
 
-  date: Date = new Date();
+  date: Date = new Date(); class_module:any; course:any; link_clase:any; nombre_dip:any; pago:any;
 
-  cronograma:any; porcentajes:any; diplomados:any;  detail_diplomado:any; source=timer(0,1000);
+  cronograma:any; porcentajes:any; diplomados:any=[];  detail_diplomado:any; source=timer(0,1000);
 
   ngOnInit(): void {
     this.source.subscribe(t => {
       this.date = new Date();
     });
+    this.userName = localStorage.getItem('USERNAME');
     this.listInit()
   }
 
   listInit(){
     this.spinner.show()
-    this.service.getCronograma().subscribe(resp=>{
+    this.service.getPorcentajeEstudiante().subscribe(resp=>{
+      if(resp.success){
+        this.porcentajes=resp.data
+        this.service.getDiplomados().subscribe(resp=>{
+          if(resp.success){
+            let data:any=[]
+            resp.diplomados.forEach(i=>{
+              let name
+              const split = i.course.courses_name.split(' ')
+              split.splice(0, 3);
+              name=split.map(x=>x).join(" ")
+              data.push({
+                "courses_code": i.course.courses_code,
+                "courses_name": i.course.courses_name
+              })
+            })
+            let code=data[0].courses_code
+            this.formMatricula.controls.diplomado.setValue(code)
+            this.formMatricula.controls.diplomado_clase.setValue(code)
+            this.formMatricula.controls.diplomado_crono.setValue(code)
+            this.changeDiplomado(code)
+            this.classModule(code)
+            this.getCronograma(code)
+            this.diplomados=data
+          }
+        })
+      }
+    })
+  }
+
+  getCronograma(code){
+    this.spinner.show()
+    this.pago=null
+    this.service.getCronograma(code).subscribe(resp=>{
       if(resp.success){
         let data:any=[]
         resp.data.forEach(i=>{
@@ -92,8 +128,8 @@ export class DashboardComponent implements OnInit {
             })
           }
         })
+        this.spinner.hide()
         this.cronograma=data
-        this.userName = localStorage.getItem('USERNAME');
       }
     },error => {
       if(error.status==400){
@@ -120,30 +156,18 @@ export class DashboardComponent implements OnInit {
       }
       this.spinner.hide()
     })
+  }
 
-    this.service.getPorcentajeEstudiante().subscribe(resp=>{
-      if(resp.success){
-        this.porcentajes=resp.data
-        this.service.getDiplomados().subscribe(resp=>{
-          if(resp.success){
-            let data:any=[]
-            resp.diplomados.forEach(i=>{
-              let name
-              const split = i.course.courses_name.split(' ')
-              split.splice(0, 3);
-              name=split.map(x=>x).join(" ")
-              data.push({
-                "courses_code": i.course.courses_code,
-                "courses_name": i.course.courses_name
-              })
-            })
-            let code=data[0].courses_code
-            this.formMatricula.controls.diplomado.setValue(code)
-            this.changeDiplomado(code)
-            this.diplomados=data
-            this.spinner.hide()
-          }
-        })
+  classModule(code){    
+    this.spinner.show()
+    this.service.getClassModule(code).subscribe(resp => {
+      if (resp.success){
+        this.class_module=resp.modulos
+        this.nombre_dip=resp.nombre_dip
+        let link='javajavascript:void(0)'
+        if(resp.diplomado_clase!=null){link=resp.diplomado_clase}
+        this.link_clase=link
+        this.spinner.hide()
       }
     })
   }
@@ -159,6 +183,28 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  selectDiplomadoClass(event){
+    try{
+      let code=event.courses_code
+      this.classModule(code)
+    }catch(e){
+      let code=this.diplomados[0].courses_code
+      this.formMatricula.controls.diplomado_clase.setValue(code)
+      this.classModule(code)
+    }
+  }
+
+  selectDiplomadoCrono(event){
+    try{
+      let code=event.courses_code
+      this.getCronograma(code)
+    }catch(e){
+      let code=this.diplomados[0].courses_code
+      this.formMatricula.controls.diplomado_crono.setValue(code)
+      this.getCronograma(code)
+    }
+  }
+
   changeDiplomado(code){
     this.porcentajes.forEach(i=>{
       if(code==i.diplomado_code){
@@ -166,4 +212,6 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+
+  abrirLink(data){}
 }

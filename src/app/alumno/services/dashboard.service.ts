@@ -9,8 +9,8 @@ export class DashboardService {
 
   constructor(private httpClient: HttpClient, private envUrl: UrlEnviromentService) { }
 
-  getCronograma() {
-    return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar/eventos-proximos/CAA0016');
+  getCronograma(code) {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar/eventos-proximos/'+code);
   }
 
   getPorcentajeEstudiante() {
@@ -19,5 +19,9 @@ export class DashboardService {
 
   getDiplomados() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/notas/diplomados');
+  }
+
+  getClassModule(id) {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'cursos/listar/modulos-diplomado/'+id);
   }
 }

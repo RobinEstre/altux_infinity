@@ -65,6 +65,9 @@ export class PanelComponent implements OnInit {
       sortAscending: ": Activar para ordenar la tabla en orden ascendente"
     }
   }
+  // Declara jQuery como una variable global
+  $: any;
+
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
 

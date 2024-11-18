@@ -1,42 +1,31 @@
 <!-- page title bar -->
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row align-items-center page-title">
-        <div class="col-12 col-md mb-2 mb-sm-0">
-            <h5 class="mb-0">MY INFINITY</h5>
-            <p class="text-secondary text-uppercase">Aula virtual inteligente.</p>
+        <div class="col-6 col-md mb-2 mb-sm-0">
+            <h5 class="mb-0" *ngIf="userName">Bienvenid@ {{userName}}</h5>
+            <h5 class="fw-normal text-gradient">"Actualizados marcamos la diferencia. INFINITY"</h5>
+            <p class="fw-light text-gradient"></p>
+        </div>
+        <div class="col-6 col-md mb-2 mb-sm-0 text-end">
+            <p class="display-3 mb-0 fw-bold">
+                <span id="time" style="font-size: 2rem !important;">{{date | date:'hh:mm:ss'}}</span>
+                <small><span class="h4 text-uppercase" id="ampm">{{date | date:' a'}}</span></small>
+            </p>
+            <p class="text-secondary mb-3">
+                <b class="text-dark">{{date | date:'dd'}} de {{date | date:'MMMM'}} del {{date | date:'yyyy'}}</b>
+            </p>
         </div>
     </div>
-</div>
+</div> -->
 <!-- welcome bar -->
-<div class="container-fluid bg-gradient-theme-light mb-4">
+<!-- <div class="container-fluid bg-gradient-theme-light mb-4">
     <div class="row">
         <div class="col-12 col-xxl-11 mx-auto">
             <div class="row align-items-center">
-
-                <!-- welcome message -->
                 <div class="col-12 col-md py-3 py-md-5">
                     <h2 class="fw-light mb-0 text-secondary">Bienvenid@,</h2>
                     <h1 class="display-3 username text-uppercase" *ngIf="userName">{{userName}}</h1>
-
-                    <!-- <iframe src="https://drive.google.com/file/d/1UM0JeMv_9doVSuOXW9xiTclyj5YvyIy0/preview" width="640" height="480" allow="autoplay"></iframe> -->
-                    <!-- Swiper daily quote -->
                     <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="dailyquote mt-4 w-100 mx-0">
-                        <!-- <ng-template swiperSlide>
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <i class="bi bi-calendar-event h6 avatar avatar-40 rounded-circle bg-light-theme"></i>
-                                </div>
-                                <div class="col">
-                                    <a routerLink="pages/profile/professional" class="tag mb-2 me-2">
-                                        <figure class="avatar avatar-30 rounded-circle me-1 coverimg"><img src="assets/img/user-4.jpg" alt=""></figure> James Wang <i class="bi bi-chat-right-dots vm ms-2"></i>
-                                    </a>
-                                    <a routerLink="pages/profile/professional" class="tag mb-2 me-2">
-                                        <figure class="avatar avatar-30 rounded-circle me-1 coverimg"><img src="assets/img/user-2.jpg" alt=""></figure> Millie Tyson <i class="bi bi-chat-right-dots vm ms-2"></i>
-                                    </a>
-                                    <p class="lead">Your 5 partner and our CEO's <span class="text-gradient">birthday</span> today.</p>
-                                </div>
-                            </div>
-                        </ng-template> -->
                         <ng-template swiperSlide>
                             <div class="row align-items-center">
                                 <div class="col-auto">
@@ -50,76 +39,146 @@
                         </ng-template>
                     </swiper>
                 </div>
-
-                <!-- <div class="col-auto ml-auto py-3 py-md-5 align-self-center">
-                    <div class="row mb-4">
-                        <div class="col col-md col-lg-auto mnw-100 text-center">
-                            <i class="bi bi-telephone h5 avatar avatar-50 bg-light-red text-red rounded-circle mb-2"></i>
-                            <br>
-                            <span class="badge bg-red rounded vm fw-normal fs-12"><i class="bi bi-x-circle me-1"></i> Sin Verificar</span>
-                        </div>
-                        <div class="col col-md col-lg-auto mnw-100 text-center">
-                            <i class="bi bi-envelope h5 avatar avatar-50 bg-light-green text-green rounded-circle mb-2"></i>
-                            <br>
-                            <span class="badge bg-green rounded vm fw-normal fs-12"><i class="bi bi-check-circle me-1"></i> Verificado</span>
-                        </div>
-                        <div class="col col-md col-lg-auto mnw-100 text-center">
-                            <i class="bi bi-geo-alt h5 avatar avatar-50 bg-light-red text-red rounded-circle mb-2"></i>
-                            <br>
-                            <span class="badge bg-red rounded vm fw-normal fs-12"><i class="bi bi-x-circle me-1"></i> Sin Verificar</span>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col-auto">
-                            <br>
-                            <i class="bi bi-hourglass-split h5 avatar avatar-50 bg-warning text-white rounded-circle"></i>
-                        </div>
-                        <div class="col ps-0">
-                            <br>
-                            <p>Verificación Pendiente</p>
-                            <div class="progress h-5 mb-1 bg-light-theme">
-                                <div class="progress-bar bg-theme" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" 
-                                    aria-valuemax="100"></div>
-                            </div>
-                            <p class="text-secondary small"><a routerLink="/pages/profile/account-settings">Completa tu perfil</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-auto d-none d-xxl-block h-100 py-4">
-                    <div class="card border-0 h-100 bg-gradient-yellow-light">
-                        <div class="card-header">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="fw-medium">
-                                        <i class="bi bi-lightbulb text-warning me-1"></i>
-                                        Recomendaciones
-                                    </h6>
-                                </div></div>
-                        </div>
-                        <div class="card-body ">
-                            <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="image-swiper w-200 h-100 text-center">
-                                <ng-template swiperSlide>
-                                    <i class="bi bi-chat-right-dots h4 text-success mb-3 d-block"></i>
-                                    <p>RECUERDA ESTAR ATENTO A TU CRONOGRAMA DE ACTIVIDADES</p>
-                                </ng-template>
-                                <ng-template swiperSlide>
-                                    <i class="bi bi-person h4 text-theme mb-3 d-block"></i>
-                                    <p>INGRESA A TU CLASE 10 MINUTOS ANTES</p>
-                                </ng-template>
-                            </swiper>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-
+<!-- NUEVO DASHBOARD -->
 <div class="row" style="margin: 1%;">
-    <div class="col-sm-12 col-md-6 col-lg-6 row">
-        <div class="col-sm-12 col-md-12 col-lg-12 column-set mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 my-3 row align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-2 mb-sm-0">
+            <h5 class="mb-0" *ngIf="userName">Bienvenid@ {{userName}}</h5>
+            <h5 class="fw-normal text-gradient">"Actualizados marcamos la diferencia. INFINITY"</h5>
+            <p class="fw-light text-gradient"></p>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-2 mb-sm-0 text-end">
+            <p class="fw-bold" style="margin-bottom: -10px;">
+                <span id="time" style="font-size: 2rem !important;">{{date | date:'hh:mm:ss'}}</span>
+                <small><span class="h4 text-uppercase" id="ampm">{{date | date:' a'}}</span></small>
+            </p>
+            <p class="text-secondary mb-3">
+                <b class="text-dark">{{date | date:'dd'}} de {{date | date:'MMMM'}} del {{date | date:'yyyy'}}</b>
+            </p>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 row" style="margin: 0px !important;">
+        <div class="col-sm-12 col-md-12 col-lg-12 mx-auto mb-4">
+            <div class="row align-items-center">
+                <div class="col-10">
+                    <h2 class="fw-light mb-1 text-secondary">¡Excelente!</h2>
+                    <h1 class="display-3 username text-uppercase" style="font-size: 2.5rem;"> Inicias tu camino a la actualización</h1>
+                    <!-- <swiper [slidesPerView]="1" [spaceBetween]="0" [pagination]="false" [autoplay]="{delay: 2000}" class="dailyquote mt-4 w-100 mx-0">
+                        <ng-template swiperSlide>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <i class="bi bi-quote h5 avatar avatar-40 rounded-circle bg-light-theme"></i>
+                                </div>
+                                <div class="col">
+                                    <h5 class="fw-normal text-gradient">Actualizados marcamos la diferencia.</h5>
+                                    <p class="fw-light text-gradient">INFINITY </p>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </swiper> -->
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-center text-primary">
+                    <i class="bi bi-emoji-smile" style="font-size: 3.5rem;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-4" *ngIf="class_module">
+            <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
+                <div class="card-header bg-light-theme">
+                    <div class="row align-items-center" *ngIf="class_module.en_vivo">
+                        <div class="col-auto">
+                            <i class="bi bi-record-circle h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="fw-medium mb-0">Clase en Vivo</h6>
+                            <form [formGroup]="formMatricula" *ngIf="diplomados.length">
+                                <ng-select formControlName="diplomado_clase"
+                                           [items]="diplomados"
+                                           bindLabel='courses_name'
+                                           bindValue='courses_code'
+                                           placeholder="SELECCIONAR DIPLOMADO*"
+                                           (change)="selectDiplomadoClass($event)">
+                                </ng-select>
+                            </form>
+                            <p class="small text-secondary" *ngIf="!diplomados.length">{{nombre_dip}}</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center" *ngIf="!class_module.en_vivo">
+                        <div class="col-auto">
+                            <i class="bi bi-clock-history h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="fw-medium mb-0">Próxima Clase</h6>
+                            <form [formGroup]="formMatricula" *ngIf="diplomados.length">
+                                <ng-select formControlName="diplomado_clase"
+                                           [items]="diplomados"
+                                           bindLabel='courses_name'
+                                           bindValue='courses_code'
+                                           placeholder="SELECCIONAR DIPLOMADO*"
+                                           (change)="selectDiplomadoClass($event)">
+                                </ng-select>
+                            </form>
+                            <p class="small text-secondary" *ngIf="!diplomados.length">{{nombre_dip}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="rounded text-danger p-3 parpadea" *ngIf="class_module.en_vivo">
+                                <i class="bi bi-camera-reels-fill" style="font-size: 30px;"></i>
+                                <!-- <img src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt=""> -->
+                            </div>
+                            <div class="rounded text-secondary p-3" *ngIf="!class_module.en_vivo">
+                                <i class="bi bi-camera-video-off" style="font-size: 30px;"></i>
+                                <!-- <img style="filter: grayscale(100%);" src="https://media.discordapp.net/attachments/1011378535186845790/1176252180982943755/Component_7.png?ex=656e3135&is=655bbc35&hm=b90fbd35fceb7ce87cbbc9a08afbbaf86b521b1aaebb0c784e6008efe84cd230&=" alt=""> -->
+                            </div>
+                        </div>
+                        <div class="col ps-0 align-self-center">
+                            <h5 class="mb-0 text-uppercase">{{class_module.nombre_modulo}}</h5>
+                            <h6 class="text-secondary mb-0">{{class_module.fecha_clase*1000 | date:'dd/MM/yyyy HH:mm'}} - CLASE {{class_module.clase_num}}</h6>
+                            <h6 *ngIf="class_module.en_vivo">
+                                <a href="javajavascript:void(0)" class="badge rounded-pill bg-success text-uppercase text-light" 
+                                    (click)="abrirLink(class_module)"
+                                    style="margin-top: 10px; background:#00386A !important">
+                                    <i class="bi bi-camera-video-fill"></i> Ver Clase en Vivo
+                                </a>
+                            </h6>
+                        </div>
+                        <div class="col-auto">
+                            <p class="calendar"><em class="text-capitalize">{{class_module.fecha_clase*1000 | date:'MMM'}}</em>{{class_module.fecha_clase*1000 | date:'dd'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
+            <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
+                <div class="card-header bg-light-theme">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="bi bi-cash-coin h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
+                            <!-- <span class="avatar avatar-40 rounded mb-0 coverimg">
+                                <img src="https://web-altux-files.s3.amazonaws.com/infinity/infinity+logo+by+altux+ico_.png" alt="">
+                            </span> -->
+                        </div>
+                        <div class="col">
+                            <h6 class="fw-medium mb-0">Pagos</h6>
+                            <p class="text-secondary small">Mis Pagos Pendientes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="text-secondary mb-3">Próximamente</h4>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
             <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
                 <div class="card-header">
                     <div class="row align-items-center">
@@ -140,20 +199,11 @@
                     </b></p>
                     <div class="row text-center gx-2">
                         <p class="display-3 mb-0 fw-bold"><span id="time">{{date | date:'hh:mm:ss'}}</span><small><span class="h4 text-uppercase" id="ampm">{{date | date:' a'}}</span></small></p>
-                        <!-- <p class="lead fw-normal" id="date">{{date | date:'dd/MM/yyyy'}}</p> -->
                     </div>
-                    <!-- <div class="progress bg-light-theme h-5 mb-2">
-                        <div class="progress-bar bg-theme" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="small text-secondary">Project Status <span class="float-end">50%</span></p>
-                    <p class="mb-3">
-                        <span class="btn btn-sm btn-link bg-light-green text-green">Web App</span>
-                        <span class="btn btn-sm btn-link bg-light-yellow text-yellow ms-1">Medium priority</span>
-                    </p> -->
                 </div>
             </div>
-        </div>  
-        <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
+        </div> -->
+        <!-- <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
             <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
                 <div class="card-header bg-light-theme">
                     <div class="row align-items-center">
@@ -162,7 +212,6 @@
                         </div>
                         <form [formGroup]="formMatricula" class="col">
                             <h6 class="fw-medium mb-0">Proceso del Programa</h6>
-                            <!-- <p class="small text-secondary">Enfermería Estética</p> -->
                             <ng-select formControlName="diplomado"
                                        [items]="diplomados"
                                        bindLabel='courses_name'
@@ -332,7 +381,7 @@
                         target="_blank" class="btn btn-sm btn-outline-dark mx-3">Comunícate con tu asesor académico</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="col-sm-12 col-md-6 col-lg-6 column-set">
         <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
@@ -343,6 +392,15 @@
                     </div>
                     <div class="col">
                         <h6 class="fw-medium mb-0">Cronograma de Actividades</h6>
+                        <!-- <form [formGroup]="formMatricula" class="col" *ngIf="diplomados.length">
+                            <ng-select formControlName="diplomado_crono"
+                                       [items]="diplomados"
+                                       bindLabel='courses_name'
+                                       bindValue='courses_code'
+                                       placeholder="SELECCIONAR DIPLOMADO*"
+                                       (change)="selectDiplomadoCrono($event)">
+                            </ng-select>
+                        </form> -->
                         <p class="text-secondary small">Verifica tu cronograma</p>
                     </div>
                     <div class="col-auto d-flex">

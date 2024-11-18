@@ -523,14 +523,14 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
-    var chosensimple: any = $('.simplechosen')
-    chosensimple.chosen()
+  ngAfterViewInit() { 
+    // var chosensimple: any = $('.simplechosen')
+    // chosensimple.chosen()
 
-    var thischosen: any = $('#searchfilterlist')
-    thischosen.chosen({ no_results_text: "Oops, nothing found!", max_selected_options: 2 }).bind("chosen:maxselected", function () {
-      thischosen.closest('.input-group').next('.invalid-feedback').show()
-    });
+    // var thischosen: any = $('#searchfilterlist')
+    // thischosen.chosen({ no_results_text: "Oops, nothing found!", max_selected_options: 2 }).bind("chosen:maxselected", function () {
+    //   thischosen.closest('.input-group').next('.invalid-feedback').show()
+    // });
   }
 
   @HostListener('document:click', ['$event'])

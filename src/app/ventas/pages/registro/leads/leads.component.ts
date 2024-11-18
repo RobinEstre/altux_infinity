@@ -416,9 +416,9 @@ export class LeadsComponent implements OnInit {
   onCaptureEvent(event: any): void {
     if (event['cmd'] === 'seguimiento'){
       this.openModalSeguimiento(event['data'])
-    }if (event['cmd'] === 'edit'){
+    }else if (event['cmd'] === 'edit'){
       this.openModalEdit(event['data'])
-    }else{
+    }else if(event.cmd === 'add'){
       this.openModal(event['data'])
     }
   }
