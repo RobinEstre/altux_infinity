@@ -157,7 +157,25 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
+        <div class="col-sm-12 col-md-12 col-lg-12 mb-2" *ngIf="notas_pay">
+            <!-- <div class="card border-0 position-relative overflow-hidden mb-4">
+                <figure class="coverimg position-absolute w-100 h-100 start-0 top-0 m-0" style="background-image: url('assets/img/bg-13.jpg');">
+                    <img src="assets/img/bg-13.jpg" class="mw-100" alt="" style="display: none;" />
+                </figure>
+                <div class="card-body bg-none">
+                    <div class="row justify-content-center">
+                        <div class="col-9">
+                            <div class="bg-theme text-white text-center p-3 rounded">
+                                <h3 *ngIf="notas_pay.couta_sigiuente.is_paid">Pagado 😁</h3>
+                                <h3 *ngIf="!notas_pay.couta_sigiuente.is_paid">S/ {{(+notas_pay.couta_sigiuente.monto_pagar).toFixed(2)}}</h3>
+                                <p>{{notas_pay.couta_sigiuente.num_cuota}} | {{notas_pay.couta_sigiuente.fecha_vencimiento*1000|date:'dd-MM-yyyy'}}</p>
+                                <p class="text-muted small">Deuda Vencida: S/ {{(+notas_pay.deuda).toFixed(2)}}</p>
+                                <button class="copy-text btn btn-sm btn-rounded btn-outline-dashed text-white border-white" routerLink="/alumno/pagos">PAGAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
             <div class="card border-0 theme-blue bg-gradient-theme-light h-100">
                 <div class="card-header bg-light-theme">
                     <div class="row align-items-center">
@@ -168,13 +186,88 @@
                             </span> -->
                         </div>
                         <div class="col">
+                            <h6>Pagos Pendientes</h6>
+                        </div>
+                        <div class="col-auto">
+                            <h6 class="fw-medium mb-0">S/ {{(+notas_pay.couta_sigiuente.monto_pagar).toFixed(2)}}</h6>
+                            <p class="text-secondary small">{{notas_pay.couta_sigiuente.num_cuota}} | {{notas_pay.couta_sigiuente.fecha_vencimiento*1000|date:'dd-MM-yyyy'}}</p>
+                        </div>
+                        <div class="col">
+                            <h6 class="fw-medium mb-0">S/ {{(+notas_pay.deuda).toFixed(2)}}</h6>
+                            <p class="text-secondary small">Deuda Vencida</p>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" routerLink="/alumno/pagos">Pagar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card-body text-center">
+                    <h3 *ngIf="notas_pay.couta_sigiuente.is_paid">Pagado 😁</h3>
+                    <h3 *ngIf="!notas_pay.couta_sigiuente.is_paid">S/ {{(+notas_pay.couta_sigiuente.monto_pagar).toFixed(2)}}</h3>
+                    <p>{{notas_pay.couta_sigiuente.num_cuota}} | {{notas_pay.couta_sigiuente.fecha_vencimiento*1000|date:'dd-MM-yyyy'}}</p>
+                    <p class="text-muted small">Deuda Vencida: S/ {{(+notas_pay.deuda).toFixed(2)}}</p>
+                    <button class="copy-text btn btn-sm btn-rounded btn-outline-dashed text-white border-white" routerLink="/alumno/pagos">PAGAR</button>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="notas_pay">
+            <div class="card border-0 bg-none h-100">
+                <!-- <div class="card-header bg-light-theme">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="bi bi-cash-coin h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
+                        </div>
+                        <div class="col">
                             <h6 class="fw-medium mb-0">Pagos</h6>
                             <p class="text-secondary small">Mis Pagos Pendientes</p>
                         </div>
                     </div>
-                </div>
-                <div class="card-body text-center">
-                    <h4 class="text-secondary mb-3">Próximamente</h4>
+                </div> -->
+                <div class="card-body text-center row" style="background: none !important;">
+                    <div class="col-sm-12 col-md-3 col-lg-3 text-center">
+                        <p>NOTA ALTA</p>
+                        <div class="card theme-green bg-radial-gradiant text-white border-0 text-center">
+                            <div class="card-body bg-none">
+                                <i class=" bi bi-book avatar avatar-80 bg-theme rounded-circle h4 mb-3 d-inline-block"></i>
+                                <h4 class="mb-1">{{notas_pay.mayor_nota}}</h4>
+                                <p class="small">Aprobado</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3 text-center">
+                        <p>NOTA BAJA</p>
+                        <div class="card theme-red bg-radial-gradiant text-white border-0 text-center">
+                            <div class="card-body bg-none">
+                                <i class=" bi bi-book avatar avatar-80 bg-theme rounded-circle h4 mb-3 d-inline-block"></i>
+                                <h4 class="mb-1">{{notas_pay.menor_nota}}</h4>
+                                <p class="small">Desaprobado</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 text-center">
+                        <p>AVANCE DIPLOMADO %</p>
+                        <div class="card bg-radial-gradiant text-white border-0 text-center">
+                            <div class="card-body bg-none">
+                                <i class=" bi bi-percent avatar avatar-80 bg-theme rounded-circle h4 mb-3 d-inline-block"></i>
+                                <h4 class="mb-1">{{notas_pay.porcentaje_avance.toFixed(2)}}%</h4>
+                                <p class="small" *ngIf="nombre_dip">{{nombre_dip}}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="card border-0 overflow-hidden">
+                            <div class="card-body position-relative">
+                                <div class="coverimg w-75 h-100 end-0 top-0 position-absolute cover-right-center-img" style="background-image: url('assets/img/offer-1.png');">
+                                    <img src=" assets/img/offer-1.png" class="w-100" alt="" style="display: none;" />
+                                </div>
+                                <div class="row align-items-center h-100">
+                                    <div class="col-8 py-2" style="text-align: justify;">
+                                        <h4 class="text-theme">{{notas_pay.porcentaje_avance.toFixed(2)}}%</h4>
+                                        <h5 class="fw-medium">Make your wallet even bigger</h5>
+                                        <p class="text-secondary">Share your referral code to your friends and earn flat 20% amount.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </div>

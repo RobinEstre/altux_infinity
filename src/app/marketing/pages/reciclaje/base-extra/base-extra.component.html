@@ -51,6 +51,32 @@
         </div>
     </div>
 </div>
+<button class="floating-btn" (click)="selectSeller()">
+    <i class="bi bi-plus-lg"></i> <!-- Ícono opcional -->
+</button>
+<!-- Modal Leads-->
+<ng-template #modal_control let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">Registro No Aptos</h5>
+            <p class="text-secondary title">Repetidos por Vendedor</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row">
+                <div class="col-12 col-md-12 mb-2 text-center" *ngFor="let data of repetidos">
+                    <span class="badge bg-primary">{{data}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
 <!-- SPINNER -->
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
     <p style="color: white" > Cargando... </p>

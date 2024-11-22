@@ -1,6 +1,5 @@
-<ng-container *ngIf="actions.length > 0">
+<!-- <ng-container *ngIf="actions.length > 0">
     <div class="d-inline-block">
-        <!-- estado.nombre -->
         <ng-container *ngFor="let action of actions">
             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="{{action.label}}"
                 [class]="action.classList" (click)="onActionClick(action.cmd)">
@@ -8,4 +7,10 @@
             </a>
         </ng-container>
     </div>
-</ng-container>
+</ng-container> -->
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-{{data.id}}" (change)="selectCheck($event)">
+    <label class="form-check-label" for="flexCheckDefault-{{data.id}}">
+        Seleccionar
+    </label>
+</div>

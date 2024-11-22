@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   })
   userName:any;
 
-  date: Date = new Date(); class_module:any; course:any; link_clase:any; nombre_dip:any; pago:any;
+  date: Date = new Date(); class_module:any; course:any; link_clase:any; nombre_dip:any; pago:any; notas_pay:any
 
   cronograma:any; porcentajes:any; diplomados:any=[];  detail_diplomado:any; source=timer(0,1000);
 
@@ -62,10 +62,46 @@ export class DashboardComponent implements OnInit {
             this.changeDiplomado(code)
             this.classModule(code)
             this.getCronograma(code)
+            this.getNotasPay(code)
             this.diplomados=data
           }
         })
       }
+    })
+  }
+
+  getNotasPay(code){
+    this.spinner.show()
+    this.pago=null
+    this.service.getNotasPay(code).subscribe(resp=>{
+      if(resp.success){
+        this.spinner.hide()
+        this.notas_pay=resp.data
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: error.error.message,
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      if(error.status==500){
+        Swal.fire({
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          icon: 'error',
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonColor: '#c02c2c',
+          cancelButtonText: 'Cerrar'
+        })
+      }
+      this.spinner.hide()
     })
   }
 
@@ -187,10 +223,12 @@ export class DashboardComponent implements OnInit {
     try{
       let code=event.courses_code
       this.classModule(code)
+      this.getNotasPay(code)
     }catch(e){
       let code=this.diplomados[0].courses_code
       this.formMatricula.controls.diplomado_clase.setValue(code)
       this.classModule(code)
+      this.getNotasPay(code)
     }
   }
 

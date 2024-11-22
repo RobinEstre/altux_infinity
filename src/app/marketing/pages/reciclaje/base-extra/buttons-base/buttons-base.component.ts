@@ -24,6 +24,13 @@ export class ButtonsBaseComponent implements OnInit {
     });
   }
 
+  selectCheck(event){
+    this.data.checked=event.target.checked
+    this.emitter.next({
+      data: this.data
+    });
+  }
+
   onEditClick(): void {
     this.emitter.next({
       cmd: 'edit',

@@ -1,0 +1,23 @@
+.floating-btn {
+    position: fixed;
+    right: 20px; /* Ajusta la distancia al borde derecho */
+    top: 50%; /* Centra el botón verticalmente */
+    transform: translateY(-50%); /* Ajusta la posición para que esté realmente centrado */
+    z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white; /* Color del texto/ícono */
+    border: none;
+    border-radius: 50%; /* Botón redondo */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para un efecto flotante */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.floating-btn:hover {
+    background-color: #0056b3; /* Color al pasar el mouse */
+}

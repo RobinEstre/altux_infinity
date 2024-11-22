@@ -24,11 +24,17 @@ export class MarketingService {
   listVendedores(id) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'gerencia/listar-todos-vendedores/?exclude[sellers]='+ id)
   }
+  listVendedores2() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'gerencia/listar-todos-vendedores/')
+  }
   listEvents(params) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar-eventos/?'+ params)
   }
   asignarVendedores(id, data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/lead-recycling/assign/'+id+'/', data)
+  }
+  asignarVendedores2(data) {
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/asignar/leads-recycling/', data)
   }
   subirFileS3(data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/archivo-s3/upload/', data)

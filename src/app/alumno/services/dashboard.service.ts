@@ -13,6 +13,10 @@ export class DashboardService {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar/eventos-proximos/'+code);
   }
 
+  getNotasPay(code) {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar/datos_dashboard/?courses_code='+code);
+  }
+
   getPorcentajeEstudiante() {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar/porcentajes-dashboard/');
   }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  //urlAddress: 'http://127.0.0.1:8000/api/'
+  // urlAddress: 'http://127.0.0.1:8000/api/'
   urlAddress: 'https://aula.altux.edu.pe/api/'
 };
 
