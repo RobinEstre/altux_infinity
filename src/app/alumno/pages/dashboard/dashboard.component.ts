@@ -33,7 +33,11 @@ export class DashboardComponent implements OnInit {
     this.source.subscribe(t => {
       this.date = new Date();
     });
-    this.userName = localStorage.getItem('USERNAME');
+    this.service.getInfoUser().subscribe(resp=>{
+      if(resp.success){
+        this.userName = resp.user_profile.detail_user.nombres
+      }
+    })
     this.listInit()
   }
 

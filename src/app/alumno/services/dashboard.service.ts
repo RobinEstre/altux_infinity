@@ -9,6 +9,10 @@ export class DashboardService {
 
   constructor(private httpClient: HttpClient, private envUrl: UrlEnviromentService) { }
 
+  getInfoUser() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'users/perfil-usuario/');
+  }
+  
   getCronograma(code) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'alumno/listar/eventos-proximos/'+code);
   }
