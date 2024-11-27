@@ -89,6 +89,10 @@ export class CobranzaService {
     return this.httpClient.put<any>(this.envUrl.urlAddress + 'cobranza/corregir-pago/', data);
   }
 
+  anularPago(data) {
+    return this.httpClient.delete<any>(this.envUrl.urlAddress + 'alumno/eliminar/pago-manual/student', data);
+  }
+
   solicitarDetallePago(data) {
     return this.httpClient.post(this.envUrl.urlAddress + 'alumno/detalle-venta/listar/', data);
   }

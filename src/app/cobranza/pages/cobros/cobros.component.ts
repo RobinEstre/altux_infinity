@@ -138,6 +138,10 @@ export class CobrosComponent implements OnInit {
     //   "value": "Corregir Registro Pago"
     // },
     {
+      "id": "anular",
+      "value": "Anular Pago"
+    },
+    {
       "id": "consultar",
       "value": "Consultar Pago"
     },
@@ -185,7 +189,7 @@ export class CobrosComponent implements OnInit {
     // }
   ]
 
-  show_registro = false; show_corregir = false; btn_show = false; sale_id = false; indice_num:any; monto_mensualidad = null; status_pay = null;
+  show_registro = false; show_anular = false; show_corregir = false; btn_show = false; sale_id = false; indice_num:any; monto_mensualidad = null; status_pay = null;
   name_mensualidad = null; name_student = null; id_studen:any; monto = null; data_info_indice  = null; state_info_consulta  = false; status_option  =  null;
   students:any[]= []; report_student:any = null; show_cbx:boolean = false; nombres_apellidos:any = null; _detail; _diplomado; monto_cuota:any=0
 
@@ -980,6 +984,7 @@ export class CobrosComponent implements OnInit {
     this.btn_show = false
     this.show_registro = false
     this.show_corregir = false
+    this.show_anular = false
     this.state_info_consulta = false
     this.formMat.controls['option_select'].setValue(null);
   }
@@ -1020,6 +1025,7 @@ export class CobrosComponent implements OnInit {
     this.name_student = nombre
     this.id_student = student_id
     this.status_pay = estado
+    console.log(this.status_pay)
     this.formMat.controls['status_pay'].setValue(estado)
     this.formMat.controls['monto_correccion'].setValue(monto)
     this.modalRefInfomigra = this.modalService.open(this.modalcontentmigracion, {backdrop : 'static', centered: true, keyboard: false,
@@ -1220,10 +1226,34 @@ export class CobrosComponent implements OnInit {
     })
   }
 
+  anularPago(){
+    this.spinner.show()
+    let body = {
+      "sales_id": this.sale_id,
+      "indice_pago": this.indice_num
+    }
+    this.Service.anularPago(body).subscribe(data => {
+      if(data['success']==true){
+        this.listinit()
+        this.closeModalMigracion()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Genial",
+          text: 'El pago se eliminó correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+      this.spinner.hide()
+    }, error => {
+      this.spinner.hide()
+    })
+  }
+
   migrationEdnpo(){
     if(this.status_option === 'registro'){
       this.subirIMG()
-
     }else if(this.status_option === 'corregir') {
       this.corregirPago()
     }else {
@@ -1248,12 +1278,45 @@ export class CobrosComponent implements OnInit {
   }
 
   gestionMigracionPago(){
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.migrationEdnpo();
-    });
+    if(this.status_option === 'anular') {
+      if(this.status_pay){
+        Swal.fire({
+          title: "Estas Segur@ de Anular el Pago?",
+          // text: "Anular el Pago",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#95c50a",
+          cancelButtonColor: "#f31f1f",
+          cancelButtonText: "Cancelar",
+          confirmButtonText: "Si, anular!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              // Destroy the table first
+              dtInstance.destroy();
+              // Call the dtTrigger to rerender again
+              this.anularPago();
+            });
+          }
+        });
+      }else {
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Oops",
+          text: '¡No se Puede Anular Pago!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }else{
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.migrationEdnpo();
+      });
+    }
   }
 
   onChangeMigracion(event){
@@ -1261,6 +1324,7 @@ export class CobrosComponent implements OnInit {
       this.discount=false
       this.btn_show = false
       this.show_registro = false
+      this.show_anular = false
       this.show_corregir = false
       this.state_info_consulta = false
       this.status_option = event.id
@@ -1301,6 +1365,9 @@ export class CobrosComponent implements OnInit {
         this.formMat.controls['option_select'].setValue(null);
       }else if (this.status_option === 'pago'){
         this.prontoPago(this.sale_id, this.indice_num)
+      }else if (this.status_option === 'anular'){
+        this.btn_show = true
+        this.show_anular=true
       }else {
         this.spinner.show()
         this.formMat.controls['banco'].setValue(null);

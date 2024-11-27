@@ -685,7 +685,7 @@
                                             (change)="onChangeMigracion($event)">
                                 </ng-select>
                                 <div *ngIf="formMat.controls['option_select'].invalid && (formMat.controls['option_select'].dirty ||
-                                                                        formMat.controls['option_select'].touched)" >
+                                    formMat.controls['option_select'].touched)" >
                                     <div *ngIf="formMat.controls['option_select'].errors.required">
                                         <small class="text-danger">Por favor seleccione una opción</small>
                                     </div>
@@ -851,9 +851,12 @@
         </div>
         <div class="card-footer">
             <div class="row">
-                <div class="col-auto">
-                    <button class="btn btn-success text-white" [disabled]="!formMat.valid"  type="submit" *ngIf="btn_show"
-                        (click)="gestionMigracionPago()">Guardar</button>
+                <div class="col-auto" *ngIf="!show_anular">
+                    <button class="btn btn-sm btn-success text-white" [disabled]="!formMat.valid" *ngIf="btn_show" (click)="gestionMigracionPago()">Guardar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalMigracion()">Cerrar</button>
+                </div>
+                <div class="col-auto" *ngIf="show_anular">
+                    <button class="btn btn-sm btn-success text-white" *ngIf="btn_show" (click)="gestionMigracionPago()">Anular Pago</button>
                     <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalMigracion()">Cerrar</button>
                 </div>
             </div>

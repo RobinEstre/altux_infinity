@@ -198,7 +198,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  classModule(code){    
+  classModule(code){
     this.spinner.show()
     this.service.getClassModule(code).subscribe(resp => {
       if (resp.success){
