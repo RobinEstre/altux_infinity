@@ -33,4 +33,7 @@ export class AlumnosService {
   reenviarAcceso(data){
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'alumno/reenviar-accesos/estudiante/', data)
   }
+  updateEmail(data){
+    return this.httpClient.put<any>(this.envUrl.urlAddress + 'users/actualizar/email-student/', data)
+  }
 }

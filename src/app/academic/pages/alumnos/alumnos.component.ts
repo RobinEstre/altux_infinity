@@ -157,7 +157,7 @@ export class AlumnosComponent implements OnInit {
       })
       this.diplomado = data['data'];
       this.formgrupos.controls.diplomado.setValue(this.diplomado[0].courses_code)
-      this.service.listar_estudiantes(this.diplomado[0].courses_code).subscribe(data => {
+      this.service.listar_estudiantes(this.formgrupos.controls.diplomado.value).subscribe(data => {
         if(data['success']==true){
           this.estudiantes=data['data']
           this.dtTrigger.next();
@@ -174,49 +174,10 @@ export class AlumnosComponent implements OnInit {
 
   listStudent(event){
     try{
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first
-        dtInstance.destroy();
-        // Call the dtTrigger to rerender again
-        this.spinner.show()
-        this.dtOptions={
-          pagingType: 'full_numbers',
-          pageLength: 10,
-          lengthMenu: [5, 10, 25],
-          //dom: 'Bfrtip',
-          processing: true,
-          language: AlumnosComponent.spanish_datatables
-        }
-        this.service.listar_estudiantes(event.courses_code).subscribe(data => {
-          if(data['success']==true){
-            this.estudiantes=data['data']
-            this.dtTrigger.next();
-            this.spinner.hide()
-          }
-        })
-      });
+      this.rerender()
     }catch(e){
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first
-        dtInstance.destroy();
-        // Call the dtTrigger to rerender again
-        this.dtOptions={
-          pagingType: 'full_numbers',
-          pageLength: 10,
-          lengthMenu: [5, 10, 25],
-          //dom: 'Bfrtip',
-          processing: true,
-          language: AlumnosComponent.spanish_datatables
-        }
-        this.formgrupos.controls.diplomado.setValue(this.diplomado[0].courses_code)
-        this.service.listar_estudiantes(this.diplomado[0].courses_code).subscribe(data => {
-          if(data['success']==true){
-            this.estudiantes=data['data']
-            this.dtTrigger.next();
-            this.spinner.hide()
-          }
-        })
-      });
+      this.formgrupos.controls.diplomado.setValue(this.diplomado[0].courses_code)
+      this.rerender()
     }
   }
 
@@ -227,6 +188,34 @@ export class AlumnosComponent implements OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  rerender(){
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.list()
+    });
+  }
+
+  list(){
+    this.spinner.show()
+    this.dtOptions={
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      lengthMenu: [5, 10, 25],
+      //dom: 'Bfrtip',
+      processing: true,
+      language: AlumnosComponent.spanish_datatables
+    }
+    this.service.listar_estudiantes(this.formgrupos.controls.diplomado.value).subscribe(data => {
+      if(data['success']==true){
+        this.estudiantes=data['data']
+        this.dtTrigger.next();
+        this.spinner.hide()
+      }
+    })
   }
 
   openModal(){
@@ -690,6 +679,80 @@ export class AlumnosComponent implements OnInit {
           showConfirmButton: false,
           timer:2000
         });
+      }
+      else {
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: 'Ooops!',
+          text: res['message'],
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+    },error => {
+      if(error.status==400){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      if(error.status==500){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: 'Advertencia!',
+          text: 'Comuniquese con el Área de Sistemas',
+          showConfirmButton: false,
+          timer:2000
+        });
+      }
+      this.spinner.hide()
+    });
+  }
+
+  async actEmail(data){
+    let name=data.student.detail_user.nombres+' '+data.student.detail_user.apellidos
+
+    const { value: email } = await Swal.fire({
+      title: "Modificar Email Estudiante: "+name,
+      text: 'Email actual: '+data.student.detail_user.email,
+      input: "email",
+      inputLabel: "Nuevo Correo Electrónico",
+      inputPlaceholder: "Escribe nuevo correo electrónico",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Modificar',
+      cancelButtonText: 'Cancelar',
+    });
+    if (email) {
+      this.updateEmail(data.student.id, email)
+    }
+  }
+
+  updateEmail(id, email){
+    this.spinner.show();
+    const  jsonbody={
+      "student_id" : id,
+      "new_email" : email
+    }
+    this.service.updateEmail(jsonbody).subscribe(res => {
+      if (res.succes) {
+        this.spinner.hide();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: '¡Genial!',
+          text: '¡Email Modificado Correctamente!',
+          showConfirmButton: false,
+          timer:2000
+        });
+        this.rerender()
       }
       else {
         this.spinner.hide();
