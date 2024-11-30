@@ -32,4 +32,8 @@ export class DashboardService {
   getClassModule(id) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'cursos/listar/modulos-diplomado/'+id);
   }
+
+  marcarAsistencia(data){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'alumno/marcar-asistencia/',data);
+  }
 }

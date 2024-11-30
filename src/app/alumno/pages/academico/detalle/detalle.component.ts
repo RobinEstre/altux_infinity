@@ -56,7 +56,7 @@ export class DetalleComponent implements OnInit {
         this.class_module=resp.modulos
         this.diplomado_clase=resp.diplomado_clase
         let link='javajavascript:void(0)'
-        if(resp.diplomado_clase!=null){link=resp.diplomado_clase.class_url}
+        if(resp.diplomado_clase!=null){link=resp.diplomado_clase}
         this.link_clase=link
       }
     })

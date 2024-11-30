@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   })
   userName:any;
 
-  date: Date = new Date(); class_module:any; course:any; link_clase:any; nombre_dip:any; pago:any; notas_pay:any
+  date: Date = new Date(); class_module:any; course:any; link_clase:any; nombre_dip:any; pago:any; notas_pay:any; diplomado_clase:any
 
   cronograma:any; porcentajes:any; diplomados:any=[];  detail_diplomado:any; source=timer(0,1000);
 
@@ -204,8 +204,9 @@ export class DashboardComponent implements OnInit {
       if (resp.success){
         this.class_module=resp.modulos
         this.nombre_dip=resp.nombre_dip
+        this.diplomado_clase=resp.diplomado_clase
         let link='javajavascript:void(0)'
-        if(resp.diplomado_clase!=null){link=resp.diplomado_clase.class_url}
+        if(resp.diplomado_clase!=null){link=resp.diplomado_clase}
         this.link_clase=link
         this.spinner.hide()
       }
@@ -255,5 +256,20 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  abrirLink(data){}
+  abrirLink(modulo){
+    this.checkAsistencia(modulo.modulo_id, this.diplomado_clase.id)
+    window.open(this.diplomado_clase.class_url,'_blank');
+  }
+
+  checkAsistencia(mod_id, id){
+    let body = {
+      "course_code": this.formMatricula.controls.diplomado.value,
+      "modulo_id": mod_id,
+      "diplomadoclase_id": id
+    };
+    this.service.marcarAsistencia(body).subscribe(resp => {
+      if (resp['success'] === true){
+      }
+    });
+  }
 }
