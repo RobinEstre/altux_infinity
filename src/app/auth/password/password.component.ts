@@ -22,7 +22,7 @@ export class PasswordComponent implements OnInit {
     password : ['',Validators.required],
   });
 
-  navigate:any; roles:any; secretrol = 'K56QSxGeKImwBRmiY';
+  navigate:any; roles:any; secretrol = 'K56QSxGeKImwBRmiY'
 
   ngOnInit(): void {
   }

@@ -205,7 +205,7 @@ export class DashboardComponent implements OnInit {
         this.class_module=resp.modulos
         this.nombre_dip=resp.nombre_dip
         let link='javajavascript:void(0)'
-        if(resp.diplomado_clase!=null){link=resp.diplomado_clase}
+        if(resp.diplomado_clase!=null){link=resp.diplomado_clase.class_url}
         this.link_clase=link
         this.spinner.hide()
       }
