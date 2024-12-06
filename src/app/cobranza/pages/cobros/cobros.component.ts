@@ -228,11 +228,12 @@ export class CobrosComponent implements OnInit {
   detalle_comisiones:any; diplomado:any;files:any
 
   ngOnInit(): void {
-    this.list()
+    // this.list()
     this.listDiplomado()
   }
 
   listDiplomado(){
+    this.spinner.show()
     this.Service.listar_diplomados().subscribe(data => {
       data['data'].forEach(i=>{
         // const split = i.courses_name.split(' ')
@@ -241,6 +242,8 @@ export class CobrosComponent implements OnInit {
         // i.courses_name= name
       })
       this.diplomado = data['data'];
+      this.formgrupos.controls.diplomado.setValue(this.diplomado[0].courses_code)
+      this.listinit()
     });
   }
 
@@ -275,11 +278,11 @@ export class CobrosComponent implements OnInit {
       ],
       language: CobrosComponent.spanish_datatables
     }
-    this.Service.listpagoStudent(this.course_code).subscribe(item => {
-      if (item['success'] === true){
+    this.Service.listpagoStudent(this.formgrupos.controls.diplomado.value).subscribe(item => {
+      if (item.success){
         let data=[]
         let fecha= new Date()
-        item['data'].forEach(i=>{
+        item.data.forEach(i=>{
           let mv=0
           let deuda=0
           let saldo=0
@@ -355,18 +358,38 @@ export class CobrosComponent implements OnInit {
           })
         })
         this.students= data
-        this.detalle_fecha=item['diplomado_detalle_cuota']
+        this.detalle_fecha=item.diplomado_detalle_cuota
         this.dtTrigger.next()
         this.spinner.hide()
       }
     }, error => {
-      this.spinner.hide()
+      if(error.status===400){
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: '¡Error :C!!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+      }
+      if(error.status===500){
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: '¡Error :C!!',
+          text: 'Error interno del servidor',
+          showConfirmButton: false,
+          timer: 2500
+        });
+      }
       this.list()
+      this.spinner.hide()
     })
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    // this.dtTrigger.next();
   }
 
   ngOnDestroy(): void {
@@ -378,14 +401,14 @@ export class CobrosComponent implements OnInit {
     try {
       this.name_diplomado=event.courses_name
       this.course_code = event.courses_code
-      this.formgrupos.controls['diplomado'].setValue(this.course_code);
       this.show_cbx = true
-      this.detalleCobranza()
+      // this.detalleCobranza()
       this.rerender()
     }catch (e){
-      this.formgrupos.controls['diplomado'].setValue(null);
       this.show_cbx = false
-      this.rerendercath()
+      this.formgrupos.controls['diplomado'].setValue(this.diplomado[0].courses_code);
+      this.rerender()
+      // this.rerendercath()
     }
   }
 
@@ -1233,8 +1256,7 @@ export class CobrosComponent implements OnInit {
       "indice_pago": this.indice_num
     }
     this.Service.anularPago(body).subscribe(data => {
-      if(data['success']==true){
-        this.listinit()
+      if(data.success){
         this.closeModalMigracion()
         Swal.fire({
           position: "center",
@@ -1244,9 +1266,30 @@ export class CobrosComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
+        this.rerender()
       }
-      this.spinner.hide()
+      // this.spinner.hide()
     }, error => {
+      if(error.status===400){
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: '¡Error :C!!',
+          text: error.error.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+      }
+      if(error.status===500){
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: '¡Error :C!!',
+          text: 'Error interno del servidor',
+          showConfirmButton: false,
+          timer: 2500
+        });
+      }
       this.spinner.hide()
     })
   }
@@ -1291,12 +1334,7 @@ export class CobrosComponent implements OnInit {
           confirmButtonText: "Si, anular!"
         }).then((result) => {
           if (result.isConfirmed) {
-            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-              // Destroy the table first
-              dtInstance.destroy();
-              // Call the dtTrigger to rerender again
-              this.anularPago();
-            });
+            this.anularPago();
           }
         });
       }else {

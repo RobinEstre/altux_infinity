@@ -18,7 +18,7 @@ export class CobranzaService {
   }
 
   listpagoStudent(data) {
-    return this.httpClient.get(this.envUrl.urlAddress + 'cobranza/listar/pagos-estudiante-diplomado/'+ data);
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'cobranza/listar/pagos-estudiante-diplomado/'+ data);
   }
 
   listDetailCobranza(data) {
@@ -90,7 +90,7 @@ export class CobranzaService {
   }
 
   anularPago(data) {
-    return this.httpClient.delete<any>(this.envUrl.urlAddress + 'alumno/eliminar/pago-manual/student', data);
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'alumno/eliminar/pago-manual/student', data);
   }
 
   solicitarDetallePago(data) {
