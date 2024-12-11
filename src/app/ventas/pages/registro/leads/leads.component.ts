@@ -191,11 +191,11 @@ export class LeadsComponent implements OnInit {
     {'name': 'ESTUDIANTE'}
   ];
   estado_seg:any=[
-    {id: 'informacion', name: 'Información Enviada'},
+    {id: 'informacion', name: 'Interesado'},
     {id: 'no_contesta', name: 'No Contesta'},
     {id: 'no_interesado', name: 'No Interesado'},
     {id: 'compromiso_pago', name: 'Compromiso Matrícula'},
-    {id: 'proximo_grupo', name: 'Próximo Grupo'}
+    {id: 'proximo_grupo', name: 'Lead No Califica'}
   ];
   tipo_lista:any=[
     {name: 'LEADS'},
