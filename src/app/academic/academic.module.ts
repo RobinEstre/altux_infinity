@@ -30,6 +30,8 @@ import { FechasComponent } from './pages/fechas/fechas.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { TableButtonsComponent } from './pages/students/table-buttons/table-buttons.component';
 import { FechaPagoComponent } from './pages/fecha-pago/fecha-pago.component';
+import { PrioridadComponent } from './pages/prioridad/prioridad.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { FechaPagoComponent } from './pages/fecha-pago/fecha-pago.component';
     FechasComponent,
     StudentsComponent,
     TableButtonsComponent,
-    FechaPagoComponent
+    FechaPagoComponent,
+    PrioridadComponent
   ],
   imports: [
     CommonModule,
@@ -66,6 +69,7 @@ import { FechaPagoComponent } from './pages/fecha-pago/fecha-pago.component';
     ArchwizardModule,
     NgxDocViewerModule,
     ReactiveFormsModule,
+    DragDropModule,
     AcademicRoutingModule
   ]
 })

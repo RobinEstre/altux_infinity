@@ -21,6 +21,10 @@ export class AcademicService {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/listar-todos-diplomados/');
   }
 
+  listPrioridadLeads(){
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'users/sale-leads-priority/?paginate[index]=1&paginate[row]=20&sort[attr]=priority');
+  }
+
   list_group(data: string){
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/gestionar/diplomado/groups/'+ data);
   }

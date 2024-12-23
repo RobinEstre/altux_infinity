@@ -15,6 +15,7 @@ import { CobrosComponent } from '../cobranza/pages/cobros/cobros.component';
 import { FechasComponent } from './pages/fechas/fechas.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { FechaPagoComponent } from './pages/fecha-pago/fecha-pago.component';
+import { PrioridadComponent } from './pages/prioridad/prioridad.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,10 @@ const routes: Routes = [
       {
         path: 'fecha-pago',
         component: FechaPagoComponent
+      },
+      {
+        path: 'asignar-prioridad',
+        component: PrioridadComponent
       },
     ]
   }
