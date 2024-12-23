@@ -32,19 +32,27 @@ export class PrioridadComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.leads, event.previousIndex, event.currentIndex);
+    console.log(event)
+    console.log(this.leads)
     this.updatePriority(event.previousIndex, event.currentIndex)
   }
 
   updatePriority(index, currentIndex){
     this.spinner.show();
-    let id=this.leads[index].id
+    let item
+    this.leads.forEach(i=>{
+      if(i.priority==index+1){
+        item=i
+      }
+    })
+    console.log(item)
     let body={
-      "priority": currentIndex,
-      "user": this.leads[index].user,
+      "priority": currentIndex+1,
+      "user": item.user.id,
       "is_turn": true,
     }
-    this.service.updatePriority(id, body).subscribe(resp => {
-      if(resp.success){
+    this.service.updatePriority(item.id, body).subscribe(resp => {
+      if(resp){
         this.leads=[]
         this.listInit()
       }

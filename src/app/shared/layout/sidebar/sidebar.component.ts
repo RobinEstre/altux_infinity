@@ -16,15 +16,14 @@ export class SidebarComponent implements OnInit {
   userName:any;userImg:any; perfil:any; menuItems: any; rol:any;url:any
   secretrol = 'K56QSxGeKImwBRmiY';
   rus = localStorage.getItem('rus');user_rol:any;
-  is_rol:any
+  is_rol:any;is_user:any
 
   ngOnInit(): void {
-    this.is_rol=localStorage.getItem('role_user');
     //this.listMenu();
-    // setTimeout(() => {
-    //   this.userName = localStorage.getItem('USERNAME');
-    //   this.userImg = localStorage.getItem('IMG_USER');
-    // }, 1500);
+    setTimeout(() => {
+      this.is_rol=localStorage.getItem('role_user');
+      this.is_user=localStorage.getItem('USERNAME');
+    }, 1500);
     this.listProfile()
     this.authenticationService.miVariable$.subscribe(data => {
       if(data==true){
