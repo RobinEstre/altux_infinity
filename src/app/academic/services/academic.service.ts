@@ -32,6 +32,18 @@ export class AcademicService {
   list_module2(data: string){
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/listar-modulos-cursos/'+data)
   }
+  
+  listVendedores(params) {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'gerencia/listar-todos-vendedores/?'+ params)
+  }
+
+  createPriority(data){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'users/sale-leads-priority/', data)
+  }
+
+  updatePriority(id, data){
+    return this.httpClient.patch<any>(this.envUrl.urlAddress + 'users/sale-leads-priority/'+id+'/', data)
+  }
 
   createClass(data){
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/clase/publicar-link-clase/', data)
