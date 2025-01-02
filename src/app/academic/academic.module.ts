@@ -32,6 +32,7 @@ import { TableButtonsComponent } from './pages/students/table-buttons/table-butt
 import { FechaPagoComponent } from './pages/fecha-pago/fecha-pago.component';
 import { PrioridadComponent } from './pages/prioridad/prioridad.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TableLeadsComponent } from './pages/leads/table-leads/table-leads.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     StudentsComponent,
     TableButtonsComponent,
     FechaPagoComponent,
-    PrioridadComponent
+    PrioridadComponent,
+    TableLeadsComponent
   ],
   imports: [
     CommonModule,

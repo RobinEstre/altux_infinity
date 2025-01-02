@@ -205,6 +205,7 @@ export class LeadsComponent implements OnInit {
   detalle_edit:any
   leads:any; estado:any; ficha:boolean=false; discount:any; data_detail:any; is_facture:boolean=false; nameruc:any; mostrarDiscount:boolean=false
   mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;filter_params:any; date_seguimiento:boolean=false
+  previousFilterValue: any = '';
 
   public paginate:any; public start_paginate:number=0; register_count:number;
 
@@ -303,6 +304,16 @@ export class LeadsComponent implements OnInit {
     }
     this.dtOptions = {
       ajax: (dataTablesParameters: any, callback) => {
+        // Reinicia la paginación si el estado cambia
+        if (this.previousFilterValue !== this.formSearch.controls.tipo_lista.value) {
+          this.previousFilterValue = this.formSearch.controls.tipo_lista.value;
+          dataTablesParameters['start'] = 0; // Reinicia a la página 1
+          
+          // Reiniciar visualmente la tabla a la página 1
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.page(0).draw(false);
+          });
+        }
         // validar si existe variables en el objeto
         let result = Object.entries(dataTablesParameters).length;
         if (result > 0){

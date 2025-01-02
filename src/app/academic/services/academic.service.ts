@@ -36,6 +36,10 @@ export class AcademicService {
   listVendedores(params) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'gerencia/listar-todos-vendedores/?'+ params)
   }
+  
+  listAllVendedores() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'gerencia/listar-todos-vendedores/')
+  }
 
   createPriority(data){
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'users/sale-leads-priority/', data)
