@@ -216,7 +216,7 @@ export class LeadsComponent implements OnInit {
     setTimeout(() => {
       this.is_rol=localStorage.getItem('role_user');
       this.is_user=localStorage.getItem('USERNAME');
-      if(this.is_user=='JOSE FRANCISCO'){
+      if(this.is_user=='JOSE FRANCISCO'||this.is_user=='ACADEMICO'){
         this.Service.listAllVendedores().subscribe(resp=>{
           if(resp.success){
             let data=[]
