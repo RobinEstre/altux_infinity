@@ -7,6 +7,7 @@ import { DetalleComponent } from './pages/academico/detalle/detalle.component';
 import { PagosComponent } from './pages/pagos/pagos.component';
 import { BibliotecaComponent } from './pages/biblioteca/biblioteca.component';
 import { NovedadesComponent } from './pages/novedades/novedades.component';
+import { ConstanciaComponent } from './pages/constancia/constancia.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,10 @@ const routes: Routes = [
       {
         path: 'novedades',
         component: NovedadesComponent
+      },
+      {
+        path: 'constancias',
+        component: ConstanciaComponent
       },
     ]
   }

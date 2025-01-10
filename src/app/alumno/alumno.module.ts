@@ -29,6 +29,7 @@ import { PagosComponent } from './pages/pagos/pagos.component';
 import { BibliotecaComponent } from './pages/biblioteca/biblioteca.component';
 import { NovedadesComponent } from './pages/novedades/novedades.component';
 import { DataTablesModule } from 'angular-datatables';
+import { ConstanciaComponent } from './pages/constancia/constancia.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { DataTablesModule } from 'angular-datatables';
     CalendarComponent,
     PagosComponent,
     BibliotecaComponent,
-    NovedadesComponent
+    NovedadesComponent,
+    ConstanciaComponent
   ],
   imports: [
     CommonModule,

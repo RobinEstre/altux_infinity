@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
         this.isShowAlert = 'success';
         localStorage.removeItem('token');
         localStorage.removeItem('role_user');
+        localStorage.clear();
         setTimeout(() => {
           this.router.navigate(['/auth/password/'+user]);
         }, 1500)
