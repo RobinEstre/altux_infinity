@@ -57,4 +57,8 @@ export class AcademicoService {
   list_Calendar(data){
     return this.httpClient.post(this.envUrl.urlAddress + 'alumno/reporte/listar-calendario-diplomado/', data);
   }
+  
+  generateConstancia(data){
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/generate-certificate/', data);
+  }
 }

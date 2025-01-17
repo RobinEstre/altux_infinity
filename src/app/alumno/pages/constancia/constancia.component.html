@@ -1,1 +1,90 @@
-<p>constancia works!</p>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-people h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">Contancias</h6>
+                        <p class="text-secondary small">Listado de Constancias del Alumno</p>
+                    </div>
+                    <form [formGroup]="formgrupos" class="col-auto">
+                        <div class="form-group">
+                            <ng-select formControlName="diplomado"
+                                        [items]="diplomado"
+                                        bindLabel="courses_name"
+                                        bindValue="courses_code"
+                                        placeholder="SELECCIONAR DIPLOMADO"
+                                        (change)="listStudent($event)">
+                            </ng-select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center mb-4">
+                    <!-- Constancia de Matrícula -->
+                    <div class="col-md-4 col-sm-12 mb-3">
+                        <div class="pdf-container">
+                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;"></i>
+                            <h6 class="mt-2">Constancia de Matrícula</h6>
+                            <button class="btn btn-primary btn-sm">Visualizar</button>
+                            <button class="btn btn-secondary btn-sm">Descargar</button>
+                        </div>
+                    </div>
+                    <!-- Constancia de Estudio -->
+                    <div class="col-md-4 col-sm-12 mb-3">
+                        <div class="pdf-container">
+                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;"></i>
+                            <h6 class="mt-2">Constancia de Estudio</h6>
+                            <button class="btn btn-primary btn-sm">Visualizar</button>
+                            <button class="btn btn-secondary btn-sm">Descargar</button>
+                        </div>
+                    </div>
+                    <!-- Constancia de Egreso -->
+                    <div class="col-md-4 col-sm-12 mb-3">
+                        <div class="pdf-container">
+                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;"></i>
+                            <h6 class="mt-2">Constancia de Egreso</h6>
+                            <button class="btn btn-primary btn-sm">Visualizar</button>
+                            <button class="btn btn-secondary btn-sm">Descargar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Empieza modal confirmacion-->
+<ng-template #register let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1">Registro</h5>
+            <p class="text-secondary title">Visualizar o Descargar</p>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row">
+                <!-- <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+                    <ngx-doc-viewer url="https://example.com/doc.pdf" viewer="google" style="width:100%;height:80vh;">
+                    </ngx-doc-viewer>
+                </div> -->
+                <!-- <div class="col-sm-12 col-lg-12 col-md-12">
+                    <iframe [src]="detalle.url + '#toolbar=0' | safe" style="width:100%; height:600px;" frameborder="0"></iframe>
+                </div> -->
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme">Descargar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- SPINNER -->
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">
+</ngx-spinner>
