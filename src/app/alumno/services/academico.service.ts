@@ -61,4 +61,12 @@ export class AcademicoService {
   generateConstancia(data){
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/generate-certificate/', data);
   }
+  
+  listConstancias(user, diplomado){
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/state-certificado/?user_id='+user+'&diplomado_id='+diplomado);
+  }
+
+  getInfoUser() {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'users/perfil-usuario/');
+  }
 }

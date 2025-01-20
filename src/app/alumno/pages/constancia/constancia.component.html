@@ -24,32 +24,35 @@
                 </div>
             </div>
             <div class="card-body py-3">
-                <div class="row justify-content-center mb-4">
+                <div class="row justify-content-center mb-4" *ngIf="constancias">
                     <!-- Constancia de Matrícula -->
                     <div class="col-md-4 col-sm-12 mb-3">
                         <div class="pdf-container">
-                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;"></i>
+                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;" *ngIf="constancias.constancia_matricula"></i>
+                            <i class="bi bi-filetype-pdf" style="color: #8f8a8a;" *ngIf="!constancias.constancia_matricula"></i>
                             <h6 class="mt-2">Constancia de Matrícula</h6>
-                            <button class="btn btn-primary btn-sm">Visualizar</button>
-                            <button class="btn btn-secondary btn-sm">Descargar</button>
+                            <button class="btn btn-primary btn-sm" [disabled]="!constancias.constancia_matricula" (click)="getCertificate('matricula')">Visualizar</button>
+                            <button class="btn btn-secondary btn-sm" [disabled]="!constancias.constancia_matricula" (click)="descargar('matricula')">Descargar</button>
                         </div>
                     </div>
                     <!-- Constancia de Estudio -->
                     <div class="col-md-4 col-sm-12 mb-3">
                         <div class="pdf-container">
-                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;"></i>
+                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;" *ngIf="constancias.cosntancia_estudiante"></i>
+                            <i class="bi bi-filetype-pdf" style="color: #8f8a8a;" *ngIf="!constancias.cosntancia_estudiante"></i>
                             <h6 class="mt-2">Constancia de Estudio</h6>
-                            <button class="btn btn-primary btn-sm">Visualizar</button>
-                            <button class="btn btn-secondary btn-sm">Descargar</button>
+                            <button class="btn btn-primary btn-sm" [disabled]="!constancias.cosntancia_estudiante" (click)="getCertificate('estudiante')">Visualizar</button>
+                            <button class="btn btn-secondary btn-sm" [disabled]="!constancias.cosntancia_estudiante" (click)="descargar('estudiante')">Descargar</button>
                         </div>
                     </div>
                     <!-- Constancia de Egreso -->
                     <div class="col-md-4 col-sm-12 mb-3">
                         <div class="pdf-container">
-                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;"></i>
+                            <i class="bi bi-filetype-pdf" style="color: #f31f1f;" *ngIf="constancias.constancia_egreso"></i>
+                            <i class="bi bi-filetype-pdf" style="color: #8f8a8a;" *ngIf="!constancias.constancia_egreso"></i>
                             <h6 class="mt-2">Constancia de Egreso</h6>
-                            <button class="btn btn-primary btn-sm">Visualizar</button>
-                            <button class="btn btn-secondary btn-sm">Descargar</button>
+                            <button class="btn btn-primary btn-sm" [disabled]="!constancias.constancia_egreso" (click)="getCertificate('egreso')">Visualizar</button>
+                            <button class="btn btn-secondary btn-sm" [disabled]="!constancias.constancia_egreso" (click)="descargar('egreso')">Descargar</button>
                         </div>
                     </div>
                 </div>
@@ -61,24 +64,24 @@
 <ng-template #register let-modal>
     <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
         <div class="card-header">
-            <h5 class="mb-1">Registro</h5>
+            <h5 class="mb-1">{{tipo}}</h5>
             <p class="text-secondary title">Visualizar o Descargar</p>
         </div>
         <div class="card-body modal-body">
-            <div class="row">
-                <!-- <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
-                    <ngx-doc-viewer url="https://example.com/doc.pdf" viewer="google" style="width:100%;height:80vh;">
+            <div class="row" *ngIf="url_doc">
+                <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+                    <ngx-doc-viewer url="{{url_doc.url}}" viewer="google" style="width:100%;height:80vh;">
                     </ngx-doc-viewer>
-                </div> -->
+                </div>
                 <!-- <div class="col-sm-12 col-lg-12 col-md-12">
                     <iframe [src]="detalle.url + '#toolbar=0' | safe" style="width:100%; height:600px;" frameborder="0"></iframe>
                 </div> -->
             </div>
         </div>
         <div class="card-footer">
-            <div class="row">
+            <div class="row" *ngIf="url_doc">
                 <div class="col-auto">
-                    <button class="btn btn-sm btn-theme">Descargar</button>
+                    <button class="btn btn-sm btn-theme" (click)="descargarModal(url_doc.url)">Descargar</button>
                     <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
                 </div>
             </div>
