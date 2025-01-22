@@ -73,6 +73,21 @@
                         <h6 class="fw-medium mb-0 text-uppercase">Listado de Leads</h6>
                         <p class="text-secondary small">Mostrar leads por vendedor</p>
                     </div>
+                    <form [formGroup]="formDescarga" class="col row justify-content-center align-items-center">
+                        <div class="col-auto form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="check" (change)="selectFechas()">
+                            <label class="form-check-label" for="flexCheckDefault">Activar Fechas</label>
+                        </div>
+                        <div class="col-auto form-group text-center">
+                            <input type="date" class="form-control" placeholder="Buscar por fecha" formControlName="fecha_inicio" required>
+                            <small>Fecha Inicio</small>
+                        </div>
+                        <div class="col-auto form-group text-center">
+                            <input type="date" class="form-control" placeholder="Buscar por fecha" formControlName="fecha_fin" required>
+                            <small>Fecha Fin</small>
+                        </div>
+                        <button class="col-auto btn btn-theme" (click)="saveRegister()">Descargar</button>
+                    </form>
                 </div>
             </div>
             <div class="card-body py-3">

@@ -93,6 +93,11 @@ export class LeadsComponent implements OnInit {
     private cd: ChangeDetectorRef,private datePipe: DatePipe,private service: VentasService,) { 
   }
 
+  formDescarga = this.fb.group({
+    check: [false],
+    fecha_inicio: [''],
+    fecha_fin: [''],
+  });
   formgrupos = this.fb.group({
     vendedores: ['']
   });  
@@ -213,6 +218,8 @@ export class LeadsComponent implements OnInit {
   public paginate:any; public start_paginate:number=0; register_count:number;
 
   ngOnInit(): void {
+    this.formDescarga.controls.fecha_fin.disable()
+    this.formDescarga.controls.fecha_inicio.disable()
     setTimeout(() => {
       this.is_rol=localStorage.getItem('role_user');
       this.is_user=localStorage.getItem('USERNAME');
@@ -295,6 +302,17 @@ export class LeadsComponent implements OnInit {
         // this.closeModal()
         this.spinner.hide()
       })
+    }
+  }
+
+  selectFechas(){
+    console.log(this.formDescarga.controls.check.value)
+    let activo=this.formDescarga.controls.check.value
+    this.formDescarga.controls.fecha_fin.enable()
+    this.formDescarga.controls.fecha_inicio.enable()
+    if(!activo){
+      this.formDescarga.controls.fecha_fin.disable()
+      this.formDescarga.controls.fecha_inicio.disable()
     }
   }
 

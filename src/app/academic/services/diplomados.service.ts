@@ -12,6 +12,10 @@ export class DiplomadosService {
   listTipos(){
     return this.httpClient.get(this.envUrl.urlAddress + 'cursos/categoria/modalidad-estudio/listar');
   }
+  
+  actFechalimite(data) {
+    return this.httpClient.post<any>(this.envUrl.urlAddress + 'academico/actualizar-fecha-inicio-diplomado/',data);
+  }
 
   listDiplomadosTemporales(){
     return this.httpClient.get(this.envUrl.urlAddress + 'cursos/listar/cursos-temporales-usuario');
@@ -19,6 +23,10 @@ export class DiplomadosService {
 
   listDiplomados(){
     return this.httpClient.get(this.envUrl.urlAddress + 'cursos/listar/courses-names-all');
+  }
+
+  listDiplomados2(){
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'academico/listar/diplomados/activos-todos');
   }
 
   listDiplomadoId(id){

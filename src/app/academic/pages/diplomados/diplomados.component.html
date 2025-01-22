@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
             <div class="card-header bg-light-theme">
@@ -39,8 +39,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
+</div> -->
+<!-- <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
             <div class="card-header bg-light-theme">
@@ -89,6 +89,83 @@
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+            <div class="card-header bg-light-theme">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <i class="bi bi-journal-bookmark-fill h5 avatar avatar-40 bg-light-theme rounded"></i>
+                    </div>
+                    <div class="col">
+                        <h6 class="fw-medium mb-0 text-uppercase">DIPLOMADOS</h6>
+                        <p class="text-secondary small">Listado de los Diplomados Activos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-3">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="table-responsive invoice-table" id="table">
+                            <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                <tr>
+                                    <!-- <th class="text-center">Nº</th> -->
+                                    <th>Código</th>
+                                    <th>Diplomado</th>
+                                    <th class="text-center">Vacantes</th>
+                                    <th class="text-center">N° Estudiantes</th>
+                                    <th class="text-center">Fecha Inicio Clases</th>
+                                    <th class="text-center">Fecha Culminar</th>
+                                    <!-- <th class="text-center">Acciones</th> -->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let valtemporal of diplomados, index as id">
+                                    <!-- <td class="text-center">{{id+1}}</td> -->
+                                    <td>
+                                        {{valtemporal.codigo_curso}}
+                                    </td>
+                                    <td>
+                                        <div *ngIf="valtemporal.nombre_diplomado">
+                                            {{valtemporal.nombre_diplomado}}
+                                        </div>
+                                        <div *ngIf="!valtemporal.nombre_diplomado">
+                                            Sin Registro
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        {{valtemporal.limit_student}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{valtemporal.cantidad_student}}
+                                    </td>
+                                    <td class="text-center"><b>{{valtemporal.fecha_inicio_clases*1000 | date:'dd/MM/yyyy' }}</b></td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Actualizar Fecha" (click)="actFecha(valtemporal)">
+                                            <b>{{valtemporal.fecha_culminar*1000 | date:'dd/MM/yyyy' }}</b>
+                                        </a>
+                                    </td>
+                                    <!--<td class="text-center">
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar Diplomado"
+                                        class="" routerLink="/academico/publicar-diplomado/{{valtemporal.url_code}}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar Diplomado"
+                                            class="text-danger mx-3" (click)="delete(valtemporal)">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>
