@@ -157,7 +157,7 @@ export class DiplomadosComponent implements OnInit {
     this.spinner.show()
     const jsonbody={
       "diplomado_code":data.codigo_curso,
-      "nueva_fecha":data.fecha_limite_venta,
+      // "nueva_fecha":data.fecha_limite_venta,
       "nueva_fecha_culminar":fecha
     }
     this.diplomadoService.actFechalimite(jsonbody).subscribe(res => {
