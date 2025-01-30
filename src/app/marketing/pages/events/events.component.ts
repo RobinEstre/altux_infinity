@@ -70,6 +70,8 @@ export class EventsComponent implements OnInit {
   private modalRef: NgbModalRef;
   @ViewChild('modal_edit') private modalContentEdit: TemplateRef<EventsComponent>;
   private modalRefEdit: NgbModalRef;
+  @ViewChild('modal_detail') private modalContentDetail: TemplateRef<EventsComponent>;
+  private modalRefDetail: NgbModalRef;
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   @ViewChild('dtActions') dtActions!: TemplateRef<EventsComponent>;
@@ -105,6 +107,12 @@ export class EventsComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dataTableActions: Array<any> = [
     {
+      cmd: "detail",
+      label: "Detalle Evento",
+      classList: "mx-2",
+      icon: 'bi bi-eye'
+    },
+    {
       cmd: "update",
       label: "Editar Evento",
       classList: "mx-2",
@@ -120,6 +128,8 @@ export class EventsComponent implements OnInit {
 
   public paginate:any; public start_paginate:number=0; register_count:number; filter_params:any; detalle:any;
   url_img_750x500: File[]=[];url_img_1920x500: File[]=[];url_img_constancia: File[]=[];url_img_material: File[]=[];
+
+  detail_data:any;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -275,6 +285,8 @@ export class EventsComponent implements OnInit {
       this.detalle=event.data;
       //console.log(this.detalle)
       this.openModalEdit(this.detalle)
+    }else if(event.cmd === 'detail'){
+      this.openModalDetalle(event.data)
     }else{
       this.deleteEvent(event.data)
     }
@@ -318,6 +330,17 @@ export class EventsComponent implements OnInit {
 
   closeModalEdit(){
     this.modalRefEdit.close()
+  }
+
+  openModalDetalle(data){
+    this.detail_data=data
+    this.modalRefDetail = this.modalService.open(this.modalContentDetail, {backdrop : 'static', centered: true, keyboard: false,
+      windowClass: 'animate__animated animate__backInUp', size: 'xl' });
+    this.modalRefDetail.result.then();
+  }
+
+  closeModalDetalle(){
+    this.modalRefDetail.close()
   }
 
   changeGestion(event){

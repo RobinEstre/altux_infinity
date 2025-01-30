@@ -30,6 +30,9 @@ export class MarketingService {
   listEvents(params) {
     return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar-eventos/?'+ params)
   }
+  listEventsDetail(code) {
+    return this.httpClient.get<any>(this.envUrl.urlAddress + 'marketing/listar-personas-evento/'+ code)
+  }
   asignarVendedores(id, data) {
     return this.httpClient.post<any>(this.envUrl.urlAddress + 'marketing/lead-recycling/assign/'+id+'/', data)
   }

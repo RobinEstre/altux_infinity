@@ -37,7 +37,7 @@
                             </div>
                         </ng-template>
                         <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
-                            <app-buttons-leads [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-buttons-leads>
+                            <app-buttons-events [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-buttons-events>
                         </ng-template>
                         <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
                             [dtTrigger]="dtTrigger" class="table table-striped" style="width: 100%;"></table>
@@ -330,6 +330,29 @@
             </div>
         </div>
     </form>
+</ng-template>
+<!-- Modal Registro Evento -->
+<ng-template #modal_detail let-modal>
+    <div class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+        <div class="card-header">
+            <h5 class="mb-1 title">{{detail_data.event_name}}</h5>
+        </div>
+        <div class="card-body modal-body">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <app-detalle [data]="detail_data"></app-detalle>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-theme">Registrar</button>
+                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalDetalle()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </ng-template>
 <!--SPINNER-->
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "triangle-skew-spin">

@@ -20,6 +20,7 @@ import { ButtonsBaseComponent } from './pages/reciclaje/base-extra/buttons-base/
 import { EventsComponent } from './pages/events/events.component';
 import { ButtonsEventsComponent } from './pages/events/buttons-events/buttons-events.component';
 import { ActivosComponent } from './pages/activos/activos.component';
+import { DetalleComponent } from './pages/events/detalle/detalle.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ActivosComponent } from './pages/activos/activos.component';
     ButtonsBaseComponent,
     EventsComponent,
     ButtonsEventsComponent,
-    ActivosComponent
+    ActivosComponent,
+    DetalleComponent
   ],
   imports: [
     CommonModule,
