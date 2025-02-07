@@ -27,9 +27,13 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## deploy to angular virtual s3
-
-cat ~/.aws/credentials --> Ver Credenciales profiles
-
+<!-- para configurar  -->
+aws configure --profile altux
+<!-- para ver carpetas  -->
+aws s3 ls --profile altux
+<!-- Ver Credenciales profiles -->
+cat ~/.aws/credentials 
+<!-- ejecutar -->
 ng build --configuration production
 rm -r dist/windoors/assets/
 aws s3 rm s3://app-aula-front --recursive --profile altux

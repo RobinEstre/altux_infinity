@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
     if(!this.show){
       //console.log(validate)
       if (validate!=null) {
-        //console.log('paso aqui')
+        console.log('paso aqui')
         this.service.getMenu().subscribe(resp=>{
           if(resp.success){
             let rol=validate, user_rol
@@ -152,10 +152,11 @@ export class HeaderComponent implements OnInit {
           }
         })
       }else{
-        //console.log('ya valido')
+        console.log('ya valido')
         this.service.getMenu().subscribe(resp=>{
           if(resp.success){
-            let rol=resp.menu[0].nav_var.nav_is_roles
+            // let rol=resp.menu[0].nav_var.nav_is_roles
+            let rol=localStorage.getItem('rus')
             let data=[], name
             resp.menu.forEach(i=>{
               if(i.nav_var.nav_is_roles=='is_student'){name='alumno'}
@@ -180,9 +181,19 @@ export class HeaderComponent implements OnInit {
             this.grupo=data
             this.formGroup.controls.grupos.setValue(rol)
             this.listMenu(rol)
-            localStorage.setItem('role_user', resp.menu[0].nav_var.nav_is_roles)
-            if(resp.menu[0].state){
-              this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
+            localStorage.setItem('role_user', rol)
+            // localStorage.setItem('role_user', resp.menu[0].nav_var.nav_is_roles)
+            let nuevo
+            resp.menu.forEach(i=>{
+              if(i.nav_var.nav_is_roles==rol){
+                nuevo=i
+              }
+            })
+            // if(resp.menu[0].state){
+            //   this.authenticationService._navUser.next(resp.menu[0].nav_var.nav_data);
+            // }
+            if(nuevo.state){
+              this.authenticationService._navUser.next(nuevo.nav_var.nav_data);
             }
             else{
               let nav_data=[
@@ -269,6 +280,7 @@ export class HeaderComponent implements OnInit {
   }
 
   listMenu(rol) {
+    console.log(rol)
     this.url=document.location.href.split('/')
     // this.rol = this.navBarService.CryptoJSAesDecrypt(this.secretrol, this.rus);
     // let rol= this.rol
@@ -328,10 +340,12 @@ export class HeaderComponent implements OnInit {
       default:
     }
     if(rol!=this.validate_user){
+      console.log(rol+' - '+ this.validate_user)
       this.signout()
     }
     setTimeout(() => {
-      //console.log(this.url)
+      console.log(this.url)
+      console.log(this.user_rol)
       if(this.url.length==5){
         if(this.user_rol!=this.url[3]){this.signout()}
       }

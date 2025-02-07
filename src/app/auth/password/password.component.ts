@@ -81,8 +81,9 @@ export class PasswordComponent implements OnInit {
           if (resp['user']['is_marketing']){
             this.roles = 'is_marketing'
           }
-          let rol = this.CryptoJSAesEncrypt(this.secretrol, this.roles);
-          localStorage.setItem('rus',rol);
+          console.log(this.roles)
+          // let rol = this.CryptoJSAesEncrypt(this.secretrol, this.roles);
+          localStorage.setItem('rus',this.roles);
   
           switch (this.roles) {
             case 'is_student':
@@ -130,6 +131,7 @@ export class PasswordComponent implements OnInit {
             default:
               this.navigate = ['/']
           }
+          console.log(this.navigate)
           return this.router.navigate(this.navigate);
           this.router.navigate(['/alumno/panel']);
         }, 1000)
