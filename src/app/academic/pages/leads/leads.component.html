@@ -1,30 +1,30 @@
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
-            <div class="card-header bg-light-theme">
-                <div class="row align-items-center">
-                    <div class="col-auto">
-                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
-                    </div>
-                    <div class="col">
-                        <h6 class="fw-medium mb-0 text-uppercase">Gestión de Leads</h6>
-                        <p class="text-secondary small">Asignación y Reparto de Leads</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body py-3">
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-4 text-center">
-                        <ngx-dropzone (change)="onSelect($event)" class="dropzone">
-                            <ngx-dropzone-label>
-                                <i class="bi bi-cloud-arrow-up h2 avatar avatar-80 rounded-circle bg-light-theme mb-3"></i>
-                                <h5>Subir Archivo</h5>
-                            </ngx-dropzone-label>
-                            <!-- <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+			<div class="card-header bg-light-theme">
+				<div class="row align-items-center">
+					<div class="col-auto">
+						<i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+					</div>
+					<div class="col">
+						<h6 class="fw-medium mb-0 text-uppercase">Gestión de Leads</h6>
+						<p class="text-secondary small">Asignación y Reparto de Leads</p>
+					</div>
+				</div>
+			</div>
+			<div class="card-body py-3">
+				<div class="row">
+					<div class="col-12 col-md-6 mb-4 text-center">
+						<ngx-dropzone (change)="onSelect($event)" class="dropzone">
+							<ngx-dropzone-label>
+								<i class="bi bi-cloud-arrow-up h2 avatar avatar-80 rounded-circle bg-light-theme mb-3"></i>
+								<h5>Subir Archivo</h5>
+							</ngx-dropzone-label>
+							<!-- <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
                                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                             </ngx-dropzone-image-preview> -->
-                        </ngx-dropzone>
-                        <!-- <div class="border bg-light-theme rounded h-100 position-relative">
+						</ngx-dropzone>
+						<!-- <div class="border bg-light-theme rounded h-100 position-relative">
                             <input type="file" class="opactity-0 position-absolute top-0 start-0 h-100 w-100 z-index-1" (change)="onSelect($event)">
                             <div class="row align-items-center h-100">
                                 <div class="col text-center" style="margin: 1% 1% 1% 1%;">
@@ -34,147 +34,157 @@
                                 </div>
                             </div>
                         </div> -->
-                    </div>
-                    <div class="col-12 col-md-6 mb-4" *ngIf="files.length">
-                        <div class="row gx-2 mb-4" *ngFor="let f of files">
-                            <div class="col-auto">
-                                <div class="avatar avatar-40 rounded bg-green text-white">
-                                    <i class="bi bi-filetype-xml h5 vm"></i>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <p class="mb-0">{{ f.name }}</p>
-                                <p class="small text-secondary">{{ +f.size.toFixed(2) }} mb</p>
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-square btn-link text-danger" (click)="onRemove($event)">
-                                    <i class="bi bi-x-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <button class="btn btn-primary" (click)="uploadLeads()">Registrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div>
+					<div class="col-12 col-md-6 mb-4" *ngIf="files.length">
+						<div class="row gx-2 mb-4" *ngFor="let f of files">
+							<div class="col-auto">
+								<div class="avatar avatar-40 rounded bg-green text-white">
+									<i class="bi bi-filetype-xml h5 vm"></i>
+								</div>
+							</div>
+							<div class="col">
+								<p class="mb-0">{{ f.name }}</p>
+								<p class="small text-secondary">{{ +f.size.toFixed(2) }} mb</p>
+							</div>
+							<div class="col-auto">
+								<button class="btn btn-square btn-link text-danger" (click)="onRemove($event)">
+									<i class="bi bi-x-circle"></i>
+								</button>
+							</div>
+						</div>
+						<div class="text-center">
+							<button class="btn btn-primary" (click)="uploadLeads()">Registrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row" *ngIf="is_user=='JOSE FRANCISCO'||is_user=='ACADEMICO'">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
-            <div class="card-header bg-light-theme">
-                <div class="row align-items-center">
-                    <div class="col-auto">
-                        <i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
-                    </div>
-                    <div class="col">
-                        <h6 class="fw-medium mb-0 text-uppercase">Listado de Leads</h6>
-                        <p class="text-secondary small">Mostrar leads por vendedor</p>
-                    </div>
-                    <form [formGroup]="formDescarga" class="col row justify-content-center align-items-center">
-                        <div class="col-auto form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="check" (change)="selectFechas()">
-                            <label class="form-check-label" for="flexCheckDefault">Activar Fechas</label>
-                        </div>
-                        <div class="col-auto form-group text-center">
-                            <input type="date" class="form-control" placeholder="Buscar por fecha" formControlName="fecha_inicio" required>
-                            <small>Fecha Inicio</small>
-                        </div>
-                        <div class="col-auto form-group text-center">
-                            <input type="date" class="form-control" placeholder="Buscar por fecha" formControlName="fecha_fin" required>
-                            <small>Fecha Fin</small>
-                        </div>
-                        <button class="col-auto btn btn-theme" (click)="saveRegister()">Descargar</button>
-                    </form>
-                </div>
-            </div>
-            <div class="card-body py-3">
-                <div class="row justify-content-center">
-                    <form [formGroup]="formgrupos" class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group position-relative mb-2">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-search"></i></span>
-                                <div class="form-floating">
-                                    <select (change)="rerender()" class="form-select border-start-0" formControlName="vendedores" required>
-                                        <option value="" disabled selected>SELECCIONAR VENDEDOR</option>
-                                        <option *ngFor="let valSeg of vendedores" value="{{valSeg.id}}">
-                                            {{valSeg.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="col-sm-12 col-md-12 col-lg-12 text-end mb-3">
-                        <p class="text-secondary small">
-                            <span class="badge badge-sm bg-blue">Interesado</span>
-                            <span class="badge badge-sm bg-orange mx-2">No Contesta</span>
-                            <span class="badge badge-sm bg-red">No Interesado</span>
-                            <span class="badge badge-sm bg-black mx-2">Lead No Califica</span>
-                            <span class="badge badge-sm bg-green">Compromiso Matrícula</span>
-                        </p>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-12" style="overflow: auto;">
-                        <!-- <a href="javascript:void(0);" (click)="openModalSeguimiento('data')">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="card border-0 theme-blue bg-gradient-theme-light mb-4">
+			<div class="card-header bg-light-theme">
+				<div class="row align-items-center">
+					<div class="col-auto">
+						<i class="bi bi-bookmark-star h5 avatar avatar-40 bg-light-theme rounded"></i>
+					</div>
+					<div class="col">
+						<h6 class="fw-medium mb-0 text-uppercase">Listado de Leads</h6>
+						<p class="text-secondary small">Mostrar leads por vendedor</p>
+					</div>
+					<form [formGroup]="formDescarga" class="col row justify-content-center align-items-center">
+						<div class="col-auto form-check">
+							<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="check"
+								(change)="selectFechas()">
+							<label class="form-check-label" for="flexCheckDefault">Activar Fechas</label>
+						</div>
+						<div class="col-auto form-group text-center">
+							<input type="date" class="form-control" placeholder="Buscar por fecha" formControlName="fecha_inicio"
+								required>
+							<small>Fecha Inicio</small>
+						</div>
+						<div class="col-auto form-group text-center">
+							<input type="date" class="form-control" placeholder="Buscar por fecha" formControlName="fecha_fin"
+								required>
+							<small>Fecha Fin</small>
+						</div>
+						<button class="col-auto btn btn-theme" (click)="saveDownload()" [disabled]="!activo">Descargar</button>
+					</form>
+				</div>
+			</div>
+			<div class="card-body py-3">
+				<div class="row justify-content-center">
+					<form [formGroup]="formgrupos" class="col-lg-6 col-md-6 col-sm-12">
+						<div class="form-group position-relative mb-2">
+							<div class="input-group input-group-lg">
+								<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-search"></i></span>
+								<div class="form-floating">
+									<select (change)="rerender()" class="form-select border-start-0" formControlName="vendedores"
+										required>
+										<option value="" disabled selected>SELECCIONAR VENDEDOR</option>
+										<option *ngFor="let valSeg of vendedores" value="{{valSeg.id}}">
+											{{valSeg.name}}
+										</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="col-sm-12 col-md-12 col-lg-12 text-end mb-3">
+						<p class="text-secondary small">
+							<span class="badge badge-sm bg-blue">Interesado</span>
+							<span class="badge badge-sm bg-orange mx-2">No Contesta</span>
+							<span class="badge badge-sm bg-red">No Interesado</span>
+							<span class="badge badge-sm bg-black mx-2">Lead No Califica</span>
+							<span class="badge badge-sm bg-green">Compromiso Matrícula</span>
+						</p>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-12" style="overflow: auto;">
+						<!-- <a href="javascript:void(0);" (click)="openModalSeguimiento('data')">
                             <i class="bi bi-binoculars"></i>
                         </a> -->
-                        <ng-template #idTpl let-rowIndex="rowIndex" let-row="row">
-                            {{rowIndex+1}}
-                        </ng-template>
-                        <ng-template #is_tipo let-data="adtData" let-emitter="captureEvents">
-                            <p class="d-flex">
-                                <b *ngFor="let valData of data.historial_seguimiento.data" class="mx-1">
-                                    <i class="bi bi-info-circle text-info rounded" *ngIf="valData.tipo_seguimiento=='informacion'"></i>
-                                    <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="valData.tipo_seguimiento=='no_interesado'"></i>
-                                    <i class="bi bi-telephone-x text-warning rounded" *ngIf="valData.tipo_seguimiento=='no_contesta'"></i>
-                                    <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="valData.tipo_seguimiento=='proximo_grupo'"></i>
-                                    <i class="bi bi-cash-coin text-success rounded" *ngIf="valData.tipo_seguimiento=='compromiso_pago'"></i>
-                                </b>
-                                {{data.alumno}}
-                            </p>
-                        </ng-template>
-                        <ng-template #is_celular let-data="adtData" let-emitter="captureEvents">
-                            <a href="https://wa.me/51{{data.telefono}}" target="_blank" class="">
-                                <p class="mb-0">{{data.telefono}}</p>
-                            </a>
-                        </ng-template>
-                        <ng-template #is_fechaModificacion let-data="adtData" let-emitter="captureEvents">
-                            <p class="d-flex">
-                                <b *ngFor="let valData of data.historial_seguimiento.data" class="mx-1">
-                                    <i class="bi bi-info-circle text-info rounded" *ngIf="valData.tipo_seguimiento=='informacion'"></i>
-                                    <i class="bi bi-person-dash text-danger rounded mx-1" *ngIf="valData.tipo_seguimiento=='no_interesado'"></i>
-                                    <i class="bi bi-telephone-x text-warning rounded" *ngIf="valData.tipo_seguimiento=='no_contesta'"></i>
-                                    <i class="bi bi-person-workspace text-dark rounded mx-1" *ngIf="valData.tipo_seguimiento=='proximo_grupo'"></i>
-                                    <i class="bi bi-cash-coin text-success rounded" *ngIf="valData.tipo_seguimiento=='compromiso_pago'"></i>
-                                </b>
-                                <!-- <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
+						<ng-template #idTpl let-rowIndex="rowIndex" let-row="row">
+							{{rowIndex+1}}
+						</ng-template>
+						<ng-template #is_tipo let-data="adtData" let-emitter="captureEvents">
+							<p class="d-flex">
+								<b *ngFor="let valData of data.historial_seguimiento.data" class="mx-1">
+									<i class="bi bi-info-circle text-info rounded" *ngIf="valData.tipo_seguimiento=='informacion'"></i>
+									<i class="bi bi-person-dash text-danger rounded mx-1"
+										*ngIf="valData.tipo_seguimiento=='no_interesado'"></i>
+									<i class="bi bi-telephone-x text-warning rounded" *ngIf="valData.tipo_seguimiento=='no_contesta'"></i>
+									<i class="bi bi-person-workspace text-dark rounded mx-1"
+										*ngIf="valData.tipo_seguimiento=='proximo_grupo'"></i>
+									<i class="bi bi-cash-coin text-success rounded"
+										*ngIf="valData.tipo_seguimiento=='compromiso_pago'"></i>
+								</b>
+								{{data.alumno}}
+							</p>
+						</ng-template>
+						<ng-template #is_celular let-data="adtData" let-emitter="captureEvents">
+							<a href="https://wa.me/51{{data.telefono}}" target="_blank" class="">
+								<p class="mb-0">{{data.telefono}}</p>
+							</a>
+						</ng-template>
+						<ng-template #is_fechaModificacion let-data="adtData" let-emitter="captureEvents">
+							<p class="d-flex">
+								<b *ngFor="let valData of data.historial_seguimiento.data" class="mx-1">
+									<i class="bi bi-info-circle text-info rounded" *ngIf="valData.tipo_seguimiento=='informacion'"></i>
+									<i class="bi bi-person-dash text-danger rounded mx-1"
+										*ngIf="valData.tipo_seguimiento=='no_interesado'"></i>
+									<i class="bi bi-telephone-x text-warning rounded" *ngIf="valData.tipo_seguimiento=='no_contesta'"></i>
+									<i class="bi bi-person-workspace text-dark rounded mx-1"
+										*ngIf="valData.tipo_seguimiento=='proximo_grupo'"></i>
+									<i class="bi bi-cash-coin text-success rounded"
+										*ngIf="valData.tipo_seguimiento=='compromiso_pago'"></i>
+								</b>
+								<!-- <i class="bi bi-info-circle text-danger rounded parpadea" *ngIf="data.seguimiento.informacion.length>0||
                                 data.seguimiento.no_contesta.length>0||data.seguimiento.no_interesado.length>0||data.seguimiento.proximo_grupo.length>0"></i> -->
-                                {{data.updated_at}}
-                            </p>
-                        </ng-template>
-                        <ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
-                            <app-table-leads [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-leads>
-                        </ng-template>
-                        <table id="material--template-dt" datatable *ngIf="columns.length"  [dtOptions]="dtOptions"
-                                [dtTrigger]="dtTrigger" class="table table-bordered w-100"></table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								{{data.updated_at}}
+							</p>
+						</ng-template>
+						<ng-template #dtActions let-data="adtData" let-emitter="captureEvents">
+							<app-table-leads [actions]="dataTableActions" [data]="data" (emitter)="emitter($event)"></app-table-leads>
+						</ng-template>
+						<table id="material--template-dt" datatable *ngIf="columns.length" [dtOptions]="dtOptions"
+							[dtTrigger]="dtTrigger" class="table table-bordered w-100"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- Empieza modal registro-->
 <ng-template #register let-modal>
-    <form [formGroup]="formRegistro" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
-        <div class="card-header">
-            <h5 class="mb-1 title">GENERAR CÓDIGO DE PAGO</h5>
-            <!-- <p class="text-secondary title">M = Matrícula | F = Ficha</p> -->
-        </div>
-        <div class="card-body modal-body">
-            <div class="row was-validated">
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12 mb-2 text-center ficha">
+	<form [formGroup]="formRegistro" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+		<div class="card-header">
+			<h5 class="mb-1 title">GENERAR CÓDIGO DE PAGO</h5>
+			<!-- <p class="text-secondary title">M = Matrícula | F = Ficha</p> -->
+		</div>
+		<div class="card-body modal-body">
+			<div class="row was-validated">
+				<!-- <div class="col-lg-12 col-md-12 col-sm-12 mb-2 text-center ficha">
                     <div class="btn-container">
                         <label class="switch btn-color-mode-switch">
                             <input type="checkbox" name="color_mode" id="color_mode" value="1" (change)="select($event)">
@@ -182,99 +192,102 @@
                         </label>
                     </div>
                 </div> -->
-                <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
-                            <div class="form-floating">
-                                <select (change)="selectMatricula($event)" class="form-select border-start-0" formControlName="tipo_matricula" required>
-                                    <option value="" disabled selected>Seleccionar Tipo Matricula</option>
-                                    <option *ngFor="let tipoMat of tipo_matricula" value="{{tipoMat.id}}">
-                                        {{tipoMat.name}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-2" *ngIf="!ficha && discount">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="alert alert-primary nuevo text-center" role="alert">
-                                <b>DETALLE MATRÍCULA</b>
-                            </div>
-                            <div class="order-table table-responsive">
-                                <table class="table table-bordered">
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-dark" *ngIf="+discount.first_payment!=0">
-                                            <small>Matrícula:</small>
-                                        </td>
-                                        <td class="text-dark" *ngIf="+discount.first_payment==0">
-                                            <small>{{nombre_descuento}}:</small>
-                                        </td>
-                                        <td *ngIf="+discount.first_payment!=0">
-                                            <small>S/ {{discount.first_payment}}.00</small>
-                                        </td>
-                                        <td *ngIf="+discount.first_payment==0">
-                                            <small>S/ {{discount.price_diplomado}}.00</small>
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="+discount.first_payment!=0 && !mostrarDiscount">
-                                        <td class="text-dark">
-                                            <small>Primera Cuota:</small>
-                                        </td>
-                                        <td>
-                                            <small>S/ {{discount.second_payment}}.00</small>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark">
-                                            <small>Descuento:</small>
-                                        </td>
-                                        <td>
-                                            <small>S/ {{discount.price_discount}}.00</small>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark">
-                                            <small><b>Total a Pagar:</b></small>
-                                        </td>
-                                        <td>
-                                            <b>
-                                                <small>S/ {{discount.total_payment}}.00</small>
-                                            </b>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha && mostrarDate">
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="Ingrese Apellido" formControlName="fecha" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <small class="text-muted">Ingresar Fecha 2do Pago</small>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="ficha">
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
-                            <div class="form-floating">
-                                <input formControlName="datecall" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <small class="text-muted">Fecha a contactar</small>
-                    </div>
-                </div>
-                <!-- <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
+				<div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
+							<div class="form-floating">
+								<select (change)="selectMatricula($event)" class="form-select border-start-0"
+									formControlName="tipo_matricula" required>
+									<option value="" disabled selected>Seleccionar Tipo Matricula</option>
+									<option *ngFor="let tipoMat of tipo_matricula" value="{{tipoMat.id}}">
+										{{tipoMat.name}}
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 mb-2" *ngIf="!ficha && discount">
+					<div class="card">
+						<div class="card-body">
+							<div class="alert alert-primary nuevo text-center" role="alert">
+								<b>DETALLE MATRÍCULA</b>
+							</div>
+							<div class="order-table table-responsive">
+								<table class="table table-bordered">
+									<tbody>
+										<tr>
+											<td class="text-dark" *ngIf="+discount.first_payment!=0">
+												<small>Matrícula:</small>
+											</td>
+											<td class="text-dark" *ngIf="+discount.first_payment==0">
+												<small>{{nombre_descuento}}:</small>
+											</td>
+											<td *ngIf="+discount.first_payment!=0">
+												<small>S/ {{discount.first_payment}}.00</small>
+											</td>
+											<td *ngIf="+discount.first_payment==0">
+												<small>S/ {{discount.price_diplomado}}.00</small>
+											</td>
+										</tr>
+										<tr *ngIf="+discount.first_payment!=0 && !mostrarDiscount">
+											<td class="text-dark">
+												<small>Primera Cuota:</small>
+											</td>
+											<td>
+												<small>S/ {{discount.second_payment}}.00</small>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-dark">
+												<small>Descuento:</small>
+											</td>
+											<td>
+												<small>S/ {{discount.price_discount}}.00</small>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-dark">
+												<small><b>Total a Pagar:</b></small>
+											</td>
+											<td>
+												<b>
+													<small>S/ {{discount.total_payment}}.00</small>
+												</b>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha && mostrarDate">
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+							<div class="form-floating">
+								<input placeholder="Ingrese Apellido" formControlName="fecha" type="datetime-local"
+									class="form-control border-start-0" autocomplete="off" required>
+							</div>
+						</div>
+						<small class="text-muted">Ingresar Fecha 2do Pago</small>
+					</div>
+				</div>
+				<div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="ficha">
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+							<div class="form-floating">
+								<input formControlName="datecall" type="datetime-local" class="form-control border-start-0"
+									autocomplete="off" required>
+							</div>
+						</div>
+						<small class="text-muted">Fecha a contactar</small>
+					</div>
+				</div>
+				<!-- <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
@@ -289,7 +302,7 @@
                         </div>
                     </div>
                 </div> -->
-                <!-- <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
+				<!-- <div class="col-sm-12 col-lg-12 col-md-12 mb-2">
                     <div class="form-group mb-2 position-relative">
                         <div class="input-group input-group-lg">
                             <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-key"></i></span>
@@ -319,129 +332,137 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
-                    <br>
-                    <div class="form-group form-check form-switch">
-                        <input class="form-check-input" (change)="optionFacture($event)"
-                               type="checkbox" formControlName="is_factura">
-                        <label>
-                            Solicitar Factura
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-lg-12 col-md-12 text-center mb-2" *ngIf="is_facture && !ficha">
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="" formControlName="ruc" class="form-control border-start-0" autocomplete="off" maxlength="11"
-                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" (keyup)="getInfoByRuc($event)" required>
-                                <label for="floatingInput">Ingrese Nº RUC</label>
-                            </div>
-                        </div>
-                        <a href="javascript:void(0);" class="tag mb-2 me-2" *ngIf="nameruc">
-                            <i class="bi bi-person vm ms-2 mx-2"></i> {{nameruc}}
-                        </a>
-                        <div *ngIf="formRegistro.controls['ruc'].invalid && (formRegistro.controls['ruc'].dirty || formRegistro.controls['ruc'].touched)" >
-                            <div *ngIf="formRegistro.controls['ruc'].errors.required">
-                                <small class="text-danger">Por favor ingrese su número de RUC</small>
-                            </div>
-                            <div *ngIf="formRegistro.controls['ruc'].errors.maxlength">
-                                <small class="text-danger">Excediste el número máximo de caracteres</small>
-                            </div>
-                            <div *ngIf="formRegistro.controls['ruc'].errors.minlength">
-                                <small class="text-danger">Debe contener como mínimo 11 caracteres</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-auto">
-                    <button class="btn btn-sm btn-theme" (click)="saveRegister()" [disabled]="!formRegistro.valid">Registrar</button>
-                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </form>
+				<div class="col-md-12 col-sm-12 col-lg-12 mb-2" *ngIf="!ficha">
+					<br>
+					<div class="form-group form-check form-switch">
+						<input class="form-check-input" (change)="optionFacture($event)" type="checkbox"
+							formControlName="is_factura">
+						<label>
+							Solicitar Factura
+						</label>
+					</div>
+				</div>
+				<div class="col-sm-12 col-lg-12 col-md-12 text-center mb-2" *ngIf="is_facture && !ficha">
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-person-badge"></i></span>
+							<div class="form-floating">
+								<input placeholder="" formControlName="ruc" class="form-control border-start-0" autocomplete="off"
+									maxlength="11" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
+									(keyup)="getInfoByRuc($event)" required>
+								<label for="floatingInput">Ingrese Nº RUC</label>
+							</div>
+						</div>
+						<a href="javascript:void(0);" class="tag mb-2 me-2" *ngIf="nameruc">
+							<i class="bi bi-person vm ms-2 mx-2"></i> {{nameruc}}
+						</a>
+						<div
+							*ngIf="formRegistro.controls['ruc'].invalid && (formRegistro.controls['ruc'].dirty || formRegistro.controls['ruc'].touched)">
+							<div *ngIf="formRegistro.controls['ruc'].errors.required">
+								<small class="text-danger">Por favor ingrese su número de RUC</small>
+							</div>
+							<div *ngIf="formRegistro.controls['ruc'].errors.maxlength">
+								<small class="text-danger">Excediste el número máximo de caracteres</small>
+							</div>
+							<div *ngIf="formRegistro.controls['ruc'].errors.minlength">
+								<small class="text-danger">Debe contener como mínimo 11 caracteres</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer">
+			<div class="row">
+				<div class="col-auto">
+					<!-- <button class="btn btn-sm btn-theme" (click)="saveRegister()"
+						[disabled]="!formRegistro.valid">Registrar</button>
+					<button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModal()">Cerrar</button> -->
+				</div>
+			</div>
+		</div>
+	</form>
 </ng-template>
 <!-- Empieza modal seguimiento-->
 <ng-template #seguimiento let-modal>
-    <form [formGroup]="formSeguimiento" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
-        <div class="card-header">
-            <h5 class="mb-1">REGISTRO SEGUIMIENTO</h5>
-            <p class="text-secondary title">{{data_detail.alumno}}</p>
-        </div>
-        <div class="card-body modal-body">
-            <div class="row was-validated mb-3">
-                <div class="col-md-12 col-sm-12 col-lg-12">
-                    <div class="form-group position-relative mb-2">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
-                            <div class="form-floating">
-                                <select (change)="selectSeguimiento($event)" class="form-select border-start-0" formControlName="estado" required>
-                                    <option value="" disabled selected>Seleccionar Estado</option>
-                                    <option *ngFor="let valSeg of estado_seg" class="text-uppercase" value="{{valSeg.id}}">
-                                        {{valSeg.name}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group mb-2 position-relative" *ngIf="date_seguimiento">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
-                            <div class="form-floating">
-                                <input formControlName="fecha" type="datetime-local" class="form-control border-start-0" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <small class="text-muted">Ingresar Fecha</small>
-                    </div>
-                    <div class="form-group position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-chat-right-text"></i></span>
-                            <div class="form-floating">
-                                <textarea required class="form-control" placeholder="Motivo Seguimiento" id="floatingTextarea2" formControlName="reason" rows="2"></textarea>
-                                <label for="floatingTextarea2">Comentario</label>
-                            </div>
-                            <!-- <div class="form-floating">
+	<form [formGroup]="formSeguimiento" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+		<div class="card-header">
+			<h5 class="mb-1">REGISTRO SEGUIMIENTO</h5>
+			<p class="text-secondary title">{{data_detail.alumno}}</p>
+		</div>
+		<div class="card-body modal-body">
+			<div class="row was-validated mb-3">
+				<div class="col-md-12 col-sm-12 col-lg-12">
+					<div class="form-group position-relative mb-2">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-book"></i></span>
+							<div class="form-floating">
+								<select (change)="selectSeguimiento($event)" class="form-select border-start-0" formControlName="estado"
+									required>
+									<option value="" disabled selected>Seleccionar Estado</option>
+									<option *ngFor="let valSeg of estado_seg" class="text-uppercase" value="{{valSeg.id}}">
+										{{valSeg.name}}
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group mb-2 position-relative" *ngIf="date_seguimiento">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-calendar"></i></span>
+							<div class="form-floating">
+								<input formControlName="fecha" type="datetime-local" class="form-control border-start-0"
+									autocomplete="off" required>
+							</div>
+						</div>
+						<small class="text-muted">Ingresar Fecha</small>
+					</div>
+					<div class="form-group position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i
+									class="bi bi-chat-right-text"></i></span>
+							<div class="form-floating">
+								<textarea required class="form-control" placeholder="Motivo Seguimiento" id="floatingTextarea2"
+									formControlName="reason" rows="2"></textarea>
+								<label for="floatingTextarea2">Comentario</label>
+							</div>
+							<!-- <div class="form-floating">
                                 <textarea required class="form-control border-start-0 h-auto" rows="3" formControlName="reason" id="floatingInput"></textarea>
                                 <label for="floatingInput">Motivo Seguimiento</label>
                             </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card border-0 h-100">
-                <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-auto">
-                            <i class="bi bi-clock-history h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
-                        </div>
-                        <div class="col">
-                            <h6 class="fw-medium mb-0">Historial Seguimiento</h6>
-                            <p class="text-secondary small">
-                                <span class="badge badge-sm bg-blue">Interesado</span>
-                                <span class="badge badge-sm bg-orange mx-2">No Contesta</span>
-                                <span class="badge badge-sm bg-red">No Interesado</span>
-                                <span class="badge badge-sm bg-black mx-2">Lead No Califica</span>
-                                <span class="badge badge-sm bg-green">Compromiso Matrícula</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body px-1 pb-0">
-                    <table class="table table-borderless mb-0 w-100">
-                        <thead class="d-none">
-                            <tr class="text-muted">
-                                <th class="w-200">Historial Seguimiento</th>
-                                <th data-breakpoints="xs sm" class="w-80">No Contesta - No Interesado - Interesado - Lead No Califica</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- <td>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card border-0 h-100">
+				<div class="card-header">
+					<div class="row align-items-center">
+						<div class="col-auto">
+							<i class="bi bi-clock-history h5 me-1 avatar avatar-40 bg-light-theme rounded"></i>
+						</div>
+						<div class="col">
+							<h6 class="fw-medium mb-0">Historial Seguimiento</h6>
+							<p class="text-secondary small">
+								<span class="badge badge-sm bg-blue">Interesado</span>
+								<span class="badge badge-sm bg-orange mx-2">No Contesta</span>
+								<span class="badge badge-sm bg-red">No Interesado</span>
+								<span class="badge badge-sm bg-black mx-2">Lead No Califica</span>
+								<span class="badge badge-sm bg-green">Compromiso Matrícula</span>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-body px-1 pb-0">
+					<table class="table table-borderless mb-0 w-100">
+						<thead class="d-none">
+							<tr class="text-muted">
+								<th class="w-200">Historial Seguimiento</th>
+								<th data-breakpoints="xs sm" class="w-80">No Contesta - No Interesado - Interesado - Lead No Califica
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <td>
                                 <div class="row">
                                     <div class="col-auto">
                                         <i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded" 
@@ -471,225 +492,243 @@
                                     </div>
                                 </div>
                             </td> -->
-                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.compromiso_pago, index as id">
-                                <td>
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded"></i>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                            <p class="text-trucate small" *ngIf="valSeguimiento.fecha_pago">Fecha Pago: {{valSeguimiento.fecha_pago*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_interesado, index as id">
-                                <td>
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <i class="bi bi-person-dash avatar avatar-40 bg-light-red text-red rounded"></i>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_contesta, index as id">
-                                <td>
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <i class="bi bi-telephone-x avatar avatar-40 bg-light-orange text-orange rounded"></i>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.informacion, index as id">
-                                <td>
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <i class="bi bi-info-circle avatar avatar-40 bg-light-blue text-blue rounded"></i>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                            <p class="text-trucate small" *ngIf="valSeguimiento.fecha_contactar">Fecha Contactar: {{valSeguimiento.fecha_contactar*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr *ngFor="let valSeguimiento of data_detail.seguimiento.proximo_grupo, index as id">
-                                <td>
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <i class="bi bi-person-workspace avatar avatar-40 bg-light-black text-black rounded"></i>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
-                                            <p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-auto">
-                    <button class="btn btn-sm btn-theme" (click)="saveSeguimiento()" [disabled]="!formSeguimiento.valid">Registro</button>
-                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalSeguimiento()">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </form>
+							<tr *ngFor="let valSeguimiento of data_detail.seguimiento.compromiso_pago, index as id">
+								<td>
+									<div class="row">
+										<div class="col-auto">
+											<i class="bi bi-person-workspace avatar avatar-40 bg-light-green text-green rounded"></i>
+										</div>
+										<div class="col ps-0">
+											<p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+											<p class="text-trucate small" *ngIf="valSeguimiento.fecha_pago">Fecha Pago:
+												{{valSeguimiento.fecha_pago*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+											<p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_interesado, index as id">
+								<td>
+									<div class="row">
+										<div class="col-auto">
+											<i class="bi bi-person-dash avatar avatar-40 bg-light-red text-red rounded"></i>
+										</div>
+										<div class="col ps-0">
+											<p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+											<p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr *ngFor="let valSeguimiento of data_detail.seguimiento.no_contesta, index as id">
+								<td>
+									<div class="row">
+										<div class="col-auto">
+											<i class="bi bi-telephone-x avatar avatar-40 bg-light-orange text-orange rounded"></i>
+										</div>
+										<div class="col ps-0">
+											<p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+											<p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr *ngFor="let valSeguimiento of data_detail.seguimiento.informacion, index as id">
+								<td>
+									<div class="row">
+										<div class="col-auto">
+											<i class="bi bi-info-circle avatar avatar-40 bg-light-blue text-blue rounded"></i>
+										</div>
+										<div class="col ps-0">
+											<p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+											<p class="text-trucate small" *ngIf="valSeguimiento.fecha_contactar">Fecha Contactar:
+												{{valSeguimiento.fecha_contactar*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+											<p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr *ngFor="let valSeguimiento of data_detail.seguimiento.proximo_grupo, index as id">
+								<td>
+									<div class="row">
+										<div class="col-auto">
+											<i class="bi bi-person-workspace avatar avatar-40 bg-light-black text-black rounded"></i>
+										</div>
+										<div class="col ps-0">
+											<p class="mb-1 text-trucate w-100">{{valSeguimiento.detalle}}</p>
+											<p class="text-secondary small">{{valSeguimiento.fecha*1000 | date:'dd/MM/yyyy - HH:mm'}}</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer">
+			<div class="row">
+				<div class="col-auto">
+					<button class="btn btn-sm btn-theme" (click)="saveSeguimiento()"
+						[disabled]="!formSeguimiento.valid">Registro</button>
+					<button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalSeguimiento()">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</form>
 </ng-template>
 <!-- Modal Pago-->
 <ng-template #modal_pago let-modal>
-    <div class="modal-header">
-        <img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
-        <button type="button" class="btn-close pull-right" style="color: black" aria-label="Close" (click)="closeModalInfo()"></button>
-    </div>
-    <app-form-pay [generate]="_generate"></app-form-pay>
+	<div class="modal-header">
+		<img src="https://web-altux-files.s3.amazonaws.com/LOGO_ALTUX_WEB.png" alt="" style="width: 25% !important;">
+		<button type="button" class="btn-close pull-right" style="color: black" aria-label="Close"
+			(click)="closeModalInfo()"></button>
+	</div>
+	<app-form-pay [generate]="_generate"></app-form-pay>
 </ng-template>
 <!-- Empieza modal editar reserva-->
 <ng-template #modal_editar let-modal>
-    <form [formGroup]="formEditar" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
-        <div class="card-header">
-            <h5 class="mb-1">EDITAR INFORMACIÓN</h5>
-            <p class="text-secondary title">{{detalle_edit.names}}</p>
-        </div>
-        <div class="card-body modal-body">
-            <div class="row was-validated mb-3">
-                <div class="col-md-12 col-sm-12 col-lg-12">
-                    <div class="form-group position-relative mb-2">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-search"></i></span>
-                            <div class="form-floating">
-                                <select (change)="selectTipoDoc($event)" class="form-select border-start-0" formControlName="tipo_doc" required>
-                                    <option value="" disabled selected>Editar Tipo Documento</option>
-                                    <option *ngFor="let valSeg of tipo_doc" value="{{valSeg.id}}">
-                                        {{valSeg.name}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group position-relative mb-2" *ngIf="formEditar.get('tipo_doc')?.value === 'dni'">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="" formControlName="num_doc" class="form-control border-start-0" (keyup)="getInfoByDni($event)"
-                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="8" required>
-                                <label for="floatingInput">Ingrese DNI</label>
-                            </div>
-                        </div>
-                        <div *ngIf="formEditar.controls['num_doc'].invalid && (formEditar.controls['num_doc'].dirty || formEditar.controls['num_doc'].touched)" >
-                            <div *ngIf="formEditar.controls['num_doc'].errors.required">
-                                <small class="text-danger">Por favor ingrese n° documento</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group position-relative mb-2" *ngIf="formEditar.get('tipo_doc')?.value != 'dni'">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="" formControlName="num_doc" class="form-control border-start-0"
-                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="11" required>
-                                <label for="floatingInput">Editar N° Docuemnto</label>
-                            </div>
-                        </div>
-                        <div *ngIf="formEditar.controls['num_doc'].invalid && (formEditar.controls['num_doc'].dirty || formEditar.controls['num_doc'].touched)" >
-                            <div *ngIf="formEditar.controls['num_doc'].errors.required">
-                                <small class="text-danger">Por favor ingrese n° documento</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="Editar Nombres" formControlName="nombres" class="form-control border-start-0" autocomplete="off" required>
-                                <label for="floatingInput">Editar Nombres</label>
-                            </div>
-                        </div>
-                        <div *ngIf="formEditar.controls['nombres'].invalid && (formEditar.controls['nombres'].dirty || formEditar.controls['nombres'].touched)" >
-                            <div *ngIf="formEditar.controls['nombres'].errors.required">
-                                <small class="text-danger">Por favor ingrese su nombre</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="Editar Apellido Paterno" formControlName="apellido_p" class="form-control border-start-0" autocomplete="off" required>
-                                <label for="floatingInput">Editar Apellido Paterno</label>
-                            </div>
-                        </div>
-                        <div *ngIf="formEditar.controls['apellido_p'].invalid && (formEditar.controls['apellido_p'].dirty || formEditar.controls['apellido_p'].touched)" >
-                            <div *ngIf="formEditar.controls['apellido_p'].errors.required">
-                                <small class="text-danger">Por favor ingrese su apellido</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="Editar Apellido Materno" formControlName="apellido_m" class="form-control border-start-0" autocomplete="off" required>
-                                <label for="floatingInput">Editar Apellido Materno</label>
-                            </div>
-                        </div>
-                        <div *ngIf="formEditar.controls['apellido_m'].invalid && (formEditar.controls['apellido_m'].dirty || formEditar.controls['apellido_m'].touched)" >
-                            <div *ngIf="formEditar.controls['apellido_m'].errors.required">
-                                <small class="text-danger">Por favor ingrese su apellido</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group mb-2 position-relative">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
-                            <div class="form-floating">
-                                <input placeholder="Editar Correo" formControlName="email" type="email" class="form-control border-start-0" autocomplete="off" required>
-                                <label for="floatingInput">Editar Correo</label>
-                            </div>
-                        </div>
-                        <div *ngIf="formEditar.controls['email'].invalid && (formEditar.controls['email'].dirty || formEditar.controls['email'].touched)" >
-                            <div *ngIf="formEditar.controls['email'].errors.required">
-                                <small class="text-danger">Por favor ingrese su correo</small>
-                            </div>
-                            <div *ngIf="formEditar.controls['email'].errors.email">
-                                <small class="text-danger">Por favor ingrese un correo válido</small>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-secondary text-uppercase text-end">
-                        <span class="badge badge-sm bg-yellow" style="font-size: 13px;">
-                            <i class="bi bi-info-circle"></i> No se puede repetir correo de otro alumno
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-auto">
-                    <button class="btn btn-sm btn-theme" (click)="editCliente()" [disabled]="!formEditar.valid">Modificar</button>
-                    <button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalEdit()">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </form>
+	<form [formGroup]="formEditar" class="card border-0 border-left-5 border-theme bg-gradient-theme-light">
+		<div class="card-header">
+			<h5 class="mb-1">EDITAR INFORMACIÓN</h5>
+			<p class="text-secondary title">{{detalle_edit.names}}</p>
+		</div>
+		<div class="card-body modal-body">
+			<div class="row was-validated mb-3">
+				<div class="col-md-12 col-sm-12 col-lg-12">
+					<div class="form-group position-relative mb-2">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-search"></i></span>
+							<div class="form-floating">
+								<select (change)="selectTipoDoc($event)" class="form-select border-start-0" formControlName="tipo_doc"
+									required>
+									<option value="" disabled selected>Editar Tipo Documento</option>
+									<option *ngFor="let valSeg of tipo_doc" value="{{valSeg.id}}">
+										{{valSeg.name}}
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group position-relative mb-2" *ngIf="formEditar.get('tipo_doc')?.value === 'dni'">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+							<div class="form-floating">
+								<input placeholder="" formControlName="num_doc" class="form-control border-start-0"
+									(keyup)="getInfoByDni($event)"
+									onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="8"
+									required>
+								<label for="floatingInput">Ingrese DNI</label>
+							</div>
+						</div>
+						<div
+							*ngIf="formEditar.controls['num_doc'].invalid && (formEditar.controls['num_doc'].dirty || formEditar.controls['num_doc'].touched)">
+							<div *ngIf="formEditar.controls['num_doc'].errors.required">
+								<small class="text-danger">Por favor ingrese n° documento</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group position-relative mb-2" *ngIf="formEditar.get('tipo_doc')?.value != 'dni'">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-card-heading"></i></span>
+							<div class="form-floating">
+								<input placeholder="" formControlName="num_doc" class="form-control border-start-0"
+									onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="11"
+									required>
+								<label for="floatingInput">Editar N° Docuemnto</label>
+							</div>
+						</div>
+						<div
+							*ngIf="formEditar.controls['num_doc'].invalid && (formEditar.controls['num_doc'].dirty || formEditar.controls['num_doc'].touched)">
+							<div *ngIf="formEditar.controls['num_doc'].errors.required">
+								<small class="text-danger">Por favor ingrese n° documento</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+							<div class="form-floating">
+								<input placeholder="Editar Nombres" formControlName="nombres" class="form-control border-start-0"
+									autocomplete="off" required>
+								<label for="floatingInput">Editar Nombres</label>
+							</div>
+						</div>
+						<div
+							*ngIf="formEditar.controls['nombres'].invalid && (formEditar.controls['nombres'].dirty || formEditar.controls['nombres'].touched)">
+							<div *ngIf="formEditar.controls['nombres'].errors.required">
+								<small class="text-danger">Por favor ingrese su nombre</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+							<div class="form-floating">
+								<input placeholder="Editar Apellido Paterno" formControlName="apellido_p"
+									class="form-control border-start-0" autocomplete="off" required>
+								<label for="floatingInput">Editar Apellido Paterno</label>
+							</div>
+						</div>
+						<div
+							*ngIf="formEditar.controls['apellido_p'].invalid && (formEditar.controls['apellido_p'].dirty || formEditar.controls['apellido_p'].touched)">
+							<div *ngIf="formEditar.controls['apellido_p'].errors.required">
+								<small class="text-danger">Por favor ingrese su apellido</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+							<div class="form-floating">
+								<input placeholder="Editar Apellido Materno" formControlName="apellido_m"
+									class="form-control border-start-0" autocomplete="off" required>
+								<label for="floatingInput">Editar Apellido Materno</label>
+							</div>
+						</div>
+						<div
+							*ngIf="formEditar.controls['apellido_m'].invalid && (formEditar.controls['apellido_m'].dirty || formEditar.controls['apellido_m'].touched)">
+							<div *ngIf="formEditar.controls['apellido_m'].errors.required">
+								<small class="text-danger">Por favor ingrese su apellido</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group mb-2 position-relative">
+						<div class="input-group input-group-lg">
+							<span class="input-group-text text-theme bg-white border-end-0"><i class="bi bi-envelope"></i></span>
+							<div class="form-floating">
+								<input placeholder="Editar Correo" formControlName="email" type="email"
+									class="form-control border-start-0" autocomplete="off" required>
+								<label for="floatingInput">Editar Correo</label>
+							</div>
+						</div>
+						<div
+							*ngIf="formEditar.controls['email'].invalid && (formEditar.controls['email'].dirty || formEditar.controls['email'].touched)">
+							<div *ngIf="formEditar.controls['email'].errors.required">
+								<small class="text-danger">Por favor ingrese su correo</small>
+							</div>
+							<div *ngIf="formEditar.controls['email'].errors.email">
+								<small class="text-danger">Por favor ingrese un correo válido</small>
+							</div>
+						</div>
+					</div>
+					<p class="text-secondary text-uppercase text-end">
+						<span class="badge badge-sm bg-yellow" style="font-size: 13px;">
+							<i class="bi bi-info-circle"></i> No se puede repetir correo de otro alumno
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer">
+			<div class="row">
+				<div class="col-auto">
+					<button class="btn btn-sm btn-theme" (click)="editCliente()" [disabled]="!formEditar.valid">Modificar</button>
+					<button class="btn btn-sm btn-danger text-light mx-3" (click)="closeModalEdit()">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</form>
 </ng-template>
 <!-- SPINNER -->
 <ngx-spinner type="timer"></ngx-spinner>

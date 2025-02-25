@@ -72,4 +72,8 @@ export class AcademicService {
   actEstadeClass(data){
     return this.httpClient.patch<any>(this.envUrl.urlAddress + 'academico/clase/actualizar-estado_diplomado-clase/', data)
   }
+
+  downloadFile(data){
+    return this.httpClient.get(this.envUrl.urlAddress + 'marketing/download/dexcel-leads/?'+ data, {responseType: 'blob'})
+  }
 }

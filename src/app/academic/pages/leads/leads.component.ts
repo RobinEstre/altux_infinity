@@ -5,7 +5,7 @@ import { AcademicService } from '../../services/academic.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
-import {DatePipe, registerLocaleData} from "@angular/common";
+import { DatePipe, registerLocaleData } from "@angular/common";
 import localeEs from '@angular/common/locales/es';
 import { Subject } from 'rxjs';
 import { VentasService } from 'src/app/ventas/service/ventas.service';
@@ -14,12 +14,13 @@ registerLocaleData(localeEs, 'es');
 import { greet } from '../../../../assets/js/service.js';
 import { config_data } from '../../../../assets/js/config.js';
 import { ejecutar } from '../../../../assets/js/checkout.js';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-leads',
   templateUrl: './leads.component.html',
   styleUrls: ['./leads.component.scss'],
-    providers: [ { provide: LOCALE_ID, useValue: 'es' }, DatePipe]
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }, DatePipe]
 })
 export class LeadsComponent implements OnInit {
   public static spanish_datatables = {
@@ -80,17 +81,17 @@ export class LeadsComponent implements OnInit {
   @ViewChild('modal_editar') private modalEditar: TemplateRef<LeadsComponent>;
   private modalEdit: NgbModalRef;
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
   @ViewChild('dtActions') dtActions!: TemplateRef<LeadsComponent>;
   @ViewChild('is_tipo') is_tipo!: TemplateRef<LeadsComponent>;
   @ViewChild('is_fechaModificacion') is_fechaModificacion!: TemplateRef<LeadsComponent>;
   @ViewChild('is_celular') is_celular!: TemplateRef<LeadsComponent>;
-  @ViewChild('idTpl', {static: true}) idTpl: TemplateRef<LeadsComponent>;
+  @ViewChild('idTpl', { static: true }) idTpl: TemplateRef<LeadsComponent>;
 
-  constructor(private spinner: NgxSpinnerService, private Service: AcademicService,private fb: FormBuilder,private modalService: NgbModal,
-    private cd: ChangeDetectorRef,private datePipe: DatePipe,private service: VentasService,) { 
+  constructor(private spinner: NgxSpinnerService, private Service: AcademicService, private fb: FormBuilder, private modalService: NgbModal,
+    private cd: ChangeDetectorRef, private datePipe: DatePipe, private service: VentasService,) {
   }
 
   formDescarga = this.fb.group({
@@ -100,21 +101,21 @@ export class LeadsComponent implements OnInit {
   });
   formgrupos = this.fb.group({
     vendedores: ['']
-  });  
+  });
   formSeguimiento = this.fb.group({
-    estado:['',],
-    reason: ['',Validators.required],
+    estado: ['',],
+    reason: ['', Validators.required],
     fecha: [''],
   });
   formRegistro = this.fb.group({
-    tipo_matricula:['',],
+    tipo_matricula: ['',],
     fecha: [null],
     is_factura: [false,],
     ruc: ['',],
-    grado_instruccion:[''],
-    cargo:[''],
-    area:[''],
-    datecall:['']
+    grado_instruccion: [''],
+    cargo: [''],
+    area: [''],
+    datecall: ['']
   });
   formEditar = this.fb.group({
     tipo_doc: ['', Validators.required],
@@ -152,41 +153,41 @@ export class LeadsComponent implements OnInit {
       'name': 'Al Contado',
     },
   ];
-  cargo:any=[
+  cargo: any = [
     {
-      name:'JEFE DE DEPARTAMENTO'
+      name: 'JEFE DE DEPARTAMENTO'
     },
     {
-      name:'JEFE DE SERVICIO'
+      name: 'JEFE DE SERVICIO'
     },
     {
-      name:'ASISTENCIAL'
+      name: 'ASISTENCIAL'
     },
     {
-      name:'NO LABORAL'
+      name: 'NO LABORAL'
     }
   ];
-  grado_instruccion:any=[
-    {'name': 'LICENCIADO'},
-    {'name': 'COLEGIADO'},
-    {'name': 'BACHILLER'},
-    {'name': 'TÉCNICO'},
-    {'name': 'ESTUDIANTE'}
+  grado_instruccion: any = [
+    { 'name': 'LICENCIADO' },
+    { 'name': 'COLEGIADO' },
+    { 'name': 'BACHILLER' },
+    { 'name': 'TÉCNICO' },
+    { 'name': 'ESTUDIANTE' }
   ];
-  estado_seg:any=[
-    {id: 'informacion', name: 'Interesado'},
-    {id: 'no_contesta', name: 'No Contesta'},
-    {id: 'no_interesado', name: 'No Interesado'},
-    {id: 'compromiso_pago', name: 'Compromiso Matrícula'},
-    {id: 'proximo_grupo', name: 'Lead No Califica'}
+  estado_seg: any = [
+    { id: 'informacion', name: 'Interesado' },
+    { id: 'no_contesta', name: 'No Contesta' },
+    { id: 'no_interesado', name: 'No Interesado' },
+    { id: 'compromiso_pago', name: 'Compromiso Matrícula' },
+    { id: 'proximo_grupo', name: 'Lead No Califica' }
   ];
-  tipo_lista:any=[
-    {name: 'LEADS'},
-    {name: 'BASE EXTRA'}
+  tipo_lista: any = [
+    { name: 'LEADS' },
+    { name: 'BASE EXTRA' }
   ];
-  
+
   columns: Array<any> = [];
-  dtOptions: DataTables.Settings  = {};
+  dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   dataTableActions: Array<any> = [
     {
@@ -208,32 +209,38 @@ export class LeadsComponent implements OnInit {
     //   icon: 'bi bi-pencil-square'
     // },
   ];
-  files: File[] = []; vendedores:any;
-  is_rol:any;is_user:any
+  files: File[] = []; vendedores: any;
+  is_rol: any; is_user: any; activo: boolean = false
 
-  detalle_edit:any
-  leads:any; estado:any; ficha:boolean=false; discount:any; data_detail:any; is_facture:boolean=false; nameruc:any; mostrarDiscount:boolean=false
-  mostrarDate:boolean=false; nombre_descuento:any; area_trabajo:any; area:boolean=false; _generate:any;filter_params:any; date_seguimiento:boolean=false
+  detalle_edit: any
+  leads: any; estado: any; ficha: boolean = false; discount: any; data_detail: any; is_facture: boolean = false; nameruc: any; mostrarDiscount: boolean = false
+  mostrarDate: boolean = false; nombre_descuento: any; area_trabajo: any; area: boolean = false; _generate: any; filter_params: any; date_seguimiento: boolean = false
   previousFilterValue: any = '';
-  public paginate:any; public start_paginate:number=0; register_count:number;
+  public paginate: any; public start_paginate: number = 0; register_count: number;
 
   ngOnInit(): void {
+    const fechaInicio = this.obtenerFechaInicioDeMes();
+    const fechaFin = this.obtenerFechaFinDeMes();
+    const fechaInicioFormateada = this.formatearFecha(fechaInicio);
+    const fechaFinFormateada = this.formatearFecha(fechaFin);
+    this.formDescarga.controls.fecha_inicio.setValue(fechaInicioFormateada)
+    this.formDescarga.controls.fecha_fin.setValue(fechaFinFormateada)
     this.formDescarga.controls.fecha_fin.disable()
     this.formDescarga.controls.fecha_inicio.disable()
     setTimeout(() => {
-      this.is_rol=localStorage.getItem('role_user');
-      this.is_user=localStorage.getItem('USERNAME');
-      if(this.is_user=='JOSE FRANCISCO'||this.is_user=='ACADEMICO'){
-        this.Service.listAllVendedores().subscribe(resp=>{
-          if(resp.success){
-            let data=[]
-            resp.data.forEach(i=>{
+      this.is_rol = localStorage.getItem('role_user');
+      this.is_user = localStorage.getItem('USERNAME');
+      if (this.is_user == 'JOSE FRANCISCO' || this.is_user == 'ACADEMICO') {
+        this.Service.listAllVendedores().subscribe(resp => {
+          if (resp.success) {
+            let data = []
+            resp.data.forEach(i => {
               data.push({
                 id: i.vendedor_id,
                 name: i.nombres
               })
             })
-            this.vendedores=data
+            this.vendedores = data
             this.formgrupos.controls.vendedores.setValue(this.vendedores[0].id)
             this.spinner.hide();
             setTimeout(() => {
@@ -246,24 +253,24 @@ export class LeadsComponent implements OnInit {
   }
 
   onSelect(event: { addedFiles: any; }) {
-    this.files=[]
+    this.files = []
     this.files.push(...event.addedFiles);
   }
-  
-  onRemove(event:any) {
+
+  onRemove(event: any) {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  uploadLeads(){
+  uploadLeads() {
     this.spinner.show()
-    let i=0
-    for(let a=0; a<this.files.length; a++){
+    let i = 0
+    for (let a = 0; a < this.files.length; a++) {
       const formData = new FormData()
       formData.append('excel_file', this.files[a], this.files[a].name);
       this.Service.registerLeads(formData).subscribe(data => {
-        if(data.success){
+        if (data.success) {
           i++
-          if(i==this.files.length){
+          if (i == this.files.length) {
             Swal.fire({
               position: "center",
               icon: "success",
@@ -272,12 +279,12 @@ export class LeadsComponent implements OnInit {
               showConfirmButton: false,
               timer: 2000
             });
-            this.files=[]
+            this.files = []
             this.spinner.hide()
           }
         }
-      },error => {
-        if(error.status==400){
+      }, error => {
+        if (error.status == 400) {
           Swal.fire({
             title: 'Advertencia!',
             text: error.error.message,
@@ -288,7 +295,7 @@ export class LeadsComponent implements OnInit {
             cancelButtonText: 'Cerrar'
           })
         }
-        if(error.status==500){
+        if (error.status == 500) {
           Swal.fire({
             title: 'Advertencia!',
             text: 'Comuniquese con el Área de Sistemas',
@@ -305,12 +312,11 @@ export class LeadsComponent implements OnInit {
     }
   }
 
-  selectFechas(){
-    console.log(this.formDescarga.controls.check.value)
-    let activo=this.formDescarga.controls.check.value
+  selectFechas() {
+    this.activo = this.formDescarga.controls.check.value
     this.formDescarga.controls.fecha_fin.enable()
     this.formDescarga.controls.fecha_inicio.enable()
-    if(!activo){
+    if (!this.activo) {
       this.formDescarga.controls.fecha_fin.disable()
       this.formDescarga.controls.fecha_inicio.disable()
     }
@@ -318,36 +324,36 @@ export class LeadsComponent implements OnInit {
 
   // NUEVO ADMIN 
 
-  listInit(){
+  listInit() {
     this.service.getEstado().subscribe(resp => {
-      if(resp.success){
-        this.estado=resp.data
+      if (resp.success) {
+        this.estado = resp.data
       }
-    },error=>{
-      if(error.status==400){
+    }, error => {
+      if (error.status == 400) {
         Swal.fire({
           position: "center",
           icon: "error",
           title: 'Advertencia!',
           text: error.error.message,
           showConfirmButton: false,
-          timer:2000
+          timer: 2000
         });
       }
-      if(error.status==500){
+      if (error.status == 500) {
         Swal.fire({
           position: "center",
           icon: "error",
           title: 'Advertencia!',
           text: 'Comuniquese con el Área de Sistemas',
           showConfirmButton: false,
-          timer:2000
+          timer: 2000
         });
       }
       this.spinner.hide()
     });
     this.service.getArea().subscribe(data => {
-      if (data['success'] === true){
+      if (data['success'] === true) {
         this.area_trabajo = data['data'];
       }
     });
@@ -355,10 +361,11 @@ export class LeadsComponent implements OnInit {
     this.listarLeads();
   }
 
-  listarLeads(){
+  listarLeads() {
     this.columns.push(
-      {title: 'N°', data:'n' },
-      {title: 'Nombres y Apellidos', data: 'seguimiento', orderable: false, searchable: false, defaultContent: '',
+      { title: 'N°', data: 'n' },
+      {
+        title: 'Nombres y Apellidos', data: 'seguimiento', orderable: false, searchable: false, defaultContent: '',
         ngTemplateRef: {
           ref: this.is_tipo,
           context: {
@@ -366,8 +373,9 @@ export class LeadsComponent implements OnInit {
           }
         }
       },
-      {title: 'DNI', data: 'dni'},
-      {title: 'Celular', data: 'telefono', orderable: false, searchable: false, defaultContent: '',
+      { title: 'DNI', data: 'dni' },
+      {
+        title: 'Celular', data: 'telefono', orderable: false, searchable: false, defaultContent: '',
         ngTemplateRef: {
           ref: this.is_celular,
           context: {
@@ -375,11 +383,12 @@ export class LeadsComponent implements OnInit {
           }
         }
       },
-      {title: 'Correo', data: 'email'},
-      {title: 'Diplomado', data: 'courses_name'},
-      {title: 'Procedencia', data: 'procedencia'},
-      {title: 'F. Registro', data: 'created_at'},
-      {title: 'F. Modificación', data: 'updated_at', orderable: false, searchable: false, defaultContent: '',
+      { title: 'Correo', data: 'email' },
+      { title: 'Diplomado', data: 'courses_name' },
+      { title: 'Procedencia', data: 'procedencia' },
+      { title: 'F. Registro', data: 'created_at' },
+      {
+        title: 'F. Modificación', data: 'updated_at', orderable: false, searchable: false, defaultContent: '',
         ngTemplateRef: {
           ref: this.is_fechaModificacion,
           context: {
@@ -409,7 +418,7 @@ export class LeadsComponent implements OnInit {
         if (this.previousFilterValue !== this.formgrupos.controls.vendedores.value) {
           this.previousFilterValue = this.formgrupos.controls.vendedores.value;
           dataTablesParameters['start'] = 0; // Reinicia a la página 1
-          
+
           // Reiniciar visualmente la tabla a la página 1
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.page(0).draw(false);
@@ -417,17 +426,17 @@ export class LeadsComponent implements OnInit {
         }
         // validar si existe variables en el objeto
         let result = Object.entries(dataTablesParameters).length;
-        if (result > 0){
+        if (result > 0) {
           // si hay registros, configurar los nuevos parametros de busqueda
           let body_params = dataTablesParameters
 
           this.start_paginate = body_params['start']
 
-          if (this.register_count){
-            if(body_params['length'] > this.register_count){
+          if (this.register_count) {
+            if (body_params['length'] > this.register_count) {
               this.paginate = 1
-            }else{
-              let n_paginated = (this.register_count  / body_params['length'])
+            } else {
+              let n_paginated = (this.register_count / body_params['length'])
 
               n_paginated = Math.ceil(n_paginated)
 
@@ -446,27 +455,27 @@ export class LeadsComponent implements OnInit {
                 }
               });
             }
-          }else{
+          } else {
             this.paginate = 1
           }
           //this.filter_params = `$cantidad=${body_params['length']}&pagina=${this.paginate}&searchs=${body_params['search']['value'] || ''}`
-          this.filter_params=`procedencia=LEADS&procedencia=LEADS-A&pagina=${this.paginate}&filter[seller]=${this.formgrupos.controls.vendedores.value}&cantidad=${body_params['length']}&search=${body_params['search']['value'] || ''}`
+          this.filter_params = `procedencia=LEADS&procedencia=LEADS-A&pagina=${this.paginate}&filter[seller]=${this.formgrupos.controls.vendedores.value}&cantidad=${body_params['length']}&search=${body_params['search']['value'] || ''}`
         }
         this.service.getLeads(this.filter_params).subscribe(resp => {
-          let data=[], n=0, cantidad=0
-          if(resp){
-            if(resp.data){
-              resp['data'].forEach(i=>{
+          let data = [], n = 0, cantidad = 0
+          if (resp) {
+            if (resp.data) {
+              resp['data'].forEach(i => {
                 n++
-                let created_at= this.datePipe.transform(i.created_at,"dd/MM/yyyy")
-                let updated_at= this.datePipe.transform(i.updated_at,"dd/MM/yyyy")
+                let created_at = this.datePipe.transform(i.created_at, "dd/MM/yyyy")
+                let updated_at = this.datePipe.transform(i.updated_at, "dd/MM/yyyy")
                 data.push({
-                  "n":n,
+                  "n": n,
                   "id": i.id,
                   "diplomado": i.diplomado,
                   'courses_name': i.diplomado.courses_name,
                   "estado": i.estado,
-                  "alumno": i.nombres+" "+i.apellidos,
+                  "alumno": i.nombres + " " + i.apellidos,
                   "nombres": i.nombres,
                   "apellidos": i.apellidos,
                   "dni": i.dni,
@@ -483,7 +492,7 @@ export class LeadsComponent implements OnInit {
               })
               this.register_count = resp['cantidad']
             }
-          }else{this.register_count = cantidad}
+          } else { this.register_count = cantidad }
           callback({
             recordsTotal: resp['cantidad'],
             recordsFiltered: resp['cantidad'],
@@ -526,11 +535,11 @@ export class LeadsComponent implements OnInit {
   }
 
   onCaptureEvent(event: any): void {
-    if (event['cmd'] === 'seguimiento'){
+    if (event['cmd'] === 'seguimiento') {
       this.openModalSeguimiento(event['data'])
-    }else if (event['cmd'] === 'edit'){
+    } else if (event['cmd'] === 'edit') {
       this.openModalEdit(event['data'])
-    }else if(event.cmd === 'add'){
+    } else if (event.cmd === 'add') {
       this.openModal(event['data'])
     }
   }
@@ -538,7 +547,7 @@ export class LeadsComponent implements OnInit {
   captureEventsEmitido(event: any): void {
   }
 
-  rerender(){
+  rerender() {
     this.filter_params = `procedencia=LEADS&pagina=1&cantidad=10`
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -550,8 +559,8 @@ export class LeadsComponent implements OnInit {
 
   openModal(data) {
     this.reset()
-    this.data_detail=data
-    this.modalRef = this.modalService.open(this.modal,{centered: true, size: 'md', keyboard: false, backdrop : 'static'});
+    this.data_detail = data
+    this.modalRef = this.modalService.open(this.modal, { centered: true, size: 'md', keyboard: false, backdrop: 'static' });
     this.modalRef.result.then();
   }
 
@@ -559,37 +568,37 @@ export class LeadsComponent implements OnInit {
     this.modalRef.close();
   }
 
-  reset(){
+  reset() {
     this.formRegistro.reset()
     this.formRegistro.controls['tipo_matricula'].setValue('')
     this.formRegistro.controls['cargo'].setValue('')
     this.formRegistro.controls['grado_instruccion'].setValue('')
     this.formRegistro.controls['area'].setValue('')
-    this.area=false
-    this.ficha=false
-    this.mostrarDate=false
-    this.mostrarDiscount=false
-    this.is_facture=false
-    this.discount=null
-    this.nameruc=null
+    this.area = false
+    this.ficha = false
+    this.mostrarDate = false
+    this.mostrarDiscount = false
+    this.is_facture = false
+    this.discount = null
+    this.nameruc = null
   }
 
   openModalEdit(alumnos) {
     // console.log(alumnos)
-    this.detalle_edit=alumnos
+    this.detalle_edit = alumnos
     this.formEditar.reset()
-    
-    let tipo='dni'
-    if(alumnos.dni.length!=8){tipo=''}
+
+    let tipo = 'dni'
+    if (alumnos.dni.length != 8) { tipo = '' }
     // Asigna los valores a los controles del formulario
     this.formEditar.controls['tipo_doc'].setValue(tipo); // Si tienes el tipo de documento
     this.formEditar.controls['num_doc'].setValue(alumnos.dni);       // DNI del alumno
     this.formEditar.controls['nombres'].setValue(alumnos.nombres);   // Nombres del alumno
     this.formEditar.controls['apellido_p'].setValue(alumnos.apellidos.split(' ')[0]); // Primer apellido
     this.formEditar.controls['apellido_m'].setValue(alumnos.apellidos.split(' ')[1]); // Segundo apellido
-    this.formEditar.controls['email'].setValue(alumnos.email);     
+    this.formEditar.controls['email'].setValue(alumnos.email);
 
-    this.modalEdit = this.modalService.open(this.modalEditar, { centered: true, size: 'md', keyboard: false, backdrop : 'static' });
+    this.modalEdit = this.modalService.open(this.modalEditar, { centered: true, size: 'md', keyboard: false, backdrop: 'static' });
     this.modalEdit.result.then();
   }
 
@@ -599,12 +608,12 @@ export class LeadsComponent implements OnInit {
     // this.namepatrocinador=null
   }
 
-  openModalSeguimiento(data){
-    this.date_seguimiento=false
+  openModalSeguimiento(data) {
+    this.date_seguimiento = false
     this.formSeguimiento.reset()
-    this.data_detail=data
+    this.data_detail = data
     this.formSeguimiento.controls.estado.setValue('')
-    this.modalRefSeguimiento = this.modalService.open(this.modalSeguimiento,{centered: true, size: 'md', keyboard: false, backdrop : 'static'});
+    this.modalRefSeguimiento = this.modalService.open(this.modalSeguimiento, { centered: true, size: 'md', keyboard: false, backdrop: 'static' });
     this.modalRefSeguimiento.result.then();
   }
 
@@ -621,7 +630,7 @@ export class LeadsComponent implements OnInit {
     this.modalRefPago.close();
   }
 
-  getInfoByRuc(event){
+  getInfoByRuc(event) {
     const inputValue = event.target.value;
     this.nameruc = null;
     if (inputValue.length === 11) {
@@ -643,7 +652,7 @@ export class LeadsComponent implements OnInit {
             timer: 1500
           });
         }
-        else if (data['data'].resultado['estado']=='ACTIVO'){
+        else if (data['data'].resultado['estado'] == 'ACTIVO') {
           this.nameruc = data['data'].resultado['razon_social'];
           Swal.fire({
             position: "center",
@@ -653,7 +662,7 @@ export class LeadsComponent implements OnInit {
             timer: 1500
           });
         }
-        else if (data['data'].resultado['estado'] !='ACTIVO') {
+        else if (data['data'].resultado['estado'] != 'ACTIVO') {
           Swal.fire({
             position: "center",
             icon: "warning",
@@ -678,55 +687,55 @@ export class LeadsComponent implements OnInit {
     }
   }
 
-  select(event){
-    this.ficha=event.target.checked
+  select(event) {
+    this.ficha = event.target.checked
     this.formRegistro.controls['datecall'].setValidators([]);
     this.formRegistro.controls['datecall'].updateValueAndValidity();
     this.formRegistro.controls['tipo_matricula'].setValidators([]);
     this.formRegistro.controls['tipo_matricula'].updateValueAndValidity();
     this.formRegistro.controls['fecha'].setValidators([]);
     this.formRegistro.controls['fecha'].updateValueAndValidity();
-    if(!this.ficha){
+    if (!this.ficha) {
       this.formRegistro.controls['tipo_matricula'].setValidators([Validators.required]);
       this.formRegistro.controls['tipo_matricula'].updateValueAndValidity();
       this.formRegistro.controls['fecha'].setValidators([Validators.required]);
       this.formRegistro.controls['fecha'].updateValueAndValidity();
       this.formRegistro.controls['tipo_matricula'].setValue('')
       this.formRegistro.controls['fecha'].setValue(null)
-      this.discount=null
+      this.discount = null
     }
-    else if(this.ficha){
+    else if (this.ficha) {
       this.formRegistro.controls['datecall'].setValidators([Validators.required]);
       this.formRegistro.controls['datecall'].updateValueAndValidity();
       this.formRegistro.controls['datecall'].setValue(null)
     }
   }
 
-  optionFacture(event){
+  optionFacture(event) {
     let ischecked = event.target.checked;
-    if (ischecked === true){
+    if (ischecked === true) {
       this.is_facture = true
-      this.formRegistro.controls['ruc'].setValidators([Validators.required,Validators.minLength(11), Validators.maxLength(11)]);
+      this.formRegistro.controls['ruc'].setValidators([Validators.required, Validators.minLength(11), Validators.maxLength(11)]);
       this.formRegistro.controls['ruc'].updateValueAndValidity();
-    }else{
+    } else {
       this.formRegistro.controls['ruc'].setValidators([]);
       this.formRegistro.controls['ruc'].updateValueAndValidity();
       this.formRegistro.controls['ruc'].setValue('');
-      this.nameruc=null;
+      this.nameruc = null;
       this.is_facture = false
     }
   }
-  
-  selectListar(event){}
 
-  selectSeguimiento(event){
+  selectListar(event) { }
+
+  selectSeguimiento(event) {
     this.formSeguimiento.controls.fecha.setValue(null)
-    this.date_seguimiento=false
-    if(event.target.value=='compromiso_pago'){this.date_seguimiento=true}
-    if(event.target.value=='informacion'){this.date_seguimiento=true}
+    this.date_seguimiento = false
+    if (event.target.value == 'compromiso_pago') { this.date_seguimiento = true }
+    if (event.target.value == 'informacion') { this.date_seguimiento = true }
   }
 
-  selectMatricula(event){
+  selectMatricula(event) {
     this.spinner.show();
     try {
       this.formRegistro.controls['fecha'].setValue(null);
@@ -738,61 +747,61 @@ export class LeadsComponent implements OnInit {
       this.service.listDiscount(jsonbody).subscribe(data => {
         this.discount = data['message'];
         if (data['message']['first_payment'] === 0) {
-          this.mostrarDiscount = false;          
+          this.mostrarDiscount = false;
         } else {
           this.mostrarDiscount = true;
         }
         this.spinner.hide();
       });
     }
-    catch (e){
+    catch (e) {
       this.spinner.hide();
-      this.discount=null;
+      this.discount = null;
       this.formRegistro.controls['tipo_matricula'].setValue(null);
     }
-    if(tipo_matricula === 'prematricula'){
-      this.mostrarDate=true;
-      this.nombre_descuento='Matrícula';
+    if (tipo_matricula === 'prematricula') {
+      this.mostrarDate = true;
+      this.nombre_descuento = 'Matrícula';
       this.formRegistro.controls['fecha'].setValidators([Validators.required]);
       this.formRegistro.controls['fecha'].updateValueAndValidity();
     }
-    else if(tipo_matricula === 'matriculacontado'){
-      this.mostrarDate=false;
-      this.nombre_descuento='Diplomado Contado';
+    else if (tipo_matricula === 'matriculacontado') {
+      this.mostrarDate = false;
+      this.nombre_descuento = 'Diplomado Contado';
       this.formRegistro.controls['fecha'].setValidators([]);
       this.formRegistro.controls['fecha'].updateValueAndValidity();
     }
     else {
-      this.mostrarDate=false;
-      this.nombre_descuento='Matrícula + 1ra Mensualidad';
+      this.mostrarDate = false;
+      this.nombre_descuento = 'Matrícula + 1ra Mensualidad';
       this.formRegistro.controls['fecha'].setValidators([]);
       this.formRegistro.controls['fecha'].updateValueAndValidity();
     }
   }
 
-  selectCargo(event){
+  selectCargo(event) {
     let cargo = event.target.value;
     this.formRegistro.controls['area'].setValue('')
     this.formRegistro.controls['area'].setValidators([]);
     this.formRegistro.controls['area'].updateValueAndValidity();
-    if (cargo == 'JEFE DE DEPARTAMENTO' ) {
+    if (cargo == 'JEFE DE DEPARTAMENTO') {
       this.area = false
-    }else if ( cargo == 'JEFE DE SERVICIO') {
+    } else if (cargo == 'JEFE DE SERVICIO') {
       this.area = true
       this.formRegistro.controls['area'].setValidators([Validators.required]);
       this.formRegistro.controls['area'].updateValueAndValidity();
-    }else if ( cargo == 'ASISTENCIAL') {
+    } else if (cargo == 'ASISTENCIAL') {
       this.area = true
       this.formRegistro.controls['area'].setValidators([Validators.required]);
       this.formRegistro.controls['area'].updateValueAndValidity();
-    }else {
+    } else {
       this.area = false
       this.formRegistro.controls['area'].setValidators([]);
       this.formRegistro.controls['area'].updateValueAndValidity();
     }
   }
-  
-  selectTipoDoc(event){
+
+  selectTipoDoc(event) {
     this.formEditar.controls.num_doc.setValue('')
     this.formEditar.controls.nombres.setValue('')
     this.formEditar.controls.apellido_p.setValue('')
@@ -802,12 +811,12 @@ export class LeadsComponent implements OnInit {
     this.formEditar.controls.apellido_m.enable();
   }
 
-  editCliente(){
+  editCliente() {
     this.spinner.show()
     let jsonbody = {
       "new_dni": this.formEditar.controls.num_doc.value,
       "new_nombres": this.formEditar.controls.nombres.value,
-      "new_apellidos": this.formEditar.controls.apellido_p.value+' '+this.formEditar.controls.apellido_m.value,
+      "new_apellidos": this.formEditar.controls.apellido_p.value + ' ' + this.formEditar.controls.apellido_m.value,
       "new_email": this.formEditar.controls.email.value
     }
     this.service.actualizarLeads(this.detalle_edit.id, jsonbody).subscribe(data => {
@@ -821,13 +830,13 @@ export class LeadsComponent implements OnInit {
           title: '¡Genial ☺!',
           text: '¡Se Actualizó los datos!',
           showConfirmButton: false,
-          timer:2000
+          timer: 2000
         });
       }
     }, error => {
       this.spinner.hide();
       if (error.status === 400) {
-       if (error.error['message']) {
+        if (error.error['message']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -837,7 +846,7 @@ export class LeadsComponent implements OnInit {
             timer: 3500
           })
           //this.toastr.error(error.error['message'], '¡Error!');
-        }else if (error.error.errors['non_field_errors']) {
+        } else if (error.error.errors['non_field_errors']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -852,7 +861,7 @@ export class LeadsComponent implements OnInit {
     });
   }
 
-  getInfoByDni(event){
+  getInfoByDni(event) {
     let dni_consulta = {
       "tipo": "dni",
       "documento": event.target.value
@@ -860,7 +869,7 @@ export class LeadsComponent implements OnInit {
     if (event.target.value.length === 8) {
       this.spinner.show();
       this.formEditar.controls.num_doc.disable();
-      
+
       this.service.getInfoDNI(dni_consulta.tipo, dni_consulta.documento).subscribe(dni_val => {
         this.spinner.hide();
         this.formEditar.controls.num_doc.enable();
@@ -873,11 +882,11 @@ export class LeadsComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
-        }else{
+        } else {
           let dni = {
             "nombres": dni_val.data.resultado['nombres'],
             "apellidoPaterno": dni_val.data.resultado['apellido_paterno'],
-            "apellidoMaterno":  dni_val.data.resultado['apellido_materno'],
+            "apellidoMaterno": dni_val.data.resultado['apellido_materno'],
           }
           Swal.fire({
             position: "center",
@@ -909,7 +918,7 @@ export class LeadsComponent implements OnInit {
         });
       });
     }
-    else{
+    else {
       this.formEditar.controls.num_doc.enable();
       this.formEditar.controls.nombres.setValue('');
       this.formEditar.controls.apellido_p.setValue('');
@@ -920,16 +929,16 @@ export class LeadsComponent implements OnInit {
     }
   }
 
-  saveSeguimiento(){
+  saveSeguimiento() {
     this.spinner.show()
-    let fecha_pago=null; let fecha_contactar=null
-    if(this.formSeguimiento.controls.estado.value=='compromiso_pago'){
-      fecha_pago= ((new Date(this.formSeguimiento.controls.fecha.value)).getTime())/1000      
+    let fecha_pago = null; let fecha_contactar = null
+    if (this.formSeguimiento.controls.estado.value == 'compromiso_pago') {
+      fecha_pago = ((new Date(this.formSeguimiento.controls.fecha.value)).getTime()) / 1000
     }
-    if(this.formSeguimiento.controls.estado.value=='informacion'){
-      fecha_contactar= ((new Date(this.formSeguimiento.controls.fecha.value)).getTime())/1000      
+    if (this.formSeguimiento.controls.estado.value == 'informacion') {
+      fecha_contactar = ((new Date(this.formSeguimiento.controls.fecha.value)).getTime()) / 1000
     }
-    let body={
+    let body = {
       "fecha_pago": fecha_pago,
       "fecha_contactar": fecha_contactar,
       "tipo_seguimiento": this.formSeguimiento.controls.estado.value,
@@ -945,14 +954,14 @@ export class LeadsComponent implements OnInit {
           title: '¡Genial ☺!',
           text: '¡Se Registró el Seguimiento!',
           showConfirmButton: false,
-          timer:2000
+          timer: 2000
         });
         this.rerender()
       }
     }, error => {
       this.spinner.hide();
       if (error.status === 400) {
-       if (error.error['message']) {
+        if (error.error['message']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -962,7 +971,7 @@ export class LeadsComponent implements OnInit {
             timer: 3500
           })
           //this.toastr.error(error.error['message'], '¡Error!');
-        }else if (error.error.errors['non_field_errors']) {
+        } else if (error.error.errors['non_field_errors']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -977,41 +986,94 @@ export class LeadsComponent implements OnInit {
     });
   }
 
-  saveRegister(){
-    if(!this.ficha){
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-warning',
-          cancelButton: 'btn btn-dark mx-3'
-        },
-        buttonsStyling: false
+  saveDownload() {
+    let vendedor = [{ id: 0, name: 'Todos' }]
+    this.vendedores.forEach(element => {
+      vendedor.push({
+        id: element.id,
+        name: element.name
       })
-      swalWithBootstrapButtons.fire({
-        title: 'MÉTODO DE PAGO',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '💰 PagoEfectivo',
-        cancelButtonText: '💳 Tarjetas'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.registerMatricula()
-        }
-        else if (result.isDismissed) {
-          this.generarLinkPago()
-        }
-      })
-    }
-    else if(this.ficha){
-      this.registerFicha()
-    }
+    })
+    var options = {};
+    $.map(vendedor,
+      function (o) {
+        options[o.id] = o.name;
+      });
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success text-bold',
+        cancelButton: 'btn btn-danger mx-2 text-bold'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: 'Descargar Documento',
+      text: 'Seleccionar Vendedor',
+      input: 'select',
+      inputOptions: options,
+      showCancelButton: true,
+      //animation: 'slide-from-top',
+      inputPlaceholder: 'Por favor seleccione un vendedor',
+      confirmButtonText: 'Descargar Excel',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.downloadLeads(+result.value)
+        //console.log(result);
+      }
+    })
   }
-  
-  registerFicha(){
-    let js=this.formRegistro.controls['datecall'].value;
-    var unixtimestamp= (new Date(js).getTime())/1000
-    let body= {
+
+  downloadLeads(data) {
+    this.spinner.show()
+    // Asignamos fecha_inicio con 00:00:00 y fecha_fin con 23:59:59
+    let fecha_inicio = new Date(this.formDescarga.controls.fecha_inicio.value);
+    fecha_inicio.setHours(0, 0, 0, 0); // 00:00:00.000
+    let fecha_fin = new Date(this.formDescarga.controls.fecha_fin.value);
+    fecha_fin.setHours(23, 59, 59, 999); // 23:59:59.999
+
+    // Convertimos a string con el formato correcto
+    let fecha_inicio_formateada = this.formatFecha(fecha_inicio);
+    let fecha_fin_formateada = this.formatFecha(fecha_fin);
+
+    // let params = 'procedencia=LEADS'
+    let params = ''
+    if (this.formDescarga.controls.check.value == true) { params += '&date_inicio=' + fecha_inicio_formateada + '&date_fin=' + fecha_fin_formateada }
+    if (data != 0) { params += '&vendedor_id=' + data }
+
+    this.Service.downloadFile(params).subscribe(data => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let name = 'Leads ' + this.formDescarga.controls.fecha_inicio.value + '-' + this.formDescarga.controls.fecha_fin.value + '.xlsx'
+      saveAs(blob, name);
+      this.spinner.hide()
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: '¡Genial ☺!',
+        text: '¡Descarga Realizada!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    })
+  }
+
+  formatFecha(fecha: Date): string {
+    const año = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // getMonth() devuelve 0-11, por eso sumamos 1
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const horas = String(fecha.getHours()).padStart(2, '0');
+    const minutos = String(fecha.getMinutes()).padStart(2, '0');
+    const segundos = String(fecha.getSeconds()).padStart(2, '0');
+    const milisegundos = String(fecha.getMilliseconds()).padStart(6, '0'); // Aseguramos 6 dígitos para compatibilidad
+
+    return `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}.${milisegundos}`;
+  }
+
+  registerFicha() {
+    let js = this.formRegistro.controls['datecall'].value;
+    var unixtimestamp = (new Date(js).getTime()) / 1000
+    let body = {
       "pais": "Perú",
       "type_doc": 1,
       "name": this.data_detail.nombres,
@@ -1024,9 +1086,9 @@ export class LeadsComponent implements OnInit {
       "procedencia_venta": this.data_detail.procedencia,
       "grado_instruccion": this.formRegistro.controls['grado_instruccion'].value,
       "num_colegiatura": this.data_detail.numero_colegiatura,
-      "date_call":unixtimestamp.toString(),
-      "cargo":this.formRegistro.controls['cargo'].value,
-      "area":this.formRegistro.controls['area'].value,
+      "date_call": unixtimestamp.toString(),
+      "cargo": this.formRegistro.controls['cargo'].value,
+      "area": this.formRegistro.controls['area'].value,
       "is_referido": false,
       "dni_patrocinador": null,
       "name_patrocinador": null,
@@ -1048,14 +1110,14 @@ export class LeadsComponent implements OnInit {
           title: '¡Genial ☺!',
           text: '¡Se Agregó Cliente!',
           showConfirmButton: false,
-          timer:2000
+          timer: 2000
         });
         this.rerender()
       }
     }, error => {
       this.spinner.hide();
       if (error.status === 400) {
-       if (error.error['message']) {
+        if (error.error['message']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -1065,7 +1127,7 @@ export class LeadsComponent implements OnInit {
             timer: 3500
           })
           //this.toastr.error(error.error['message'], '¡Error!');
-        }else if (error.error.errors['non_field_errors']) {
+        } else if (error.error.errors['non_field_errors']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -1080,9 +1142,9 @@ export class LeadsComponent implements OnInit {
     });
   }
 
-  registerMatricula(){
+  registerMatricula() {
     let rzon_social, num_documento_sunat
-    if(this.is_facture == false){
+    if (this.is_facture == false) {
       rzon_social = this.data_detail.nombres + ' ' + this.data_detail.apellidos;
       num_documento_sunat = this.data_detail.dni;
     }
@@ -1090,11 +1152,11 @@ export class LeadsComponent implements OnInit {
       rzon_social = this.nameruc;
       num_documento_sunat = this.formRegistro.controls['ruc'].value;
     }
-    if(this.formRegistro.controls['tipo_matricula'].value=='prematricula'){
-      let js=this.formRegistro.controls['fecha'].value;
-      var unixtimestamp:any= (new Date(js).getTime()+960*60000)/1000
+    if (this.formRegistro.controls['tipo_matricula'].value == 'prematricula') {
+      let js = this.formRegistro.controls['fecha'].value;
+      var unixtimestamp: any = (new Date(js).getTime() + 960 * 60000) / 1000
     }
-    let body={
+    let body = {
       "diplomado_code": this.data_detail.diplomado.courses_code,
       "pais": "Perú",
       "tipoDoc": 1,
@@ -1127,8 +1189,8 @@ export class LeadsComponent implements OnInit {
     }
     this.spinner.show();
     this.service.registrarMatricula(body).subscribe(data => {
-      if (data['success'] === true){
-        if(data['data']['object']=='error'){
+      if (data['success'] === true) {
+        if (data['data']['object'] == 'error') {
           this.spinner.hide();
           this.closeModal();
           Swal.fire({
@@ -1137,13 +1199,13 @@ export class LeadsComponent implements OnInit {
             title: '¡Error!',
             text: '¡No se pudo generar el codigo, inténtelo nuevamente!',
             showConfirmButton: false,
-            timer:2000
+            timer: 2000
           });
         }
-        else{
+        else {
           this.closeModal();
           this.spinner.hide();
-          let datos={
+          let datos = {
             amount: data['data'].amount,
             currency_code: data['data'].currency_code,
             description: data['data'].description,
@@ -1165,7 +1227,7 @@ export class LeadsComponent implements OnInit {
               cuotealo: false,
             }
           };
-          let datos_config={
+          let datos_config = {
             TOTAL_AMOUNT: data['data'].amount,
             ORDER_NUMBER: data['data'].id,
             firstName: body.nombres,
@@ -1193,7 +1255,7 @@ export class LeadsComponent implements OnInit {
         }
         this.rerender()
       }
-    },error => {
+    }, error => {
       this.spinner.hide();
       if (error.status === 400) {
         if (error.error.message['non_field_errors']) {
@@ -1203,25 +1265,25 @@ export class LeadsComponent implements OnInit {
             title: '¡Error!',
             text: error.error.message['non_field_errors'][0],
             showConfirmButton: false,
-            timer:2000
+            timer: 2000
           });
-        }else if (error.error['message']) {
+        } else if (error.error['message']) {
           Swal.fire({
             position: "center",
             icon: "error",
             title: '¡Error!',
             text: error.error['message'],
             showConfirmButton: false,
-            timer:2000
+            timer: 2000
           });
         }
       }
     });
   }
 
-  generarLinkPago(){
+  generarLinkPago() {
     let rzon_social, num_documento_sunat
-    if(this.is_facture == false){
+    if (this.is_facture == false) {
       rzon_social = this.data_detail.nombres + ' ' + this.data_detail.apellidos;
       num_documento_sunat = this.data_detail.dni;
     }
@@ -1229,11 +1291,11 @@ export class LeadsComponent implements OnInit {
       rzon_social = this.nameruc;
       num_documento_sunat = this.formRegistro.controls['ruc'].value;
     }
-    if(this.formRegistro.controls['tipo_matricula'].value=='prematricula'){
-      let js=this.formRegistro.controls['fecha'].value;
-      var unixtimestamp:any= (new Date(js).getTime()+960*60000)/1000
+    if (this.formRegistro.controls['tipo_matricula'].value == 'prematricula') {
+      let js = this.formRegistro.controls['fecha'].value;
+      var unixtimestamp: any = (new Date(js).getTime() + 960 * 60000) / 1000
     }
-    let body={
+    let body = {
       "diplomado_code": this.data_detail.diplomado.courses_code,
       "pais": "Perú",
       "tipoDoc": 1,
@@ -1266,8 +1328,8 @@ export class LeadsComponent implements OnInit {
     }
     this.spinner.show();
     this.service.registrarLinkMatricula(body).subscribe(data => {
-      if( data['success']==true){
-        let linkpago='https://app.altux.edu.pe/matricula-pago/'+data['data']
+      if (data['success'] == true) {
+        let linkpago = 'https://app.altux.edu.pe/matricula-pago/' + data['data']
         this.copyText(linkpago)
         this.closeModal()
         this.spinner.hide()
@@ -1277,7 +1339,7 @@ export class LeadsComponent implements OnInit {
           title: '¡Genial ☺!',
           text: '¡Link Copiado!',
           showConfirmButton: false,
-          timer:2000
+          timer: 2000
         });
       }
       else {
@@ -1288,14 +1350,14 @@ export class LeadsComponent implements OnInit {
           title: '¡Error!',
           text: data['message'],
           showConfirmButton: false,
-          timer:2000
+          timer: 2000
         });
       }
       this.rerender()
     }, error => {
       this.spinner.hide();
       if (error.status === 400) {
-       if (error.error['message']) {
+        if (error.error['message']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -1304,7 +1366,7 @@ export class LeadsComponent implements OnInit {
             showConfirmButton: false,
             timer: 3500
           })
-        }else if (error.error.errors['non_field_errors']) {
+        } else if (error.error.errors['non_field_errors']) {
           Swal.fire({
             position: 'center',
             icon: 'warning',
@@ -1317,8 +1379,8 @@ export class LeadsComponent implements OnInit {
       }
     });
   }
-  
-  copyText(name){
+
+  copyText(name) {
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -1331,4 +1393,24 @@ export class LeadsComponent implements OnInit {
     document.execCommand('copy');
     document.body.removeChild(selBox);
   }
+
+  // Formatos
+
+  obtenerFechaInicioDeMes() {
+    const fechaInicio = new Date();
+    // Iniciar en este año, este mes, en el día 1
+    return new Date(fechaInicio.getFullYear(), fechaInicio.getMonth(), 1);
+  };
+
+  obtenerFechaFinDeMes() {
+    const fechaFin = new Date();
+    // Iniciar en este año, el siguiente mes, en el día 0 (así que así nos regresamos un día)
+    return new Date(fechaFin.getFullYear(), fechaFin.getMonth() + 1, 0);
+  };
+
+  formatearFecha(fecha) {
+    const mes = fecha.getMonth() + 1;
+    const dia = fecha.getDate();
+    return `${fecha.getFullYear()}-${(mes < 10 ? '0' : '').concat(mes)}-${(dia < 10 ? '0' : '').concat(dia)}`;
+  };
 }

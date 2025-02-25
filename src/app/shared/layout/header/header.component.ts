@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
     if(!this.show){
       //console.log(validate)
       if (validate!=null) {
-        console.log('paso aqui')
+        // console.log('paso aqui')
         this.service.getMenu().subscribe(resp=>{
           if(resp.success){
             let rol=validate, user_rol
@@ -152,7 +152,7 @@ export class HeaderComponent implements OnInit {
           }
         })
       }else{
-        console.log('ya valido')
+        // console.log('ya valido')
         this.service.getMenu().subscribe(resp=>{
           if(resp.success){
             // let rol=resp.menu[0].nav_var.nav_is_roles
@@ -280,7 +280,7 @@ export class HeaderComponent implements OnInit {
   }
 
   listMenu(rol) {
-    console.log(rol)
+    // console.log(rol)
     this.url=document.location.href.split('/')
     // this.rol = this.navBarService.CryptoJSAesDecrypt(this.secretrol, this.rus);
     // let rol= this.rol
@@ -344,8 +344,8 @@ export class HeaderComponent implements OnInit {
       this.signout()
     }
     setTimeout(() => {
-      console.log(this.url)
-      console.log(this.user_rol)
+      // console.log(this.url)
+      // console.log(this.user_rol)
       if(this.url.length==5){
         if(this.user_rol!=this.url[3]){this.signout()}
       }
