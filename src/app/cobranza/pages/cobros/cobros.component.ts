@@ -243,6 +243,7 @@ export class CobrosComponent implements OnInit {
       })
       this.diplomado = data['data'];
       this.formgrupos.controls.diplomado.setValue(this.diplomado[0].courses_code)
+      this.course_code=this.formgrupos.controls.diplomado.value
       this.listinit()
     });
   }
